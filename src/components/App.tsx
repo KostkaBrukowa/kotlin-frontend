@@ -1,11 +1,11 @@
 import React from 'react';
 import { Layout } from 'antd';
-import { HelloWorld } from './hello-world/HelloWorld';
+import { Hello } from './hello-world/Hello';
 
 function App() {
   return (
     <Layout>
-      <HelloWorld what="Wosld" />
+      <Hello what="world!" />
     </Layout>
   );
 }
