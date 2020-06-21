@@ -3,4 +3,5 @@ dist/
 **/*.css.d.ts
 src/react-app-env.d.ts
 config-overrides.js
+src/generated/*
 
