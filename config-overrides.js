@@ -16,7 +16,7 @@ module.exports = override(
         compact: false,
       }),
       'body-background': '#18191a',
-      'component-background': '#242526',
+      'component-background': '#464748',
     },
   }),
 );
