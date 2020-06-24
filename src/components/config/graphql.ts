@@ -1,8 +1,30 @@
 import { ApolloClient, ApolloLink, from, HttpLink, InMemoryCache } from '@apollo/client';
-import { onError } from '@apollo/link-error';
+import { ErrorResponse, onError } from '@apollo/link-error';
 import { navigate } from '@reach/router';
 import { message as antDMessage } from 'antd';
 import { JWT_TOKEN } from './useAuthentication';
+import { nonAuthenticatedRoutes } from '../navigation/routerConstants';
+
+const isNonAuthenticatedRoute = () => {
+  const { pathname } = window.location;
+
+  return nonAuthenticatedRoutes.some((route) => pathname.includes(route));
+};
+
+const handleGraphqlErrors = ({ graphQLErrors }: Pick<ErrorResponse, 'graphQLErrors'>) => {
+  // eslint-disable-next-line no-unused-expressions
+  graphQLErrors?.forEach(({ message, locations, path }) => {
+    if (message.includes('Token was not valid')) {
+      if (!isNonAuthenticatedRoute()) {
+        navigate('/login').then(() => antDMessage.info('Aby kontynuować zaloguj się pnownie.'));
+      }
+    } else {
+      antDMessage.info(message);
+    }
+
+    console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
+  });
+};
 
 const httpLink = new HttpLink({
   uri: 'http://localhost:8080/graphql',
@@ -20,18 +42,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 });
 
 const errorLink = onError(({ response, graphQLErrors, networkError }) => {
-  if (graphQLErrors)
-    graphQLErrors.forEach(({ message, locations, path }) => {
-      console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
-
-      if (message.includes('Token was not valid')) {
-        navigate('/login').then(() => {
-          antDMessage.info('Aby kontynuować zaloguj się pnownie.');
-        });
-      } else {
-        antDMessage.info(message);
-      }
-    });
+  if (graphQLErrors) handleGraphqlErrors({ graphQLErrors });
 
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });

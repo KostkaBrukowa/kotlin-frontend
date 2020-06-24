@@ -10,7 +10,6 @@ export const useAuthentication = () => {
   const [refreshToken, { loading, called }] = useRefreshTokenMutation();
   const [jwtToken, setJwtToken] = useState<string | null>(null);
   const refreshInterval = jwtToken ? JWT_TOKEN_EXPIRY_TIME - 75000 : null;
-  console.log('Called', called);
 
   const updateTokens = () => {
     refreshToken()

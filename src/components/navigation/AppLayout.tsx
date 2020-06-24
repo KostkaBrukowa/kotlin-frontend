@@ -15,6 +15,7 @@ import {
   loginRoute,
   newExpenseRoute,
   notificationsRoute,
+  registerRoute,
   settingsRoute,
 } from './routerConstants';
 import { useAuthentication } from '../config/useAuthentication';
@@ -23,12 +24,13 @@ import { Home } from '../home/Home';
 
 const LOGO_SIZE = 32;
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Footer } = Layout;
 
 export const AppLayout: React.FC = () => {
   const { initialLoading: refreshingToken, setJwtToken, tokenPresent } = useAuthentication();
   const navigate = useNavigate();
   const goHome = () => navigate('/');
+  console.log('TokenPresent', tokenPresent);
 
   return (
     <Layout className={style.wrapper}>
@@ -40,7 +42,7 @@ export const AppLayout: React.FC = () => {
         <>
           <Router>
             <Home path="/" />
-            <Login path={loginRoute} setJwtToken={setJwtToken} tokenPresent={tokenPresent} />
+            <Login path={`${loginRoute}/*`} setJwtToken={setJwtToken} tokenPresent={tokenPresent} />
             <Events path={eventsRoute} />
             <Friends path={friendsRoute} />
             <NewExpense path={newExpenseRoute} />
@@ -48,7 +50,7 @@ export const AppLayout: React.FC = () => {
             <Settings path={settingsRoute} />
           </Router>
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
-          <Toolbar />
+          {tokenPresent && <Toolbar />}
         </>
       )}
     </Layout>

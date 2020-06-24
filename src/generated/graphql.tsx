@@ -583,6 +583,16 @@ export type LoginUserMutation = (
   & Pick<Mutation, 'logIn'>
 );
 
+export type SignUpUserMutationVariables = Exact<{
+  input: UserAuthInput;
+}>;
+
+
+export type SignUpUserMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'signUp'>
+);
+
 
 export const RefreshTokenDocument = gql`
     mutation RefreshToken {
@@ -675,3 +685,33 @@ export function useLoginUserMutation(baseOptions?: ApolloReactHooks.MutationHook
 export type LoginUserMutationHookResult = ReturnType<typeof useLoginUserMutation>;
 export type LoginUserMutationResult = ApolloReactCommon.MutationResult<LoginUserMutation>;
 export type LoginUserMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>;
+export const SignUpUserDocument = gql`
+    mutation SignUpUser($input: UserAuthInput!) {
+  signUp(input: $input)
+}
+    `;
+export type SignUpUserMutationFn = ApolloReactCommon.MutationFunction<SignUpUserMutation, SignUpUserMutationVariables>;
+
+/**
+ * __useSignUpUserMutation__
+ *
+ * To run a mutation, you first call `useSignUpUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignUpUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signUpUserMutation, { data, loading, error }] = useSignUpUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSignUpUserMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SignUpUserMutation, SignUpUserMutationVariables>) {
+        return ApolloReactHooks.useMutation<SignUpUserMutation, SignUpUserMutationVariables>(SignUpUserDocument, baseOptions);
+      }
+export type SignUpUserMutationHookResult = ReturnType<typeof useSignUpUserMutation>;
+export type SignUpUserMutationResult = ApolloReactCommon.MutationResult<SignUpUserMutation>;
+export type SignUpUserMutationOptions = ApolloReactCommon.BaseMutationOptions<SignUpUserMutation, SignUpUserMutationVariables>;

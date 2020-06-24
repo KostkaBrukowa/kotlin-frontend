@@ -33,6 +33,7 @@
     "cypress/no-force": "warn",
     "react/state-in-constructor": "off",
     "react-hooks/exhaustive-deps": "off",
+    "prefer-promise-reject-errors": "off",
     "no-return-assign": "off",
     "no-param-reassign": "off",
     "max-classes-per-file": "off",

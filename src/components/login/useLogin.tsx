@@ -1,8 +1,8 @@
-import { Form } from 'antd';
 import { FormInstance } from 'antd/es/form';
 import { Store } from 'antd/es/form/interface';
 import { navigate } from '@reach/router';
 import { useEffect } from 'react';
+import { message } from 'antd';
 import { useLoginUserMutation } from '../../generated/graphql';
 import { LoginProps } from './Login';
 import { friendsRoute } from '../navigation/routerConstants';
@@ -10,6 +10,7 @@ import { friendsRoute } from '../navigation/routerConstants';
 export enum FormFields {
   login = 'login',
   password = 'password',
+  repeatedPassword = 'repeatedPassword',
   remember = 'remember',
 }
 
@@ -22,20 +23,22 @@ interface FormValues extends Store {
 export const useLogin: (
   props: LoginProps,
 ) => {
-  form: FormInstance;
   onSubmit: (values: any) => Promise<void>;
   loading: boolean;
-} = ({ setJwtToken, tokenPresent }) => {
-  const [form] = Form.useForm();
-  const [login, { loading }] = useLoginUserMutation();
+} = ({ setJwtToken, tokenPresent, register }) => {
+  const [login, { loading: loggingLoading }] = useLoginUserMutation();
+  const [signUp, { loading: registerLoading }] = useLoginUserMutation();
 
   const onSubmit = async (values: FormValues) => {
     const { login: email, password } = values;
+    const mutation = register ? signUp : login;
 
-    const jwtToken = await login({ variables: { input: { email, password } } });
+    const jwtToken = await mutation({ variables: { input: { email, password } } });
 
     if (jwtToken.data?.logIn) {
       setJwtToken(jwtToken.data?.logIn);
+    } else {
+      message.warning('Nieprawidłowe email lub hasło :(');
     }
   };
 
@@ -44,8 +47,7 @@ export const useLogin: (
   }, [tokenPresent]);
 
   return {
-    form,
     onSubmit,
-    loading,
+    loading: loggingLoading || registerLoading,
   };
 };

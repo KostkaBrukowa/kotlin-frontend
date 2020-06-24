@@ -11,7 +11,6 @@ export class AuthenticationErrorBoundary extends React.Component<{}, State> {
 
   public static getDerivedStateFromError(error: any) {
     console.log('Error', error);
-    console.log('tnsreaitnsraeitnsraioseitnrsanr');
 
     return { hasError: true };
   }
