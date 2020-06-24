@@ -109,9 +109,11 @@ export enum MessageType {
 export type Mutation = {
   __typename?: 'Mutation';
   /** Logs in user and return JWT token as return value */
-  logIn?: Maybe<User>;
+  logIn?: Maybe<Scalars['String']>;
   /** Registers user and return JWT token as return value */
-  signUp?: Maybe<User>;
+  refreshToken: Scalars['String'];
+  /** Registers user and return JWT token as return value */
+  signUp: Scalars['String'];
   changeExpenseStatus: ExpenseType;
   createExpense: ExpenseType;
   deleteExpense: Scalars['Boolean'];
@@ -415,6 +417,7 @@ export type Query = {
   getClientBulkPayments: Array<BulkPaymentType>;
   getClientsPayments: Array<PaymentType>;
   getSinglePayment?: Maybe<PaymentType>;
+  getTest: Scalars['String'];
   findUsersFriends: Array<UserType>;
   getUser?: Maybe<UserType>;
 };
@@ -475,6 +478,11 @@ export type QueryGetSinglePaymentArgs = {
 };
 
 
+export type QueryGetTestArgs = {
+  paymentId: Scalars['Long'];
+};
+
+
 export type QueryFindUsersFriendsArgs = {
   userId: Scalars['Long'];
 };
@@ -487,20 +495,6 @@ export type QueryGetUserArgs = {
 export enum Roles {
   User = 'USER'
 }
-
-export type Subscription = {
-  __typename?: 'Subscription';
-  /** Returns a random number every second */
-  counter: Scalars['Int'];
-  /** Returns a random number every second, errors if even */
-  counterWithError: Scalars['Int'];
-  /** Returns list of values */
-  flow: Scalars['Int'];
-  /** Returns a single value */
-  singleValueSubscription: Scalars['Int'];
-  /** Returns one value then an error */
-  singleValueThenError: Scalars['Int'];
-};
 
 export type UpdateBulkPaymentStatusInput = {
   id: Scalars['Long'];
@@ -560,6 +554,14 @@ export type UserType = GqlResponseType & {
   userPayments: Array<PaymentType>;
 };
 
+export type RefreshTokenMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RefreshTokenMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'refreshToken'>
+);
+
 export type GetUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -571,7 +573,46 @@ export type GetUserQuery = (
   )> }
 );
 
+export type LoginUserMutationVariables = Exact<{
+  input: UserAuthInput;
+}>;
 
+
+export type LoginUserMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'logIn'>
+);
+
+
+export const RefreshTokenDocument = gql`
+    mutation RefreshToken {
+  refreshToken
+}
+    `;
+export type RefreshTokenMutationFn = ApolloReactCommon.MutationFunction<RefreshTokenMutation, RefreshTokenMutationVariables>;
+
+/**
+ * __useRefreshTokenMutation__
+ *
+ * To run a mutation, you first call `useRefreshTokenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRefreshTokenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [refreshTokenMutation, { data, loading, error }] = useRefreshTokenMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useRefreshTokenMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RefreshTokenMutation, RefreshTokenMutationVariables>) {
+        return ApolloReactHooks.useMutation<RefreshTokenMutation, RefreshTokenMutationVariables>(RefreshTokenDocument, baseOptions);
+      }
+export type RefreshTokenMutationHookResult = ReturnType<typeof useRefreshTokenMutation>;
+export type RefreshTokenMutationResult = ApolloReactCommon.MutationResult<RefreshTokenMutation>;
+export type RefreshTokenMutationOptions = ApolloReactCommon.BaseMutationOptions<RefreshTokenMutation, RefreshTokenMutationVariables>;
 export const GetUserDocument = gql`
     query GetUser {
   getUser(id: 1) {
@@ -604,3 +645,33 @@ export function useGetUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHook
 export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
 export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
 export type GetUserQueryResult = ApolloReactCommon.QueryResult<GetUserQuery, GetUserQueryVariables>;
+export const LoginUserDocument = gql`
+    mutation LoginUser($input: UserAuthInput!) {
+  logIn(input: $input)
+}
+    `;
+export type LoginUserMutationFn = ApolloReactCommon.MutationFunction<LoginUserMutation, LoginUserMutationVariables>;
+
+/**
+ * __useLoginUserMutation__
+ *
+ * To run a mutation, you first call `useLoginUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginUserMutation, { data, loading, error }] = useLoginUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useLoginUserMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<LoginUserMutation, LoginUserMutationVariables>) {
+        return ApolloReactHooks.useMutation<LoginUserMutation, LoginUserMutationVariables>(LoginUserDocument, baseOptions);
+      }
+export type LoginUserMutationHookResult = ReturnType<typeof useLoginUserMutation>;
+export type LoginUserMutationResult = ApolloReactCommon.MutationResult<LoginUserMutation>;
+export type LoginUserMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>;

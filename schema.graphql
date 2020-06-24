@@ -1,0 +1,343 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+interface GQLResponseType {
+    id: ID!
+}
+
+interface NotificationType {
+    createdAt: Date!
+    event: NotificationEvent!
+    id: ID!
+    isRead: Boolean!
+    type: NotificationTypeEnum!
+}
+
+type BulkPaymentType implements GQLResponseType {
+    amount: Float
+    bulkPaymentMessages: [MessageResponseType!]!
+    bulkPaymentPayer: UserType!
+    bulkPaymentPayments: [PaymentType!]!
+    bulkPaymentReceiver: UserType!
+    confirmImageUrl: String
+    id: ID!
+    status: BulkPaymentStatus!
+}
+
+type Expense {
+    amount: Float!
+    description: String!
+    expenseDate: Date!
+    expenseStatus: ExpenseStatus!
+    id: Long!
+    name: String!
+    party: Party
+    payments: [Payment!]!
+    user: User
+}
+
+type ExpenseNotification implements NotificationType {
+    createdAt: Date!
+    event: NotificationEvent!
+    expenseId: Long!
+    id: ID!
+    isRead: Boolean!
+    type: NotificationTypeEnum!
+}
+
+type ExpenseType implements GQLResponseType {
+    amount: Float!
+    description: String
+    expenseDate: Date!
+    expenseMessages: [MessageResponseType!]!
+    expenseParty: PartyRequestType!
+    expensePayer: UserType!
+    expensePayments: [PaymentType!]!
+    expenseStatus: ExpenseStatus!
+    id: ID!
+    name: String!
+}
+
+type MessageResponseType implements GQLResponseType {
+    id: ID!
+    messageSender: UserType!
+    sendDate: Date!
+    text: String!
+}
+
+type Mutation {
+    acceptPartyRequest(partyRequestId: Long!): Boolean!
+    addFriend(userId: Long!): Boolean!
+    bulkPayments(paymentsIds: [Long!]!): BulkPaymentType
+    changeExpenseStatus(updateExpenseStatusInput: UpdateExpenseStatusInput!): ExpenseType!
+    createExpense(newExpenseInput: NewExpenseInput!): ExpenseType!
+    createMessage(newMessageInput: NewMessageInput!): MessageResponseType!
+    createParty(newPartyInput: NewPartyInput!): PartyType!
+    declinePartyRequest(partyRequestId: Long!): Boolean!
+    deleteExpense(expenseId: Long!): Boolean!
+    deleteParty(id: Long!): Boolean!
+    "Logs in user and return JWT token as return value"
+    logIn(input: UserAuthInput!): String
+    markNotificationsAsRead(notificationsIds: [Long!]!): Boolean!
+    "Registers user and return JWT token as return value"
+    refreshToken: String!
+    removeFriend(userId: Long!): Boolean!
+    removeMessage(messageId: Long!, messageType: MessageType!): Boolean!
+    removeParticipant(participantId: Long!, partyId: Long!): Boolean!
+    removePartyRequest(partyRequestId: Long!): Boolean!
+    sendPartyRequest(partyId: Long!, requestReceiverId: Long!): PartyRequestType
+    "Registers user and return JWT token as return value"
+    signUp(input: UserAuthInput!): String!
+    updateBulkPaymentStatus(updatePaymentStatusInput: UpdateBulkPaymentStatusInput!): BulkPaymentType!
+    updateExpense(updateExpenseInput: UpdateExpenseInput!): ExpenseType!
+    updateExpenseAmount(updateExpenseAmountInput: UpdateExpenseAmountInput!): ExpenseType!
+    updateParty(editPartyInput: EditPartyInput!, id: Long!): Party!
+    updatePaymentStatus(updatePaymentStatusInput: UpdatePaymentStatusInput!): PaymentType!
+}
+
+type Party {
+    description: String
+    endDate: Date
+    expenses: [Expense!]!
+    id: Long!
+    name: String!
+    owner: User
+    participants: [User!]!
+    partyRequests: [PartyRequest!]!
+    startDate: Date!
+}
+
+type PartyRequest {
+    id: Long!
+    party: Party
+    status: PartyRequestStatus!
+    user: User
+}
+
+type PartyRequestNotification implements NotificationType {
+    createdAt: Date!
+    event: NotificationEvent!
+    id: ID!
+    isRead: Boolean!
+    partyId: Long!
+    type: NotificationTypeEnum!
+}
+
+type PartyRequestType implements GQLResponseType {
+    id: ID!
+    partyRequestParty: PartyType!
+    partyRequestReceiver: UserType!
+    status: PartyRequestStatus!
+}
+
+type PartyType implements GQLResponseType {
+    description: String
+    endDate: Date
+    id: ID!
+    name: String!
+    owner: User
+    partyExpenses: [ExpenseType!]!
+    partyMessages: [MessageResponseType!]!
+    partyParticipants: [UserType!]!
+    partyPartyRequests: [PartyRequestType!]!
+    startDate: Date!
+}
+
+type Payment {
+    amount: Float
+    confirmImageUrl: String
+    expense: Expense
+    id: Long!
+    status: PaymentStatus!
+    user: User
+}
+
+type PaymentNotification implements NotificationType {
+    createdAt: Date!
+    event: NotificationEvent!
+    id: ID!
+    isRead: Boolean!
+    paymentId: Long!
+    type: NotificationTypeEnum!
+}
+
+type PaymentType implements GQLResponseType {
+    amount: Float
+    confirmImageUrl: String
+    id: ID!
+    paymentExpense: Expense!
+    paymentMessages: [MessageResponseType!]!
+    paymentPayer: UserType!
+    status: PaymentStatus!
+}
+
+type Query {
+    findUserNotifications(userId: Long!): [NotificationType!]!
+    findUsersFriends(userId: Long!): [UserType!]!
+    getAllParties(userId: Long!): [PartyType!]!
+    getClientBulkPayments(userId: Long!): [BulkPaymentType!]!
+    getClientsPayments(userId: Long!): [PaymentType!]!
+    getExpensesForParty(partyId: Long!): [ExpenseType!]!
+    getExpensesForUser(userId: Long!): [ExpenseType!]!
+    getPartyRequestsForParty(partyId: Long!): [PartyRequestType!]!
+    getPartyRequestsForUser(userId: Long!): [PartyRequestType!]!
+    getSingleExpense(expenseId: Long!): ExpenseType
+    getSingleParty(partyId: Long!): PartyType
+    getSinglePayment(paymentId: Long!): PaymentType
+    getTest(paymentId: Long!): String!
+    getUser(id: Long!): UserType
+}
+
+type User {
+    bankAccount: String
+    email: String!
+    expenses: [Expense!]!
+    friendOf: [User!]!
+    friends: [User!]!
+    id: Long!
+    joinedParties: [Party!]!
+    name: String
+    partyRequests: [PartyRequest!]!
+    payments: [Payment!]!
+}
+
+type UserType implements GQLResponseType {
+    bankAccount: String
+    email: String!
+    id: ID!
+    name: String
+    userExpenses: [ExpenseType!]!
+    userJoinedParties: [PartyType!]!
+    userPartyRequests: [PartyRequestType!]!
+    userPayments: [PaymentType!]!
+}
+
+enum BulkPaymentStatus {
+    CONFIRMED
+    IN_PROGRESS
+    PAID
+}
+
+enum ExpenseStatus {
+    DECLINED
+    IN_PROGRESS_PAYING
+    IN_PROGRESS_REQUESTING
+    RESOLVED
+}
+
+enum MessageType {
+    BULK_PAYMENT
+    EXPENSE
+    PARTY
+    PAYMENT
+}
+
+enum NotificationEvent {
+    ACCEPTED
+    BULKED
+    CONFIRMED
+    CREATION
+    DECLINED
+    DELETION
+    MODIFICATION
+    NEW_MESSAGE
+    PAID
+}
+
+enum NotificationTypeEnum {
+    EXPENSE
+    PARTY_REQUEST
+    PAYMENT
+}
+
+enum PartyRequestStatus {
+    ACCEPTED
+    DECLINED
+    IN_PROGRESS
+}
+
+enum PaymentStatus {
+    ACCEPTED
+    BULKED
+    CONFIRMED
+    DECLINED
+    IN_PROGRESS
+    PAID
+}
+
+enum Roles {
+    USER
+}
+
+input EditPartyInput {
+    description: String
+    endDate: Date
+    name: String!
+    startDate: Date!
+}
+
+input NewExpenseInput {
+    amount: Float!
+    description: String!
+    expenseDate: Date!
+    name: String!
+    participants: [Long!]!
+    partyId: Long!
+}
+
+input NewMessageInput {
+    entityId: Long!
+    messageType: MessageType!
+    text: String!
+}
+
+input NewPartyInput {
+    description: String
+    endDate: Date
+    name: String!
+    participants: [Long!]
+    startDate: Date!
+}
+
+input UpdateBulkPaymentStatusInput {
+    id: Long!
+    status: BulkPaymentStatus!
+}
+
+input UpdateExpenseAmountInput {
+    amount: Float!
+    id: Long!
+}
+
+input UpdateExpenseInput {
+    description: String!
+    expenseDate: Date!
+    id: Long!
+    name: String!
+}
+
+input UpdateExpenseStatusInput {
+    expenseStatus: ExpenseStatus!
+    id: Long!
+}
+
+input UpdatePaymentStatusInput {
+    paymentId: Long!
+    status: PaymentStatus!
+}
+
+input UserAuthInput {
+    email: String!
+    password: String!
+}
+
+
+"A type representing a formatted java.util.ZonedDateTime"
+scalar Date
+
+"Long type"
+scalar Long

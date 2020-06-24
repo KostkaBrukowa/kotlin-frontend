@@ -31,6 +31,7 @@
     "cypress/no-unnecessary-waiting": "error",
     "cypress/assertion-before-screenshot": "warn",
     "cypress/no-force": "warn",
+    "react/state-in-constructor": "off",
     "react-hooks/exhaustive-deps": "off",
     "no-return-assign": "off",
     "no-param-reassign": "off",
