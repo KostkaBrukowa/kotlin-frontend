@@ -1,8 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
-import { Router, useNavigate } from '@reach/router';
+import { Router } from '@reach/router';
 import style from './AppLayout.module.less';
-import logo from './google-maps.svg';
 import { Login } from '../login/Login';
 import { Events } from '../events/Events';
 import { Friends } from '../friends/Friends';
@@ -15,40 +14,38 @@ import {
   loginRoute,
   newExpenseRoute,
   notificationsRoute,
-  registerRoute,
   settingsRoute,
 } from './routerConstants';
 import { useAuthentication } from '../config/useAuthentication';
 import { Toolbar } from './Toolbar';
 import { Home } from '../home/Home';
+import { AppHeader } from './AppHeader';
 
-const LOGO_SIZE = 32;
-
-const { Header, Footer } = Layout;
+const { Footer } = Layout;
 
 export const AppLayout: React.FC = () => {
   const { initialLoading: refreshingToken, setJwtToken, tokenPresent } = useAuthentication();
-  const navigate = useNavigate();
-  const goHome = () => navigate('/');
-  console.log('TokenPresent', tokenPresent);
 
   return (
     <Layout className={style.wrapper}>
-      <Header className={style.header} onClick={goHome}>
-        <img alt="logo" className={style.logo} height={LOGO_SIZE} src={logo} width={LOGO_SIZE} />
-        <h1 className={style.appName}>Wisesplit</h1>
-      </Header>
+      <AppHeader />
       {!refreshingToken && (
         <>
-          <Router>
-            <Home path="/" />
-            <Login path={`${loginRoute}/*`} setJwtToken={setJwtToken} tokenPresent={tokenPresent} />
-            <Events path={eventsRoute} />
-            <Friends path={friendsRoute} />
-            <NewExpense path={newExpenseRoute} />
-            <Notifications path={notificationsRoute} />
-            <Settings path={settingsRoute} />
-          </Router>
+          <main className={style.mainWrapper}>
+            <Router>
+              <Home path="/" />
+              <Login
+                path={`${loginRoute}/*`}
+                setJwtToken={setJwtToken}
+                tokenPresent={tokenPresent}
+              />
+              <Events path={eventsRoute} />
+              <Friends path={friendsRoute} />
+              <NewExpense path={newExpenseRoute} />
+              <Notifications path={notificationsRoute} />
+              <Settings path={settingsRoute} />
+            </Router>
+          </main>
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
           {tokenPresent && <Toolbar />}
         </>

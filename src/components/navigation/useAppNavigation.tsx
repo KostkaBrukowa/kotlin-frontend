@@ -21,7 +21,7 @@ export interface MenuTabItem {
   title: string;
 }
 
-const menuTabs: MenuTabItem[] = [
+export const menuTabs: MenuTabItem[] = [
   {
     key: '1',
     icon: <UserOutlined className={style.icon} />,
