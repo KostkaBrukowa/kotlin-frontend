@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from '@reach/router';
+import clsx from 'clsx';
 import { loginRoute, registerRoute } from '../navigation/routerConstants';
 import style from './OtherOption.module.less';
 
@@ -13,7 +14,7 @@ export const OtherOption: React.FC<OtherOptionProps> = ({ register }) => {
   const route = register ? loginRoute : registerRoute;
 
   return (
-    <div className={style.wrapper}>
+    <div className={clsx(style.wrapper, 'data-cy-login-register')}>
       <h3>{title}</h3>
       <Link to={route}>
         <p>{link}</p>

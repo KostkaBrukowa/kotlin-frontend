@@ -4,6 +4,7 @@ import { navigate } from '@reach/router';
 import { message as antDMessage } from 'antd';
 import { JWT_TOKEN } from './useAuthentication';
 import { nonAuthenticatedRoutes } from '../navigation/routerConstants';
+import possibleTypes from '../../generated/possiblTypes.json';
 
 const isNonAuthenticatedRoute = () => {
   const { pathname } = window.location;
@@ -19,7 +20,7 @@ const handleGraphqlErrors = ({ graphQLErrors }: Pick<ErrorResponse, 'graphQLErro
         navigate('/login').then(() => antDMessage.info('Aby kontynuować zaloguj się pnownie.'));
       }
     } else {
-      antDMessage.info(message);
+      antDMessage.info(message.split(':')[1]);
     }
 
     console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
@@ -42,15 +43,22 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 });
 
 const errorLink = onError(({ response, graphQLErrors, networkError }) => {
-  if (graphQLErrors) handleGraphqlErrors({ graphQLErrors });
+  if (graphQLErrors) {
+    handleGraphqlErrors({ graphQLErrors });
+  }
 
-  if (networkError) console.log(`[Network error]: ${networkError}`);
+  if (networkError) {
+    antDMessage.info('Brak polączenia z serwerem.');
+    console.log(`[Network error]: ${networkError}`);
+  }
 });
 
 const link = from([errorLink, authMiddleware, httpLink]);
 
 export const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    possibleTypes,
+  }),
   link,
   credentials: 'include',
 });

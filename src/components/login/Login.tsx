@@ -3,14 +3,15 @@ import { Button, Checkbox, Form, Input } from 'antd';
 
 import { FormItemProps } from 'antd/es/form';
 import { RouteComponentProps, useLocation } from '@reach/router';
+import clsx from 'clsx';
 import style from './Login.module.less';
 import { FormFields, useLogin } from './useLogin';
 import { OtherOption } from './OtherOption';
 import { TransitionElement } from '../utils/animations/TransitionElement';
+import { registerRoute } from '../navigation/routerConstants';
 
 export interface LoginProps extends RouteComponentProps {
   tokenPresent: boolean;
-  register?: boolean;
 
   setJwtToken(token: string | null): void;
 }
@@ -40,7 +41,7 @@ const fields: Record<FormFields, Omit<FormItemProps, 'children'>> = {
       }),
     ],
     name: FormFields.repeatedPassword,
-    label: 'Hasło',
+    label: 'Powtórz hasło',
     dependencies: ['password'],
     validateTrigger: 'onBlur',
   },
@@ -52,28 +53,36 @@ const fields: Record<FormFields, Omit<FormItemProps, 'children'>> = {
 
 export const Login: React.FC<LoginProps> = (props) => {
   const location = useLocation();
-  const register = location.pathname.includes('register');
-  const { onSubmit } = useLogin(props);
+  const register = location.pathname.includes(registerRoute);
+  const { onSubmit, loading, form } = useLogin(props, register);
   const submitButtonTitle = register ? 'Zajerestruj się' : 'Zaloguj się';
-
-  console.log('Register', register);
 
   return (
     <div className={style.wrapper}>
       <Form
         className={style.form}
-        initialValues={{ remember: true, login: 'admin@gmail.com', password: 'admin' }}
+        form={form}
+        initialValues={{
+          remember: true,
+          login: 'admin@gmail.com',
+          password: 'admin',
+          repeatedPassword: 'admin',
+        }}
         onFinish={onSubmit}
       >
         <Form.Item {...fields.login}>
-          <Input />
+          <Input className="data-cy-login" />
         </Form.Item>
 
         <Form.Item {...fields.password}>
-          <Input.Password />
+          <Input.Password className="data-cy-password" />
         </Form.Item>
 
-        <TransitionElement initialHeight="100px" visible={register}>
+        <TransitionElement
+          className="data-cy-repeat-password"
+          initialHeight="96px"
+          visible={register}
+        >
           <Form.Item {...fields.repeatedPassword}>
             <Input.Password />
           </Form.Item>
@@ -84,7 +93,12 @@ export const Login: React.FC<LoginProps> = (props) => {
         </Form.Item>
 
         <Form.Item>
-          <Button className={style.button} htmlType="submit" type="primary">
+          <Button
+            className={clsx(style.button, 'data-cy-submit')}
+            htmlType="submit"
+            loading={loading}
+            type="primary"
+          >
             {submitButtonTitle}
           </Button>
         </Form.Item>

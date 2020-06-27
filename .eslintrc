@@ -27,6 +27,8 @@
     "cypress"
   ],
   "rules": {
+    "global-require": "off",
+    "@typescript-eslint/no-var-requires": "off",
     "cypress/no-assigning-return-values": "error",
     "cypress/no-unnecessary-waiting": "error",
     "cypress/assertion-before-screenshot": "warn",

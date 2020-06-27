@@ -1,0 +1,1 @@
+{"GQLResponseType":["BulkPaymentType","ExpenseType","MessageResponseType","PartyRequestType","PartyType","PaymentType","UserType"],"NotificationType":["ExpenseNotification","PartyRequestNotification","PaymentNotification"]}
