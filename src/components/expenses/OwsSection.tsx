@@ -13,20 +13,28 @@ export interface OwsSectionProps {
   type: OwsType;
 }
 
+const userOwsProps = {
+  className: style.owsUser,
+  title: 'Inni wiszą tobie:',
+  icon: <PlusCircleOutlined />,
+};
+
+const owsUserProps = {
+  className: style.userOws,
+  title: 'Ty wisisz w sumie:',
+  icon: <MinusCircleOutlined />,
+};
+
 export const OwsSection: React.FC<OwsSectionProps> = ({ amount, type }) => {
   const {
     state: { currentOwsType },
     dispatch,
   } = useContext(ExpensesContext);
-  const className = type === OwsType.OWS_USER ? style.owsUser : style.userOws;
-  const title = type === OwsType.OWS_USER ? 'Inni wiszą tobie:' : 'Ty wisisz w sumie:';
-  const icon = type === OwsType.OWS_USER ? <PlusCircleOutlined /> : <MinusCircleOutlined />;
+  const { className, title, icon } = type === OwsType.USER_OWS ? owsUserProps : userOwsProps;
   const active = currentOwsType === type;
-  console.log('from section', currentOwsType);
 
-  const handleClick = () => {
+  const handleClick = () =>
     dispatch({ type: ActionType.CHANGE_OWS_TYPE, payload: { currentOwsType: type } });
-  };
 
   return (
     <div className={clsx(className, { [style.owsActive]: active })} onClick={handleClick}>

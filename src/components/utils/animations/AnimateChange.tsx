@@ -8,7 +8,7 @@ export interface ChangeElementProps {
   firstElementActive: boolean;
 }
 
-export const ChangeElement: React.FC<ChangeElementProps> = ({
+export const AnimateChange: React.FC<ChangeElementProps> = ({
   firstElement,
   secondElement,
   firstElementActive,
@@ -16,8 +16,8 @@ export const ChangeElement: React.FC<ChangeElementProps> = ({
 }) => {
   const transitions = useTransition(firstElementActive, null, {
     from: { position: 'absolute', opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
+    enter: { position: 'relative', opacity: 1 },
+    leave: { position: 'absolute', opacity: 0 },
   });
 
   return (

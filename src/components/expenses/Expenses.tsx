@@ -5,7 +5,7 @@ import { ExpensesContext, FriendsProvider, OwsType } from './ExpensesContext';
 import { ExpenseList } from './list/ExpenseList';
 import { PaymentList } from './list/PaymentList';
 import { useUserExpenses } from './useUserExpenses';
-import { ChangeElement } from '../utils/animations/ChangeElement';
+import { AnimateChange } from '../utils/animations/AnimateChange';
 import style from './Expenses.module.less';
 
 export type FriendsProps = RouteComponentProps;
@@ -18,7 +18,7 @@ export const List: React.FC<FriendsProps> = () => {
   const { expenses, payments, loading } = useUserExpenses();
 
   return (
-    <ChangeElement
+    <AnimateChange
       firstElement={<ExpenseList expenses={expenses} loading={loading} />}
       firstElementActive={currentOwsType === OwsType.OWS_USER}
       secondElement={<PaymentList loading={loading} payments={payments} />}

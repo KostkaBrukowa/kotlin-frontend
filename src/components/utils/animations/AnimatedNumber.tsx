@@ -1,7 +1,6 @@
 import React from 'react';
 import { animated, useSpring } from 'react-spring';
 import clsx from 'clsx';
-import style from './AnimatedNumber.module.less';
 
 export interface AnimatedCurrencyProps {
   amount?: number;

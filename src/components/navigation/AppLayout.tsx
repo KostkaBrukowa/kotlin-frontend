@@ -21,7 +21,6 @@ import { Toolbar } from './Toolbar';
 import { Home } from '../home/Home';
 import { AppHeader } from './AppHeader';
 import { UserProvider } from '../config/UserProvider';
-import { FriendsProvider } from '../expenses/ExpensesContext';
 
 const { Footer } = Layout;
 
@@ -54,7 +53,7 @@ export const AppLayout: React.FC = () => {
                 <Settings path={settingsRoute} />
               </Router>
             </main>
-            {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer> */}
+            <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
             {tokenPresent && <Toolbar />}
           </>
         )}

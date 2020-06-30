@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExpensesQueryType, PaymentsQueryType, useUserExpenses } from '../useUserExpenses';
+import { PaymentsQueryType } from '../useUserExpenses';
 import { ExpenseItemCard } from './ExpenseItemCard';
 import { LoadingCard } from './LoadingCard';
 import style from './ExpenseList.module.less';
@@ -26,11 +26,11 @@ export const PaymentList: React.FC<PaymentListProps> = ({ payments, loading }) =
       <h2 className={style.header}>Twoje płatności:</h2>
       {payments.map(({ id, amount, status, paymentExpense: { name, description } }) => (
         <ExpenseItemCard
-          amount={amount ?? 0}
+          amount={null}
           description={description}
           key={id}
           name={name}
-          owsType={OwsType.OWS_USER}
+          owsType={OwsType.USER_OWS}
           status={status}
         />
       ))}

@@ -27,12 +27,8 @@ const initialState: StateType = {
 };
 
 const productReducer: Reducer<StateType, Action> = (state, action) => {
-  console.log('Action', action);
-
   switch (action.type) {
     case ActionType.CHANGE_OWS_TYPE:
-      console.log({ ...state, currentOwsType: action.payload.currentOwsType });
-
       return { ...state, currentOwsType: action.payload.currentOwsType };
     case ActionType.SET_EXPENSES:
       return { ...state, expenses: action.payload.expenses };

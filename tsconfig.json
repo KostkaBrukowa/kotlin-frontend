@@ -26,7 +26,7 @@
           "rendererOptions": {
             "prefix": "~",
             "aliases": {
-              "common": "/Documents/Uczelnia/kotlin-frontend/node_modules/antd"
+              "common": "~/Documents/Uczelnia/kotlin-frontend/node_modules/antd"
             }
           }
         }
