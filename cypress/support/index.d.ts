@@ -50,6 +50,7 @@ declare namespace Cypress {
      */
     getCy(value: string): Chainable<Element>;
     login(): null;
+    register(): null;
     graphqlSpy(): null;
     expectQueryName(queryName: string): null;
     waitAndExpectQueryName(queryName: string): null;

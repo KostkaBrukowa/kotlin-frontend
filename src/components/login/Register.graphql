@@ -1,3 +1,6 @@
 mutation SignUpUser($input: UserAuthInput!) {
-    signUp(input: $input)
+    signUp(input: $input) {
+        token
+        userId
+    }
 }

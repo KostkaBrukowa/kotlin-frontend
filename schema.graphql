@@ -81,17 +81,17 @@ type Mutation {
     deleteExpense(expenseId: Long!): Boolean!
     deleteParty(id: Long!): Boolean!
     "Logs in user and return JWT token as return value"
-    logIn(input: UserAuthInput!): String
+    logIn(input: UserAuthInput!): UserAuthResponse
     markNotificationsAsRead(notificationsIds: [Long!]!): Boolean!
     "Registers user and return JWT token as return value"
-    refreshToken: String!
+    refreshToken: UserAuthResponse!
     removeFriend(userId: Long!): Boolean!
     removeMessage(messageId: Long!, messageType: MessageType!): Boolean!
     removeParticipant(participantId: Long!, partyId: Long!): Boolean!
     removePartyRequest(partyRequestId: Long!): Boolean!
     sendPartyRequest(partyId: Long!, requestReceiverId: Long!): PartyRequestType
     "Registers user and return JWT token as return value"
-    signUp(input: UserAuthInput!): String!
+    signUp(input: UserAuthInput!): UserAuthResponse!
     updateBulkPaymentStatus(updatePaymentStatusInput: UpdateBulkPaymentStatusInput!): BulkPaymentType!
     updateExpense(updateExpenseInput: UpdateExpenseInput!): ExpenseType!
     updateExpenseAmount(updateExpenseAmountInput: UpdateExpenseAmountInput!): ExpenseType!
@@ -188,7 +188,6 @@ type Query {
     getSingleExpense(expenseId: Long!): ExpenseType
     getSingleParty(partyId: Long!): PartyType
     getSinglePayment(paymentId: Long!): PaymentType
-    getTest(paymentId: Long!): String!
     getUser(id: Long!): UserType
 }
 
@@ -203,6 +202,11 @@ type User {
     name: String
     partyRequests: [PartyRequest!]!
     payments: [Payment!]!
+}
+
+type UserAuthResponse {
+    token: String!
+    userId: String!
 }
 
 type UserType implements GQLResponseType {

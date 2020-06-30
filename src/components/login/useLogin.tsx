@@ -11,7 +11,7 @@ import {
   useSignUpUserMutation,
 } from '../../generated/graphql';
 import { LoginProps } from './Login';
-import { friendsRoute } from '../navigation/routerConstants';
+import { expensesRoute } from '../navigation/routerConstants';
 
 export enum FormFields {
   login = 'login',
@@ -26,8 +26,6 @@ interface FormValues extends Store {
   [FormFields.remember]: boolean;
 }
 
-const onErrorOption = () => message.warning('Nieprawidłowe email lub hasło :(');
-
 export const useLogin: (
   props: LoginProps,
   register: boolean,
@@ -35,7 +33,7 @@ export const useLogin: (
   form: FormInstance;
   onSubmit: (values: any) => Promise<void>;
   loading: boolean;
-} = ({ setJwtToken, tokenPresent }, register) => {
+} = ({ setAuthData, tokenPresent }, register) => {
   const [form] = useForm();
   const [login, { loading: loggingLoading }] = useLoginUserMutation();
   const [signUp, { loading: registerLoading }] = useSignUpUserMutation();
@@ -47,12 +45,12 @@ export const useLogin: (
     try {
       const response = await mutation({ variables: { input: { email, password } } });
 
-      const token = (response as LoginUserMutationResult | null)?.data?.logIn
+      const data = (response as LoginUserMutationResult | null)?.data?.logIn
         ? (response as LoginUserMutationResult | null)?.data?.logIn
         : (response as SignUpUserMutationResult | null)?.data?.signUp;
 
-      if (token) {
-        setJwtToken(token);
+      if (data) {
+        setAuthData({ jwtToken: data.token, userId: data.userId });
       } else {
         form.resetFields([FormFields.repeatedPassword, FormFields.password]);
         message.warning('Nieprawidłowe email lub hasło :(');
@@ -61,7 +59,7 @@ export const useLogin: (
   };
 
   useEffect(() => {
-    if (tokenPresent) navigate(friendsRoute);
+    if (tokenPresent) navigate(expensesRoute);
   }, [tokenPresent]);
 
   return {

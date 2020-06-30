@@ -9,11 +9,12 @@ import { FormFields, useLogin } from './useLogin';
 import { OtherOption } from './OtherOption';
 import { TransitionElement } from '../utils/animations/TransitionElement';
 import { registerRoute } from '../navigation/routerConstants';
+import { AuthData } from '../config/useAuthentication';
 
 export interface LoginProps extends RouteComponentProps {
   tokenPresent: boolean;
 
-  setJwtToken(token: string | null): void;
+  setAuthData(authData: AuthData): void;
 }
 
 const fields: Record<FormFields, Omit<FormItemProps, 'children'>> = {
@@ -65,8 +66,8 @@ export const Login: React.FC<LoginProps> = (props) => {
         initialValues={{
           remember: true,
           login: 'admin@gmail.com',
-          password: 'admin',
-          repeatedPassword: 'admin',
+          password: 'admin123',
+          repeatedPassword: 'admin123',
         }}
         onFinish={onSubmit}
       >

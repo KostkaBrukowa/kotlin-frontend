@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode } from 'react';
 import { useLocation } from '@reach/router';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import HomeOutlined from '@ant-design/icons/HomeOutlined';
@@ -8,7 +8,7 @@ import ControlOutlined from '@ant-design/icons/ControlOutlined';
 import style from './Toolbar.module.less';
 import {
   eventsRoute,
-  friendsRoute,
+  expensesRoute,
   newExpenseRoute,
   notificationsRoute,
   settingsRoute,
@@ -25,8 +25,8 @@ export const menuTabs: MenuTabItem[] = [
   {
     key: '1',
     icon: <UserOutlined className={style.icon} />,
-    to: friendsRoute,
-    title: 'Znajomi',
+    to: expensesRoute,
+    title: 'Wydatki',
   },
   {
     key: '2',

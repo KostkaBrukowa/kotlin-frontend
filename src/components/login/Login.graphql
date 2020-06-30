@@ -1,3 +1,6 @@
 mutation LoginUser($input: UserAuthInput!) {
-    logIn(input: $input)
+    logIn(input: $input) {
+        token
+        userId
+    }
 }

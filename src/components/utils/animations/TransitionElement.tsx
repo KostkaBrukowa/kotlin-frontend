@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { animated, useTransition } from 'react-spring';
 
 export interface TransitionElementProps {

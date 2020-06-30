@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import style from './index.module.less';
+import './index.module.less';
 
 // @ts-ignore
-if (ReactDOM.createRoot) {
+if (ReactDOM.render) {
   // @ts-ignore
-  ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(<App />);
+  ReactDOM.render(<App />, document.getElementById('root') as HTMLElement);
 } else {
   // @ts-ignore
   ReactDOM.unstable_createRoot(document.getElementById('root') as HTMLElement).render(<App />);

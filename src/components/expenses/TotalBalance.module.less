@@ -1,0 +1,29 @@
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  align-items: center;
+
+  background: @background-color-base;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+}
+
+.header {
+  position: relative;
+  margin: 0;
+  grid-column: 1/ span 2;
+  justify-self: center;
+}
+
+.moreIconWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.spin {
+  margin-left: 1rem;
+  position: absolute;
+}

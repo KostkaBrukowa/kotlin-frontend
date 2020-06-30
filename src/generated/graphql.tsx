@@ -75,7 +75,7 @@ export enum ExpenseStatus {
 export type ExpenseType = GqlResponseType & {
   __typename?: 'ExpenseType';
   amount: Scalars['Float'];
-  description?: Maybe<Scalars['String']>;
+  description: Scalars['String'];
   expenseDate: Scalars['Date'];
   expenseMessages: Array<MessageResponseType>;
   expenseParty: PartyRequestType;
@@ -109,11 +109,11 @@ export enum MessageType {
 export type Mutation = {
   __typename?: 'Mutation';
   /** Logs in user and return JWT token as return value */
-  logIn?: Maybe<Scalars['String']>;
+  logIn?: Maybe<UserAuthResponse>;
   /** Registers user and return JWT token as return value */
-  refreshToken: Scalars['String'];
+  refreshToken: UserAuthResponse;
   /** Registers user and return JWT token as return value */
-  signUp: Scalars['String'];
+  signUp: UserAuthResponse;
   changeExpenseStatus: ExpenseType;
   createExpense: ExpenseType;
   deleteExpense: Scalars['Boolean'];
@@ -417,7 +417,6 @@ export type Query = {
   getClientBulkPayments: Array<BulkPaymentType>;
   getClientsPayments: Array<PaymentType>;
   getSinglePayment?: Maybe<PaymentType>;
-  getTest: Scalars['String'];
   findUsersFriends: Array<UserType>;
   getUser?: Maybe<UserType>;
 };
@@ -474,11 +473,6 @@ export type QueryGetClientsPaymentsArgs = {
 
 
 export type QueryGetSinglePaymentArgs = {
-  paymentId: Scalars['Long'];
-};
-
-
-export type QueryGetTestArgs = {
   paymentId: Scalars['Long'];
 };
 
@@ -542,6 +536,12 @@ export type UserAuthInput = {
   password: Scalars['String'];
 };
 
+export type UserAuthResponse = {
+  __typename?: 'UserAuthResponse';
+  token: Scalars['String'];
+  userId: Scalars['Long'];
+};
+
 export type UserType = GqlResponseType & {
   __typename?: 'UserType';
   bankAccount?: Maybe<Scalars['String']>;
@@ -554,12 +554,48 @@ export type UserType = GqlResponseType & {
   userPayments: Array<PaymentType>;
 };
 
+export type GetUserDataQueryVariables = Exact<{
+  userId: Scalars['Long'];
+}>;
+
+
+export type GetUserDataQuery = (
+  { __typename?: 'Query' }
+  & { getUser?: Maybe<(
+    { __typename?: 'UserType' }
+    & Pick<UserType, 'id'>
+  )> }
+);
+
 export type RefreshTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type RefreshTokenMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'refreshToken'>
+  & { refreshToken: (
+    { __typename?: 'UserAuthResponse' }
+    & Pick<UserAuthResponse, 'token' | 'userId'>
+  ) }
+);
+
+export type GetUserExpensesQueryVariables = Exact<{
+  userId: Scalars['Long'];
+}>;
+
+
+export type GetUserExpensesQuery = (
+  { __typename?: 'Query' }
+  & { getExpensesForUser: Array<(
+    { __typename?: 'ExpenseType' }
+    & Pick<ExpenseType, 'id' | 'amount' | 'description' | 'name' | 'expenseStatus'>
+  )>, getClientsPayments: Array<(
+    { __typename?: 'PaymentType' }
+    & Pick<PaymentType, 'id' | 'amount' | 'status'>
+    & { paymentExpense: (
+      { __typename?: 'Expense' }
+      & Pick<Expense, 'id' | 'description' | 'name' | 'expenseStatus'>
+    ) }
+  )> }
 );
 
 export type GetUserQueryVariables = Exact<{ [key: string]: never; }>;
@@ -580,7 +616,10 @@ export type LoginUserMutationVariables = Exact<{
 
 export type LoginUserMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'logIn'>
+  & { logIn?: Maybe<(
+    { __typename?: 'UserAuthResponse' }
+    & Pick<UserAuthResponse, 'token' | 'userId'>
+  )> }
 );
 
 export type SignUpUserMutationVariables = Exact<{
@@ -590,13 +629,52 @@ export type SignUpUserMutationVariables = Exact<{
 
 export type SignUpUserMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'signUp'>
+  & { signUp: (
+    { __typename?: 'UserAuthResponse' }
+    & Pick<UserAuthResponse, 'token' | 'userId'>
+  ) }
 );
 
 
+export const GetUserDataDocument = gql`
+    query GetUserData($userId: Long!) {
+  getUser(id: $userId) {
+    id
+  }
+}
+    `;
+
+/**
+ * __useGetUserDataQuery__
+ *
+ * To run a query within a React component, call `useGetUserDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserDataQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetUserDataQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserDataQuery, GetUserDataQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetUserDataQuery, GetUserDataQueryVariables>(GetUserDataDocument, baseOptions);
+      }
+export function useGetUserDataLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserDataQuery, GetUserDataQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetUserDataQuery, GetUserDataQueryVariables>(GetUserDataDocument, baseOptions);
+        }
+export type GetUserDataQueryHookResult = ReturnType<typeof useGetUserDataQuery>;
+export type GetUserDataLazyQueryHookResult = ReturnType<typeof useGetUserDataLazyQuery>;
+export type GetUserDataQueryResult = ApolloReactCommon.QueryResult<GetUserDataQuery, GetUserDataQueryVariables>;
 export const RefreshTokenDocument = gql`
     mutation RefreshToken {
-  refreshToken
+  refreshToken {
+    token
+    userId
+  }
 }
     `;
 export type RefreshTokenMutationFn = ApolloReactCommon.MutationFunction<RefreshTokenMutation, RefreshTokenMutationVariables>;
@@ -623,6 +701,54 @@ export function useRefreshTokenMutation(baseOptions?: ApolloReactHooks.MutationH
 export type RefreshTokenMutationHookResult = ReturnType<typeof useRefreshTokenMutation>;
 export type RefreshTokenMutationResult = ApolloReactCommon.MutationResult<RefreshTokenMutation>;
 export type RefreshTokenMutationOptions = ApolloReactCommon.BaseMutationOptions<RefreshTokenMutation, RefreshTokenMutationVariables>;
+export const GetUserExpensesDocument = gql`
+    query GetUserExpenses($userId: Long!) {
+  getExpensesForUser(userId: $userId) {
+    id
+    amount
+    description
+    name
+    expenseStatus
+  }
+  getClientsPayments(userId: $userId) {
+    id
+    amount
+    status
+    paymentExpense {
+      id
+      description
+      name
+      expenseStatus
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetUserExpensesQuery__
+ *
+ * To run a query within a React component, call `useGetUserExpensesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserExpensesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserExpensesQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetUserExpensesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserExpensesQuery, GetUserExpensesQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetUserExpensesQuery, GetUserExpensesQueryVariables>(GetUserExpensesDocument, baseOptions);
+      }
+export function useGetUserExpensesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserExpensesQuery, GetUserExpensesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetUserExpensesQuery, GetUserExpensesQueryVariables>(GetUserExpensesDocument, baseOptions);
+        }
+export type GetUserExpensesQueryHookResult = ReturnType<typeof useGetUserExpensesQuery>;
+export type GetUserExpensesLazyQueryHookResult = ReturnType<typeof useGetUserExpensesLazyQuery>;
+export type GetUserExpensesQueryResult = ApolloReactCommon.QueryResult<GetUserExpensesQuery, GetUserExpensesQueryVariables>;
 export const GetUserDocument = gql`
     query GetUser {
   getUser(id: 1) {
@@ -657,7 +783,10 @@ export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
 export type GetUserQueryResult = ApolloReactCommon.QueryResult<GetUserQuery, GetUserQueryVariables>;
 export const LoginUserDocument = gql`
     mutation LoginUser($input: UserAuthInput!) {
-  logIn(input: $input)
+  logIn(input: $input) {
+    token
+    userId
+  }
 }
     `;
 export type LoginUserMutationFn = ApolloReactCommon.MutationFunction<LoginUserMutation, LoginUserMutationVariables>;
@@ -687,7 +816,10 @@ export type LoginUserMutationResult = ApolloReactCommon.MutationResult<LoginUser
 export type LoginUserMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>;
 export const SignUpUserDocument = gql`
     mutation SignUpUser($input: UserAuthInput!) {
-  signUp(input: $input)
+  signUp(input: $input) {
+    token
+    userId
+  }
 }
     `;
 export type SignUpUserMutationFn = ApolloReactCommon.MutationFunction<SignUpUserMutation, SignUpUserMutationVariables>;

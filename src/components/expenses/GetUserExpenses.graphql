@@ -1,0 +1,21 @@
+query GetUserExpenses($userId: Long!) {
+    getExpensesForUser(userId: $userId) {
+        id
+        amount
+        description
+        name
+        expenseStatus
+    }
+
+    getClientsPayments(userId: $userId) {
+        id
+        amount
+        status
+        paymentExpense {
+            id
+            description
+            name
+            expenseStatus
+        }
+    }
+}
