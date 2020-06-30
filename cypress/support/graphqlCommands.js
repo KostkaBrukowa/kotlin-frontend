@@ -14,3 +14,19 @@ export const waitAndExpectQueryName = (queryName) => {
     expect(xhr.request.body.query).to.contain(queryName);
   });
 };
+
+export const gqlRoute = (operations) => {
+  if (typeof operations === 'string') {
+    return cy.route({
+      method: 'POST',
+      url: 'http://localhost:8080/graphql',
+      response: operations,
+    });
+  }
+
+  return cy.route({
+    method: 'POST',
+    url: 'http://localhost:8080/graphql',
+    ...operations,
+  });
+};

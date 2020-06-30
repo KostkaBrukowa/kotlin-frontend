@@ -1,0 +1,118 @@
+{
+  "data": {
+    "getExpensesForUser": [
+      {
+        "id": "3",
+        "amount": 42.43,
+        "description": "test expense description",
+        "name": "test name",
+        "expenseStatus": "IN_PROGRESS_REQUESTING",
+        "__typename": "ExpenseType"
+      },
+      {
+        "id": "4",
+        "amount": 55.43,
+        "description": "test expense description1",
+        "name": "test name 2",
+        "expenseStatus": "IN_PROGRESS_PAYING",
+        "__typename": "ExpenseType"
+      },
+      {
+        "id": "5",
+        "amount": 11.43,
+        "description": "long expense description1 test expense description1 test expense description1",
+        "name": "test name 3",
+        "expenseStatus": "RESOLVED",
+        "__typename": "ExpenseType"
+      },
+      {
+        "id": "6",
+        "amount": 11.43,
+        "description": "long expense description1 test expense description1 test expense description1",
+        "name": "test name 3",
+        "expenseStatus": "DECLINED",
+        "__typename": "ExpenseType"
+      }
+    ],
+    "getClientsPayments": [
+      {
+        "id": "6",
+        "amount": null,
+        "status": "IN_PROGRESS",
+        "paymentExpense": {
+          "id": 3,
+          "description": "test expense description",
+          "name": "test name",
+          "expenseStatus": "IN_PROGRESS_REQUESTING",
+          "__typename": "Expense"
+        },
+        "__typename": "PaymentType"
+      },
+      {
+        "id": "7",
+        "amount": 49.11,
+        "status": "ACCEPTED",
+        "paymentExpense": {
+          "id": 3,
+          "description": "test expense description",
+          "name": "test name",
+          "expenseStatus": "IN_PROGRESS_REQUESTING",
+          "__typename": "Expense"
+        },
+        "__typename": "PaymentType"
+      },
+      {
+        "id": "8",
+        "amount": null,
+        "status": "DECLINED",
+        "paymentExpense": {
+          "id": 3,
+          "description": "test expense description",
+          "name": "test name",
+          "expenseStatus": "IN_PROGRESS_REQUESTING",
+          "__typename": "Expense"
+        },
+        "__typename": "PaymentType"
+      },
+      {
+        "id": "9",
+        "amount": 42.11,
+        "status": "PAID",
+        "paymentExpense": {
+          "id": 3,
+          "description": "test expense description",
+          "name": "test name",
+          "expenseStatus": "IN_PROGRESS_REQUESTING",
+          "__typename": "Expense"
+        },
+        "__typename": "PaymentType"
+      },
+      {
+        "id": "10",
+        "amount": 42.11,
+        "status": "CONFIRMED",
+        "paymentExpense": {
+          "id": 3,
+          "description": "test expense description",
+          "name": "test name",
+          "expenseStatus": "IN_PROGRESS_REQUESTING",
+          "__typename": "Expense"
+        },
+        "__typename": "PaymentType"
+      },
+      {
+        "id": "11",
+        "amount": 42.11,
+        "status": "BULKED",
+        "paymentExpense": {
+          "id": 3,
+          "description": "test expense description",
+          "name": "test name",
+          "expenseStatus": "IN_PROGRESS_REQUESTING",
+          "__typename": "Expense"
+        },
+        "__typename": "PaymentType"
+      }
+    ]
+  }
+}

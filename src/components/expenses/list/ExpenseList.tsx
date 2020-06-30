@@ -3,14 +3,18 @@ import { ExpensesQueryType } from '../useUserExpenses';
 import { ExpenseItemCard } from './ExpenseItemCard';
 import { LoadingCard } from './LoadingCard';
 import { OwsType } from '../ExpensesContext';
-import style from './ExpenseList.module.less';
+import { ExpenseTitle } from './ExpenseTitle';
+import { ExpenseStatus } from '../../../generated/graphql';
 
 interface ExpenseListProps {
   expenses?: ExpensesQueryType['getExpensesForUser'];
   loading: boolean;
+  showFinished: boolean;
 }
 
-export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, loading }) => {
+const finishedExpenseStatuses: ExpenseStatus[] = [ExpenseStatus.Resolved, ExpenseStatus.Declined];
+
+export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, loading, showFinished }) => {
   if (loading) {
     return <LoadingCard cardsCount={2} />;
   }
@@ -23,17 +27,19 @@ export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, loading }) =
 
   return (
     <>
-      <h2 className={style.header}>Twoje wydatki:</h2>
-      {expenses.map(({ amount, name, description, id, expenseStatus }) => (
-        <ExpenseItemCard
-          amount={amount}
-          description={description}
-          key={id}
-          name={name}
-          owsType={OwsType.OWS_USER}
-          status={expenseStatus}
-        />
-      ))}
+      <ExpenseTitle title="Twoje wydatki:" />
+      {expenses
+        .filter((it) => showFinished || !finishedExpenseStatuses.includes(it.expenseStatus))
+        .map(({ amount, name, description, id, expenseStatus }) => (
+          <ExpenseItemCard
+            amount={amount}
+            description={description}
+            key={id}
+            name={name}
+            owsType={OwsType.OWS_USER}
+            status={expenseStatus}
+          />
+        ))}
     </>
   );
 };

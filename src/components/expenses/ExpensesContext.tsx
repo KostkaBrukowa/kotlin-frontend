@@ -1,15 +1,14 @@
 import React, { createContext, Reducer, useReducer } from 'react';
-import { ExpenseType } from '../../generated/graphql';
 import { ActionPayload } from '../utils/context/types';
 
 type StateType = {
   currentOwsType: OwsType;
-  expenses: ExpenseType[] | null;
+  showFinished: boolean;
 };
 
 export enum ActionType {
   CHANGE_OWS_TYPE,
-  SET_EXPENSES,
+  SET_FINISHED_EXPENSES,
 }
 
 export enum OwsType {
@@ -19,19 +18,19 @@ export enum OwsType {
 
 export type Action =
   | ActionPayload<ActionType.CHANGE_OWS_TYPE, Pick<StateType, 'currentOwsType'>>
-  | ActionPayload<ActionType.SET_EXPENSES, Pick<StateType, 'expenses'>>;
+  | ActionPayload<ActionType.SET_FINISHED_EXPENSES, Pick<StateType, 'showFinished'>>;
 
 const initialState: StateType = {
   currentOwsType: OwsType.OWS_USER,
-  expenses: null,
+  showFinished: false,
 };
 
 const productReducer: Reducer<StateType, Action> = (state, action) => {
   switch (action.type) {
     case ActionType.CHANGE_OWS_TYPE:
       return { ...state, currentOwsType: action.payload.currentOwsType };
-    case ActionType.SET_EXPENSES:
-      return { ...state, expenses: action.payload.expenses };
+    case ActionType.SET_FINISHED_EXPENSES:
+      return { ...state, showFinished: action.payload.showFinished };
     default:
       return state;
   }
@@ -45,7 +44,7 @@ export const ExpensesContext = createContext<{
   dispatch: () => null,
 });
 
-export const FriendsProvider: React.FC = ({ children }) => {
+export const ExpenseProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(productReducer, initialState);
 
   return (

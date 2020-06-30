@@ -1,10 +1,23 @@
-.header {
+.headerWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 1rem;
 }
+
+.header {
+  margin-bottom: 0;
+}
+
+.checkbox {
+  margin-bottom: 0;
+}
+
 .card {
   margin-top: 0.5rem;
   background: @background-color-base;
 }
+
 .titleWrapper {
   display: flex;
   justify-content: space-between;
@@ -18,6 +31,7 @@
 .owsUserAmount {
   color: @green-6;
 }
+
 .userOwsAmount {
   color: @red-6;
 }
@@ -31,5 +45,5 @@
 }
 
 .tooltip {
- text-align: center;
+  text-align: center;
 }

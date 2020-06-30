@@ -22,25 +22,23 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-import 'cypress-graphql-mock';
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 import { login, register } from './loginCommands';
-import { expectQueryName, graphqlSpy, waitAndExpectQueryName } from './graphqlCommands';
+import { expectQueryName, gqlRoute, graphqlSpy, waitAndExpectQueryName } from './graphqlCommands';
 
 Cypress.Commands.add('register', register);
 Cypress.Commands.add('login', login);
 
-Cypress.Commands.add('getCy', (value) => cy.get(`.data-cy-${value}`));
+Cypress.Commands.add('getCy', (value, options) => cy.get(`.data-cy-${value}`, options));
 
 Cypress.Commands.add('graphqlSpy', graphqlSpy);
-
+Cypress.Commands.add('gqlRoute', gqlRoute);
 Cypress.Commands.add('expectQueryName', expectQueryName);
-
 Cypress.Commands.add('waitAndExpectQueryName', waitAndExpectQueryName);
 
 addMatchImageSnapshotCommand({
   failureThreshold: 0.03, // threshold for entire image
   failureThresholdType: 'percent', // percent of image or number of pixels
-  customDiffConfig: { threshold: 0.1 }, // threshold for each pixel
+  customDiffConfig: { threshold: 0.05 }, // threshold for each pixel
   capture: 'viewport', // capture viewport in screenshot
 });

@@ -24,11 +24,14 @@ export const ExpenseItemCard: React.FC<ExpenseItemCardProps> = ({
   status,
   owsType,
 }) => {
+  const tooltipProps = getTooltipProps(owsType, status);
+  const TooltipTitle = () => (
+    <div className={clsx('data-cy-tooltip', style.tooltip)}>{tooltipProps.title}</div>
+  );
   const cardAmountStyle = clsx(style.expenseAmount, {
     [style.owsUserAmount]: owsType === OwsType.OWS_USER,
     [style.userOwsAmount]: owsType === OwsType.USER_OWS,
   });
-  const tooltipProps = getTooltipProps(owsType, status);
 
   return (
     <Card hoverable className={style.card} onClick={() => console.log('tsratars')}>
@@ -37,13 +40,15 @@ export const ExpenseItemCard: React.FC<ExpenseItemCardProps> = ({
         description={description}
         title={
           <div className={style.titleWrapper}>
-            <Tooltip title={<div className={style.tooltip}>{tooltipProps.title}</div>}>
+            <Tooltip className="data-cy-title" title={<TooltipTitle />}>
               <div onClick={stopPropagation}>
                 {name}
                 {tooltipProps.icon}
               </div>
             </Tooltip>
-            <div className={cardAmountStyle}>{amount ? `${amount} ${currency}` : null}</div>
+            <div className={cardAmountStyle}>
+              {amount !== null ? `${amount} ${currency}` : null}
+            </div>
           </div>
         }
       />

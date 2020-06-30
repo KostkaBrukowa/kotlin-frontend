@@ -37,7 +37,10 @@ export const OwsSection: React.FC<OwsSectionProps> = ({ amount, type }) => {
     dispatch({ type: ActionType.CHANGE_OWS_TYPE, payload: { currentOwsType: type } });
 
   return (
-    <div className={clsx(className, { [style.owsActive]: active })} onClick={handleClick}>
+    <div
+      className={clsx(`data-cy-ows-${type}`, className, { [style.owsActive]: active })}
+      onClick={handleClick}
+    >
       {icon}
       <h4 className={style.owsTitle}>{title}</h4>
       <div className={style.currency}>

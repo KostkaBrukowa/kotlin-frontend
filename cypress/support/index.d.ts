@@ -3,31 +3,6 @@ interface SnapshotOptions {
   customDiffDir?: string;
 }
 
-interface MockGraphQLOptions<AllOperations extends Record<string, any>> {
-  schema: string | string[] | IntrospectionQuery;
-  name?: string;
-  mocks?: IMocks;
-  endpoint?: string;
-  operations?: Partial<AllOperations>;
-  /* Global Delay for stubbed responses (in ms) */
-  delay?: number;
-}
-
-interface SetOperationsOpts<AllOperations> {
-  name?: string;
-  endpoint?: string;
-  /* Operations object. Make sure that mocks must not be wrapped with `data` property */
-  operations?: Partial<AllOperations>;
-  /* Delay for stubbed responses (in ms) */
-  delay?: number;
-}
-
-interface GQLRequestPayload<AllOperations extends Record<string, any>> {
-  operationName: Extract<keyof AllOperations, string>;
-  query: string;
-  variables: any;
-}
-
 declare namespace Cypress {
   interface FixtureData {
     filePath: string;
@@ -48,10 +23,17 @@ declare namespace Cypress {
      * Custom command to select DOM element by data-cy attribute.
      * @example cy.dataCy('greeting')
      */
-    getCy(value: string): Chainable<Element>;
+    getCy(
+      value: string,
+      options?: Partial<Loggable & Timeoutable & Withinable & Shadow>,
+    ): Chainable<Element>;
+
     login(): null;
     register(): null;
+
     graphqlSpy(): null;
+    gqlRoute(options?: Partial<RouteOptions>): Chainable<null>;
+    gqlRoute(fixture: string): Chainable<null>;
     expectQueryName(queryName: string): null;
     waitAndExpectQueryName(queryName: string): null;
 
@@ -67,12 +49,5 @@ declare namespace Cypress {
       fixture: string | FixtureData,
       processingOpts?: FileProcessingOptions,
     ): Chainable<Subject>;
-
-    mockGraphql<AllOperations = any>(
-      options?: MockGraphQLOptions<AllOperations>,
-    ): Cypress.Chainable;
-    mockGraphqlOps<AllOperations = any>(
-      options?: SetOperationsOpts<AllOperations>,
-    ): Cypress.Chainable;
   }
 }

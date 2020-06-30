@@ -2,15 +2,19 @@ import React from 'react';
 import { PaymentsQueryType } from '../useUserExpenses';
 import { ExpenseItemCard } from './ExpenseItemCard';
 import { LoadingCard } from './LoadingCard';
-import style from './ExpenseList.module.less';
 import { OwsType } from '../ExpensesContext';
+import { ExpenseTitle } from './ExpenseTitle';
+import { PaymentStatus } from '../../../generated/graphql';
 
 interface PaymentListProps {
   payments?: PaymentsQueryType['getClientsPayments'];
   loading: boolean;
+  showFinished: boolean;
 }
 
-export const PaymentList: React.FC<PaymentListProps> = ({ payments, loading }) => {
+const finishedPaymentStatuses: PaymentStatus[] = [PaymentStatus.Confirmed, PaymentStatus.Declined];
+
+export const PaymentList: React.FC<PaymentListProps> = ({ payments, loading, showFinished }) => {
   if (loading) {
     return <LoadingCard />;
   }
@@ -23,17 +27,19 @@ export const PaymentList: React.FC<PaymentListProps> = ({ payments, loading }) =
 
   return (
     <>
-      <h2 className={style.header}>Twoje płatności:</h2>
-      {payments.map(({ id, amount, status, paymentExpense: { name, description } }) => (
-        <ExpenseItemCard
-          amount={null}
-          description={description}
-          key={id}
-          name={name}
-          owsType={OwsType.USER_OWS}
-          status={status}
-        />
-      ))}
+      <ExpenseTitle title="Twoje płatności:" />
+      {payments
+        .filter((it) => showFinished || !finishedPaymentStatuses.includes(it.status))
+        .map(({ id, amount, status, paymentExpense: { name, description } }) => (
+          <ExpenseItemCard
+            amount={amount ?? null}
+            description={description}
+            key={id}
+            name={name}
+            owsType={OwsType.USER_OWS}
+            status={status}
+          />
+        ))}
     </>
   );
 };

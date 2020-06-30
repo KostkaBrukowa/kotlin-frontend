@@ -1,0 +1,9 @@
+{
+  "data" : {
+    "refreshToken" : {
+      "token" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTkzNTIwMDQ1fQ.D9RO_cer5EwUvuWb3ZXtAKtyAVroTp20pm1ZFQcug5eaIO50iI8PkvnDlQDcZhd8fXKETgnU1H8-YKPZigg4yg",
+      "userId" : 1,
+      "__typename" : "UserAuthResponse"
+    }
+  }
+}

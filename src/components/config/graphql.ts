@@ -42,7 +42,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-const errorLink = onError(({ response, graphQLErrors, networkError }) => {
+const errorLink = onError(({ response, graphQLErrors, networkError, operation }) => {
   if (graphQLErrors) {
     handleGraphqlErrors({ graphQLErrors });
   }
@@ -52,7 +52,6 @@ const errorLink = onError(({ response, graphQLErrors, networkError }) => {
     console.log(`[Network error]: ${networkError}`);
   }
 });
-
 const link = from([errorLink, authMiddleware, httpLink]);
 
 export const client = new ApolloClient({
