@@ -24,7 +24,11 @@ export const ExpenseTitle: React.FC<ExpenseTitleProps> = ({ title }) => {
     <div className={style.headerWrapper}>
       <h2 className={style.header}>{title}</h2>
       <Form.Item className={style.checkbox}>
-        <Checkbox checked={showFinished} onClick={onCheckboxClick}>
+        <Checkbox
+          checked={showFinished}
+          className="data-cy-show-finished"
+          onClick={onCheckboxClick}
+        >
           Pokaż zakończone
         </Checkbox>
       </Form.Item>

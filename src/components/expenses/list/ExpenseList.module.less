@@ -14,8 +14,19 @@
 }
 
 .card {
-  margin-top: 0.5rem;
+  margin-top: 0;
   background: @background-color-base;
+  border: initial;
+  transition: transform 350ms ease-out;
+}
+
+.card:active {
+  transform: scale(1.04);
+}
+
+.card + .card {
+  border-top: 1px solid;
+  border-color: #767676;
 }
 
 .titleWrapper {
@@ -47,3 +58,4 @@
 .tooltip {
   text-align: center;
 }
+

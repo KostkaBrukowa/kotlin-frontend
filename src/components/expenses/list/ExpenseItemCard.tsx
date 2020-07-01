@@ -34,7 +34,7 @@ export const ExpenseItemCard: React.FC<ExpenseItemCardProps> = ({
   });
 
   return (
-    <Card hoverable className={style.card} onClick={() => console.log('tsratars')}>
+    <Card bordered hoverable className={style.card} onClick={() => console.log('tsratars')}>
       <Meta
         avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
         description={description}

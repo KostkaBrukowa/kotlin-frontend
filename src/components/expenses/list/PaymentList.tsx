@@ -5,6 +5,7 @@ import { LoadingCard } from './LoadingCard';
 import { OwsType } from '../ExpensesContext';
 import { ExpenseTitle } from './ExpenseTitle';
 import { PaymentStatus } from '../../../generated/graphql';
+import { EmptyList } from './EmptyList';
 
 interface PaymentListProps {
   payments?: PaymentsQueryType['getClientsPayments'];
@@ -12,7 +13,11 @@ interface PaymentListProps {
   showFinished: boolean;
 }
 
-const finishedPaymentStatuses: PaymentStatus[] = [PaymentStatus.Confirmed, PaymentStatus.Declined];
+const finishedPaymentStatuses: PaymentStatus[] = [
+  PaymentStatus.Confirmed,
+  PaymentStatus.Declined,
+  PaymentStatus.Bulked,
+];
 
 export const PaymentList: React.FC<PaymentListProps> = ({ payments, loading, showFinished }) => {
   if (loading) {
@@ -22,7 +27,7 @@ export const PaymentList: React.FC<PaymentListProps> = ({ payments, loading, sho
   if (!payments) return null;
 
   if (payments?.length === 0) {
-    return <p>You have no expenses yet.</p>;
+    return <EmptyList nonFinishedPresent={payments.length !== 0} />;
   }
 
   return (

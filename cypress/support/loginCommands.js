@@ -22,5 +22,5 @@ export const login = () => {
   cy.getCy('submit').click();
 
   cy.wait('@graphql');
-  cy.url().should('include', '/friends');
+  cy.url().should('include', '/expenses');
 };

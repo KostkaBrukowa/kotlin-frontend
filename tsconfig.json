@@ -21,14 +21,7 @@
       {
         "name": "typescript-plugin-css-modules",
         "options": {
-          "classnameTransform": "camelCase",
-          "customRenderer": "node_modules/less-plugin-aliases/lib/customRender.js",
-          "rendererOptions": {
-            "prefix": "~",
-            "aliases": {
-              "common": "~/Documents/Uczelnia/kotlin-frontend/node_modules/antd"
-            }
-          }
+          "classnameTransform": "camelCase"
         }
       }
     ],

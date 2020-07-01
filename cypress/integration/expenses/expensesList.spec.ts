@@ -1,6 +1,12 @@
-import schema from '../../../schema.json';
-import { expensesRoute } from '../../../src/components/navigation/routerConstants';
 import { OwsType } from '../../../src/components/expenses/ExpensesContext';
+
+function changeToUserOwsTab() {
+  cy.getCy(`ows-${OwsType.USER_OWS}`).click();
+}
+
+function changeToOwsUserTab() {
+  cy.getCy(`ows-${OwsType.OWS_USER}`).click();
+}
 
 describe('login test', () => {
   // before(() => {
@@ -13,20 +19,79 @@ describe('login test', () => {
     cy.visit('/login');
   });
 
-  it('should refresh token 1 minute before invalidation', () => {
+  it('should display correct expenses and payment lists', () => {
     cy.gqlRoute('fx:expenses/expenses').as('expenses');
     cy.wait('@refresh');
     cy.wait('@expenses');
 
     cy.getCy('expenses-list').should('have.css', 'opacity', '1');
-    // cy.matchImageSnapshot('1');
+    cy.matchImageSnapshot('1');
+    cy.get('.ant-card-body').should('have.length', 2);
 
-    cy.getCy(`ows-${OwsType.USER_OWS}`).click();
+    changeToUserOwsTab();
 
     cy.getCy('expenses-list', {}).should('have.css', 'opacity', '1');
-    // cy.matchImageSnapshot('2');
+    cy.get('.ant-card-body').should('have.length', 3);
+
+    cy.matchImageSnapshot('2');
 
     cy.getCy('title').first().trigger('mouseover');
     cy.getCy('tooltip').contains('Platność czeka');
+
+    changeToOwsUserTab();
+    cy.getCy('expenses-list', {}).should('have.css', 'opacity', '1');
+
+    cy.getCy(`show-finished`).click();
+    cy.getCy(`show-finished input[type=checkbox]`).should('be.checked');
+
+    cy.get('.ant-card-body').should('have.length', 4);
+
+    changeToUserOwsTab();
+
+    cy.getCy(`show-finished input[type=checkbox]`).should('be.enabled');
+    cy.get('.ant-card-body').should('have.length', 6);
+
+    cy.getCy(`show-finished`).click();
+    cy.getCy(`show-finished input[type=checkbox]`).should('not.be.checked');
+  });
+
+  it('should display empty expenses list', () => {
+    cy.gqlRoute('fx:expenses/empty-expenses').as('expenses');
+    cy.wait('@refresh');
+    cy.wait('@expenses');
+
+    cy.contains('Wszystko ogarnięte');
+    cy.contains('Pokaż historyczne wydatki').should('not.exist');
+
+    changeToUserOwsTab();
+
+    cy.contains('Wszystko ogarnięte');
+    cy.contains('Pokaż historyczne wydatki').should('not.exist');
+  });
+
+  it.only('should display button when only finished expenses are present', () => {
+    cy.gqlRoute('fx:expenses/finished-expenses').as('expenses');
+    cy.wait('@refresh');
+    cy.wait('@expenses');
+
+    cy.contains('Wszystko ogarnięte');
+    cy.contains('Pokaż historyczne wydatki');
+
+    changeToUserOwsTab();
+
+    cy.contains('Wszystko ogarnięte');
+    cy.contains('Pokaż historyczne wydatki');
+
+    changeToOwsUserTab();
+    cy.contains('Pokaż historyczne wydatki').click();
+    cy.getCy(`show-finished input[type=checkbox]`).should('be.checked');
+
+    cy.contains('Wszystko ogarnięte').should('not.exist');
+    cy.contains('Pokaż historyczne wydatki').should('not.exist');
+
+    changeToUserOwsTab();
+
+    cy.contains('Wszystko ogarnięte').should('not.exist');
+    cy.contains('Pokaż historyczne wydatki').should('not.exist');
   });
 });

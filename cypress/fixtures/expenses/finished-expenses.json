@@ -1,0 +1,63 @@
+{
+  "data": {
+    "getExpensesForUser": [
+      {
+        "id": "5",
+        "amount": 11.43,
+        "description": "long expense description1 test expense description1 test expense description1",
+        "name": "test name 3",
+        "expenseStatus": "RESOLVED",
+        "__typename": "ExpenseType"
+      },
+      {
+        "id": "6",
+        "amount": 11.43,
+        "description": "long expense description1 test expense description1 test expense description1",
+        "name": "test name 3",
+        "expenseStatus": "DECLINED",
+        "__typename": "ExpenseType"
+      }
+    ],
+    "getClientsPayments": [
+      {
+        "id": "8",
+        "amount": null,
+        "status": "DECLINED",
+        "paymentExpense": {
+          "id": 3,
+          "description": "test expense description",
+          "name": "test name",
+          "expenseStatus": "IN_PROGRESS_REQUESTING",
+          "__typename": "Expense"
+        },
+        "__typename": "PaymentType"
+      },
+      {
+        "id": "10",
+        "amount": 42.11,
+        "status": "CONFIRMED",
+        "paymentExpense": {
+          "id": 3,
+          "description": "test expense description",
+          "name": "test name",
+          "expenseStatus": "IN_PROGRESS_REQUESTING",
+          "__typename": "Expense"
+        },
+        "__typename": "PaymentType"
+      },
+      {
+        "id": "11",
+        "amount": 42.11,
+        "status": "BULKED",
+        "paymentExpense": {
+          "id": 3,
+          "description": "test expense description",
+          "name": "test name",
+          "expenseStatus": "IN_PROGRESS_REQUESTING",
+          "__typename": "Expense"
+        },
+        "__typename": "PaymentType"
+      }
+    ]
+  }
+}

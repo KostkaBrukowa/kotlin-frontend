@@ -39,7 +39,7 @@ describe('login test', () => {
 
     cy.wait('@graphql');
     cy.getCookie('xppcreftkn').should('have.property', 'value');
-    cy.url().should('include', '/friends');
+    cy.url().should('include', '/expenses');
     cy.clearCookie('xppcreftkn');
 
     // login
@@ -49,15 +49,15 @@ describe('login test', () => {
     loginAndPassword();
     cy.getCy('submit').click();
 
-    cy.url().should('include', '/friends');
+    cy.url().should('include', '/expenses');
   });
 
   it('should log in and after reload should still be logged in', () => {
     cy.login();
 
-    cy.visit('/friends');
+    cy.visit('/expenses');
 
-    cy.url().should('include', '/friends');
+    cy.url().should('include', '/expenses');
   });
 
   it('should redirect from /login when user is logged in', () => {
@@ -65,7 +65,7 @@ describe('login test', () => {
 
     cy.visit('/login');
 
-    cy.url().should('include', '/friends');
+    cy.url().should('include', '/expenses');
   });
 
   it('should refresh token 1 minute before invalidation', () => {
