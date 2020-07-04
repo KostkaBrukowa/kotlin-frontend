@@ -37,9 +37,13 @@ export type BulkPaymentType = GqlResponseType & {
 
 export type EditPartyInput = {
   description?: Maybe<Scalars['String']>;
-  endDate?: Maybe<Scalars['Date']>;
+  endDate: Scalars['Date'];
+  locationLatitude?: Maybe<Scalars['Float']>;
+  locationLongitude?: Maybe<Scalars['Float']>;
+  locationName?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   startDate: Scalars['Date'];
+  type: PartyKind;
 };
 
 export type Expense = {
@@ -274,9 +278,13 @@ export type NewMessageInput = {
 export type NewPartyInput = {
   description?: Maybe<Scalars['String']>;
   endDate?: Maybe<Scalars['Date']>;
+  locationLatitude?: Maybe<Scalars['Float']>;
+  locationLongitude?: Maybe<Scalars['Float']>;
+  locationName?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   participants?: Maybe<Array<Scalars['Long']>>;
   startDate: Scalars['Date'];
+  type: PartyKind;
 };
 
 export enum NotificationEvent {
@@ -311,12 +319,22 @@ export type Party = {
   endDate?: Maybe<Scalars['Date']>;
   expenses: Array<Expense>;
   id: Scalars['Long'];
-  name: Scalars['String'];
+  locationLatitude?: Maybe<Scalars['Float']>;
+  locationLongitude?: Maybe<Scalars['Float']>;
+  locationName?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
   owner?: Maybe<User>;
   participants: Array<User>;
   partyRequests: Array<PartyRequest>;
   startDate: Scalars['Date'];
+  type: PartyKind;
 };
+
+export enum PartyKind {
+  Event = 'EVENT',
+  Group = 'GROUP',
+  Friends = 'FRIENDS'
+}
 
 export type PartyRequest = {
   __typename?: 'PartyRequest';
@@ -353,15 +371,21 @@ export type PartyRequestType = GqlResponseType & {
 export type PartyType = GqlResponseType & {
   __typename?: 'PartyType';
   description?: Maybe<Scalars['String']>;
-  endDate?: Maybe<Scalars['Date']>;
   id: Scalars['ID'];
-  name: Scalars['String'];
+  type: PartyKind;
   owner?: Maybe<User>;
+  startDate: Scalars['Date'];
+
+  name?: Maybe<Scalars['String']>;
+  endDate?: Maybe<Scalars['Date']>;
+  locationLatitude?: Maybe<Scalars['Float']>;
+  locationLongitude?: Maybe<Scalars['Float']>;
+  locationName?: Maybe<Scalars['String']>;
+
   partyExpenses: Array<ExpenseType>;
   partyMessages: Array<MessageResponseType>;
   partyParticipants: Array<UserType>;
   partyPartyRequests: Array<PartyRequestType>;
-  startDate: Scalars['Date'];
 };
 
 export type Payment = {
@@ -578,6 +602,23 @@ export type RefreshTokenMutation = (
   ) }
 );
 
+export type GetUserPartiesQueryVariables = Exact<{
+  userId: Scalars['Long'];
+}>;
+
+
+export type GetUserPartiesQuery = (
+  { __typename?: 'Query' }
+  & { getAllParties: Array<(
+    { __typename?: 'PartyType' }
+    & Pick<PartyType, 'id' | 'name' | 'description' | 'locationName' | 'type'>
+    & { owner?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'name'>
+    )> }
+  )> }
+);
+
 export type GetUserExpensesQueryVariables = Exact<{
   userId: Scalars['Long'];
 }>;
@@ -701,6 +742,46 @@ export function useRefreshTokenMutation(baseOptions?: ApolloReactHooks.MutationH
 export type RefreshTokenMutationHookResult = ReturnType<typeof useRefreshTokenMutation>;
 export type RefreshTokenMutationResult = ApolloReactCommon.MutationResult<RefreshTokenMutation>;
 export type RefreshTokenMutationOptions = ApolloReactCommon.BaseMutationOptions<RefreshTokenMutation, RefreshTokenMutationVariables>;
+export const GetUserPartiesDocument = gql`
+    query GetUserParties($userId: Long!) {
+  getAllParties(userId: $userId) {
+    id
+    name
+    description
+    locationName
+    owner {
+      name
+    }
+    type
+  }
+}
+    `;
+
+/**
+ * __useGetUserPartiesQuery__
+ *
+ * To run a query within a React component, call `useGetUserPartiesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserPartiesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserPartiesQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetUserPartiesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserPartiesQuery, GetUserPartiesQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetUserPartiesQuery, GetUserPartiesQueryVariables>(GetUserPartiesDocument, baseOptions);
+      }
+export function useGetUserPartiesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserPartiesQuery, GetUserPartiesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetUserPartiesQuery, GetUserPartiesQueryVariables>(GetUserPartiesDocument, baseOptions);
+        }
+export type GetUserPartiesQueryHookResult = ReturnType<typeof useGetUserPartiesQuery>;
+export type GetUserPartiesLazyQueryHookResult = ReturnType<typeof useGetUserPartiesLazyQuery>;
+export type GetUserPartiesQueryResult = ApolloReactCommon.QueryResult<GetUserPartiesQuery, GetUserPartiesQueryVariables>;
 export const GetUserExpensesDocument = gql`
     query GetUserExpenses($userId: Long!) {
   getExpensesForUser(userId: $userId) {

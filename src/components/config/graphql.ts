@@ -2,7 +2,7 @@ import { ApolloClient, ApolloLink, from, HttpLink, InMemoryCache } from '@apollo
 import { ErrorResponse, onError } from '@apollo/link-error';
 import { navigate } from '@reach/router';
 import { message as antDMessage } from 'antd';
-import { JWT_TOKEN } from './useAuthentication';
+import { JWT_TOKEN } from './authentication/useAuthentication';
 import { nonAuthenticatedRoutes } from '../navigation/routerConstants';
 import possibleTypes from '../../generated/possiblTypes.json';
 
@@ -42,7 +42,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-const errorLink = onError(({ response, graphQLErrors, networkError, operation }) => {
+const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     handleGraphqlErrors({ graphQLErrors });
   }

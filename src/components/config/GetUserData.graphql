@@ -1,5 +1,0 @@
-query GetUserData($userId: Long!) {
-    getUser(id: $userId) {
-        id
-    }
-}

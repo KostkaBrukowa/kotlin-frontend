@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { useLocation } from '@reach/router';
-import UserOutlined from '@ant-design/icons/UserOutlined';
+import DollarOutlined from '@ant-design/icons/DollarOutlined';
 import HomeOutlined from '@ant-design/icons/HomeOutlined';
 import PlusCircleOutlined from '@ant-design/icons/PlusCircleOutlined';
 import NotificationOutlined from '@ant-design/icons/NotificationOutlined';
@@ -24,7 +24,7 @@ export interface MenuTabItem {
 export const menuTabs: MenuTabItem[] = [
   {
     key: '1',
-    icon: <UserOutlined className={style.icon} />,
+    icon: <DollarOutlined className={style.icon} />,
     to: expensesRoute,
     title: 'Wydatki',
   },

@@ -1,0 +1,12 @@
+query GetUserParties($userId: Long!) {
+    getAllParties(userId: $userId) {
+        id
+        name
+        description
+        locationName
+        owner {
+            name
+        }
+        type
+    }
+}

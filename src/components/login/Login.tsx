@@ -9,7 +9,7 @@ import { FormFields, useLogin } from './useLogin';
 import { OtherOption } from './OtherOption';
 import { TransitionElement } from '../utils/animations/TransitionElement';
 import { registerRoute } from '../navigation/routerConstants';
-import { AuthData } from '../config/useAuthentication';
+import { AuthData } from '../config/authentication/useAuthentication';
 
 export interface LoginProps extends RouteComponentProps {
   tokenPresent: boolean;

@@ -21,7 +21,12 @@
       {
         "name": "typescript-plugin-css-modules",
         "options": {
-          "classnameTransform": "camelCase"
+          "customMatcher": "\\less$",
+          "rendererOptions": {
+            "less": {
+              "javascriptEnabled": true
+            }
+          }
         }
       }
     ],

@@ -1,4 +1,4 @@
-import { JWT_TOKEN_EXPIRY_TIME } from '../../src/components/config/useAuthentication';
+import { JWT_TOKEN_EXPIRY_TIME } from '../../src/components/config/authentication/useAuthentication';
 
 describe('login test', () => {
   before(() => {

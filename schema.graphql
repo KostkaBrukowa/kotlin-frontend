@@ -1,3 +1,5 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
 schema {
     query: Query
     mutation: Mutation
@@ -49,7 +51,7 @@ type ExpenseNotification implements NotificationType {
 
 type ExpenseType implements GQLResponseType {
     amount: Float!
-    description: String
+    description: String!
     expenseDate: Date!
     expenseMessages: [MessageResponseType!]!
     expenseParty: PartyRequestType!
@@ -102,11 +104,15 @@ type Party {
     endDate: Date
     expenses: [Expense!]!
     id: Long!
-    name: String!
+    locationLatitude: Float
+    locationLongitude: Float
+    locationName: String
+    name: String
     owner: User
     participants: [User!]!
     partyRequests: [PartyRequest!]!
     startDate: Date!
+    type: PartyKind!
 }
 
 type PartyRequest {
@@ -136,13 +142,17 @@ type PartyType implements GQLResponseType {
     description: String
     endDate: Date
     id: ID!
-    name: String!
+    locationLatitude: Float
+    locationLongitude: Float
+    locationName: String
+    name: String
     owner: User
     partyExpenses: [ExpenseType!]!
     partyMessages: [MessageResponseType!]!
     partyParticipants: [UserType!]!
     partyPartyRequests: [PartyRequestType!]!
     startDate: Date!
+    type: PartyKind!
 }
 
 type Payment {
@@ -204,7 +214,7 @@ type User {
 
 type UserAuthResponse {
     token: String!
-    userId: String!
+    userId: Long!
 }
 
 type UserType implements GQLResponseType {
@@ -256,6 +266,12 @@ enum NotificationTypeEnum {
     PAYMENT
 }
 
+enum PartyKind {
+    EVENT
+    FRIENDS
+    GROUP
+}
+
 enum PartyRequestStatus {
     ACCEPTED
     DECLINED
@@ -277,9 +293,13 @@ enum Roles {
 
 input EditPartyInput {
     description: String
-    endDate: Date
+    endDate: Date!
+    locationLatitude: Float
+    locationLongitude: Float
+    locationName: String
     name: String!
     startDate: Date!
+    type: PartyKind!
 }
 
 input NewExpenseInput {
@@ -300,9 +320,13 @@ input NewMessageInput {
 input NewPartyInput {
     description: String
     endDate: Date
+    locationLatitude: Float
+    locationLongitude: Float
+    locationName: String
     name: String!
     participants: [Long!]
     startDate: Date!
+    type: PartyKind!
 }
 
 input UpdateBulkPaymentStatusInput {

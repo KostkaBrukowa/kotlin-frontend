@@ -16,7 +16,7 @@ import {
   notificationsRoute,
   settingsRoute,
 } from './routerConstants';
-import { useAuthentication } from '../config/useAuthentication';
+import { useAuthentication } from '../config/authentication/useAuthentication';
 import { Toolbar } from './Toolbar';
 import { Home } from '../home/Home';
 import { AppHeader } from './AppHeader';
