@@ -1,12 +1,16 @@
 query GetUserParties($userId: Long!) {
-    getAllParties(userId: $userId) {
-        id
-        name
-        description
-        locationName
-        owner {
-            name
-        }
-        type
+  getAllParties(userId: $userId) {
+    id
+    name
+    description
+    locationName
+    owner {
+      name
     }
+    type
+    partyParticipants {
+      id
+      name
+    }
+  }
 }

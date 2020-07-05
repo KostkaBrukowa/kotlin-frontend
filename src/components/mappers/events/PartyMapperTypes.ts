@@ -1,26 +1,42 @@
-import { PartiesType } from '../../events/useUserParties';
-import { Maybe, PartyType } from '../../../generated/graphql';
+import { GetUserPartiesQuery, PartyType } from '../../../generated/graphql';
+
+export type PartiesType = Pick<GetUserPartiesQuery, 'getAllParties'>;
 
 export type PartyResponseType = PartiesType['getAllParties'][0];
 
-export interface ListEventPartyType
-  extends Omit<Pick<EventPartyType, keyof PartyResponseType>, 'owner'> {
+export interface EventPartyListType
+  extends Omit<Pick<EventPartyType, keyof PartyResponseType>, 'owner' | 'partyParticipants'> {
   owner?: PartyResponseType['owner'];
+  partyParticipants: PartyResponseType['partyParticipants'];
 }
 
-export interface ListGroupPartyType
-  extends Omit<Pick<GroupPartyType, keyof PartyResponseType>, 'owner'> {
+export interface GroupPartyListType
+  extends Omit<Pick<GroupPartyType, keyof PartyResponseType>, 'owner' | 'partyParticipants'> {
   owner?: PartyResponseType['owner'];
+  partyParticipants: PartyResponseType['partyParticipants'];
 }
 
-export interface ListFriendsPartyType
-  extends Omit<Pick<FriendsPartyType, Exclude<keyof PartyResponseType, 'name'>>, 'owner'> {
+export interface FriendsPartyListType
+  extends Omit<
+    Pick<FriendsPartyType, Exclude<keyof PartyResponseType, 'name'>>,
+    'owner' | 'partyParticipants'
+  > {
   owner?: PartyResponseType['owner'];
+  partyParticipants: PartyResponseType['partyParticipants'];
 }
 
 export type BasePartyType = Pick<
   PartyType,
-  'startDate' | 'owner' | 'type' | 'id' | 'description' | '__typename'
+  | 'startDate'
+  | 'owner'
+  | 'type'
+  | 'id'
+  | 'description'
+  | '__typename'
+  | 'partyExpenses'
+  | 'partyMessages'
+  | 'partyParticipants'
+  | 'partyPartyRequests'
 >;
 
 export interface EventPartyType extends BasePartyType {

@@ -1,14 +1,17 @@
-import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Button, Tabs } from 'antd';
-import { useUserParties } from './useUserParties';
+import React from 'react';
 import style from './Events.module.less';
+import { EventsList } from './events/EventsList';
+import { useUserParties } from './useUserParties';
+import { GroupsList } from './groups/GroupsList';
+import { FriendsList } from './friends/FriendsList';
 
 export type EventsProps = RouteComponentProps;
 
-export const Events: React.FC<EventsProps> = (props) => {
-  const { parties } = useUserParties();
-  console.log('Parties', parties);
+export const Events: React.FC<EventsProps> = () => {
+  const { parties, loading } = useUserParties();
+  console.log('Loading', loading);
 
   return (
     <div>
@@ -16,15 +19,15 @@ export const Events: React.FC<EventsProps> = (props) => {
         <h2 className={style.header}>Twoje:</h2>
         <Button type="primary">Dodaj nowe</Button>
       </div>
-      <Tabs animated className={style.tabs} defaultActiveKey="1" onChange={() => {}}>
+      <Tabs animated className={style.tabs} defaultActiveKey="3" onChange={() => {}}>
         <Tabs.TabPane key="1" tab="Wydarzenia">
-          Content of Tab Pane 1
+          <EventsList events={parties?.events} loading={loading} />
         </Tabs.TabPane>
         <Tabs.TabPane key="2" tab="Grupy">
-          Content of Tab Pane 2
+          <GroupsList events={parties?.groups} loading={loading} />
         </Tabs.TabPane>
         <Tabs.TabPane key="3" tab="Znajomi">
-          Content of Tab Pane 3
+          <FriendsList events={parties?.friends} loading={loading} />
         </Tabs.TabPane>
       </Tabs>
     </div>

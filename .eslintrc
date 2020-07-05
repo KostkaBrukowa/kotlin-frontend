@@ -11,7 +11,6 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     // overwrites rules that are invalid for TS
-    "plugin:prettier/recommended",
     "prettier/@typescript-eslint",
     // disables styling rules incompatible with prettier
     "prettier/react"
@@ -22,11 +21,9 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "cypress"
-  ],
+  "plugins": ["@typescript-eslint", "cypress"],
   "rules": {
+    "no-confusing-arrow": "off",
     "global-require": "off",
     "@typescript-eslint/no-var-requires": "off",
     "cypress/no-assigning-return-values": "error",
@@ -44,17 +41,13 @@
     "object-curly-newline": "off",
     "arrow-body-style": "warn",
     "no-console": "off",
-    "no-underscore-dangle": [
-      "error"
-    ],
+    "no-underscore-dangle": ["error"],
     "consistent-return": "off",
     "react/jsx-props-no-spreading": "off",
     "import/no-unresolved": [
       "error",
       {
-        "ignore": [
-          "@testing-library/react"
-        ]
+        "ignore": ["@testing-library/react"]
       }
     ],
     "import/prefer-default-export": "off",
@@ -72,60 +65,27 @@
       {
         "blankLine": "always",
         "prev": "*",
-        "next": [
-          "return",
-          "break",
-          "continue"
-        ]
+        "next": ["return", "break", "continue"]
       },
       {
         "blankLine": "always",
-        "prev": [
-          "if",
-          "class",
-          "for",
-          "function",
-          "switch",
-          "throw",
-          "while",
-          "with",
-          "block"
-        ],
+        "prev": ["if", "class", "for", "function", "switch", "throw", "while", "with", "block"],
         "next": "*"
       },
       {
         "blankLine": "always",
         "prev": "*",
-        "next": [
-          "if",
-          "class",
-          "for",
-          "function",
-          "switch",
-          "throw",
-          "while",
-          "with",
-          "block"
-        ]
+        "next": ["if", "class", "for", "function", "switch", "throw", "while", "with", "block"]
       },
       {
         "blankLine": "always",
         "prev": "expression",
-        "next": [
-          "const",
-          "let"
-        ]
+        "next": ["const", "let"]
       },
       {
         "blankLine": "never",
-        "prev": [
-          "case",
-          "default"
-        ],
-        "next": [
-          "case",
-          "default"
-        ]
+        "prev": ["case", "default"],
+        "next": ["case", "default"]
       }
     ],
     "@typescript-eslint/explicit-function-return-type": "off",
@@ -133,9 +93,7 @@
     "react/jsx-filename-extension": [
       "error",
       {
-        "extensions": [
-          ".tsx"
-        ]
+        "extensions": [".tsx"]
       }
     ],
     "import/no-extraneous-dependencies": [

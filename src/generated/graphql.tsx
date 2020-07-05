@@ -371,21 +371,19 @@ export type PartyRequestType = GqlResponseType & {
 export type PartyType = GqlResponseType & {
   __typename?: 'PartyType';
   description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  type: PartyKind;
-  owner?: Maybe<User>;
-  startDate: Scalars['Date'];
-
-  name?: Maybe<Scalars['String']>;
   endDate?: Maybe<Scalars['Date']>;
+  id: Scalars['ID'];
   locationLatitude?: Maybe<Scalars['Float']>;
   locationLongitude?: Maybe<Scalars['Float']>;
   locationName?: Maybe<Scalars['String']>;
-
+  name?: Maybe<Scalars['String']>;
+  owner?: Maybe<User>;
   partyExpenses: Array<ExpenseType>;
   partyMessages: Array<MessageResponseType>;
   partyParticipants: Array<UserType>;
   partyPartyRequests: Array<PartyRequestType>;
+  startDate: Scalars['Date'];
+  type: PartyKind;
 };
 
 export type Payment = {
@@ -578,19 +576,6 @@ export type UserType = GqlResponseType & {
   userPayments: Array<PaymentType>;
 };
 
-export type GetUserDataQueryVariables = Exact<{
-  userId: Scalars['Long'];
-}>;
-
-
-export type GetUserDataQuery = (
-  { __typename?: 'Query' }
-  & { getUser?: Maybe<(
-    { __typename?: 'UserType' }
-    & Pick<UserType, 'id'>
-  )> }
-);
-
 export type RefreshTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -615,6 +600,9 @@ export type GetUserPartiesQuery = (
     & { owner?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'name'>
+    )>, partyParticipants: Array<(
+      { __typename?: 'UserType' }
+      & Pick<UserType, 'id' | 'name'>
     )> }
   )> }
 );
@@ -636,17 +624,6 @@ export type GetUserExpensesQuery = (
       { __typename?: 'Expense' }
       & Pick<Expense, 'id' | 'description' | 'name' | 'expenseStatus'>
     ) }
-  )> }
-);
-
-export type GetUserQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetUserQuery = (
-  { __typename?: 'Query' }
-  & { getUser?: Maybe<(
-    { __typename?: 'UserType' }
-    & Pick<UserType, 'id'>
   )> }
 );
 
@@ -677,39 +654,6 @@ export type SignUpUserMutation = (
 );
 
 
-export const GetUserDataDocument = gql`
-    query GetUserData($userId: Long!) {
-  getUser(id: $userId) {
-    id
-  }
-}
-    `;
-
-/**
- * __useGetUserDataQuery__
- *
- * To run a query within a React component, call `useGetUserDataQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUserDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetUserDataQuery({
- *   variables: {
- *      userId: // value for 'userId'
- *   },
- * });
- */
-export function useGetUserDataQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserDataQuery, GetUserDataQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetUserDataQuery, GetUserDataQueryVariables>(GetUserDataDocument, baseOptions);
-      }
-export function useGetUserDataLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserDataQuery, GetUserDataQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetUserDataQuery, GetUserDataQueryVariables>(GetUserDataDocument, baseOptions);
-        }
-export type GetUserDataQueryHookResult = ReturnType<typeof useGetUserDataQuery>;
-export type GetUserDataLazyQueryHookResult = ReturnType<typeof useGetUserDataLazyQuery>;
-export type GetUserDataQueryResult = ApolloReactCommon.QueryResult<GetUserDataQuery, GetUserDataQueryVariables>;
 export const RefreshTokenDocument = gql`
     mutation RefreshToken {
   refreshToken {
@@ -753,6 +697,10 @@ export const GetUserPartiesDocument = gql`
       name
     }
     type
+    partyParticipants {
+      id
+      name
+    }
   }
 }
     `;
@@ -830,38 +778,6 @@ export function useGetUserExpensesLazyQuery(baseOptions?: ApolloReactHooks.LazyQ
 export type GetUserExpensesQueryHookResult = ReturnType<typeof useGetUserExpensesQuery>;
 export type GetUserExpensesLazyQueryHookResult = ReturnType<typeof useGetUserExpensesLazyQuery>;
 export type GetUserExpensesQueryResult = ApolloReactCommon.QueryResult<GetUserExpensesQuery, GetUserExpensesQueryVariables>;
-export const GetUserDocument = gql`
-    query GetUser {
-  getUser(id: 1) {
-    id
-  }
-}
-    `;
-
-/**
- * __useGetUserQuery__
- *
- * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetUserQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetUserQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, baseOptions);
-      }
-export function useGetUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, baseOptions);
-        }
-export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
-export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
-export type GetUserQueryResult = ApolloReactCommon.QueryResult<GetUserQuery, GetUserQueryVariables>;
 export const LoginUserDocument = gql`
     mutation LoginUser($input: UserAuthInput!) {
   logIn(input: $input) {

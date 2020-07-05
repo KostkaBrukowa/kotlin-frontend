@@ -24,7 +24,9 @@ export const PaymentList: React.FC<PaymentListProps> = ({ payments, loading, sho
     return <LoadingCard />;
   }
 
-  if (!payments) return null;
+  if (!payments) {
+    return null;
+  }
 
   if (payments?.length === 0) {
     return <EmptyList nonFinishedPresent={payments.length !== 0} />;
