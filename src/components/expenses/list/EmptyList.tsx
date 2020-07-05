@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Button } from 'antd';
 import style from './EmptyList.module.less';
 import { ActionType, ExpensesContext } from '../ExpensesContext';
+import { ExpenseTitle } from './ExpenseTitle';
 
 interface EmptyListProps {
   nonFinishedPresent: boolean;
@@ -19,7 +20,6 @@ export const EmptyList: React.FC<EmptyListProps> = ({ nonFinishedPresent }) => {
 
   return (
     <>
-      {/* <ExpenseTitle title="Twoje wydatki:" /> */}
       <div className={style.wrapper}>
         <h3>Wszystko ogarnięte!</h3>
         <p>Nie masz aktualnie aktywnych platności</p>

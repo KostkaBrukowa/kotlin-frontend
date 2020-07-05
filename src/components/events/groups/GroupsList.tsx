@@ -4,6 +4,7 @@ import { TiHomeOutline } from 'react-icons/ti';
 import { GroupPartyListType } from '../../mappers/events/PartyMapperTypes';
 import style from '../events/EventsList.module.less';
 import { getFriendCountText } from '../list-utils/OtherParticipants';
+import { EmptyEventsList } from '../list-utils/EmptyList';
 
 export interface GroupsListProps {
   events?: GroupPartyListType[];
@@ -28,6 +29,7 @@ export const GroupsList: React.FC<GroupsListProps> = ({ events, loading }) => (
     dataSource={events}
     itemLayout="vertical"
     loading={loading || !events}
+    locale={{ emptyText: <EmptyEventsList type="grup" /> }}
     renderItem={(item: GroupPartyListType) => <ListItem item={item} />}
     size="large"
   />

@@ -5,6 +5,7 @@ import { navigate } from '@reach/router';
 import { FriendsPartyListType } from '../../mappers/events/PartyMapperTypes';
 import style from '../events/EventsList.module.less';
 import { CountableWordVariator } from '../../utils/functions/WordVariator';
+import { EmptyEventsList } from '../list-utils/EmptyList';
 
 export interface FriendsListProps {
   events?: FriendsPartyListType[];
@@ -51,6 +52,7 @@ export const FriendsList: React.FC<FriendsListProps> = ({ events, loading }) => 
     dataSource={events}
     itemLayout="vertical"
     loading={loading || !events}
+    locale={{ emptyText: <EmptyEventsList type="znajomych" /> }}
     renderItem={(item: FriendsPartyListType) => <ListItem item={item} />}
     size="large"
   />

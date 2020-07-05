@@ -1,11 +1,12 @@
 import { FiMapPin } from 'react-icons/fi';
 import { MdEvent } from 'react-icons/md';
-import { Divider, List } from 'antd';
+import { Divider, List, Button } from 'antd';
 import React from 'react';
 import { Link } from '@reach/router';
 import { EventPartyListType } from '../../mappers/events/PartyMapperTypes';
 import style from './EventsList.module.less';
 import { ListItemMeta } from '../list-utils/ListItemMeta';
+import { EmptyEventsList } from '../list-utils/EmptyList';
 
 export interface EventsListProps {
   events?: EventPartyListType[];
@@ -40,6 +41,7 @@ export const EventsList: React.FC<EventsListProps> = ({ events, loading }) => (
     dataSource={events}
     itemLayout="vertical"
     loading={loading || !events}
+    locale={{ emptyText: <EmptyEventsList type="wydarzeń" /> }}
     renderItem={(item: EventPartyListType) => <ListItem item={item} />}
     size="large"
   />

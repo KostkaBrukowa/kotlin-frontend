@@ -11,7 +11,6 @@ export type EventsProps = RouteComponentProps;
 
 export const Events: React.FC<EventsProps> = () => {
   const { parties, loading } = useUserParties();
-  console.log('Loading', loading);
 
   return (
     <div>
@@ -19,8 +18,9 @@ export const Events: React.FC<EventsProps> = () => {
         <h2 className={style.header}>Twoje:</h2>
         <Button type="primary">Dodaj nowe</Button>
       </div>
-      <Tabs animated className={style.tabs} defaultActiveKey="3" onChange={() => {}}>
+      <Tabs animated className={style.tabs} defaultActiveKey="1">
         <Tabs.TabPane key="1" tab="Wydarzenia">
+          {/* <EventsList events={parties?.events} loading={loading} /> */}
           <EventsList events={parties?.events} loading={loading} />
         </Tabs.TabPane>
         <Tabs.TabPane key="2" tab="Grupy">
