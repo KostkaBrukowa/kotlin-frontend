@@ -1,7 +1,8 @@
 import { List } from 'antd';
 import React from 'react';
 import { AiOutlineTeam } from 'react-icons/ai';
-import { GroupPartyListType, FriendsPartyListType } from '../../mappers/events/PartyMapperTypes';
+import { navigate } from '@reach/router';
+import { FriendsPartyListType } from '../../mappers/events/PartyMapperTypes';
 import style from '../events/EventsList.module.less';
 import { CountableWordVariator } from '../../utils/functions/WordVariator';
 
@@ -20,29 +21,28 @@ const getWordsCountText = (wordsCount: number): string | null =>
   wordsCount >= 1 ? ` i ${wordsCount} ${differentLabel.forCount(wordsCount)}` : null;
 
 const ListItemMeta: React.FC<{
-  ownerName?: string | null;
-  firstFriendName: string | null;
-  friendsCount: number;
-}> = ({ ownerName, firstFriendName, friendsCount }) => {
-  const friendsCountText = getWordsCountText(friendsCount - 1);
+  party: FriendsPartyListType;
+}> = ({ party: { partyParticipants, description, owner } }) => {
+  const friendsCountText = getWordsCountText(partyParticipants.length - 1);
 
   return (
     <List.Item.Meta
       avatar={<AiOutlineTeam className={style.avatar} />}
-      description={`Zalożyciel: ${ownerName}`}
-      title={`Ty, ${firstFriendName} ${friendsCountText}`}
+      description={description}
+      title={`Ty, ${owner?.name} ${friendsCountText}`}
     />
   );
 };
 
 const ListItem: React.FC<{ item: FriendsPartyListType }> = ({ item }) => (
-  <List.Item className={style.listItem} key={item.id}>
-    <ListItemMeta
-      firstFriendName={item.partyParticipants[0]?.name ?? null}
-      friendsCount={item.partyParticipants.length}
-      ownerName={item.owner?.name}
-    />
-    {item.description}
+  <List.Item
+    className={style.listItem}
+    key={item.id}
+    onClick={() => {
+      navigate(`/events/friends/${item.id}`);
+    }}
+  >
+    <ListItemMeta party={item} />
   </List.Item>
 );
 

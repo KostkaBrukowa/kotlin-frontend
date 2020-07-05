@@ -26,3 +26,5 @@ export class CountableWordVariator {
     return plural;
   }
 }
+
+export class Xaaaa {}

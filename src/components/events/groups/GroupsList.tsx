@@ -3,7 +3,7 @@ import React from 'react';
 import { TiHomeOutline } from 'react-icons/ti';
 import { GroupPartyListType } from '../../mappers/events/PartyMapperTypes';
 import style from '../events/EventsList.module.less';
-import { ListItemMeta } from '../list-utils/ListItemMeta';
+import { getFriendCountText } from '../list-utils/OtherParticipants';
 
 export interface GroupsListProps {
   events?: GroupPartyListType[];
@@ -12,10 +12,12 @@ export interface GroupsListProps {
 
 const ListItem: React.FC<{ item: GroupPartyListType }> = ({ item }) => (
   <List.Item className={style.listItem} key={item.id}>
-    <ListItemMeta
-      icon={<TiHomeOutline className={style.avatar} />}
-      name={item.name}
-      ownerName={item.owner?.name}
+    <List.Item.Meta
+      avatar={<TiHomeOutline className={style.avatar} />}
+      description={`Ty, ${item.partyParticipants[0]?.name} ${getFriendCountText(
+        item.partyParticipants.length,
+      )}`}
+      title={item.name}
     />
     {item.description}
   </List.Item>

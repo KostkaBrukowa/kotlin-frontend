@@ -3,6 +3,16 @@
 .listItem {
   background: @background-color-base;
   border-color: #767676 !important;
+  cursor: pointer;
+  transition: transform 200ms ease-in;
+}
+
+.listItem:hover {
+  transform: scale(1.02);
+}
+
+.listItem:active {
+  transform: scale(1.02);
 }
 
 .actionWrapper {
