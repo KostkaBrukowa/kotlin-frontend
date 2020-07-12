@@ -1,15 +1,14 @@
 import React, { useContext } from 'react';
 import { Button } from 'antd';
 import style from './EmptyList.module.less';
-import { ActionType, ExpensesContext } from '../ExpensesContext';
-import { ExpenseTitle } from './ExpenseTitle';
+import { ActionType, AppContext } from '../../app-context/AppContext';
 
 interface EmptyListProps {
   nonFinishedPresent: boolean;
 }
 
 export const EmptyList: React.FC<EmptyListProps> = ({ nonFinishedPresent }) => {
-  const { dispatch } = useContext(ExpensesContext);
+  const { dispatch } = useContext(AppContext);
 
   const onButtonClick = () => {
     dispatch({

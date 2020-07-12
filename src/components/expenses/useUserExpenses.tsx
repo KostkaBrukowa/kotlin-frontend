@@ -8,13 +8,13 @@ export type PaymentsQueryType = Pick<GetUserExpensesQuery, 'getClientsPayments'>
 
 export const useUserExpenses = () => {
   const { userId } = useContext(UserContext);
-  const [getExpenses, { data, loading }] = useGetUserExpensesLazyQuery({ variables: { userId } });
+  const [getExpenses, { data, loading }] = useGetUserExpensesLazyQuery();
   const delayedLoading = useDelayedLoading({ loading });
   const expenses = data?.getExpensesForUser;
   const payments = data?.getClientsPayments;
 
   useEffect(() => {
-    if (userId !== null) getExpenses();
+    if (userId !== null) getExpenses({ variables: { userId } });
   }, [userId, getExpenses]);
 
   return {

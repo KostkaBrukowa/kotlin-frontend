@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import clsx from 'clsx';
 import { TotalBalance } from './TotalBalance';
-import { ExpensesContext, ExpenseProvider, OwsType } from './ExpensesContext';
+import { AppContext, OwsType } from '../app-context/AppContext';
 import { ExpenseList } from './list/ExpenseList';
 import { PaymentList } from './list/PaymentList';
 import { useUserExpenses } from './useUserExpenses';
@@ -11,10 +11,10 @@ import style from './Expenses.module.less';
 
 export type FriendsProps = RouteComponentProps;
 
-export const List: React.FC<FriendsProps> = () => {
+export const Expenses: React.FC<FriendsProps> = () => {
   const {
     state: { currentOwsType, showFinished },
-  } = useContext(ExpensesContext);
+  } = useContext(AppContext);
 
   const { expenses, payments, loading } = useUserExpenses();
 
@@ -27,20 +27,14 @@ export const List: React.FC<FriendsProps> = () => {
   );
 
   return (
-    <AnimateChange
-      firstElement={expenseList}
-      firstElementActive={currentOwsType === OwsType.OWS_USER}
-      secondElement={paymentList}
-      wrapperClassName={clsx('data-cy-expenses-list', style.changeElement)}
-    />
+    <section>
+      <TotalBalance />
+      <AnimateChange
+        firstElement={expenseList}
+        firstElementActive={currentOwsType === OwsType.OWS_USER}
+        secondElement={paymentList}
+        wrapperClassName={clsx('data-cy-expenses-list', style.changeElement)}
+      />
+    </section>
   );
 };
-
-export const Expenses: React.FC<FriendsProps> = () => (
-  <section>
-    <ExpenseProvider>
-      <TotalBalance />
-      <List />
-    </ExpenseProvider>
-  </section>
-);

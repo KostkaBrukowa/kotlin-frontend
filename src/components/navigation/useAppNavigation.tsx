@@ -3,7 +3,7 @@ import { useLocation } from '@reach/router';
 import DollarOutlined from '@ant-design/icons/DollarOutlined';
 import HomeOutlined from '@ant-design/icons/HomeOutlined';
 import PlusCircleOutlined from '@ant-design/icons/PlusCircleOutlined';
-import NotificationOutlined from '@ant-design/icons/NotificationOutlined';
+import { BsBellFill } from 'react-icons/all';
 import ControlOutlined from '@ant-design/icons/ControlOutlined';
 import style from './Toolbar.module.less';
 import {
@@ -42,7 +42,7 @@ export const menuTabs: MenuTabItem[] = [
   },
   {
     key: '4',
-    icon: <NotificationOutlined className={style.icon} />,
+    icon: <BsBellFill className={style.icon} />,
     to: notificationsRoute,
     title: 'Aktywność',
   },

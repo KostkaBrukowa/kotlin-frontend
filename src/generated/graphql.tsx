@@ -61,11 +61,13 @@ export type Expense = {
 
 export type ExpenseNotification = NotificationType & {
   __typename?: 'ExpenseNotification';
+  actor?: Maybe<UserType>;
   createdAt: Scalars['Date'];
   event: NotificationEvent;
-  expenseId: Scalars['Long'];
+  expenseId: Scalars['String'];
   id: Scalars['ID'];
   isRead: Scalars['Boolean'];
+  receiver?: Maybe<UserType>;
   type: NotificationTypeEnum;
 };
 
@@ -183,13 +185,13 @@ export type MutationCreateMessageArgs = {
 
 
 export type MutationRemoveMessageArgs = {
-  messageId: Scalars['Long'];
+  messageId: Scalars['String'];
   messageType: MessageType;
 };
 
 
 export type MutationMarkNotificationsAsReadArgs = {
-  notificationsIds: Array<Scalars['Long']>;
+  notificationsIds: Array<Scalars['String']>;
 };
 
 
@@ -199,45 +201,45 @@ export type MutationCreatePartyArgs = {
 
 
 export type MutationDeletePartyArgs = {
-  id: Scalars['Long'];
+  id: Scalars['String'];
 };
 
 
 export type MutationRemoveParticipantArgs = {
-  partyId: Scalars['Long'];
-  participantId: Scalars['Long'];
+  partyId: Scalars['String'];
+  participantId: Scalars['String'];
 };
 
 
 export type MutationUpdatePartyArgs = {
-  id: Scalars['Long'];
+  id: Scalars['String'];
   editPartyInput: EditPartyInput;
 };
 
 
 export type MutationAcceptPartyRequestArgs = {
-  partyRequestId: Scalars['Long'];
+  partyRequestId: Scalars['String'];
 };
 
 
 export type MutationDeclinePartyRequestArgs = {
-  partyRequestId: Scalars['Long'];
+  partyRequestId: Scalars['String'];
 };
 
 
 export type MutationRemovePartyRequestArgs = {
-  partyRequestId: Scalars['Long'];
+  partyRequestId: Scalars['String'];
 };
 
 
 export type MutationSendPartyRequestArgs = {
-  partyId: Scalars['Long'];
-  requestReceiverId: Scalars['Long'];
+  partyId: Scalars['String'];
+  requestReceiverId: Scalars['String'];
 };
 
 
 export type MutationBulkPaymentsArgs = {
-  paymentsIds: Array<Scalars['Long']>;
+  paymentsIds: Array<Scalars['String']>;
 };
 
 
@@ -252,12 +254,12 @@ export type MutationUpdatePaymentStatusArgs = {
 
 
 export type MutationAddFriendArgs = {
-  userId: Scalars['Long'];
+  userId: Scalars['String'];
 };
 
 
 export type MutationRemoveFriendArgs = {
-  userId: Scalars['Long'];
+  userId: Scalars['String'];
 };
 
 export type NewExpenseInput = {
@@ -265,8 +267,8 @@ export type NewExpenseInput = {
   description: Scalars['String'];
   expenseDate: Scalars['Date'];
   name: Scalars['String'];
-  participants: Array<Scalars['Long']>;
-  partyId: Scalars['Long'];
+  participants: Array<Scalars['String']>;
+  partyId: Scalars['String'];
 };
 
 export type NewMessageInput = {
@@ -300,10 +302,12 @@ export enum NotificationEvent {
 }
 
 export type NotificationType = {
+  actor?: Maybe<UserType>;
   createdAt: Scalars['Date'];
   event: NotificationEvent;
   id: Scalars['ID'];
   isRead: Scalars['Boolean'];
+  receiver?: Maybe<UserType>;
   type: NotificationTypeEnum;
 };
 
@@ -346,11 +350,13 @@ export type PartyRequest = {
 
 export type PartyRequestNotification = NotificationType & {
   __typename?: 'PartyRequestNotification';
+  actor?: Maybe<UserType>;
   createdAt: Scalars['Date'];
   event: NotificationEvent;
   id: Scalars['ID'];
   isRead: Scalars['Boolean'];
-  partyId: Scalars['Long'];
+  partyId: Scalars['String'];
+  receiver?: Maybe<UserType>;
   type: NotificationTypeEnum;
 };
 
@@ -398,11 +404,13 @@ export type Payment = {
 
 export type PaymentNotification = NotificationType & {
   __typename?: 'PaymentNotification';
+  actor?: Maybe<UserType>;
   createdAt: Scalars['Date'];
   event: NotificationEvent;
   id: Scalars['ID'];
   isRead: Scalars['Boolean'];
-  paymentId: Scalars['Long'];
+  paymentId: Scalars['String'];
+  receiver?: Maybe<UserType>;
   type: NotificationTypeEnum;
 };
 
@@ -445,67 +453,67 @@ export type Query = {
 
 
 export type QueryGetExpensesForPartyArgs = {
-  partyId: Scalars['Long'];
+  partyId: Scalars['String'];
 };
 
 
 export type QueryGetExpensesForUserArgs = {
-  userId: Scalars['Long'];
+  userId: Scalars['String'];
 };
 
 
 export type QueryGetSingleExpenseArgs = {
-  expenseId: Scalars['Long'];
+  expenseId: Scalars['String'];
 };
 
 
 export type QueryFindUserNotificationsArgs = {
-  userId: Scalars['Long'];
+  userId: Scalars['String'];
 };
 
 
 export type QueryGetAllPartiesArgs = {
-  userId: Scalars['Long'];
+  userId: Scalars['String'];
 };
 
 
 export type QueryGetSinglePartyArgs = {
-  partyId: Scalars['Long'];
+  partyId: Scalars['String'];
 };
 
 
 export type QueryGetPartyRequestsForPartyArgs = {
-  partyId: Scalars['Long'];
+  partyId: Scalars['String'];
 };
 
 
 export type QueryGetPartyRequestsForUserArgs = {
-  userId: Scalars['Long'];
+  userId: Scalars['String'];
 };
 
 
 export type QueryGetClientBulkPaymentsArgs = {
-  userId: Scalars['Long'];
+  userId: Scalars['String'];
 };
 
 
 export type QueryGetClientsPaymentsArgs = {
-  userId: Scalars['Long'];
+  userId: Scalars['String'];
 };
 
 
 export type QueryGetSinglePaymentArgs = {
-  paymentId: Scalars['Long'];
+  paymentId: Scalars['String'];
 };
 
 
 export type QueryFindUsersFriendsArgs = {
-  userId: Scalars['Long'];
+  userId: Scalars['String'];
 };
 
 
 export type QueryGetUserArgs = {
-  id: Scalars['Long'];
+  id: Scalars['String'];
 };
 
 export enum Roles {
@@ -513,29 +521,29 @@ export enum Roles {
 }
 
 export type UpdateBulkPaymentStatusInput = {
-  id: Scalars['Long'];
+  id: Scalars['String'];
   status: BulkPaymentStatus;
 };
 
 export type UpdateExpenseAmountInput = {
   amount: Scalars['Float'];
-  id: Scalars['Long'];
+  id: Scalars['String'];
 };
 
 export type UpdateExpenseInput = {
   description: Scalars['String'];
   expenseDate: Scalars['Date'];
-  id: Scalars['Long'];
+  id: Scalars['String'];
   name: Scalars['String'];
 };
 
 export type UpdateExpenseStatusInput = {
   expenseStatus: ExpenseStatus;
-  id: Scalars['Long'];
+  id: Scalars['String'];
 };
 
 export type UpdatePaymentStatusInput = {
-  paymentId: Scalars['Long'];
+  paymentId: Scalars['String'];
   status: PaymentStatus;
 };
 
@@ -561,7 +569,7 @@ export type UserAuthInput = {
 export type UserAuthResponse = {
   __typename?: 'UserAuthResponse';
   token: Scalars['String'];
-  userId: Scalars['Long'];
+  userId: Scalars['String'];
 };
 
 export type UserType = GqlResponseType & {
@@ -588,7 +596,7 @@ export type RefreshTokenMutation = (
 );
 
 export type GetUserPartiesQueryVariables = Exact<{
-  userId: Scalars['Long'];
+  userId: Scalars['String'];
 }>;
 
 
@@ -608,7 +616,7 @@ export type GetUserPartiesQuery = (
 );
 
 export type GetUserExpensesQueryVariables = Exact<{
-  userId: Scalars['Long'];
+  userId: Scalars['String'];
 }>;
 
 
@@ -653,6 +661,46 @@ export type SignUpUserMutation = (
   ) }
 );
 
+export type GetUserNotificationsQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type GetUserNotificationsQuery = (
+  { __typename?: 'Query' }
+  & { findUserNotifications: Array<(
+    { __typename?: 'ExpenseNotification' }
+    & Pick<ExpenseNotification, 'expenseId' | 'id' | 'createdAt' | 'isRead' | 'event' | 'type'>
+    & { actor?: Maybe<(
+      { __typename?: 'UserType' }
+      & Pick<UserType, 'id' | 'name'>
+    )>, receiver?: Maybe<(
+      { __typename?: 'UserType' }
+      & Pick<UserType, 'id' | 'name'>
+    )> }
+  ) | (
+    { __typename?: 'PartyRequestNotification' }
+    & Pick<PartyRequestNotification, 'partyId' | 'id' | 'createdAt' | 'isRead' | 'event' | 'type'>
+    & { actor?: Maybe<(
+      { __typename?: 'UserType' }
+      & Pick<UserType, 'id' | 'name'>
+    )>, receiver?: Maybe<(
+      { __typename?: 'UserType' }
+      & Pick<UserType, 'id' | 'name'>
+    )> }
+  ) | (
+    { __typename?: 'PaymentNotification' }
+    & Pick<PaymentNotification, 'paymentId' | 'id' | 'createdAt' | 'isRead' | 'event' | 'type'>
+    & { actor?: Maybe<(
+      { __typename?: 'UserType' }
+      & Pick<UserType, 'id' | 'name'>
+    )>, receiver?: Maybe<(
+      { __typename?: 'UserType' }
+      & Pick<UserType, 'id' | 'name'>
+    )> }
+  )> }
+);
+
 
 export const RefreshTokenDocument = gql`
     mutation RefreshToken {
@@ -687,7 +735,7 @@ export type RefreshTokenMutationHookResult = ReturnType<typeof useRefreshTokenMu
 export type RefreshTokenMutationResult = ApolloReactCommon.MutationResult<RefreshTokenMutation>;
 export type RefreshTokenMutationOptions = ApolloReactCommon.BaseMutationOptions<RefreshTokenMutation, RefreshTokenMutationVariables>;
 export const GetUserPartiesDocument = gql`
-    query GetUserParties($userId: Long!) {
+    query GetUserParties($userId: String!) {
   getAllParties(userId: $userId) {
     id
     name
@@ -731,7 +779,7 @@ export type GetUserPartiesQueryHookResult = ReturnType<typeof useGetUserPartiesQ
 export type GetUserPartiesLazyQueryHookResult = ReturnType<typeof useGetUserPartiesLazyQuery>;
 export type GetUserPartiesQueryResult = ApolloReactCommon.QueryResult<GetUserPartiesQuery, GetUserPartiesQueryVariables>;
 export const GetUserExpensesDocument = gql`
-    query GetUserExpenses($userId: Long!) {
+    query GetUserExpenses($userId: String!) {
   getExpensesForUser(userId: $userId) {
     id
     amount
@@ -844,3 +892,57 @@ export function useSignUpUserMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type SignUpUserMutationHookResult = ReturnType<typeof useSignUpUserMutation>;
 export type SignUpUserMutationResult = ApolloReactCommon.MutationResult<SignUpUserMutation>;
 export type SignUpUserMutationOptions = ApolloReactCommon.BaseMutationOptions<SignUpUserMutation, SignUpUserMutationVariables>;
+export const GetUserNotificationsDocument = gql`
+    query GetUserNotifications($userId: String!) {
+  findUserNotifications(userId: $userId) {
+    id
+    createdAt
+    isRead
+    event
+    type
+    actor {
+      id
+      name
+    }
+    receiver {
+      id
+      name
+    }
+    ... on ExpenseNotification {
+      expenseId
+    }
+    ... on PartyRequestNotification {
+      partyId
+    }
+    ... on PaymentNotification {
+      paymentId
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetUserNotificationsQuery__
+ *
+ * To run a query within a React component, call `useGetUserNotificationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserNotificationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserNotificationsQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetUserNotificationsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserNotificationsQuery, GetUserNotificationsQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetUserNotificationsQuery, GetUserNotificationsQueryVariables>(GetUserNotificationsDocument, baseOptions);
+      }
+export function useGetUserNotificationsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserNotificationsQuery, GetUserNotificationsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetUserNotificationsQuery, GetUserNotificationsQueryVariables>(GetUserNotificationsDocument, baseOptions);
+        }
+export type GetUserNotificationsQueryHookResult = ReturnType<typeof useGetUserNotificationsQuery>;
+export type GetUserNotificationsLazyQueryHookResult = ReturnType<typeof useGetUserNotificationsLazyQuery>;
+export type GetUserNotificationsQueryResult = ApolloReactCommon.QueryResult<GetUserNotificationsQuery, GetUserNotificationsQueryVariables>;

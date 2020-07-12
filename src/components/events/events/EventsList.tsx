@@ -1,12 +1,12 @@
+import { Button, Divider, List } from 'antd';
+import React from 'react';
 import { FiMapPin } from 'react-icons/fi';
 import { MdEvent } from 'react-icons/md';
-import { Divider, List, Button } from 'antd';
-import React from 'react';
-import { Link } from '@reach/router';
 import { EventPartyListType } from '../../mappers/events/PartyMapperTypes';
-import style from './EventsList.module.less';
-import { ListItemMeta } from '../list-utils/ListItemMeta';
 import { EmptyEventsList } from '../list-utils/EmptyList';
+import style from '../../utils/list-utils/List.module.less';
+import { ListItemMeta } from '../list-utils/ListItemMeta';
+import { stopPropagation } from '../../utils/functions/utilFunctions';
 
 export interface EventsListProps {
   events?: EventPartyListType[];
@@ -17,14 +17,15 @@ const ListItemFooter: React.FC<{ locationName: string }> = ({ locationName }) =>
   <div className={style.itemFooter}>
     <p>Miejsce: {locationName}</p>
     <div>
-      <Link to="/">Zobacz na mapie</Link>
-      <FiMapPin className={style.picture} />
+      <Button icon={<FiMapPin className={style.picture} />} onClick={stopPropagation}>
+        Zobacz na mapie
+      </Button>
     </div>
   </div>
 );
 
 const ListItem: React.FC<{ item: EventPartyListType }> = ({ item }) => (
-  <List.Item className={style.listItem} key={item.id}>
+  <List.Item className={style.listItem}>
     <ListItemMeta
       icon={<MdEvent className={style.avatar} />}
       name={item.name}
@@ -42,7 +43,7 @@ export const EventsList: React.FC<EventsListProps> = ({ events, loading }) => (
     itemLayout="vertical"
     loading={loading || !events}
     locale={{ emptyText: <EmptyEventsList type="wydarzeń" /> }}
-    renderItem={(item: EventPartyListType) => <ListItem item={item} />}
+    renderItem={(item: EventPartyListType) => <ListItem item={item} key={item.id} />}
     size="large"
   />
 );

@@ -1,4 +1,4 @@
-query GetUserExpenses($userId: Long!) {
+query GetUserExpenses($userId: String!) {
     getExpensesForUser(userId: $userId) {
         id
         amount

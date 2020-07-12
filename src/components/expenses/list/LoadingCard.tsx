@@ -8,9 +8,10 @@ interface LoadingCardProps {
 
 export const LoadingCard: React.FC<LoadingCardProps> = ({ cardsCount }) => (
   <>
-    {Array.from({ length: cardsCount ?? 1 }, () => (
-      <Card className={style.card}>
-        <Skeleton active avatar loading />
+    {Array.from({ length: cardsCount ?? 1 }).map((_, index) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <Card className={style.card} key={index} size="small">
+        <Skeleton active avatar round />
       </Card>
     ))}
   </>

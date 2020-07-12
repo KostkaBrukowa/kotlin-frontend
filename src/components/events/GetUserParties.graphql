@@ -1,4 +1,4 @@
-query GetUserParties($userId: Long!) {
+query GetUserParties($userId: String!) {
   getAllParties(userId: $userId) {
     id
     name

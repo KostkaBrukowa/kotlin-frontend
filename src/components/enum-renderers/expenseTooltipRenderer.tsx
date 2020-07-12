@@ -1,6 +1,6 @@
 import React from 'react';
 import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
-import { OwsType } from '../expenses/ExpensesContext';
+import { OwsType } from '../app-context/AppContext';
 import { ExpenseStatus, PaymentStatus } from '../../generated/graphql';
 import style from '../expenses/list/ExpenseList.module.less';
 

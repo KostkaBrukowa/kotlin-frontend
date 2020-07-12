@@ -5,7 +5,7 @@ import { OwsSection } from './OwsSection';
 import { useUserExpenses } from './useUserExpenses';
 import { AnimatedNumber } from '../utils/animations/AnimatedNumber';
 import { currency } from '../utils/constants/currency';
-import { OwsType } from './ExpensesContext';
+import { OwsType } from '../app-context/AppContext';
 
 export interface TotalBalanceProps {}
 

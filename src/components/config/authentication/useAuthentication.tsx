@@ -8,7 +8,7 @@ export const JWT_TOKEN_EXPIRY_TIME = 900000;
 
 export interface AuthData {
   jwtToken: string | null;
-  userId: number | null;
+  userId: string | null;
 }
 
 export const useAuthentication = () => {

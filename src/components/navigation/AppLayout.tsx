@@ -53,7 +53,6 @@ export const AppLayout: React.FC = () => {
                 <Settings path={settingsRoute} />
               </Router>
             </main>
-            <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
             {tokenPresent && <Toolbar />}
           </>
         )}

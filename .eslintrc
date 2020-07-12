@@ -21,8 +21,14 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
   "plugins": ["@typescript-eslint", "cypress"],
   "rules": {
+    "function-paren-newline": "off",
     "no-confusing-arrow": "off",
     "global-require": "off",
     "@typescript-eslint/no-var-requires": "off",
@@ -41,7 +47,7 @@
     "object-curly-newline": "off",
     "arrow-body-style": "warn",
     "no-console": "off",
-    "no-underscore-dangle": ["error"],
+    "no-underscore-dangle": "off",
     "consistent-return": "off",
     "react/jsx-props-no-spreading": "off",
     "import/no-unresolved": [

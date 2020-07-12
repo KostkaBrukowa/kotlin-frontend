@@ -1,0 +1,32 @@
+query GetUserNotifications ($userId: String!) {
+    findUserNotifications(userId: $userId) {
+        id
+        createdAt
+        isRead
+        event
+        type
+
+        actor {
+            id
+            name
+        }
+
+        receiver {
+            id
+            name
+        }
+
+
+        ... on ExpenseNotification {
+            expenseId
+        }
+
+        ... on PartyRequestNotification {
+            partyId
+        }
+
+        ... on PaymentNotification {
+            paymentId
+        }
+    }
+}

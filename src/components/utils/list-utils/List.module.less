@@ -1,19 +1,20 @@
 @import '../../../../node_modules/antd/lib/style/dark.less';
+@list-background-color: rgba(150, 150, 150, 0.08);
 
 .listItem {
-  background: rgba(150, 150, 150, 0.08);
-  border-color: #767676 !important;
+  background: @list-background-color;
+  //border-color: #767676 !important;
   cursor: pointer;
   transition: transform 200ms ease-in;
 }
-
-.listItem:hover {
-  transform: scale(1.02);
-}
-
-.listItem:active {
-  transform: scale(1.02);
-}
+//
+//.listItem:hover {
+//  transform: scale(1.02);
+//}
+//
+//.listItem:active {
+//  transform: scale(1.02);
+//}
 
 .actionWrapper {
   display: grid;
@@ -38,10 +39,11 @@
 .itemFooter {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
 }
 
 .picture {
-  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .emptyParagraph {

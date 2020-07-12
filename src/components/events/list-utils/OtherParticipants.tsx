@@ -1,6 +1,6 @@
 import { CountableWordVariator } from '../../utils/functions/WordVariator';
 
-export const differentLabel = new CountableWordVariator({
+const differentLabel = new CountableWordVariator({
   singular: 'inny',
   betweenTwoAndFour: 'innych',
   plural: 'innych',

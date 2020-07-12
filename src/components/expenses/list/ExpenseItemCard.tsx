@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import style from './ExpenseList.module.less';
 import { ExpenseStatus, PaymentStatus } from '../../../generated/graphql';
 import { currency } from '../../utils/constants/currency';
-import { OwsType } from '../ExpensesContext';
+import { OwsType } from '../../app-context/AppContext';
 import { getTooltipProps } from '../../enum-renderers/expenseTooltipRenderer';
 import { stopPropagation } from '../../utils/functions/utilFunctions';
 

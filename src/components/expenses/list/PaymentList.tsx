@@ -2,7 +2,7 @@ import React from 'react';
 import { PaymentsQueryType } from '../useUserExpenses';
 import { ExpenseItemCard } from './ExpenseItemCard';
 import { LoadingCard } from './LoadingCard';
-import { OwsType } from '../ExpensesContext';
+import { OwsType } from '../../app-context/AppContext';
 import { ExpenseTitle } from './ExpenseTitle';
 import { PaymentStatus } from '../../../generated/graphql';
 import { EmptyList } from './EmptyList';

@@ -15,8 +15,8 @@ export const AppHeader: React.FC = (props) => {
   const tabName = menuTabs.find((it) => location.pathname.includes(it.to))?.title;
 
   return (
-    <Header className={style.header} onClick={goHome}>
-      <div className={style.imageWithHeader}>
+    <Header className={style.header}>
+      <div className={style.imageWithHeader} onClick={goHome}>
         <img alt="logo" className={style.logo} height={LOGO_SIZE} src={logo} width={LOGO_SIZE} />
         <h1 className={style.appName}>Wisesplit</h1>
       </div>

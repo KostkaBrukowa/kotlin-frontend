@@ -10,10 +10,12 @@ interface GQLResponseType {
 }
 
 interface NotificationType {
+    actor: UserType
     createdAt: Date!
     event: NotificationEvent!
     id: ID!
     isRead: Boolean!
+    receiver: UserType
     type: NotificationTypeEnum!
 }
 
@@ -41,11 +43,13 @@ type Expense {
 }
 
 type ExpenseNotification implements NotificationType {
+    actor: UserType
     createdAt: Date!
     event: NotificationEvent!
-    expenseId: Long!
+    expenseId: String!
     id: ID!
     isRead: Boolean!
+    receiver: UserType
     type: NotificationTypeEnum!
 }
 
@@ -70,32 +74,32 @@ type MessageResponseType implements GQLResponseType {
 }
 
 type Mutation {
-    acceptPartyRequest(partyRequestId: Long!): Boolean!
-    addFriend(userId: Long!): Boolean!
-    bulkPayments(paymentsIds: [Long!]!): BulkPaymentType
+    acceptPartyRequest(partyRequestId: String!): Boolean!
+    addFriend(userId: String!): Boolean!
+    bulkPayments(paymentsIds: [String!]!): BulkPaymentType
     changeExpenseStatus(updateExpenseStatusInput: UpdateExpenseStatusInput!): ExpenseType!
     createExpense(newExpenseInput: NewExpenseInput!): ExpenseType!
     createMessage(newMessageInput: NewMessageInput!): MessageResponseType!
     createParty(newPartyInput: NewPartyInput!): PartyType!
-    declinePartyRequest(partyRequestId: Long!): Boolean!
+    declinePartyRequest(partyRequestId: String!): Boolean!
     deleteExpense(expenseId: Long!): Boolean!
-    deleteParty(id: Long!): Boolean!
+    deleteParty(id: String!): Boolean!
     "Logs in user and return JWT token as return value"
     logIn(input: UserAuthInput!): UserAuthResponse
-    markNotificationsAsRead(notificationsIds: [Long!]!): Boolean!
+    markNotificationsAsRead(notificationsIds: [String!]!): Boolean!
     "Registers user and return JWT token as return value"
     refreshToken: UserAuthResponse!
-    removeFriend(userId: Long!): Boolean!
-    removeMessage(messageId: Long!, messageType: MessageType!): Boolean!
-    removeParticipant(participantId: Long!, partyId: Long!): Boolean!
-    removePartyRequest(partyRequestId: Long!): Boolean!
-    sendPartyRequest(partyId: Long!, requestReceiverId: Long!): PartyRequestType
+    removeFriend(userId: String!): Boolean!
+    removeMessage(messageId: String!, messageType: MessageType!): Boolean!
+    removeParticipant(participantId: String!, partyId: String!): Boolean!
+    removePartyRequest(partyRequestId: String!): Boolean!
+    sendPartyRequest(partyId: String!, requestReceiverId: String!): PartyRequestType
     "Registers user and return JWT token as return value"
     signUp(input: UserAuthInput!): UserAuthResponse!
     updateBulkPaymentStatus(updatePaymentStatusInput: UpdateBulkPaymentStatusInput!): BulkPaymentType!
     updateExpense(updateExpenseInput: UpdateExpenseInput!): ExpenseType!
     updateExpenseAmount(updateExpenseAmountInput: UpdateExpenseAmountInput!): ExpenseType!
-    updateParty(editPartyInput: EditPartyInput!, id: Long!): Party!
+    updateParty(editPartyInput: EditPartyInput!, id: String!): Party!
     updatePaymentStatus(updatePaymentStatusInput: UpdatePaymentStatusInput!): PaymentType!
 }
 
@@ -123,11 +127,13 @@ type PartyRequest {
 }
 
 type PartyRequestNotification implements NotificationType {
+    actor: UserType
     createdAt: Date!
     event: NotificationEvent!
     id: ID!
     isRead: Boolean!
-    partyId: Long!
+    partyId: String!
+    receiver: UserType
     type: NotificationTypeEnum!
 }
 
@@ -165,11 +171,13 @@ type Payment {
 }
 
 type PaymentNotification implements NotificationType {
+    actor: UserType
     createdAt: Date!
     event: NotificationEvent!
     id: ID!
     isRead: Boolean!
-    paymentId: Long!
+    paymentId: String!
+    receiver: UserType
     type: NotificationTypeEnum!
 }
 
@@ -184,19 +192,19 @@ type PaymentType implements GQLResponseType {
 }
 
 type Query {
-    findUserNotifications(userId: Long!): [NotificationType!]!
-    findUsersFriends(userId: Long!): [UserType!]!
-    getAllParties(userId: Long!): [PartyType!]!
-    getClientBulkPayments(userId: Long!): [BulkPaymentType!]!
-    getClientsPayments(userId: Long!): [PaymentType!]!
-    getExpensesForParty(partyId: Long!): [ExpenseType!]!
-    getExpensesForUser(userId: Long!): [ExpenseType!]!
-    getPartyRequestsForParty(partyId: Long!): [PartyRequestType!]!
-    getPartyRequestsForUser(userId: Long!): [PartyRequestType!]!
-    getSingleExpense(expenseId: Long!): ExpenseType
-    getSingleParty(partyId: Long!): PartyType
-    getSinglePayment(paymentId: Long!): PaymentType
-    getUser(id: Long!): UserType
+    findUserNotifications(userId: String!): [NotificationType!]!
+    findUsersFriends(userId: String!): [UserType!]!
+    getAllParties(userId: String!): [PartyType!]!
+    getClientBulkPayments(userId: String!): [BulkPaymentType!]!
+    getClientsPayments(userId: String!): [PaymentType!]!
+    getExpensesForParty(partyId: String!): [ExpenseType!]!
+    getExpensesForUser(userId: String!): [ExpenseType!]!
+    getPartyRequestsForParty(partyId: String!): [PartyRequestType!]!
+    getPartyRequestsForUser(userId: String!): [PartyRequestType!]!
+    getSingleExpense(expenseId: String!): ExpenseType
+    getSingleParty(partyId: String!): PartyType
+    getSinglePayment(paymentId: String!): PaymentType
+    getUser(id: String!): UserType
 }
 
 type User {
@@ -214,7 +222,7 @@ type User {
 
 type UserAuthResponse {
     token: String!
-    userId: Long!
+    userId: String!
 }
 
 type UserType implements GQLResponseType {
@@ -307,8 +315,8 @@ input NewExpenseInput {
     description: String!
     expenseDate: Date!
     name: String!
-    participants: [Long!]!
-    partyId: Long!
+    participants: [String!]!
+    partyId: String!
 }
 
 input NewMessageInput {
@@ -330,29 +338,29 @@ input NewPartyInput {
 }
 
 input UpdateBulkPaymentStatusInput {
-    id: Long!
+    id: String!
     status: BulkPaymentStatus!
 }
 
 input UpdateExpenseAmountInput {
     amount: Float!
-    id: Long!
+    id: String!
 }
 
 input UpdateExpenseInput {
     description: String!
     expenseDate: Date!
-    id: Long!
+    id: String!
     name: String!
 }
 
 input UpdateExpenseStatusInput {
     expenseStatus: ExpenseStatus!
-    id: Long!
+    id: String!
 }
 
 input UpdatePaymentStatusInput {
-    paymentId: Long!
+    paymentId: String!
     status: PaymentStatus!
 }
 

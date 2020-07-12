@@ -1,0 +1,149 @@
+{
+  "data" : {
+    "getAllParties" : [ {
+      "id" : "6",
+      "name" : "logged party 1",
+      "description" : "test description",
+      "locationName" : null,
+      "owner" : {
+        "name" : "persistent user test name",
+        "__typename" : "User"
+      },
+      "type" : "GROUP",
+      "partyParticipants" : [ {
+        "id" : "3",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      }, {
+        "id" : "1",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      }, {
+        "id" : "2",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      } ],
+      "__typename" : "PartyType"
+    }, {
+      "id" : "7",
+      "name" : "logged party 2",
+      "description" : "test description",
+      "locationName" : null,
+      "owner" : {
+        "name" : "persistent user test name",
+        "__typename" : "User"
+      },
+      "type" : "GROUP",
+      "partyParticipants" : [ {
+        "id" : "3",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      }, {
+        "id" : "1",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      }, {
+        "id" : "2",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      } ],
+      "__typename" : "PartyType"
+    }, {
+      "id" : "8",
+      "name" : null,
+      "description" : "test description",
+      "locationName" : null,
+      "owner" : {
+        "name" : "persistent user test name",
+        "__typename" : "User"
+      },
+      "type" : "FRIENDS",
+      "partyParticipants" : [ {
+        "id" : "3",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      }, {
+        "id" : "1",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      }, {
+        "id" : "2",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      } ],
+      "__typename" : "PartyType"
+    }, {
+      "id" : "9",
+      "name" : null,
+      "description" : "test description",
+      "locationName" : null,
+      "owner" : {
+        "name" : "persistent user test name",
+        "__typename" : "User"
+      },
+      "type" : "FRIENDS",
+      "partyParticipants" : [ {
+        "id" : "3",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      }, {
+        "id" : "1",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      }, {
+        "id" : "2",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      } ],
+      "__typename" : "PartyType"
+    }, {
+      "id" : "10",
+      "name" : "logged party 2",
+      "description" : "test description",
+      "locationName" : "Niebo",
+      "owner" : {
+        "name" : "persistent user test name",
+        "__typename" : "User"
+      },
+      "type" : "EVENT",
+      "partyParticipants" : [ {
+        "id" : "3",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      }, {
+        "id" : "1",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      }, {
+        "id" : "2",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      } ],
+      "__typename" : "PartyType"
+    }, {
+      "id" : "11",
+      "name" : "some party",
+      "description" : "Najleprza impresa koronawosiura",
+      "locationName" : "Niebo",
+      "owner" : {
+        "name" : "persistent user test name",
+        "__typename" : "User"
+      },
+      "type" : "EVENT",
+      "partyParticipants" : [ {
+        "id" : "3",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      }, {
+        "id" : "1",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      }, {
+        "id" : "2",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      } ],
+      "__typename" : "PartyType"
+    } ]
+  }
+}

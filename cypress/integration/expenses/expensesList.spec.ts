@@ -1,4 +1,4 @@
-import { OwsType } from '../../../src/components/expenses/ExpensesContext';
+import { OwsType } from '../../../src/components/app-context/AppContext';
 
 function changeToUserOwsTab() {
   cy.getCy(`ows-${OwsType.USER_OWS}`).click();
@@ -9,10 +9,6 @@ function changeToOwsUserTab() {
 }
 
 describe('login test', () => {
-  // before(() => {
-  //   cy.exec('yarn db:clear');
-  // });
-
   beforeEach(() => {
     cy.server();
     cy.gqlRoute('fx:refresh').as('refresh');
@@ -41,18 +37,18 @@ describe('login test', () => {
     changeToOwsUserTab();
     cy.getCy('expenses-list', {}).should('have.css', 'opacity', '1');
 
-    cy.getCy(`show-finished`).click();
-    cy.getCy(`show-finished input[type=checkbox]`).should('be.checked');
+    cy.getCy('show-finished').click();
+    cy.getCy('show-finished input[type=checkbox]').should('be.checked');
 
     cy.get('.ant-card-body').should('have.length', 4);
 
     changeToUserOwsTab();
 
-    cy.getCy(`show-finished input[type=checkbox]`).should('be.enabled');
+    cy.getCy('show-finished input[type=checkbox]').should('be.enabled');
     cy.get('.ant-card-body').should('have.length', 6);
 
-    cy.getCy(`show-finished`).click();
-    cy.getCy(`show-finished input[type=checkbox]`).should('not.be.checked');
+    cy.getCy('show-finished').click();
+    cy.getCy('show-finished input[type=checkbox]').should('not.be.checked');
   });
 
   it('should display empty expenses list', () => {
@@ -84,7 +80,7 @@ describe('login test', () => {
 
     changeToOwsUserTab();
     cy.contains('Pokaż historyczne wydatki').click();
-    cy.getCy(`show-finished input[type=checkbox]`).should('be.checked');
+    cy.getCy('show-finished input[type=checkbox]').should('be.checked');
 
     cy.contains('Wszystko ogarnięte').should('not.exist');
     cy.contains('Pokaż historyczne wydatki').should('not.exist');

@@ -1,16 +1,27 @@
 import { RouteComponentProps } from '@reach/router';
 import { Button, Tabs } from 'antd';
-import React from 'react';
+import React, { useContext } from 'react';
 import style from './Events.module.less';
 import { EventsList } from './events/EventsList';
-import { useUserParties } from './useUserParties';
-import { GroupsList } from './groups/GroupsList';
 import { FriendsList } from './friends/FriendsList';
+import { GroupsList } from './groups/GroupsList';
+import { useUserParties } from './useUserParties';
+import { ActionType, AppContext, EventsTabKeys } from '../app-context/AppContext';
 
 export type EventsProps = RouteComponentProps;
 
 export const Events: React.FC<EventsProps> = () => {
   const { parties, loading } = useUserParties();
+  const {
+    state: { activeEventsTab },
+    dispatch,
+  } = useContext(AppContext);
+
+  const handleTabChange = (key: string) =>
+    dispatch({
+      type: ActionType.SET_EVENTS_TAB,
+      payload: { activeEventsTab: key as EventsTabKeys },
+    });
 
   return (
     <div>
@@ -18,15 +29,14 @@ export const Events: React.FC<EventsProps> = () => {
         <h2 className={style.header}>Twoje:</h2>
         <Button type="primary">Dodaj nowe</Button>
       </div>
-      <Tabs animated className={style.tabs} defaultActiveKey="1">
-        <Tabs.TabPane key="1" tab="Wydarzenia">
-          {/* <EventsList events={parties?.events} loading={loading} /> */}
+      <Tabs activeKey={activeEventsTab} className={style.tabs} onChange={handleTabChange}>
+        <Tabs.TabPane key={EventsTabKeys.EVENTS} tab="Wydarzenia">
           <EventsList events={parties?.events} loading={loading} />
         </Tabs.TabPane>
-        <Tabs.TabPane key="2" tab="Grupy">
+        <Tabs.TabPane key={EventsTabKeys.GROUPS} tab="Grupy">
           <GroupsList events={parties?.groups} loading={loading} />
         </Tabs.TabPane>
-        <Tabs.TabPane key="3" tab="Znajomi">
+        <Tabs.TabPane key={EventsTabKeys.FRIENDS} tab="Znajomi">
           <FriendsList events={parties?.friends} loading={loading} />
         </Tabs.TabPane>
       </Tabs>

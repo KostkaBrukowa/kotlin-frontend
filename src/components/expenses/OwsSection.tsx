@@ -4,7 +4,7 @@ import PlusCircleOutlined from '@ant-design/icons/PlusCircleOutlined';
 import clsx from 'clsx';
 
 import style from './OwsSection.module.less';
-import { ActionType, ExpensesContext, OwsType } from './ExpensesContext';
+import { ActionType, AppContext, OwsType } from '../app-context/AppContext';
 import { currency } from '../utils/constants/currency';
 import { AnimatedNumber } from '../utils/animations/AnimatedNumber';
 
@@ -29,7 +29,7 @@ export const OwsSection: React.FC<OwsSectionProps> = ({ amount, type }) => {
   const {
     state: { currentOwsType },
     dispatch,
-  } = useContext(ExpensesContext);
+  } = useContext(AppContext);
   const { className, title, icon } = type === OwsType.USER_OWS ? owsUserProps : userOwsProps;
   const active = currentOwsType === type;
 

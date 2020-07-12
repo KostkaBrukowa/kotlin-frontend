@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Checkbox, Form } from 'antd';
 import style from './ExpenseList.module.less';
-import { ActionType, ExpensesContext } from '../ExpensesContext';
+import { ActionType, AppContext } from '../../app-context/AppContext';
 
 export interface ExpenseTitleProps {
   title: string;
@@ -11,7 +11,7 @@ export const ExpenseTitle: React.FC<ExpenseTitleProps> = ({ title }) => {
   const {
     state: { showFinished },
     dispatch,
-  } = useContext(ExpensesContext);
+  } = useContext(AppContext);
 
   const onCheckboxClick = () => {
     dispatch({
