@@ -11,7 +11,7 @@ import {
   useSignUpUserMutation,
 } from '../../generated/graphql';
 import { LoginProps } from './Login';
-import { eventsRoute } from '../navigation/routerConstants';
+import { eventsRoute, expensesRoute } from '../navigation/routerConstants';
 
 export enum FormFields {
   login = 'login',
@@ -59,7 +59,7 @@ export const useLogin: (
   };
 
   useEffect(() => {
-    if (tokenPresent) navigate(eventsRoute);
+    if (tokenPresent) navigate(expensesRoute);
   }, [tokenPresent]);
 
   return {

@@ -1,22 +1,19 @@
 export {};
 
 describe('', () => {
-  // before(() => {
-  //   cy.exec('yarn db:clear');
-  // });
-
   beforeEach(() => {
     cy.server();
     cy.gqlRoute('fx:refresh').as('refresh');
     cy.visit('/login');
+    cy.gqlRoute('fx:expenses/expenses').as('expenses');
+    cy.wait('@refresh');
+    cy.wait('@expenses');
   });
 
   it('should display correct expenses and payment lists', () => {
     cy.gqlRoute('fx:events/events-list').as('events');
-    cy.wait('@refresh');
-    cy.wait('@events');
-
     cy.getCy('toolbar').contains('Wydarzenia').click();
+    cy.wait('@events');
 
     cy.get('.ant-layout-header').contains('Wydarzenia');
     cy.get('.ant-tabs-tab-active').contains('Wydarzenia');

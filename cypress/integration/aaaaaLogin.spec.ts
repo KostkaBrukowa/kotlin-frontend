@@ -18,7 +18,7 @@ describe('login test', () => {
   }
 
   it('should log in and sign in and redirect to login page when no cookie is presen after reload', () => {
-    cy.matchImageSnapshot('1');
+    // cy.matchImageSnapshot('1');
 
     // register
     cy.clearCookies();
@@ -26,7 +26,7 @@ describe('login test', () => {
     cy.getCy('login-register').click();
     cy.getCy('repeat-password').should('have.css', 'opacity', '1');
 
-    cy.matchImageSnapshot('2');
+    // cy.matchImageSnapshot('2');
 
     loginAndPassword();
     cy.getCy('repeat-password input').clear().type('admin12');

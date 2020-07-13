@@ -1,0 +1,77 @@
+{
+  "data" : {
+    "findUserNotifications" : [ {
+      "id" : "12",
+      "createdAt" : "2020-07-13T10:30:46.366348+02:00[Europe/Warsaw]",
+      "isRead" : false,
+      "event" : "ACCEPTED",
+      "type" : "PAYMENT",
+      "actor" : {
+        "id" : "0",
+        "name" : "actor",
+        "__typename" : "UserType"
+      },
+      "receiver" : {
+        "id" : "0",
+        "name" : "receiver",
+        "__typename" : "UserType"
+      },
+      "paymentId" : "33",
+      "__typename" : "PaymentNotification"
+    }, {
+      "id" : "13",
+      "createdAt" : "2020-07-13T10:30:46.366830+02:00[Europe/Warsaw]",
+      "isRead" : false,
+      "event" : "CREATION",
+      "type" : "EXPENSE",
+      "actor" : {
+        "id" : "0",
+        "name" : "actor",
+        "__typename" : "UserType"
+      },
+      "receiver" : {
+        "id" : "0",
+        "name" : "receiver",
+        "__typename" : "UserType"
+      },
+      "expenseId" : "33",
+      "__typename" : "ExpenseNotification"
+    }, {
+      "id" : "15",
+      "createdAt" : "2020-07-13T10:30:46.366859+02:00[Europe/Warsaw]",
+      "isRead" : false,
+      "event" : "DELETION",
+      "type" : "PARTY_REQUEST",
+      "actor" : {
+        "id" : "0",
+        "name" : "actor",
+        "__typename" : "UserType"
+      },
+      "receiver" : {
+        "id" : "0",
+        "name" : "receiver",
+        "__typename" : "UserType"
+      },
+      "partyId" : "33",
+      "__typename" : "PartyRequestNotification"
+    }, {
+      "id" : "16",
+      "createdAt" : "2020-07-13T10:30:46.366877+02:00[Europe/Warsaw]",
+      "isRead" : true,
+      "event" : "ACCEPTED",
+      "type" : "PARTY_REQUEST",
+      "actor" : {
+        "id" : "0",
+        "name" : "actor",
+        "__typename" : "UserType"
+      },
+      "receiver" : {
+        "id" : "0",
+        "name" : "receiver",
+        "__typename" : "UserType"
+      },
+      "partyId" : "33",
+      "__typename" : "PartyRequestNotification"
+    } ]
+  }
+}
