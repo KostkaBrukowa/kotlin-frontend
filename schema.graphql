@@ -15,6 +15,7 @@ interface NotificationType {
     event: NotificationEvent!
     id: ID!
     isRead: Boolean!
+    objectName: String
     receiver: UserType
     type: NotificationTypeEnum!
 }
@@ -49,6 +50,7 @@ type ExpenseNotification implements NotificationType {
     expenseId: String!
     id: ID!
     isRead: Boolean!
+    objectName: String
     receiver: UserType
     type: NotificationTypeEnum!
 }
@@ -86,6 +88,8 @@ type Mutation {
     deleteParty(id: String!): Boolean!
     "Logs in user and return JWT token as return value"
     logIn(input: UserAuthInput!): UserAuthResponse
+    "Removes the cookie from request"
+    logOut: Boolean!
     markNotificationsAsRead(notificationsIds: [String!]!): Boolean!
     "Registers user and return JWT token as return value"
     refreshToken: UserAuthResponse!
@@ -132,6 +136,7 @@ type PartyRequestNotification implements NotificationType {
     event: NotificationEvent!
     id: ID!
     isRead: Boolean!
+    objectName: String
     partyId: String!
     receiver: UserType
     type: NotificationTypeEnum!
@@ -176,6 +181,7 @@ type PaymentNotification implements NotificationType {
     event: NotificationEvent!
     id: ID!
     isRead: Boolean!
+    objectName: String
     paymentId: String!
     receiver: UserType
     type: NotificationTypeEnum!

@@ -11,7 +11,7 @@ import {
   useSignUpUserMutation,
 } from '../../generated/graphql';
 import { LoginProps } from './Login';
-import { eventsRoute, expensesRoute } from '../navigation/routerConstants';
+import { expensesRoute } from '../navigation/routerConstants';
 
 export enum FormFields {
   login = 'login',

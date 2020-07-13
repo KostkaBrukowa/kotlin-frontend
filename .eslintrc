@@ -28,6 +28,11 @@
   },
   "plugins": ["@typescript-eslint", "cypress"],
   "rules": {
+    "@typescript-eslint/no-use-before-define": "off",
+    "no-use-before-define": "off",
+    "operator-linebreak": "off",
+    "indent": "off",
+    "no-nested-ternary": "off",
     "function-paren-newline": "off",
     "no-confusing-arrow": "off",
     "global-require": "off",

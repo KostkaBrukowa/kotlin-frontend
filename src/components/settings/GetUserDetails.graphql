@@ -1,0 +1,8 @@
+query GetUserDetails ($userId: String!) {
+    getUser(id: $userId){
+        id
+        name
+        bankAccount
+        email
+    }
+}

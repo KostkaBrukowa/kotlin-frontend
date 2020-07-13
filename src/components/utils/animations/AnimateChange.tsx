@@ -1,6 +1,5 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { animated, useTransition } from 'react-spring';
-import clsx from 'clsx';
 
 export interface ChangeElementProps {
   firstElement: ReactNode;

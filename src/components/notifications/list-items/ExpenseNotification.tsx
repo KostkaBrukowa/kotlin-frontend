@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { GiWallet } from 'react-icons/all';
 import { navigate } from '@reach/router';
 import { NotificationExpenseModel } from '../../mappers/notifications/NotificationMapperTypes';
 import { ListItem } from './ListItem';
 import { expensesRoute } from '../../navigation/routerConstants';
-import { UserContext } from '../../config/UserProvider';
 import { NotificationEvent } from '../../../generated/graphql';
 
 export interface ExpenseNotificationProps {

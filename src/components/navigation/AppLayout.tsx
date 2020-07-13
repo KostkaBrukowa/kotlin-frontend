@@ -50,7 +50,7 @@ export const AppLayout: React.FC = () => {
                 <Expenses path={expensesRoute} />
                 <NewExpense path={newExpenseRoute} />
                 <Notifications path={notificationsRoute} />
-                <Settings path={settingsRoute} />
+                <Settings path={settingsRoute} setAuthData={setAuthData} />
               </Router>
             </main>
             {tokenPresent && <Toolbar />}

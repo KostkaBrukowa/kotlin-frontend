@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Dropdown, Menu } from 'antd';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import { ClickParam } from 'antd/es/menu';
 import clsx from 'clsx';
+import { MenuClickEventHandler } from 'rc-menu/lib/interface';
 import { stopPropagation } from '../../utils/functions/utilFunctions';
 import style from '../Notifications.module.less';
 
@@ -13,8 +13,8 @@ interface ListItemDropdownActionProps {
 }
 
 export const ListItemDropdownAction: React.FC<ListItemDropdownActionProps> = ({ onRemove }) => {
-  const handleDeleteMenuItemClick = (e: ClickParam) => {
-    e.domEvent.stopPropagation();
+  const handleDeleteMenuItemClick: MenuClickEventHandler = (info) => {
+    info.domEvent.stopPropagation();
     onRemove();
   };
 

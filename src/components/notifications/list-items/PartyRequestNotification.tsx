@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { BsFillEnvelopeFill } from 'react-icons/all';
 import { navigate } from '@reach/router';
 import { NotificationPartyRequestModel } from '../../mappers/notifications/NotificationMapperTypes';
 import { ListItem } from './ListItem';
 import { eventsRoute } from '../../navigation/routerConstants';
 import { NotificationEvent } from '../../../generated/graphql';
-import { UserContext } from '../../config/UserProvider';
 
 export interface PartyRequestNotificationProps {
   notificationModel: NotificationPartyRequestModel;
