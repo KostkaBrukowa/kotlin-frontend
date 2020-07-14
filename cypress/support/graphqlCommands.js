@@ -8,9 +8,9 @@ export const expectQueryName = (queryName) => {
   });
 };
 
-export const waitAndExpectQueryName = (queryName) => {
-  cy.wait('@graphql');
-  cy.get('@graphql').should((xhr) => {
+export const waitAndExpectQueryName = (queryName, routeAlias = '@graphql') => {
+  cy.wait(routeAlias);
+  cy.get(routeAlias).should((xhr) => {
     expect(xhr.request.body.query).to.contain(queryName);
   });
 };

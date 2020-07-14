@@ -39,6 +39,7 @@ export const OwsSection: React.FC<OwsSectionProps> = ({ amount, type }) => {
   return (
     <div
       className={clsx(`data-cy-ows-${type}`, className, { [style.owsActive]: active })}
+      tabIndex={0}
       onClick={handleClick}
     >
       {icon}

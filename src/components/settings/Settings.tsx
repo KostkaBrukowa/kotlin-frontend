@@ -20,7 +20,11 @@ export const Settings: React.FC<SettingsProps> = ({ setAuthData }) => {
   const [userDetailsTypeToEdit, setUserDetailsTypeToEdit] = useState(UserDetailsFormFields.name);
 
   if (loading) {
-    return <Spin />;
+    return (
+      <div className={style.spin}>
+        <Spin />
+      </div>
+    );
   }
 
   if (!userData?.getUser) {

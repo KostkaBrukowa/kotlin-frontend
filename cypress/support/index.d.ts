@@ -30,12 +30,13 @@ declare namespace Cypress {
 
     login(): null;
     register(): null;
+    enterAnApp(): null;
 
     graphqlSpy(): null;
     gqlRoute(options?: Partial<RouteOptions>): Chainable<null>;
     gqlRoute(fixture: string): Chainable<null>;
     expectQueryName(queryName: string): null;
-    waitAndExpectQueryName(queryName: string): null;
+    waitAndExpectQueryName(queryName: string, routeAlias: string = '@graphql'): null;
 
     matchImageSnapshot(options?: string | SnapshotOptions): Chainable<Element>;
     matchImageSnapshot(name: string, options: SnapshotOptions): Chainable<Element>;

@@ -1,0 +1,11 @@
+{
+  "data" : {
+    "getUser" : {
+      "id" : "1",
+      "name" : "persistent user test name",
+      "bankAccount" : "3921321938",
+      "email" : "admin@gmail.com",
+      "__typename" : "UserType"
+    }
+  }
+}

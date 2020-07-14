@@ -23,11 +23,12 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
-import { login, register } from './loginCommands';
+import { enterAnApp, login, register } from './loginCommands';
 import { expectQueryName, gqlRoute, graphqlSpy, waitAndExpectQueryName } from './graphqlCommands';
 
 Cypress.Commands.add('register', register);
 Cypress.Commands.add('login', login);
+Cypress.Commands.add('enterAnApp', enterAnApp);
 
 Cypress.Commands.add('getCy', (value, options) => cy.get(`.data-cy-${value}`, options));
 

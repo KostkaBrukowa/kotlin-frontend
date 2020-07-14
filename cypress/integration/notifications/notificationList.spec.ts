@@ -1,11 +1,6 @@
 describe('', () => {
   beforeEach(() => {
-    cy.server();
-    cy.gqlRoute('fx:refresh').as('refresh');
-    cy.visit('/login');
-    cy.gqlRoute('fx:expenses/expenses').as('expenses');
-    cy.wait('@refresh');
-    cy.wait('@expenses');
+    cy.enterAnApp();
   });
 
   it('should display correct expenses and payment lists', () => {

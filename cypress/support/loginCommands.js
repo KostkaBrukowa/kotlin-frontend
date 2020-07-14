@@ -24,3 +24,12 @@ export const login = () => {
   cy.wait('@graphql');
   cy.url().should('include', '/expenses');
 };
+
+export const enterAnApp = () => {
+  cy.server();
+  cy.gqlRoute('fx:refresh').as('refresh');
+  cy.visit('/login');
+  cy.gqlRoute('fx:expenses/expenses').as('expenses');
+  cy.wait('@refresh');
+  cy.wait('@expenses');
+};
