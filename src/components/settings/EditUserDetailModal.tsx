@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Input, Modal, message } from 'antd';
+import React, { useEffect } from 'react';
+import { Form, Input, message, Modal } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { Optional } from '../utils/types';
 import { fields, UserDetailsFormFields } from './FormFieldsConfig';

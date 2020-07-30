@@ -21,6 +21,7 @@ import { Toolbar } from './Toolbar';
 import { Home } from '../home/Home';
 import { AppHeader } from './AppHeader';
 import { UserProvider } from '../config/UserProvider';
+import { ExpenseView } from '../expenses/expense-view/ExpenseView';
 
 const { Footer } = Layout;
 
@@ -49,6 +50,7 @@ export const AppLayout: React.FC = () => {
                 <Events path={eventsRoute} />
                 <Expenses path={expensesRoute} />
                 <NewExpense path={newExpenseRoute} />
+                <ExpenseView path={`${expensesRoute}/:expenseId`} />
                 <Notifications path={notificationsRoute} />
                 <Settings path={settingsRoute} setAuthData={setAuthData} />
               </Router>

@@ -1,19 +1,11 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { useGetUserDetailsLazyQuery } from '../../generated/graphql';
 import { UserContext } from '../config/UserProvider';
-import { useDelayedLoading } from '../utils/hooks/useDelayedLoading';
+import { useRemoteData } from '../utils/hooks/useRemoteData';
 
 export const useUserDetails = () => {
   const { userId } = useContext(UserContext);
-  const [getUserData, { data, loading, called }] = useGetUserDetailsLazyQuery();
-  const delayedLoading = useDelayedLoading({ loading: loading || !called });
+  const query = useGetUserDetailsLazyQuery();
 
-  useEffect(() => {
-    if (userId !== null) getUserData({ variables: { userId } });
-  }, [userId, getUserData]);
-
-  return {
-    userData: data,
-    loading: delayedLoading,
-  };
+  return useRemoteData(query, query[1].data?.getUser, { userId: userId ?? undefined });
 };

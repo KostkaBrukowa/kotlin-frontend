@@ -2,14 +2,18 @@ import React from 'react';
 import { Avatar, Card, Tooltip } from 'antd';
 import Meta from 'antd/es/card/Meta';
 import clsx from 'clsx';
+import { navigate } from '@reach/router';
 import style from './ExpenseList.module.less';
 import { ExpenseStatus, PaymentStatus } from '../../../generated/graphql';
 import { currency } from '../../utils/constants/currency';
 import { OwsType } from '../../app-context/AppContext';
 import { getTooltipProps } from '../../enum-renderers/expenseTooltipRenderer';
 import { stopPropagation } from '../../utils/functions/utilFunctions';
+import { expensesRoute } from '../../navigation/routerConstants';
+import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
 
 export interface ExpenseItemCardProps {
+  id: string;
   name: string;
   amount: number | null;
   description: string;
@@ -23,6 +27,7 @@ export const ExpenseItemCard: React.FC<ExpenseItemCardProps> = ({
   amount,
   status,
   owsType,
+  id,
 }) => {
   const tooltipProps = getTooltipProps(owsType, status);
   const TooltipTitle = () => (
@@ -34,9 +39,14 @@ export const ExpenseItemCard: React.FC<ExpenseItemCardProps> = ({
   });
 
   return (
-    <Card bordered hoverable className={style.card} onClick={() => console.log('tsratars')}>
+    <Card
+      bordered
+      hoverable
+      className={style.card}
+      onClick={() => navigate(`${expensesRoute}/${id}`)}
+    >
       <Meta
-        avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+        avatar={<IdenticonAvatar id={id} size={20} />}
         description={description}
         title={
           <div className={style.titleWrapper}>

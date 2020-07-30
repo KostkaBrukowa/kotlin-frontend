@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
-import { Form, Spin } from 'antd';
+import { Form } from 'antd';
 import style from './Settings.module.less';
 import { useUserDetails } from './useUserDetails';
 import { AuthData } from '../config/authentication/useAuthentication';
@@ -15,21 +15,11 @@ export interface SettingsProps extends RouteComponentProps {
 }
 
 export const Settings: React.FC<SettingsProps> = ({ setAuthData }) => {
-  const { userData, loading } = useUserDetails();
+  const { extractedData: user, dataComponent } = useUserDetails();
   const [modalVisible, setModalVisible] = useState(false);
   const [userDetailsTypeToEdit, setUserDetailsTypeToEdit] = useState(UserDetailsFormFields.name);
 
-  if (loading) {
-    return (
-      <div className={style.spin}>
-        <Spin />
-      </div>
-    );
-  }
-
-  if (!userData?.getUser) {
-    return null;
-  }
+  if (dataComponent !== null) return dataComponent ?? null;
 
   const onEditButtonClick = (field: UserDetailsFormFields) => {
     setUserDetailsTypeToEdit(field);
@@ -37,9 +27,9 @@ export const Settings: React.FC<SettingsProps> = ({ setAuthData }) => {
   };
 
   const currentValues: Record<UserDetailsFormFields, Optional<string>> = {
-    [UserDetailsFormFields.name]: userData.getUser.name,
-    [UserDetailsFormFields.bankAccount]: userData.getUser.bankAccount,
-    [UserDetailsFormFields.email]: userData.getUser.email,
+    [UserDetailsFormFields.name]: user?.name,
+    [UserDetailsFormFields.bankAccount]: user?.bankAccount,
+    [UserDetailsFormFields.email]: user?.email,
   };
 
   return (

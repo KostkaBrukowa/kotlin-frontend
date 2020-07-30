@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -30,16 +26,9 @@
         }
       }
     ],
-    "types": [
-      "cypress",
-      "react/experimental"
-    ],
+//    "types": ["cypress" ,"@testing-library/react", "node", "jest", "@testing-library/jest-dom"],
+    "types": ["@testing-library/react", "node", "jest", "@testing-library/jest-dom"],
     "isolatedModules": true
   },
-  "include": [
-    "src",
-    "src/react-app-env.d.ts",
-    "cypress/**/*.ts",
-    "@testing-library/react"
-  ]
+  "include": ["src", "src/react-app-env.d.ts", "cypress/**/*.ts", "@testing-library/react", "@testing-library/jest-dom"]
 }

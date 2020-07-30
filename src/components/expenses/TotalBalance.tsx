@@ -17,7 +17,7 @@ export const TotalBalance: React.FC<TotalBalanceProps> = (props) => {
   return (
     <div className={style.wrapper}>
       <h3 className={style.header}>
-        Calkowity bilans: <AnimatedNumber amount={owsUserAmount - userOwsAmount} /> {currency}
+        Całkowity bilans: <AnimatedNumber amount={owsUserAmount - userOwsAmount} /> {currency}
         {loading && <Spin className={style.spin} />}
       </h3>
 

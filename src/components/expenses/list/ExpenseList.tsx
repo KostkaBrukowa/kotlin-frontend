@@ -37,6 +37,7 @@ export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, loading, sho
         <ExpenseItemCard
           amount={amount}
           description={description}
+          id={id}
           key={id}
           name={name}
           owsType={OwsType.OWS_USER}

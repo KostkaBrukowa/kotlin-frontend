@@ -1,0 +1,65 @@
+@iconWidth: 40px;
+.wrapper {
+  padding: 1rem 1.5rem;
+}
+
+.backIcon {
+  font-size: 1rem;
+}
+
+.headerWrapper {
+  display: flex;
+}
+
+.mainInfoWrapper {
+  flex-grow: 1;
+  margin-right: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.description {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-column-gap: 1rem;
+  margin-top: 2rem;
+}
+
+.descriptionLabel {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.5715;
+  text-align: start;
+}
+
+.participantsWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  justify-items: center;
+  align-items: center;
+  grid-gap: 1rem;
+}
+
+.participantWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.paymentsList {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+}
+
+.receiptIcon {
+  margin-right: 1rem;
+}
+

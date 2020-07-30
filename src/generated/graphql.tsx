@@ -1,7 +1,6 @@
 import gql from 'graphql-tag';
 import * as ApolloReactCommon from '@apollo/client';
 import * as ApolloReactHooks from '@apollo/client';
-
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -596,6 +595,19 @@ export type GetUserExpensesQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type SingleExpenseQueryVariables = Exact<{
+  expenseId: Scalars['String'];
+}>;
+
+export type SingleExpenseQuery = { __typename?: 'Query' } & {
+  getSingleExpense?: Maybe<
+    { __typename?: 'ExpenseType' } & Pick<
+      ExpenseType,
+      'id' | 'name' | 'description' | 'expenseDate' | 'amount' | 'expenseStatus'
+    > & { expensePayer: { __typename?: 'UserType' } & Pick<UserType, 'id' | 'name'> }
+  >;
+};
+
 export type LoginUserMutationVariables = Exact<{
   input: UserAuthInput;
 }>;
@@ -831,6 +843,64 @@ export type GetUserExpensesLazyQueryHookResult = ReturnType<typeof useGetUserExp
 export type GetUserExpensesQueryResult = ApolloReactCommon.QueryResult<
   GetUserExpensesQuery,
   GetUserExpensesQueryVariables
+>;
+export const SingleExpenseDocument = gql`
+  query SingleExpense($expenseId: String!) {
+    getSingleExpense(expenseId: $expenseId) {
+      id
+      name
+      description
+      expenseDate
+      amount
+      expenseStatus
+      expensePayer {
+        id
+        name
+      }
+    }
+  }
+`;
+
+/**
+ * __useSingleExpenseQuery__
+ *
+ * To run a query within a React component, call `useSingleExpenseQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSingleExpenseQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSingleExpenseQuery({
+ *   variables: {
+ *      expenseId: // value for 'expenseId'
+ *   },
+ * });
+ */
+export function useSingleExpenseQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<SingleExpenseQuery, SingleExpenseQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<SingleExpenseQuery, SingleExpenseQueryVariables>(
+    SingleExpenseDocument,
+    baseOptions,
+  );
+}
+export function useSingleExpenseLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    SingleExpenseQuery,
+    SingleExpenseQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<SingleExpenseQuery, SingleExpenseQueryVariables>(
+    SingleExpenseDocument,
+    baseOptions,
+  );
+}
+export type SingleExpenseQueryHookResult = ReturnType<typeof useSingleExpenseQuery>;
+export type SingleExpenseLazyQueryHookResult = ReturnType<typeof useSingleExpenseLazyQuery>;
+export type SingleExpenseQueryResult = ApolloReactCommon.QueryResult<
+  SingleExpenseQuery,
+  SingleExpenseQueryVariables
 >;
 export const LoginUserDocument = gql`
   mutation LoginUser($input: UserAuthInput!) {

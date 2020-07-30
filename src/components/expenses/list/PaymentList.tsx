@@ -43,6 +43,7 @@ export const PaymentList: React.FC<PaymentListProps> = ({ payments, loading, sho
         <ExpenseItemCard
           amount={amount ?? null}
           description={description}
+          id={id}
           key={id}
           name={name}
           owsType={OwsType.USER_OWS}

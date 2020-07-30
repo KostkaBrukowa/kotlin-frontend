@@ -1,0 +1,14 @@
+query SingleExpense($expenseId: String!) {
+    getSingleExpense(expenseId: $expenseId)  {
+        id
+        name
+        description
+        expenseDate
+        amount
+        expenseStatus
+        expensePayer {
+            id
+            name
+        }
+    }
+}
