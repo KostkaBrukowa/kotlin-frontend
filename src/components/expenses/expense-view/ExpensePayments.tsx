@@ -9,6 +9,7 @@ import { UserContext } from '../../config/UserProvider';
 import { renderPaymentStatus } from '../../enum-renderers/paymentStatusRenderer';
 import { currency } from '../../utils/constants/currency';
 import { stopPropagation } from '../../utils/functions/utilFunctions';
+import { paymentsRoute } from '../../navigation/routerConstants';
 
 export interface ExpensePaymentProps {
   payment: ExpensePaymentsProps['payments'][0];
@@ -23,11 +24,11 @@ const ListItem = ({ payment, userId }: ExpensePaymentProps) => {
   const { id, paymentPayer, amount, status } = payment;
   const amountValue = amount !== null ? `${amount} ${currency}` : null;
 
-  const handleListItemClick = () => navigate(`/payments/${id}`);
+  const handleListItemClick = () => navigate(`${paymentsRoute}/${id}`);
   const handlePayButtonClick = (e: MouseEvent<HTMLElement>) => {
     stopPropagation(e);
 
-    return navigate(`/payments/${id}/pay`);
+    return navigate(`${paymentsRoute}/${id}/pay`);
   };
 
   return (

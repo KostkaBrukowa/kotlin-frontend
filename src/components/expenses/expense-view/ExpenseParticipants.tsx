@@ -17,6 +17,7 @@ export const ExpenseParticipants: React.FC<ExpenseParticipantsProps> = ({ paymen
     {payments.map(({ paymentPayer }) => (
       <div
         className={participantWrapperClassName}
+        key={paymentPayer.id}
         onClick={() => navigate(`/users/${paymentPayer.id}`)}
       >
         <IdenticonAvatar id={paymentPayer.id} size={20} />

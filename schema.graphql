@@ -191,7 +191,7 @@ type PaymentType implements GQLResponseType {
     amount: Float
     confirmImageUrl: String
     id: ID!
-    paymentExpense: Expense!
+    paymentExpense: ExpenseType!
     paymentMessages: [MessageResponseType!]!
     paymentPayer: UserType!
     status: PaymentStatus!

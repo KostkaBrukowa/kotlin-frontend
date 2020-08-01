@@ -4,7 +4,7 @@
 .wrapper {
   min-width: 100%;
   max-width: 100%;
-  padding-bottom: @toolbarHeight;
+  height: 100vh;
 }
 
 .logo {
@@ -27,7 +27,9 @@
 .mainWrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding-bottom: @toolbarHeight;
+  height: calc(100% - @toolbarHeight);
+  overflow: auto;
 }
 
 .imageWithHeader {

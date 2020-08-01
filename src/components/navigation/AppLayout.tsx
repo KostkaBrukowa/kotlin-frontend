@@ -14,6 +14,7 @@ import {
   loginRoute,
   newExpenseRoute,
   notificationsRoute,
+  paymentsRoute,
   settingsRoute,
 } from './routerConstants';
 import { useAuthentication } from '../config/authentication/useAuthentication';
@@ -22,6 +23,8 @@ import { Home } from '../home/Home';
 import { AppHeader } from './AppHeader';
 import { UserProvider } from '../config/UserProvider';
 import { ExpenseView } from '../expenses/expense-view/ExpenseView';
+import { PaymentView } from '../expenses/payment-view/PaymentView';
+import { ResourceNotFound } from '../utils/not-found/ResourceNotFound';
 
 export const AppLayout: React.FC = () => {
   const {
@@ -49,8 +52,10 @@ export const AppLayout: React.FC = () => {
                 <Expenses path={expensesRoute} />
                 <NewExpense path={newExpenseRoute} />
                 <ExpenseView path={`${expensesRoute}/:expenseId`} />
+                <PaymentView path={`${paymentsRoute}/:paymentId`} />
                 <Notifications path={notificationsRoute} />
                 <Settings path={settingsRoute} setAuthData={setAuthData} />
+                <ResourceNotFound default />
               </Router>
             </main>
             {tokenPresent && <Toolbar />}

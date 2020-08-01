@@ -1,0 +1,10 @@
+fragment MessageDetails on MessageResponseType {
+    id
+    sendDate
+    text
+
+    messageSender {
+        id
+        name
+    }
+}

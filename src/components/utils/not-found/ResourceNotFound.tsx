@@ -1,16 +1,18 @@
 import React from 'react';
 import { Button, Empty } from 'antd';
-import { navigate } from '@reach/router';
+import { navigate, RouteComponentProps } from '@reach/router';
 import { AiOutlineArrowLeft } from 'react-icons/all';
 import style from './ExpenseNotFound.module.less';
 
-export const ResourceNotFound: React.FC = () => (
+export type ResourceNotFoundProps = RouteComponentProps;
+
+export const ResourceNotFound: React.FC<ResourceNotFoundProps> = () => (
   <Empty
     className={style.empty}
     description={
       <span>
         Ups... Chyba zabłądziłeś.
-        <br /> Taki zasób nie istnieje.
+        <br /> Taka strona nie istnieje.
       </span>
     }
     imageStyle={{

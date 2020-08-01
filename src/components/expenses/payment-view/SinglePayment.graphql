@@ -1,0 +1,26 @@
+query SinglePayment($paymentId: String!) {
+    getSinglePayment(paymentId: $paymentId)  {
+        id
+        amount
+        status
+
+        paymentMessages {
+            ...MessageDetails
+        }
+
+        paymentExpense {
+            id
+            name
+
+            expensePayer {
+                id
+                name
+            }
+        }
+
+        paymentPayer {
+            id
+            name
+        }
+    }
+}
