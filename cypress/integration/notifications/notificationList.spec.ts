@@ -1,9 +1,9 @@
-describe('', () => {
+describe('notifications test', () => {
   beforeEach(() => {
     cy.enterAnApp();
   });
 
-  it('should display correct expenses and payment lists', () => {
+  it('should display correct notifications list', () => {
     cy.gqlRoute('fx:notifications/notificationList').as('notifications');
     cy.getCy('toolbar').contains('Aktywność').click();
     cy.wait('@notifications');
@@ -13,6 +13,7 @@ describe('', () => {
 
     cy.contains('Usuń powiadomienie').should('be.visible').click();
 
+    cy.gqlRoute('fx:expenses/singleExpense');
     cy.get('.ant-list-items > :nth-child(1)').click();
     cy.url().should('contain', 'expenses');
 

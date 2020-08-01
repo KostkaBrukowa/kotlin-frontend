@@ -1,6 +1,6 @@
 import { JWT_TOKEN_EXPIRY_TIME } from '../../src/components/config/authentication/useAuthentication';
 
-describe('login test', () => {
+describe.skip('login test', () => {
   before(() => {
     cy.exec('yarn db:clear');
   });

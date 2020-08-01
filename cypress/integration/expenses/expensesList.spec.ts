@@ -43,9 +43,11 @@ describe('expenses test', () => {
 
     changeToUserOwsTab();
 
-    cy.getCy('show-finished input[type=checkbox]').should('be.enabled');
+    cy.getCy('show-finished input[type=checkbox]').should('be.checked');
     cy.get('.ant-card-body').should('have.length', 6);
 
+    cy.wait(500);
+    cy.getCy('show-finished').click();
     cy.getCy('show-finished').click();
     cy.getCy('show-finished input[type=checkbox]').should('not.be.checked');
   });

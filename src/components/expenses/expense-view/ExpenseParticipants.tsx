@@ -1,9 +1,12 @@
 import React from 'react';
 import { navigate } from '@reach/router';
+import clsx from 'clsx';
 import style from './ExpenseView.module.less';
 import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
 import { NotOptional } from '../../utils/types';
 import { ExpenseQueryType } from './useSingleExpenseQuery';
+
+const participantWrapperClassName = clsx(style.participantWrapper, 'data-cy-participant-wrapper');
 
 export interface ExpenseParticipantsProps {
   payments: NotOptional<ExpenseQueryType>['expensePayments'];
@@ -13,7 +16,7 @@ export const ExpenseParticipants: React.FC<ExpenseParticipantsProps> = ({ paymen
   <div className={style.participantsWrapper}>
     {payments.map(({ paymentPayer }) => (
       <div
-        className={style.participantWrapper}
+        className={participantWrapperClassName}
         onClick={() => navigate(`/users/${paymentPayer.id}`)}
       >
         <IdenticonAvatar id={paymentPayer.id} size={20} />

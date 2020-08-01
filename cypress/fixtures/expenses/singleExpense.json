@@ -1,0 +1,49 @@
+{
+  "data" : {
+    "getSingleExpense" : {
+      "id" : "14",
+      "name" : "Test name",
+      "description" : "I bought a booze",
+      "expenseDate" : "2020-07-31T11:06:15.414198+02:00[Europe/Warsaw]",
+      "amount" : 42.42,
+      "expenseStatus" : "IN_PROGRESS_REQUESTING",
+      "expensePayer" : {
+        "id" : "1",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      },
+      "expensePayments" : [ {
+        "id" : "15",
+        "amount" : null,
+        "status" : "IN_PROGRESS",
+        "paymentPayer" : {
+          "id" : "4",
+          "name" : "persistent user test name",
+          "__typename" : "UserType"
+        },
+        "__typename" : "PaymentType"
+      }, {
+        "id" : "16",
+        "amount" : null,
+        "status" : "IN_PROGRESS",
+        "paymentPayer" : {
+          "id" : "5",
+          "name" : "persistent user",
+          "__typename" : "UserType"
+        },
+        "__typename" : "PaymentType"
+      }, {
+        "id" : "17",
+        "amount" : null,
+        "status" : "ACCEPTED",
+        "paymentPayer" : {
+          "id" : "1",
+          "name" : "jarek",
+          "__typename" : "UserType"
+        },
+        "__typename" : "PaymentType"
+      } ],
+      "__typename" : "ExpenseType"
+    }
+  }
+}

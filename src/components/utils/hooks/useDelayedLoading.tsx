@@ -4,7 +4,7 @@ interface UseDelayedLoadingProps {
   loading: boolean;
 }
 
-const LOADING_DELAY = 1000;
+const LOADING_DELAY = 650;
 
 export const useDelayedLoading = (props: UseDelayedLoadingProps) => {
   const { loading } = props;

@@ -5,7 +5,7 @@ describe('', () => {
     cy.enterAnApp();
   });
 
-  it('should display correct expenses and payment lists', () => {
+  it('should display correct events list', () => {
     cy.gqlRoute('fx:events/events-list').as('events');
     cy.getCy('toolbar').contains('Wydarzenia').click();
     cy.wait('@events');
