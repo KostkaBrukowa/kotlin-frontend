@@ -23,21 +23,21 @@ export type ExpenseViewProps = RouteComponentProps<RouteParams>;
 export const ExpenseView: React.FC<ExpenseViewProps> = ({ expenseId }) => {
   const { dataComponent, extractedData: expense } = useSingleExpense(expenseId);
 
-  if (dataComponent !== null) return dataComponent ?? null;
+  if (dataComponent !== null || !expense) return dataComponent ?? null;
 
   return (
     <>
-      <ExpenseDetails expense={expense!} />
+      <ExpenseDetails expense={expense} />
       <Collapse
         bordered={false}
         defaultActiveKey={[CollapsableKeys.PAYMENTS]}
         expandIcon={renderCollapsableArrow}
       >
         <Collapse.Panel header="Płatności" key={CollapsableKeys.PAYMENTS}>
-          <ExpensePayments />
+          <ExpensePayments payments={expense.expensePayments} />
         </Collapse.Panel>
         <Collapse.Panel header="Uczestnicy" key={CollapsableKeys.PARTICIPANTS}>
-          <ExpenseParticipants />
+          <ExpenseParticipants payments={expense.expensePayments} />
         </Collapse.Panel>
         <Collapse.Panel header="Wiadomości" key={CollapsableKeys.MESSAGES}>
           <ExpenseMessages />

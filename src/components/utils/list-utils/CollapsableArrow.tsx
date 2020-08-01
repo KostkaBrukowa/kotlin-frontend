@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { CaretRightOutlined } from '@ant-design/icons/lib';
+import CaretRightOutlined from '@ant-design/icons/CaretRightOutlined';
 
 interface CollapsableArrowProps {
   isActive?: boolean;

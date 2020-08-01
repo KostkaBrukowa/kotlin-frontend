@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import * as ApolloReactCommon from '@apollo/client';
 import * as ApolloReactHooks from '@apollo/client';
+
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -554,103 +555,141 @@ export type UserType = GqlResponseType & {
 
 export type RefreshTokenMutationVariables = Exact<{ [key: string]: never }>;
 
-export type RefreshTokenMutation = { __typename?: 'Mutation' } & {
-  refreshToken: { __typename?: 'UserAuthResponse' } & Pick<UserAuthResponse, 'token' | 'userId'>;
+export type RefreshTokenMutation = {
+  __typename?: 'Mutation';
+  refreshToken: { __typename?: 'UserAuthResponse'; token: string; userId: string };
 };
 
 export type GetUserPartiesQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
 
-export type GetUserPartiesQuery = { __typename?: 'Query' } & {
-  getAllParties: Array<
-    { __typename?: 'PartyType' } & Pick<
-      PartyType,
-      'id' | 'name' | 'description' | 'locationName' | 'type'
-    > & {
-        owner?: Maybe<{ __typename?: 'User' } & Pick<User, 'name'>>;
-        partyParticipants: Array<{ __typename?: 'UserType' } & Pick<UserType, 'id' | 'name'>>;
-      }
-  >;
+export type GetUserPartiesQuery = {
+  __typename?: 'Query';
+  getAllParties: Array<{
+    __typename?: 'PartyType';
+    id: string;
+    name?: Maybe<string>;
+    description?: Maybe<string>;
+    locationName?: Maybe<string>;
+    type: PartyKind;
+    owner?: Maybe<{ __typename?: 'User'; name?: Maybe<string> }>;
+    partyParticipants: Array<{ __typename?: 'UserType'; id: string; name?: Maybe<string> }>;
+  }>;
 };
 
 export type GetUserExpensesQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
 
-export type GetUserExpensesQuery = { __typename?: 'Query' } & {
-  getExpensesForUser: Array<
-    { __typename?: 'ExpenseType' } & Pick<
-      ExpenseType,
-      'id' | 'amount' | 'description' | 'name' | 'expenseStatus'
-    >
-  >;
-  getClientsPayments: Array<
-    { __typename?: 'PaymentType' } & Pick<PaymentType, 'id' | 'amount' | 'status'> & {
-        paymentExpense: { __typename?: 'Expense' } & Pick<
-          Expense,
-          'id' | 'description' | 'name' | 'expenseStatus'
-        >;
-      }
-  >;
+export type GetUserExpensesQuery = {
+  __typename?: 'Query';
+  getExpensesForUser: Array<{
+    __typename?: 'ExpenseType';
+    id: string;
+    amount: number;
+    description: string;
+    name: string;
+    expenseStatus: ExpenseStatus;
+  }>;
+  getClientsPayments: Array<{
+    __typename?: 'PaymentType';
+    id: string;
+    amount?: Maybe<number>;
+    status: PaymentStatus;
+    paymentExpense: {
+      __typename?: 'Expense';
+      id: any;
+      description: string;
+      name: string;
+      expenseStatus: ExpenseStatus;
+    };
+  }>;
 };
 
 export type SingleExpenseQueryVariables = Exact<{
   expenseId: Scalars['String'];
 }>;
 
-export type SingleExpenseQuery = { __typename?: 'Query' } & {
-  getSingleExpense?: Maybe<
-    { __typename?: 'ExpenseType' } & Pick<
-      ExpenseType,
-      'id' | 'name' | 'description' | 'expenseDate' | 'amount' | 'expenseStatus'
-    > & { expensePayer: { __typename?: 'UserType' } & Pick<UserType, 'id' | 'name'> }
-  >;
+export type SingleExpenseQuery = {
+  __typename?: 'Query';
+  getSingleExpense?: Maybe<{
+    __typename?: 'ExpenseType';
+    id: string;
+    name: string;
+    description: string;
+    expenseDate: any;
+    amount: number;
+    expenseStatus: ExpenseStatus;
+    expensePayer: { __typename?: 'UserType'; id: string; name?: Maybe<string> };
+    expensePayments: Array<{
+      __typename?: 'PaymentType';
+      id: string;
+      amount?: Maybe<number>;
+      status: PaymentStatus;
+      paymentPayer: { __typename?: 'UserType'; id: string; name?: Maybe<string> };
+    }>;
+  }>;
 };
 
 export type LoginUserMutationVariables = Exact<{
   input: UserAuthInput;
 }>;
 
-export type LoginUserMutation = { __typename?: 'Mutation' } & {
-  logIn?: Maybe<{ __typename?: 'UserAuthResponse' } & Pick<UserAuthResponse, 'token' | 'userId'>>;
+export type LoginUserMutation = {
+  __typename?: 'Mutation';
+  logIn?: Maybe<{ __typename?: 'UserAuthResponse'; token: string; userId: string }>;
 };
 
 export type SignUpUserMutationVariables = Exact<{
   input: UserAuthInput;
 }>;
 
-export type SignUpUserMutation = { __typename?: 'Mutation' } & {
-  signUp: { __typename?: 'UserAuthResponse' } & Pick<UserAuthResponse, 'token' | 'userId'>;
+export type SignUpUserMutation = {
+  __typename?: 'Mutation';
+  signUp: { __typename?: 'UserAuthResponse'; token: string; userId: string };
 };
 
 export type GetUserNotificationsQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
 
-export type GetUserNotificationsQuery = { __typename?: 'Query' } & {
+export type GetUserNotificationsQuery = {
+  __typename?: 'Query';
   findUserNotifications: Array<
-    | ({ __typename?: 'ExpenseNotification' } & Pick<
-        ExpenseNotification,
-        'expenseId' | 'id' | 'createdAt' | 'isRead' | 'event' | 'type'
-      > & {
-          actor?: Maybe<{ __typename?: 'UserType' } & Pick<UserType, 'id' | 'name'>>;
-          receiver?: Maybe<{ __typename?: 'UserType' } & Pick<UserType, 'id' | 'name'>>;
-        })
-    | ({ __typename?: 'PartyRequestNotification' } & Pick<
-        PartyRequestNotification,
-        'partyId' | 'id' | 'createdAt' | 'isRead' | 'event' | 'type'
-      > & {
-          actor?: Maybe<{ __typename?: 'UserType' } & Pick<UserType, 'id' | 'name'>>;
-          receiver?: Maybe<{ __typename?: 'UserType' } & Pick<UserType, 'id' | 'name'>>;
-        })
-    | ({ __typename?: 'PaymentNotification' } & Pick<
-        PaymentNotification,
-        'paymentId' | 'id' | 'createdAt' | 'isRead' | 'event' | 'type'
-      > & {
-          actor?: Maybe<{ __typename?: 'UserType' } & Pick<UserType, 'id' | 'name'>>;
-          receiver?: Maybe<{ __typename?: 'UserType' } & Pick<UserType, 'id' | 'name'>>;
-        })
+    | {
+        __typename?: 'ExpenseNotification';
+        expenseId: string;
+        id: string;
+        createdAt: any;
+        isRead: boolean;
+        event: NotificationEvent;
+        type: NotificationTypeEnum;
+        actor?: Maybe<{ __typename?: 'UserType'; id: string; name?: Maybe<string> }>;
+        receiver?: Maybe<{ __typename?: 'UserType'; id: string; name?: Maybe<string> }>;
+      }
+    | {
+        __typename?: 'PartyRequestNotification';
+        partyId: string;
+        id: string;
+        createdAt: any;
+        isRead: boolean;
+        event: NotificationEvent;
+        type: NotificationTypeEnum;
+        actor?: Maybe<{ __typename?: 'UserType'; id: string; name?: Maybe<string> }>;
+        receiver?: Maybe<{ __typename?: 'UserType'; id: string; name?: Maybe<string> }>;
+      }
+    | {
+        __typename?: 'PaymentNotification';
+        paymentId: string;
+        id: string;
+        createdAt: any;
+        isRead: boolean;
+        event: NotificationEvent;
+        type: NotificationTypeEnum;
+        actor?: Maybe<{ __typename?: 'UserType'; id: string; name?: Maybe<string> }>;
+        receiver?: Maybe<{ __typename?: 'UserType'; id: string; name?: Maybe<string> }>;
+      }
   >;
 };
 
@@ -658,15 +697,20 @@ export type GetUserDetailsQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
 
-export type GetUserDetailsQuery = { __typename?: 'Query' } & {
-  getUser?: Maybe<
-    { __typename?: 'UserType' } & Pick<UserType, 'id' | 'name' | 'bankAccount' | 'email'>
-  >;
+export type GetUserDetailsQuery = {
+  __typename?: 'Query';
+  getUser?: Maybe<{
+    __typename?: 'UserType';
+    id: string;
+    name?: Maybe<string>;
+    bankAccount?: Maybe<string>;
+    email: string;
+  }>;
 };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never }>;
 
-export type LogoutMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'logOut'>;
+export type LogoutMutation = { __typename?: 'Mutation'; logOut: boolean };
 
 export const RefreshTokenDocument = gql`
   mutation RefreshToken {
@@ -856,6 +900,15 @@ export const SingleExpenseDocument = gql`
       expensePayer {
         id
         name
+      }
+      expensePayments {
+        id
+        amount
+        status
+        paymentPayer {
+          id
+          name
+        }
       }
     }
   }

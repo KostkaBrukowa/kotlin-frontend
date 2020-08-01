@@ -5,7 +5,8 @@ generates:
   src/generated/graphql.tsx:
     plugins:
       - "typescript"
-      - "typescript-operations"
+      - typescript-operations:
+          preResolveTypes: true
       - "typescript-react-apollo"
     config:
       withHooks: true

@@ -23,8 +23,6 @@ import { AppHeader } from './AppHeader';
 import { UserProvider } from '../config/UserProvider';
 import { ExpenseView } from '../expenses/expense-view/ExpenseView';
 
-const { Footer } = Layout;
-
 export const AppLayout: React.FC = () => {
   const {
     initialLoading: refreshingToken,

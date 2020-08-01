@@ -7,11 +7,12 @@ import { expensesRoute } from '../../navigation/routerConstants';
 import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
 import { currency } from '../../utils/constants/currency';
 import { ExpenseInfo } from './ExpenseInfo';
-import { getExpenseTooltipProps } from '../../enum-renderers/expenseStatusRenderer';
+import { renderExpenseStatus } from '../../enum-renderers/expenseStatusRenderer';
 import { ExpenseQueryType } from './useSingleExpenseQuery';
+import { NotOptional } from '../../utils/types';
 
 export interface ExpenseDetailsProps {
-  expense: Exclude<ExpenseQueryType, null | undefined>;
+  expense: NotOptional<ExpenseQueryType>;
 }
 
 const AVATAR_SIZE = 40;
@@ -25,7 +26,7 @@ export const ExpenseDetails: React.FC<ExpenseDetailsProps> = ({ expense }) => (
       </div>
     </div>
     <Row justify="space-between">
-      <Statistic title="Status" value={getExpenseTooltipProps(expense.expenseStatus)} />
+      <Statistic title="Status" value={renderExpenseStatus(expense.expenseStatus)} />
       <Statistic suffix={currency} title="Koszt wydatku" value={expense.amount} />
     </Row>
     <ExpenseInfo expense={expense} />

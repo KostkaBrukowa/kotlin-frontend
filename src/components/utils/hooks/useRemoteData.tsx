@@ -1,6 +1,6 @@
 import { QueryLazyOptions, QueryTuple } from '@apollo/client/react/types/types';
-import React, { ReactElement, ReactNode, useEffect } from 'react';
-import { Alert, Spin } from 'antd';
+import React, { ReactElement } from 'react';
+import { Spin } from 'antd';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import { useDelayedLoading } from './useDelayedLoading';
 import { ResourceNotFound } from '../not-found/ResourceNotFound';

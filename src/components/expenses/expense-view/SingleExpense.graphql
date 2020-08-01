@@ -6,9 +6,20 @@ query SingleExpense($expenseId: String!) {
         expenseDate
         amount
         expenseStatus
+
         expensePayer {
             id
             name
+        }
+
+        expensePayments {
+            id
+            amount
+            status
+            paymentPayer {
+                id
+                name
+            }
         }
     }
 }

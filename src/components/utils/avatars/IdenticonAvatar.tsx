@@ -28,12 +28,12 @@ export const IdenticonAvatar: React.FC<AvatarProps> = ({
   }, [id]);
 
   const effectiveWrapperClassName = clsx(style.wrapper, wrapperClassName);
-  const effectiveIconClassName = clsx(style.icon, className);
+  // const effectiveIconClassName = clsx(style.icon, className);
 
   return (
     <div className={effectiveWrapperClassName} style={{ width: size * 1.5, height: size * 1.5 }}>
       <div
-        className={effectiveIconClassName}
+        className={className}
         style={{ background: encodedAvatarSvg, width: size, height: size }}
       />
     </div>

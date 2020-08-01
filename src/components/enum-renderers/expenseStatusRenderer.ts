@@ -1,6 +1,6 @@
 import { ExpenseStatus } from '../../generated/graphql';
 
-export function getExpenseTooltipProps(status?: ExpenseStatus): string {
+export function renderExpenseStatus(status?: ExpenseStatus): string {
   if (!status) return '';
 
   switch (status) {

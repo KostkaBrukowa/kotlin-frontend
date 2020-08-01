@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Card, Tooltip } from 'antd';
+import { Card, Tooltip } from 'antd';
 import Meta from 'antd/es/card/Meta';
 import clsx from 'clsx';
 import { navigate } from '@reach/router';
