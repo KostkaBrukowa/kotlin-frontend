@@ -1,4 +1,4 @@
-import React, { useContext, MouseEvent } from 'react';
+import React, { MouseEvent, useContext } from 'react';
 import { Button, List } from 'antd';
 import { FaReceipt } from 'react-icons/all';
 import { navigate } from '@reach/router';
@@ -28,7 +28,7 @@ const ListItem = ({ payment, userId }: ExpensePaymentProps) => {
   const handlePayButtonClick = (e: MouseEvent<HTMLElement>) => {
     stopPropagation(e);
 
-    return navigate(`${paymentsRoute}/${id}/pay`);
+    return navigate(`${paymentsRoute}/${id}/makePayment`);
   };
 
   return (

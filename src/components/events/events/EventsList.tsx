@@ -2,11 +2,13 @@ import { Button, Divider, List } from 'antd';
 import React from 'react';
 import { FiMapPin } from 'react-icons/fi';
 import { MdEvent } from 'react-icons/md';
+import { navigate } from '@reach/router';
 import { EventPartyListType } from '../../mappers/events/PartyMapperTypes';
 import { EmptyEventsList } from '../list-utils/EmptyList';
 import style from '../../utils/list-utils/List.module.less';
 import { ListItemMeta } from '../list-utils/ListItemMeta';
 import { stopPropagation } from '../../utils/functions/utilFunctions';
+import { eventsRoute } from '../../navigation/routerConstants';
 
 export interface EventsListProps {
   events?: EventPartyListType[];
@@ -25,7 +27,7 @@ const ListItemFooter: React.FC<{ locationName: string }> = ({ locationName }) =>
 );
 
 const ListItem: React.FC<{ item: EventPartyListType }> = ({ item }) => (
-  <List.Item className={style.listItem}>
+  <List.Item className={style.listItem} onClick={() => navigate(`${eventsRoute}/${item.id}`)}>
     <ListItemMeta
       icon={<MdEvent className={style.avatar} />}
       name={item.name}

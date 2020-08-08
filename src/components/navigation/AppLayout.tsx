@@ -25,6 +25,7 @@ import { UserProvider } from '../config/UserProvider';
 import { ExpenseView } from '../expenses/expense-view/ExpenseView';
 import { PaymentView } from '../expenses/payment-view/PaymentView';
 import { ResourceNotFound } from '../utils/not-found/ResourceNotFound';
+import { EventView } from '../events/events/EventView';
 
 export const AppLayout: React.FC = () => {
   const {
@@ -49,10 +50,11 @@ export const AppLayout: React.FC = () => {
                   tokenPresent={tokenPresent}
                 />
                 <Events path={eventsRoute} />
+                <EventView path={`${eventsRoute}/:eventId/*`} />
                 <Expenses path={expensesRoute} />
                 <NewExpense path={newExpenseRoute} />
                 <ExpenseView path={`${expensesRoute}/:expenseId`} />
-                <PaymentView path={`${paymentsRoute}/:paymentId`} />
+                <PaymentView path={`${paymentsRoute}/:paymentId/*`} />
                 <Notifications path={notificationsRoute} />
                 <Settings path={settingsRoute} setAuthData={setAuthData} />
                 <ResourceNotFound default />

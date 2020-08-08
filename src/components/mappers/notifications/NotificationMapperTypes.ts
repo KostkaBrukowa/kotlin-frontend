@@ -11,7 +11,7 @@ import {
 
 export type NotificationResponseListType = GetUserNotificationsQuery['findUserNotifications'];
 
-type NotificationUser = Maybe<{ __typename?: 'UserType' } & Pick<UserType, 'id' | 'name'>>;
+export type NotificationUser = Maybe<{ __typename?: 'UserType' } & Pick<UserType, 'id' | 'name'>>;
 
 export type NotificationExpenseType = { __typename?: 'ExpenseNotification' } & Pick<
   ExpenseNotification,

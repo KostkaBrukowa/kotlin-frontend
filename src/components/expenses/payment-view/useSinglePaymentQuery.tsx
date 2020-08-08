@@ -1,7 +1,11 @@
-import { SingleExpenseQuery, useSinglePaymentLazyQuery } from '../../../generated/graphql';
+import {
+  SingleExpenseQuery,
+  SinglePaymentQuery,
+  useSinglePaymentLazyQuery,
+} from '../../../generated/graphql';
 import { useRemoteData } from '../../utils/hooks/useRemoteData';
 
-export type PaymentQueryType = SingleExpenseQuery['getSingleExpense'];
+export type PaymentQueryType = SinglePaymentQuery['getSinglePayment'];
 
 export const useSinglePayment = (paymentId?: string) => {
   const query = useSinglePaymentLazyQuery();
