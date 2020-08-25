@@ -21,7 +21,7 @@ export const EventView: React.FC<EventViewProps> = ({ eventId }) => {
   return (
     <div>
       <EventMap x="1" />
-      <div>
+      <div className={style.infoWrapper}>
         <h2>{capitalize(event.name)}</h2>
       </div>
     </div>
