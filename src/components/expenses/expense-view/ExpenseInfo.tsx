@@ -1,33 +1,23 @@
 import React from 'react';
 
+import { Info, ViewDescription } from '../../utils/components/ViewDescription';
 import { dateFrom, formatDate } from '../../utils/functions/date';
+import { NotOptional } from '../../utils/types';
 import { ExpenseQueryType } from './useSingleExpenseQuery';
 
 import style from './ExpenseView.module.less';
 
-export interface InfoProps {
-  title: string;
-  description?: string | null;
-}
-
 export interface ExpenseInfoProps {
-  expense: Exclude<ExpenseQueryType, null | undefined>;
+  expense: NotOptional<ExpenseQueryType>;
 }
-
-export const Info: React.FC<InfoProps> = ({ title, description }) => (
-  <>
-    <p className={style.descriptionLabel}>{title}</p>
-    <p>{description}</p>
-  </>
-);
 
 export const ExpenseInfo: React.FC<ExpenseInfoProps> = ({ expense }) => (
   <>
-    <div className={style.description}>
+    <ViewDescription>
       <Info description={expense.name} title="Nazwa" />
       <Info description={expense.expensePayer.name} title="Założyciel:" />
       <Info description={formatDate(dateFrom(expense.expenseDate))} title="Data założenia:" />
       <Info description={expense.description} title="Opis:" />
-    </div>
+    </ViewDescription>
   </>
 );

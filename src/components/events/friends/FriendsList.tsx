@@ -7,7 +7,7 @@ import { FriendsPartyListType } from '../../mappers/events/PartyMapperTypes';
 import { EmptyEventsList } from '../list-utils/EmptyList';
 import { getFriendCountText } from '../list-utils/OtherParticipants';
 
-import style from '../../utils/list-utils/List.module.less';
+import style from '../../utils/components/List.module.less';
 
 export interface FriendsListProps {
   events?: FriendsPartyListType[];

@@ -21,7 +21,7 @@ export const Settings: React.FC<SettingsProps> = ({ setAuthData }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [userDetailsTypeToEdit, setUserDetailsTypeToEdit] = useState(UserDetailsFormFields.name);
 
-  if (dataComponent !== null) return dataComponent ?? null;
+  if (dataComponent !== null) return dataComponent;
 
   const onEditButtonClick = (field: UserDetailsFormFields) => {
     setUserDetailsTypeToEdit(field);

@@ -13,7 +13,7 @@
     "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "antd": "4.4.2",
+    "antd": "4.6.1",
     "clsx": "^1.1.1",
     "date-fns": "^2.14.0",
     "graphql": "^15.1.0",

@@ -10,7 +10,7 @@ import { stopPropagation } from '../../utils/functions/utilFunctions';
 import { EmptyEventsList } from '../list-utils/EmptyList';
 import { ListItemMeta } from '../list-utils/ListItemMeta';
 
-import style from '../../utils/list-utils/List.module.less';
+import style from '../../utils/components/List.module.less';
 
 export interface EventsListProps {
   events?: EventPartyListType[];

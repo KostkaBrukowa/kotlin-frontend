@@ -21,7 +21,7 @@ export const PaymentView: React.FC<PaymentViewProps> = ({ paymentId }) => {
   const { dataComponent, extractedData: payment } = useSinglePayment(paymentId);
   const { payerNameRectRef, receiverNameRectRef, style: arrowStyle } = usePaymentArrowStyle();
 
-  if (dataComponent !== null || !payment) return dataComponent ?? null;
+  if (dataComponent !== null || !payment) return dataComponent;
 
   const handleBack = () => navigate(`${expensesRoute}/${payment?.paymentExpense.id}`);
 

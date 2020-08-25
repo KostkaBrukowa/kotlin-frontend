@@ -15,3 +15,8 @@ export const formatDate = (date: Date, formatDisplay?: string) =>
   format(date, formatDisplay ?? DEFAULT_DATE_FORMAT, {
     locale: plLocale,
   });
+
+export const getDayOfTheWeek = (date: Date) =>
+  format(date, 'iiii', {
+    locale: plLocale,
+  });

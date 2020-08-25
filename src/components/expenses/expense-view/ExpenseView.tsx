@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Collapse } from 'antd';
 
-import { renderCollapsableArrow } from '../../utils/list-utils/CollapsableArrow';
+import { renderCollapsableArrow } from '../../utils/components/CollapsableArrow';
 import { ExpenseDetails } from './ExpenseDetails';
 import { ExpenseMessages } from './ExpenseMessages';
 import { ExpenseParticipants } from './ExpenseParticipants';
@@ -24,7 +24,7 @@ export type ExpenseViewProps = RouteComponentProps<RouteParams>;
 export const ExpenseView: React.FC<ExpenseViewProps> = ({ expenseId }) => {
   const { dataComponent, extractedData: expense } = useSingleExpense(expenseId);
 
-  if (dataComponent !== null || !expense) return dataComponent ?? null;
+  if (dataComponent !== null || !expense) return dataComponent;
 
   return (
     <>
