@@ -1,13 +1,14 @@
 import React from 'react';
-import { useUserNotifications } from '../useUserNotifications';
+
 import {
   NotificationExpenseModel,
   NotificationPartyRequestModel,
   NotificationPaymentModel,
 } from '../../mappers/notifications/NotificationMapperTypes';
+import { useUserNotifications } from '../useUserNotifications';
 import { ExpenseNotification } from './ExpenseNotification';
-import { PaymentNotification } from './PaymentNotification';
 import { PartyRequestNotification } from './PartyRequestNotification';
+import { PaymentNotification } from './PaymentNotification';
 
 export type NotificationItem = Exclude<
   ReturnType<typeof useUserNotifications>['notifications'],

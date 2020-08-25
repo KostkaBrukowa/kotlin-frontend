@@ -1,12 +1,12 @@
 import React from 'react';
-import { LocationProvider } from '@reach/router';
-import { ApolloProvider } from '@apollo/client';
-
 import { CookiesProvider } from 'react-cookie';
-import { AppLayout } from './navigation/AppLayout';
-import { client } from './config/graphql';
-import { AuthenticationErrorBoundary } from './config/AuthenticationErrorBoundary';
+import { ApolloProvider } from '@apollo/client';
+import { LocationProvider } from '@reach/router';
+
 import { AppContextProvider } from './app-context/AppContext';
+import { AuthenticationErrorBoundary } from './config/AuthenticationErrorBoundary';
+import { client } from './config/graphql';
+import { AppLayout } from './navigation/AppLayout';
 
 function App() {
   return (

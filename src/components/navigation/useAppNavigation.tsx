@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
-import { useLocation } from '@reach/router';
+import { BsBell } from 'react-icons/all';
+import ControlOutlined from '@ant-design/icons/ControlOutlined';
 import DollarOutlined from '@ant-design/icons/DollarOutlined';
 import HomeOutlined from '@ant-design/icons/HomeOutlined';
 import PlusCircleOutlined from '@ant-design/icons/PlusCircleOutlined';
-import { BsBell } from 'react-icons/all';
-import ControlOutlined from '@ant-design/icons/ControlOutlined';
-import style from './Toolbar.module.less';
+import { useLocation } from '@reach/router';
+
 import {
   eventsRoute,
   expensesRoute,
@@ -13,6 +13,8 @@ import {
   notificationsRoute,
   settingsRoute,
 } from './routerConstants';
+
+import style from './Toolbar.module.less';
 
 export interface MenuTabItem {
   key: string;

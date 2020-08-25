@@ -1,6 +1,6 @@
 import { NotificationEvent } from '../../generated/graphql';
-import { Optional } from '../utils/types';
 import { NotificationUser } from '../mappers/notifications/NotificationMapperTypes';
+import { Optional } from '../utils/types';
 
 export const renderPaymentTitle = (
   event: NotificationEvent,

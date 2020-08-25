@@ -1,10 +1,11 @@
 import React from 'react';
 import { GiWallet } from 'react-icons/all';
 import { navigate } from '@reach/router';
-import { NotificationExpenseModel } from '../../mappers/notifications/NotificationMapperTypes';
-import { ListItem } from './ListItem';
-import { expensesRoute } from '../../navigation/routerConstants';
+
 import { NotificationEvent } from '../../../generated/graphql';
+import { NotificationExpenseModel } from '../../mappers/notifications/NotificationMapperTypes';
+import { expensesRoute } from '../../navigation/routerConstants';
+import { ListItem } from './ListItem';
 
 export interface ExpenseNotificationProps {
   notificationModel: NotificationExpenseModel;

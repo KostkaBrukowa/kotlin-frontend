@@ -1,12 +1,14 @@
 import React, { useContext, useEffect } from 'react';
-import { List } from 'antd';
 import { RouteComponentProps } from '@reach/router';
-import style from './Notifications.module.less';
-import { useUserNotifications } from './useUserNotifications';
-import { LoadingCard } from '../expenses/list/LoadingCard';
-import { EmptyEventsList } from '../events/list-utils/EmptyList';
-import { renderNotificationItem } from './list-items/renderNotificationItem';
+import { List } from 'antd';
+
 import { UserContext } from '../config/UserProvider';
+import { EmptyEventsList } from '../events/list-utils/EmptyList';
+import { LoadingCard } from '../expenses/list/LoadingCard';
+import { renderNotificationItem } from './list-items/renderNotificationItem';
+import { useUserNotifications } from './useUserNotifications';
+
+import style from './Notifications.module.less';
 
 export type NotificationsProps = RouteComponentProps;
 

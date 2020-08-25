@@ -3,10 +3,11 @@ import MinusCircleOutlined from '@ant-design/icons/MinusCircleOutlined';
 import PlusCircleOutlined from '@ant-design/icons/PlusCircleOutlined';
 import clsx from 'clsx';
 
-import style from './OwsSection.module.less';
 import { ActionType, AppContext, OwsType } from '../app-context/AppContext';
-import { currency } from '../utils/constants/currency';
 import { AnimatedNumber } from '../utils/animations/AnimatedNumber';
+import { currency } from '../utils/constants/currency';
+
+import style from './OwsSection.module.less';
 
 export interface OwsSectionProps {
   amount: number | undefined;

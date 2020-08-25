@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import useInterval from 'use-interval';
+
 import { UserAuthResponse, useRefreshTokenMutation } from '../../../generated/graphql';
 
 // eslint-disable-next-line import/no-mutable-exports

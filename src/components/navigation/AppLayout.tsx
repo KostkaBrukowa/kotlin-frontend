@@ -1,13 +1,21 @@
 import React from 'react';
-import { Layout } from 'antd';
 import { Router } from '@reach/router';
-import style from './AppLayout.module.less';
-import { Login } from '../login/Login';
+import { Layout } from 'antd';
+
+import { useAuthentication } from '../config/authentication/useAuthentication';
+import { UserProvider } from '../config/UserProvider';
 import { Events } from '../events/Events';
+import { EventView } from '../events/events/EventView';
+import { ExpenseView } from '../expenses/expense-view/ExpenseView';
 import { Expenses } from '../expenses/Expenses';
+import { PaymentView } from '../expenses/payment-view/PaymentView';
+import { Home } from '../home/Home';
+import { Login } from '../login/Login';
 import { NewExpense } from '../new-expense/NewExpense';
 import { Notifications } from '../notifications/Notifications';
 import { Settings } from '../settings/Settings';
+import { ResourceNotFound } from '../utils/not-found/ResourceNotFound';
+import { AppHeader } from './AppHeader';
 import {
   eventsRoute,
   expensesRoute,
@@ -17,15 +25,9 @@ import {
   paymentsRoute,
   settingsRoute,
 } from './routerConstants';
-import { useAuthentication } from '../config/authentication/useAuthentication';
 import { Toolbar } from './Toolbar';
-import { Home } from '../home/Home';
-import { AppHeader } from './AppHeader';
-import { UserProvider } from '../config/UserProvider';
-import { ExpenseView } from '../expenses/expense-view/ExpenseView';
-import { PaymentView } from '../expenses/payment-view/PaymentView';
-import { ResourceNotFound } from '../utils/not-found/ResourceNotFound';
-import { EventView } from '../events/events/EventView';
+
+import style from './AppLayout.module.less';
 
 export const AppLayout: React.FC = () => {
   const {

@@ -1,14 +1,16 @@
-import { Button, Divider, List } from 'antd';
 import React from 'react';
 import { FiMapPin } from 'react-icons/fi';
 import { MdEvent } from 'react-icons/md';
 import { navigate } from '@reach/router';
+import { Button, Divider, List } from 'antd';
+
 import { EventPartyListType } from '../../mappers/events/PartyMapperTypes';
-import { EmptyEventsList } from '../list-utils/EmptyList';
-import style from '../../utils/list-utils/List.module.less';
-import { ListItemMeta } from '../list-utils/ListItemMeta';
-import { stopPropagation } from '../../utils/functions/utilFunctions';
 import { eventsRoute } from '../../navigation/routerConstants';
+import { stopPropagation } from '../../utils/functions/utilFunctions';
+import { EmptyEventsList } from '../list-utils/EmptyList';
+import { ListItemMeta } from '../list-utils/ListItemMeta';
+
+import style from '../../utils/list-utils/List.module.less';
 
 export interface EventsListProps {
   events?: EventPartyListType[];

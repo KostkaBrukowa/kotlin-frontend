@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from '@reach/router';
 import clsx from 'clsx';
+
 import { loginRoute, registerRoute } from '../navigation/routerConstants';
+
 import style from './OtherOption.module.less';
 
 export interface OtherOptionProps {

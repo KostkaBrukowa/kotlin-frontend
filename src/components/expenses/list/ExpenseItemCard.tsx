@@ -1,16 +1,18 @@
 import React from 'react';
+import { navigate } from '@reach/router';
 import { Card, Tooltip } from 'antd';
 import Meta from 'antd/es/card/Meta';
 import clsx from 'clsx';
-import { navigate } from '@reach/router';
-import style from './ExpenseList.module.less';
+
 import { ExpenseStatus, PaymentStatus } from '../../../generated/graphql';
-import { currency } from '../../utils/constants/currency';
 import { OwsType } from '../../app-context/AppContext';
 import { getTooltipProps } from '../../enum-renderers/expenseTooltipRenderer';
-import { stopPropagation } from '../../utils/functions/utilFunctions';
 import { expensesRoute } from '../../navigation/routerConstants';
 import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
+import { currency } from '../../utils/constants/currency';
+import { stopPropagation } from '../../utils/functions/utilFunctions';
+
+import style from './ExpenseList.module.less';
 
 export interface ExpenseItemCardProps {
   id: string;

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Empty } from 'antd';
-import { navigate, RouteComponentProps } from '@reach/router';
 import { AiOutlineArrowLeft } from 'react-icons/all';
+import { navigate, RouteComponentProps } from '@reach/router';
+import { Button, Empty } from 'antd';
+
 import style from './ExpenseNotFound.module.less';
 
 export type ResourceNotFoundProps = RouteComponentProps;

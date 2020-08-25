@@ -1,4 +1,5 @@
 import React, { createContext, Reducer, useReducer } from 'react';
+
 import { ActionPayload } from '../utils/context/types';
 
 type StateType = {

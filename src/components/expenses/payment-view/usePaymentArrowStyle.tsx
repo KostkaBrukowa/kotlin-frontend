@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+
 import { useClientRect } from '../../utils/hooks/useClientRect';
 
 const iconSize = 75;

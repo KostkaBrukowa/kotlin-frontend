@@ -1,9 +1,11 @@
 import React from 'react';
-import { Layout } from 'antd';
 import { useLocation, useNavigate } from '@reach/router';
-import style from './AppLayout.module.less';
+import { Layout } from 'antd';
+
 import logo from './google-maps.svg';
 import { menuTabs } from './useAppNavigation';
+
+import style from './AppLayout.module.less';
 
 const { Header } = Layout;
 const LOGO_SIZE = 32;

@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons/lib';
 import { useLocation } from '@reach/router';
+import { Button, Modal } from 'antd';
+
+import { UserContext } from '../../config/UserProvider';
+import { currency } from '../../utils/constants/currency';
+import { capitalize } from '../../utils/functions/string';
 import { NotOptional } from '../../utils/types';
 import { PaymentQueryType } from './useSinglePaymentQuery';
+
 import style from './PaymentView.module.less';
-import { UserContext } from '../../config/UserProvider';
-import { capitalize } from '../../utils/functions/string';
-import { currency } from '../../utils/constants/currency';
 
 export interface PaymentPayButtonProps {
   payment: NotOptional<PaymentQueryType>;

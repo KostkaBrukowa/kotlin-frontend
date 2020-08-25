@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Form } from 'antd';
-import style from './Settings.module.less';
-import { useUserDetails } from './useUserDetails';
+
 import { AuthData } from '../config/authentication/useAuthentication';
-import { EditUserDetailModal } from './EditUserDetailModal';
-import { SettingFormItem } from './SettingFormItem';
 import { Optional } from '../utils/types';
-import { LogoutFormItem } from './LogoutFormItem';
+import { EditUserDetailModal } from './EditUserDetailModal';
 import { UserDetailsFormFields } from './FormFieldsConfig';
+import { LogoutFormItem } from './LogoutFormItem';
+import { SettingFormItem } from './SettingFormItem';
+import { useUserDetails } from './useUserDetails';
+
+import style from './Settings.module.less';
 
 export interface SettingsProps extends RouteComponentProps {
   setAuthData(authData: AuthData): void;

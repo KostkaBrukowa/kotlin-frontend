@@ -4,10 +4,12 @@ query GetUserParties($userId: String!) {
     name
     description
     locationName
+    type
+
     owner {
       name
     }
-    type
+
     partyParticipants {
       id
       name

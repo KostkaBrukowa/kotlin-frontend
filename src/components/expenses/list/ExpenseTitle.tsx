@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import { Checkbox, Form } from 'antd';
-import style from './ExpenseList.module.less';
+
 import { ActionType, AppContext } from '../../app-context/AppContext';
+
+import style from './ExpenseList.module.less';
 
 export interface ExpenseTitleProps {
   title: string;

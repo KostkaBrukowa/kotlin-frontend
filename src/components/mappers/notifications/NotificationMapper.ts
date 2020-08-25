@@ -1,4 +1,6 @@
 import compareAsc from 'date-fns/compareAsc';
+
+import { dateFrom } from '../../utils/functions/date';
 import {
   NotificationExpenseModel,
   NotificationExpenseType,
@@ -8,7 +10,6 @@ import {
   NotificationPaymentType,
   NotificationResponseListType,
 } from './NotificationMapperTypes';
-import { dateFrom } from '../../utils/functions/date';
 
 function mapExpenseNotification(notification: NotificationExpenseType): NotificationExpenseModel {
   const { id, type, createdAt, event, isRead, expenseId, actor, receiver } = notification;

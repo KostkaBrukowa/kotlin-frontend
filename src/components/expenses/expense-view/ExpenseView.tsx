@@ -1,11 +1,12 @@
 import React from 'react';
-import { Collapse } from 'antd';
 import { RouteComponentProps } from '@reach/router';
-import { ExpenseDetails } from './ExpenseDetails';
-import { ExpensePayments } from './ExpensePayments';
-import { ExpenseParticipants } from './ExpenseParticipants';
-import { ExpenseMessages } from './ExpenseMessages';
+import { Collapse } from 'antd';
+
 import { renderCollapsableArrow } from '../../utils/list-utils/CollapsableArrow';
+import { ExpenseDetails } from './ExpenseDetails';
+import { ExpenseMessages } from './ExpenseMessages';
+import { ExpenseParticipants } from './ExpenseParticipants';
+import { ExpensePayments } from './ExpensePayments';
 import { useSingleExpense } from './useSingleExpenseQuery';
 
 enum CollapsableKeys {

@@ -1,8 +1,10 @@
 import React from 'react';
-import { Menu } from 'antd';
 import { Link } from '@reach/router';
+import { Menu } from 'antd';
 import clsx from 'clsx';
+
 import { useMenuTabs } from './useAppNavigation';
+
 import style from './Toolbar.module.less';
 
 const menuItemClassName = (title: string, active: boolean) =>

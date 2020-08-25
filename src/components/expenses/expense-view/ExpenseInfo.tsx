@@ -1,7 +1,9 @@
 import React from 'react';
-import style from './ExpenseView.module.less';
+
 import { dateFrom, formatDate } from '../../utils/functions/date';
 import { ExpenseQueryType } from './useSingleExpenseQuery';
+
+import style from './ExpenseView.module.less';
 
 export interface InfoProps {
   title: string;

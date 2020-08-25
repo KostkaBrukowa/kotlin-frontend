@@ -1,12 +1,14 @@
+import React, { useContext } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Button, Tabs } from 'antd';
-import React, { useContext } from 'react';
-import style from './Events.module.less';
+
+import { ActionType, AppContext, EventsTabKeys } from '../app-context/AppContext';
 import { EventsList } from './events/EventsList';
 import { FriendsList } from './friends/FriendsList';
 import { GroupsList } from './groups/GroupsList';
 import { useUserParties } from './useUserParties';
-import { ActionType, AppContext, EventsTabKeys } from '../app-context/AppContext';
+
+import style from './Events.module.less';
 
 export type EventsProps = RouteComponentProps;
 

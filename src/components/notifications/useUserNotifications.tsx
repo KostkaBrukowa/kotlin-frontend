@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react';
+
 import { useGetUserNotificationsLazyQuery } from '../../generated/graphql';
 import { UserContext } from '../config/UserProvider';
 import { fromResponseList } from '../mappers/notifications/NotificationMapper';

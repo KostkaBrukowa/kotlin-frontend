@@ -1,15 +1,17 @@
 import React, { MouseEvent, useContext } from 'react';
-import { Button, List } from 'antd';
 import { FaReceipt } from 'react-icons/all';
 import { navigate } from '@reach/router';
-import style from './ExpenseView.module.less';
-import { ExpenseQueryType } from './useSingleExpenseQuery';
-import { NotOptional } from '../../utils/types';
+import { Button, List } from 'antd';
+
 import { UserContext } from '../../config/UserProvider';
 import { renderPaymentStatus } from '../../enum-renderers/paymentStatusRenderer';
+import { paymentsRoute } from '../../navigation/routerConstants';
 import { currency } from '../../utils/constants/currency';
 import { stopPropagation } from '../../utils/functions/utilFunctions';
-import { paymentsRoute } from '../../navigation/routerConstants';
+import { NotOptional } from '../../utils/types';
+import { ExpenseQueryType } from './useSingleExpenseQuery';
+
+import style from './ExpenseView.module.less';
 
 export interface ExpensePaymentProps {
   payment: ExpensePaymentsProps['payments'][0];

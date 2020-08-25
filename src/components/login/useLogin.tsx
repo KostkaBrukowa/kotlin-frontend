@@ -1,17 +1,24 @@
-import { Store } from 'antd/es/form/interface';
-import { navigate } from '@reach/router';
 import { useEffect } from 'react';
+import { navigate, RouteComponentProps } from '@reach/router';
 import { message } from 'antd';
 import { useForm } from 'antd/es/form/Form';
+import { Store } from 'antd/es/form/interface';
 import { FormInstance } from 'antd/lib/form';
+
 import {
   LoginUserMutationResult,
   SignUpUserMutationResult,
   useLoginUserMutation,
   useSignUpUserMutation,
 } from '../../generated/graphql';
-import { LoginProps } from './Login';
+import { AuthData } from '../config/authentication/useAuthentication';
 import { expensesRoute } from '../navigation/routerConstants';
+
+export interface LoginProps extends RouteComponentProps {
+  tokenPresent: boolean;
+
+  setAuthData(authData: AuthData): void;
+}
 
 export enum FormFields {
   login = 'login',

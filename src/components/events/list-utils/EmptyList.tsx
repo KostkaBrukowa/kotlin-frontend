@@ -1,4 +1,5 @@
 import React from 'react';
+
 import style from '../../utils/list-utils/List.module.less';
 
 export const EmptyEventsList: React.FC<{ type: string }> = ({ type }) => (

@@ -1,10 +1,11 @@
 import React from 'react';
 import { BsFillEnvelopeFill } from 'react-icons/all';
 import { navigate } from '@reach/router';
-import { NotificationPartyRequestModel } from '../../mappers/notifications/NotificationMapperTypes';
-import { ListItem } from './ListItem';
-import { eventsRoute } from '../../navigation/routerConstants';
+
 import { NotificationEvent } from '../../../generated/graphql';
+import { NotificationPartyRequestModel } from '../../mappers/notifications/NotificationMapperTypes';
+import { eventsRoute } from '../../navigation/routerConstants';
+import { ListItem } from './ListItem';
 
 export interface PartyRequestNotificationProps {
   notificationModel: NotificationPartyRequestModel;

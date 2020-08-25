@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react';
+
 import { GetUserExpensesQuery, useGetUserExpensesLazyQuery } from '../../generated/graphql';
 import { UserContext } from '../config/UserProvider';
 import { useDelayedLoading } from '../utils/hooks/useDelayedLoading';

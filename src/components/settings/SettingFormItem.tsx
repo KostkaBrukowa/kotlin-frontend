@@ -1,8 +1,10 @@
 import React from 'react';
 import { Button, Form } from 'antd';
-import style from './Settings.module.less';
+
 import { Optional } from '../utils/types';
 import { fields, UserDetailsFormFields } from './FormFieldsConfig';
+
+import style from './Settings.module.less';
 
 export interface SettingFormItemProps {
   type: UserDetailsFormFields;

@@ -1,14 +1,16 @@
 import React from 'react';
-import { Statistic } from 'antd';
 import { AiOutlineCalendar } from 'react-icons/all';
+import { Statistic } from 'antd';
 import clsx from 'clsx';
-import { PaymentQueryType } from './useSinglePaymentQuery';
-import style from './PaymentView.module.less';
-import { capitalize } from '../../utils/functions/string';
-import { currency } from '../../utils/constants/currency';
+
 import { renderPaymentStatus } from '../../enum-renderers/paymentStatusRenderer';
+import { currency } from '../../utils/constants/currency';
+import { capitalize } from '../../utils/functions/string';
 import { RefCallback } from '../../utils/hooks/useClientRect';
 import { NotOptional } from '../../utils/types';
+import { PaymentQueryType } from './useSinglePaymentQuery';
+
+import style from './PaymentView.module.less';
 
 const dateInfoClassName = clsx(style.infoSection, style.dateSection);
 

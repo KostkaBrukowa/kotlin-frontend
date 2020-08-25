@@ -1,11 +1,13 @@
-import { navigate } from '@reach/router';
-import { List } from 'antd';
 import React from 'react';
 import { AiOutlineTeam } from 'react-icons/ai';
+import { navigate } from '@reach/router';
+import { List } from 'antd';
+
 import { FriendsPartyListType } from '../../mappers/events/PartyMapperTypes';
 import { EmptyEventsList } from '../list-utils/EmptyList';
-import style from '../../utils/list-utils/List.module.less';
 import { getFriendCountText } from '../list-utils/OtherParticipants';
+
+import style from '../../utils/list-utils/List.module.less';
 
 export interface FriendsListProps {
   events?: FriendsPartyListType[];

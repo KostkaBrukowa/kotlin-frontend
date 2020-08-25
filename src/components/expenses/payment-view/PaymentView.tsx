@@ -1,13 +1,15 @@
 import React from 'react';
-import { navigate, RouteComponentProps } from '@reach/router';
 import { GiArrowDunk } from 'react-icons/all';
+import { navigate, RouteComponentProps } from '@reach/router';
 import { PageHeader } from 'antd';
-import { useSinglePayment } from './useSinglePaymentQuery';
-import style from './PaymentView.module.less';
+
 import { expensesRoute } from '../../navigation/routerConstants';
-import { usePaymentArrowStyle } from './usePaymentArrowStyle';
 import { PaymentDescription } from './PaymentDescription';
 import { PaymentPayButton } from './PaymentPayButton';
+import { usePaymentArrowStyle } from './usePaymentArrowStyle';
+import { useSinglePayment } from './useSinglePaymentQuery';
+
+import style from './PaymentView.module.less';
 
 interface RouteParams {
   paymentId?: string;

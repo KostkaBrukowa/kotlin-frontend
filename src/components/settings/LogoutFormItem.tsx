@@ -1,10 +1,12 @@
 import React from 'react';
-import { Button, Form, message } from 'antd';
 import { navigate } from '@reach/router';
-import style from './Settings.module.less';
-import { loginRoute } from '../navigation/routerConstants';
-import { AuthData } from '../config/authentication/useAuthentication';
+import { Button, Form, message } from 'antd';
+
 import { useLogoutMutation } from '../../generated/graphql';
+import { AuthData } from '../config/authentication/useAuthentication';
+import { loginRoute } from '../navigation/routerConstants';
+
+import style from './Settings.module.less';
 
 interface LogoutFormItemProps {
   setAuthData(authData: AuthData): void;

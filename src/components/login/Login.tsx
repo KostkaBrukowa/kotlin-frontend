@@ -1,21 +1,16 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
-
-import { FormItemProps } from 'antd/es/form';
 import { RouteComponentProps, useLocation } from '@reach/router';
+import { Button, Checkbox, Form, Input } from 'antd';
+import { FormItemProps } from 'antd/es/form';
 import clsx from 'clsx';
-import style from './Login.module.less';
-import { FormFields, useLogin } from './useLogin';
-import { OtherOption } from './OtherOption';
-import { TransitionElement } from '../utils/animations/TransitionElement';
-import { registerRoute } from '../navigation/routerConstants';
+
 import { AuthData } from '../config/authentication/useAuthentication';
+import { registerRoute } from '../navigation/routerConstants';
+import { TransitionElement } from '../utils/animations/TransitionElement';
+import { OtherOption } from './OtherOption';
+import { FormFields, LoginProps, useLogin } from './useLogin';
 
-export interface LoginProps extends RouteComponentProps {
-  tokenPresent: boolean;
-
-  setAuthData(authData: AuthData): void;
-}
+import style from './Login.module.less';
 
 const fields: Record<FormFields, Omit<FormItemProps, 'children'>> = {
   [FormFields.login]: {

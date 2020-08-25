@@ -1,9 +1,11 @@
 import React from 'react';
-import { Button, Dropdown, Menu } from 'antd';
 import { BsThreeDotsVertical } from 'react-icons/bs';
+import { Button, Dropdown, Menu } from 'antd';
 import clsx from 'clsx';
 import { MenuClickEventHandler } from 'rc-menu/lib/interface';
+
 import { stopPropagation } from '../../utils/functions/utilFunctions';
+
 import style from '../Notifications.module.less';
 
 const triggerButtonClassName = clsx(style.dropdownButton, 'data-cy-dropdown-trigger');

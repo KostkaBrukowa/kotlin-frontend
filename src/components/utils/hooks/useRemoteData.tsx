@@ -1,15 +1,17 @@
-import { QueryLazyOptions, QueryTuple } from '@apollo/client/react/types/types';
 import React, { ReactElement } from 'react';
+import { QueryLazyOptions, QueryTuple } from '@apollo/client/react/types/types';
 import { Spin } from 'antd';
 import useDeepCompareEffect from 'use-deep-compare-effect';
-import { useDelayedLoading } from './useDelayedLoading';
+
 import { ResourceNotFound } from '../not-found/ResourceNotFound';
+import { useDelayedLoading } from './useDelayedLoading';
+
 import style from './useRemoteData.module.less';
 
 const allVariablesNotNull = (obj?: Record<string, any>): boolean =>
   obj ? Object.values(obj).every((it) => it !== null) : true;
 
-const useRemoteDataComponent = <TExtractedData,>(
+const useRemoteDataComponent = <TExtractedData, >(
   extractedData: TExtractedData,
   loading: boolean,
 ): ReactElement | undefined | null => {

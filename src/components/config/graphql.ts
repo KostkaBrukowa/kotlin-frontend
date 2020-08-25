@@ -2,9 +2,10 @@ import { ApolloClient, ApolloLink, from, HttpLink, InMemoryCache } from '@apollo
 import { ErrorResponse, onError } from '@apollo/link-error';
 import { navigate } from '@reach/router';
 import { message as antDMessage } from 'antd';
-import { JWT_TOKEN } from './authentication/useAuthentication';
-import { nonAuthenticatedRoutes } from '../navigation/routerConstants';
+
 import possibleTypes from '../../generated/possiblTypes.json';
+import { nonAuthenticatedRoutes } from '../navigation/routerConstants';
+import { JWT_TOKEN } from './authentication/useAuthentication';
 
 const isNonAuthenticatedRoute = () => {
   const { pathname } = window.location;

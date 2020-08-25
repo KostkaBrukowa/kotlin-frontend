@@ -1,10 +1,12 @@
-import { List } from 'antd';
 import React from 'react';
 import { TiHomeOutline } from 'react-icons/ti';
+import { List } from 'antd';
+
 import { GroupPartyListType } from '../../mappers/events/PartyMapperTypes';
 import { EmptyEventsList } from '../list-utils/EmptyList';
-import style from '../../utils/list-utils/List.module.less';
 import { getFriendCountText } from '../list-utils/OtherParticipants';
+
+import style from '../../utils/list-utils/List.module.less';
 
 export interface GroupsListProps {
   events?: GroupPartyListType[];

@@ -1,8 +1,13 @@
 import React from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { LatLngTuple } from 'leaflet';
 
-export const SimpleExample = () => {
-  const position = [52.237049, 21.017532];
+export interface EventMapProps {
+  x: any;
+}
+
+export const EventMap: React.FC<EventMapProps> = () => {
+  const position: LatLngTuple = [52.237049, 21.017532];
 
   return (
     <MapContainer

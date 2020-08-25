@@ -2,10 +2,11 @@ import React, { ReactNode } from 'react';
 import { Avatar, List, Skeleton } from 'antd';
 import clsx from 'clsx';
 
+import { formatDate } from '../../utils/functions/date';
 import { ListItemDropdownAction } from './ListItemDropdownAction';
+
 import listStyle from '../../utils/list-utils/List.module.less';
 import style from '../Notifications.module.less';
-import { formatDate } from '../../utils/functions/date';
 
 export interface ListItemProps {
   date: Date;

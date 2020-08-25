@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import Avatars from '@dicebear/avatars';
 import sprites from '@dicebear/avatars-identicon-sprites';
 import clsx from 'clsx';
+
 import style from './IdenticonAvatar.module.less';
 
 export interface AvatarProps {

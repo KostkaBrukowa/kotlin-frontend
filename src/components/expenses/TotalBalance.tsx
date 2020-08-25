@@ -1,11 +1,13 @@
 import React from 'react';
 import { Spin } from 'antd';
-import style from './TotalBalance.module.less';
-import { OwsSection } from './OwsSection';
-import { useUserExpenses } from './useUserExpenses';
+
+import { OwsType } from '../app-context/AppContext';
 import { AnimatedNumber } from '../utils/animations/AnimatedNumber';
 import { currency } from '../utils/constants/currency';
-import { OwsType } from '../app-context/AppContext';
+import { OwsSection } from './OwsSection';
+import { useUserExpenses } from './useUserExpenses';
+
+import style from './TotalBalance.module.less';
 
 export interface TotalBalanceProps {}
 

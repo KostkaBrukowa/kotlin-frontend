@@ -1,0 +1,45 @@
+query SingleEvent($eventId: String!) {
+    getSingleParty(partyId: $eventId)  {
+        id
+        name
+        description
+        locationName
+        type
+        startDate
+        endDate
+        locationLatitude
+        locationLongitude
+
+        owner {
+            name
+        }
+
+        partyParticipants {
+            id
+            name
+        }
+
+        partyMessages {
+            ...MessageDetails
+        }
+
+        partyPartyRequests {
+            id
+            status
+            partyRequestReceiver {
+                id
+                name
+            }
+        }
+
+        partyExpenses {
+            id
+            amount
+            description
+            expensePayer {
+                id
+                name
+            }
+        }
+    }
+}

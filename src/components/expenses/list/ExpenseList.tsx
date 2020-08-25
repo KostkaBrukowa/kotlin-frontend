@@ -1,11 +1,12 @@
 import React from 'react';
-import { ExpensesQueryType } from '../useUserExpenses';
-import { ExpenseItemCard } from './ExpenseItemCard';
-import { LoadingCard } from './LoadingCard';
-import { OwsType } from '../../app-context/AppContext';
-import { ExpenseTitle } from './ExpenseTitle';
+
 import { ExpenseStatus } from '../../../generated/graphql';
+import { OwsType } from '../../app-context/AppContext';
+import { ExpensesQueryType } from '../useUserExpenses';
 import { EmptyList } from './EmptyList';
+import { ExpenseItemCard } from './ExpenseItemCard';
+import { ExpenseTitle } from './ExpenseTitle';
+import { LoadingCard } from './LoadingCard';
 
 interface ExpenseListProps {
   expenses?: ExpensesQueryType['getExpensesForUser'];

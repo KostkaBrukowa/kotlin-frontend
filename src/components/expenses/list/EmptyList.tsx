@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import { Button } from 'antd';
-import style from './EmptyList.module.less';
+
 import { ActionType, AppContext } from '../../app-context/AppContext';
+
+import style from './EmptyList.module.less';
 
 interface EmptyListProps {
   nonFinishedPresent: boolean;
