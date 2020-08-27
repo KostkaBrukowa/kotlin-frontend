@@ -2,10 +2,12 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Collapse, Typography } from 'antd';
 
+import { ParticipantList } from '../../common/participant-list/ParticipantList';
 import { renderCollapsableArrow } from '../../utils/components/CollapsableArrow';
 import { Info, ViewDescription } from '../../utils/components/ViewDescription';
 import { dateFrom, formatDate, getDayOfTheWeek } from '../../utils/functions/date';
 import { capitalize } from '../../utils/functions/string';
+import { EventExpenses } from './EventExpenses';
 import { EventMap } from './EventLeafletMap';
 import { JoinEventButton } from './JoinEventButton';
 import { useSingleEvent } from './useSingleEvent';
@@ -18,7 +20,7 @@ interface RouteParams {
 
 export type EventViewProps = RouteComponentProps<RouteParams>;
 
-const { Text, Link } = Typography;
+const { Text } = Typography;
 
 export const EventView: React.FC<EventViewProps> = ({ eventId }) => {
   const { dataComponent, extractedData: event } = useSingleEvent(eventId);
@@ -47,13 +49,18 @@ export const EventView: React.FC<EventViewProps> = ({ eventId }) => {
           <Info description={event.description} title="Opis:" />
         </ViewDescription>
         <Collapse
-          bordered
+          bordered={false}
           className={style.collapsableWrapper}
           defaultActiveKey={[1]}
           expandIcon={renderCollapsableArrow}
+          expandIconPosition="right"
         >
-          <Collapse.Panel header="Płatności" key={1} />
-          <Collapse.Panel header="Uczestnicy" key={2} />
+          <Collapse.Panel header="Wydatki" key={1}>
+            <EventExpenses payments={event.partyExpenses} />
+          </Collapse.Panel>
+          <Collapse.Panel header="Uczestnicy" key={2}>
+            <ParticipantList participants={event.partyParticipants} />
+          </Collapse.Panel>
           <Collapse.Panel header="Wiadomości" key={3} />
         </Collapse>
       </div>

@@ -48,7 +48,7 @@ function getPaymentTooltipProps(status: PaymentStatus): TooltipProps {
   }
 }
 
-function getExpenseTooltipProps(status: ExpenseStatus): TooltipProps {
+export function getExpenseTooltipProps(status: ExpenseStatus): TooltipProps {
   switch (status) {
     case ExpenseStatus.InProgressRequesting:
       return {

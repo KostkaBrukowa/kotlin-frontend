@@ -23,7 +23,8 @@ export const PaymentView: React.FC<PaymentViewProps> = ({ paymentId }) => {
 
   if (dataComponent !== null || !payment) return dataComponent;
 
-  const handleBack = () => navigate(`${expensesRoute}/${payment?.paymentExpense.id}`);
+  const handleBack = () =>
+    navigate(`${expensesRoute}/${payment?.paymentExpense.id}`, { replace: true });
 
   return (
     <>

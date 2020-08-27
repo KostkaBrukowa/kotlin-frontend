@@ -1,0 +1,4 @@
+fragment ParticipantListFragment on UserType {
+    id
+    name
+}

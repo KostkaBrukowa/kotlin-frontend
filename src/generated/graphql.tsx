@@ -590,6 +590,8 @@ export type UserType = GqlResponseType & {
   userPayments: Array<PaymentType>;
 };
 
+export type ParticipantListFragmentFragment = { __typename?: 'UserType', id: string, name?: Maybe<string> };
+
 export type RefreshTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -607,10 +609,13 @@ export type SingleEventQueryVariables = Exact<{
 }>;
 
 
-export type SingleEventQuery = { __typename?: 'Query', getSingleParty?: Maybe<{ __typename?: 'PartyType', id: string, name?: Maybe<string>, description?: Maybe<string>, locationName?: Maybe<string>, type: PartyKind, startDate: any, endDate?: Maybe<any>, locationLatitude?: Maybe<number>, locationLongitude?: Maybe<number>, owner?: Maybe<{ __typename?: 'User', name?: Maybe<string> }>, partyParticipants: Array<{ __typename?: 'UserType', id: string, name?: Maybe<string> }>, partyMessages: Array<(
+export type SingleEventQuery = { __typename?: 'Query', getSingleParty?: Maybe<{ __typename?: 'PartyType', id: string, name?: Maybe<string>, description?: Maybe<string>, locationName?: Maybe<string>, type: PartyKind, startDate: any, endDate?: Maybe<any>, locationLatitude?: Maybe<number>, locationLongitude?: Maybe<number>, owner?: Maybe<{ __typename?: 'User', name?: Maybe<string> }>, partyParticipants: Array<(
+      { __typename?: 'UserType' }
+      & ParticipantListFragmentFragment
+    )>, partyMessages: Array<(
       { __typename?: 'MessageResponseType' }
       & MessageDetailsFragment
-    )>, partyPartyRequests: Array<{ __typename?: 'PartyRequestType', id: string, status: PartyRequestStatus, partyRequestReceiver: { __typename?: 'UserType', id: string, name?: Maybe<string> } }>, partyExpenses: Array<{ __typename?: 'ExpenseType', id: string, amount: number, description: string, expensePayer: { __typename?: 'UserType', id: string, name?: Maybe<string> } }> }> };
+    )>, partyPartyRequests: Array<{ __typename?: 'PartyRequestType', id: string, status: PartyRequestStatus, partyRequestReceiver: { __typename?: 'UserType', id: string, name?: Maybe<string> } }>, partyExpenses: Array<{ __typename?: 'ExpenseType', id: string, amount: number, description: string, expenseStatus: ExpenseStatus, name: string, expensePayer: { __typename?: 'UserType', id: string, name?: Maybe<string> } }> }> };
 
 export type GetUserExpensesQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -671,6 +676,12 @@ export type LogoutMutation = { __typename?: 'Mutation', logOut: boolean };
 
 export type MessageDetailsFragment = { __typename?: 'MessageResponseType', id: string, sendDate: any, text: string, messageSender: { __typename?: 'UserType', id: string, name?: Maybe<string> } };
 
+export const ParticipantListFragmentFragmentDoc = gql`
+    fragment ParticipantListFragment on UserType {
+  id
+  name
+}
+    `;
 export const MessageDetailsFragmentDoc = gql`
     fragment MessageDetails on MessageResponseType {
   id
@@ -774,8 +785,7 @@ export const SingleEventDocument = gql`
       name
     }
     partyParticipants {
-      id
-      name
+      ...ParticipantListFragment
     }
     partyMessages {
       ...MessageDetails
@@ -792,6 +802,8 @@ export const SingleEventDocument = gql`
       id
       amount
       description
+      expenseStatus
+      name
       expensePayer {
         id
         name
@@ -799,7 +811,8 @@ export const SingleEventDocument = gql`
     }
   }
 }
-    ${MessageDetailsFragmentDoc}`;
+    ${ParticipantListFragmentFragmentDoc}
+${MessageDetailsFragmentDoc}`;
 
 /**
  * __useSingleEventQuery__

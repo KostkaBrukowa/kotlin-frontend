@@ -15,8 +15,7 @@ query SingleEvent($eventId: String!) {
         }
 
         partyParticipants {
-            id
-            name
+            ...ParticipantListFragment
         }
 
         partyMessages {
@@ -36,6 +35,8 @@ query SingleEvent($eventId: String!) {
             id
             amount
             description
+            expenseStatus
+            name
             expensePayer {
                 id
                 name

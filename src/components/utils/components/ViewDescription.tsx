@@ -12,12 +12,13 @@ export interface InfoProps {
   description?: string | null;
 }
 
-export const Info: React.FC<InfoProps> = ({ title, description }) => (
-  <>
-    <p className={style.descriptionLabel}>{title}</p>
-    <p>{description}</p>
-  </>
-);
+export const Info: React.FC<InfoProps> = ({ title, description }) =>
+  description ? (
+    <>
+      <p className={style.descriptionLabel}>{title}</p>
+      <p>{description}</p>
+    </>
+  ) : null;
 
 export const ViewDescription: React.FC<ViewDescriptionProps> = ({ children, className }) => (
   <div className={clsx(style.description, className)}>{children}</div>
