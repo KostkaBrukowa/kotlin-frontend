@@ -4,8 +4,10 @@ import { navigate } from '@reach/router';
 import { List } from 'antd';
 
 import { FriendsPartyListType } from '../../mappers/events/PartyMapperTypes';
-import { EmptyEventsList } from '../list-utils/EmptyList';
-import { getFriendCountText } from '../list-utils/OtherParticipants';
+import { eventsFiendsRoute, eventsGroupRoute } from '../../navigation/routerConstants';
+import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
+import { EmptyEventsList } from '../common/EmptyList';
+import { getFriendCountText } from '../common/OtherParticipants';
 
 import style from '../../utils/components/List.module.less';
 
@@ -15,12 +17,12 @@ export interface FriendsListProps {
 }
 const ListItemMeta: React.FC<{
   party: FriendsPartyListType;
-}> = ({ party: { partyParticipants, description, owner } }) => {
+}> = ({ party: { partyParticipants, description, owner, id } }) => {
   const friendsCountText = getFriendCountText(partyParticipants.length - 1);
 
   return (
     <List.Item.Meta
-      avatar={<AiOutlineTeam className={style.avatar} />}
+      avatar={<IdenticonAvatar id={id} size={20} wrapperClassName={style.avatar} />}
       description={description}
       title={`Ty, ${owner?.name} ${friendsCountText ?? ''}`}
     />
@@ -28,12 +30,7 @@ const ListItemMeta: React.FC<{
 };
 
 const ListItem: React.FC<{ item: FriendsPartyListType }> = ({ item }) => (
-  <List.Item
-    className={style.listItem}
-    onClick={() => {
-      navigate(`/events/friends/${item.id}`);
-    }}
-  >
+  <List.Item className={style.listItem} onClick={() => navigate(`${eventsFiendsRoute}/${item.id}`)}>
     <ListItemMeta party={item} />
   </List.Item>
 );

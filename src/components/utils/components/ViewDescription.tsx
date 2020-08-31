@@ -10,13 +10,14 @@ export interface ViewDescriptionProps {
 export interface InfoProps {
   title: string;
   description?: string | null;
+  descriptionClassName?: string;
 }
 
-export const Info: React.FC<InfoProps> = ({ title, description }) =>
+export const Info: React.FC<InfoProps> = ({ title, description, descriptionClassName }) =>
   description ? (
     <>
       <p className={style.descriptionLabel}>{title}</p>
-      <p>{description}</p>
+      <p className={descriptionClassName}>{description}</p>
     </>
   ) : null;
 

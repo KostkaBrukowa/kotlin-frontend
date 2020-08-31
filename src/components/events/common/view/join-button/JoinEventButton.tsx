@@ -3,17 +3,18 @@ import { animated, useTransition } from 'react-spring';
 import { CheckCircleOutlined } from '@ant-design/icons/lib';
 import { Button } from 'antd';
 
-import { UserContext } from '../../config/UserProvider';
+import { UserContext } from '../../../../config/UserProvider';
 import {
   TransitionElement,
   TransitionElementProps,
-} from '../../utils/animations/TransitionElement';
-import { NotOptional } from '../../utils/types';
-import { EventQueryType } from './useSingleEvent';
+} from '../../../../utils/animations/TransitionElement';
+import { NotOptional } from '../../../../utils/types';
+import { EventQueryType } from '../useSingleEvent';
 
-import style from './EventView.module.less';
+import style from '../../../event/view/EventView.module.less';
 
 export interface JoinEventButtonProps {
+  text?: string;
   event: NotOptional<EventQueryType>;
 }
 
@@ -31,20 +32,26 @@ const AnimatedIcon: React.FC<{ visible: boolean }> = ({ visible }) => {
   );
 };
 
-export const JoinEventButton: React.FC<JoinEventButtonProps> = ({ event }) => {
+const JoinEventButton: React.FC<JoinEventButtonProps> = ({ event, text }) => {
   const { userId } = useContext(UserContext);
-  const [joined, setJoined] = useState(false);
+  const [joined, setJoined] = useState(false); // todo remove
   const userJoinedEvent = event.partyParticipants.some((participant) => participant.id === userId);
 
   return (
     <Button
       className={style.joinButton}
-      icon={<AnimatedIcon visible={joined} />}
+      icon={<AnimatedIcon visible={userJoinedEvent} />}
       size="large"
-      type={joined ? 'primary' : 'default'}
+      type={userJoinedEvent ? 'primary' : 'default'}
       onClick={() => setJoined(!joined)}
     >
-      Wezmę udział
+      {text}
     </Button>
   );
 };
+
+JoinEventButton.defaultProps = {
+  text: 'Wezmę udział',
+};
+
+export { JoinEventButton };

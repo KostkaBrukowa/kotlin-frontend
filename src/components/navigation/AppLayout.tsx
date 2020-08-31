@@ -4,8 +4,10 @@ import { Layout } from 'antd';
 
 import { useAuthentication } from '../config/authentication/useAuthentication';
 import { UserProvider } from '../config/UserProvider';
+import { EventView } from '../events/event/view/EventView';
 import { Events } from '../events/Events';
-import { EventView } from '../events/events/EventView';
+import { FriendsView } from '../events/friends/view/FriendsView';
+import { GroupView } from '../events/groups/view/GroupView';
 import { ExpenseView } from '../expenses/expense-view/ExpenseView';
 import { Expenses } from '../expenses/Expenses';
 import { PaymentView } from '../expenses/payment-view/PaymentView';
@@ -17,6 +19,9 @@ import { Settings } from '../settings/Settings';
 import { ResourceNotFound } from '../utils/not-found/ResourceNotFound';
 import { AppHeader } from './AppHeader';
 import {
+  eventsEventRoute,
+  eventsFiendsRoute,
+  eventsGroupRoute,
   eventsRoute,
   expensesRoute,
   loginRoute,
@@ -51,14 +56,21 @@ export const AppLayout: React.FC = () => {
                   setAuthData={setAuthData}
                   tokenPresent={tokenPresent}
                 />
+
                 <Events path={eventsRoute} />
-                <EventView path={`${eventsRoute}/:eventId/*`} />
+                <EventView path={`${eventsEventRoute}/:eventId/*`} />
+                <GroupView path={`${eventsGroupRoute}/:groupId/*`} />
+                <FriendsView path={`${eventsFiendsRoute}/:friendsId/*`} />
+
                 <Expenses path={expensesRoute} />
                 <NewExpense path={newExpenseRoute} />
                 <ExpenseView path={`${expensesRoute}/:expenseId`} />
                 <PaymentView path={`${paymentsRoute}/:paymentId/*`} />
+
                 <Notifications path={notificationsRoute} />
+
                 <Settings path={settingsRoute} setAuthData={setAuthData} />
+
                 <ResourceNotFound default />
               </Router>
             </main>

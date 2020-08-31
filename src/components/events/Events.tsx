@@ -3,7 +3,7 @@ import { RouteComponentProps } from '@reach/router';
 import { Button, Tabs } from 'antd';
 
 import { ActionType, AppContext, EventsTabKeys } from '../app-context/AppContext';
-import { EventsList } from './events/EventsList';
+import { EventsList } from './event/EventsList';
 import { FriendsList } from './friends/FriendsList';
 import { GroupsList } from './groups/GroupsList';
 import { useUserParties } from './useUserParties';

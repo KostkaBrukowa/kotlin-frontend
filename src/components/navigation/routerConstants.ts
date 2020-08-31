@@ -7,4 +7,8 @@ export const newExpenseRoute = '/newExpense';
 export const notificationsRoute = '/notifications';
 export const settingsRoute = '/settings';
 
+export const eventsEventRoute = '/events/event';
+export const eventsGroupRoute = '/events/group';
+export const eventsFiendsRoute = '/events/friends';
+
 export const nonAuthenticatedRoutes = [loginRoute, registerRoute];

@@ -3,7 +3,7 @@ import { RouteComponentProps } from '@reach/router';
 import { List } from 'antd';
 
 import { UserContext } from '../config/UserProvider';
-import { EmptyEventsList } from '../events/list-utils/EmptyList';
+import { EmptyEventsList } from '../events/common/EmptyList';
 import { LoadingCard } from '../expenses/list/LoadingCard';
 import { renderNotificationItem } from './list-items/renderNotificationItem';
 import { useUserNotifications } from './useUserNotifications';

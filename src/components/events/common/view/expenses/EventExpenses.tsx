@@ -1,17 +1,18 @@
 import React, { useContext } from 'react';
 import { FaWallet } from 'react-icons/all';
 import { navigate } from '@reach/router';
-import { List, Tooltip, Typography } from 'antd';
+import { Collapse, List, Tooltip, Typography } from 'antd';
 import clsx from 'clsx';
 
-import { UserContext } from '../../config/UserProvider';
-import { getExpenseTooltipProps } from '../../enum-renderers/expenseTooltipRenderer';
-import { expensesRoute } from '../../navigation/routerConstants';
-import { currency } from '../../utils/constants/currency';
-import { capitalize } from '../../utils/functions/string';
-import { stopPropagation } from '../../utils/functions/utilFunctions';
-import { NotOptional } from '../../utils/types';
-import { EventQueryType } from './useSingleEvent';
+import { UserContext } from '../../../../config/UserProvider';
+import { getExpenseTooltipProps } from '../../../../enum-renderers/expenseTooltipRenderer';
+import { expensesRoute } from '../../../../navigation/routerConstants';
+import { currency } from '../../../../utils/constants/currency';
+import { capitalize } from '../../../../utils/functions/string';
+import { stopPropagation } from '../../../../utils/functions/utilFunctions';
+import { NotOptional } from '../../../../utils/types';
+import { EmptyEventsList } from '../../EmptyList';
+import { EventQueryType } from '../useSingleEvent';
 
 import style from './EventExpenses.module.less';
 
@@ -53,6 +54,7 @@ export const EventExpenses: React.FC<EventExpensesProps> = ({ payments }) => {
   return (
     <List
       dataSource={payments}
+      locale={{ emptyText: <EmptyEventsList type="wydatków" /> }}
       renderItem={(payment) => <ListItem payment={payment} userId={userId} />}
       size="default"
     />

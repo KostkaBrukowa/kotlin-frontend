@@ -3,12 +3,13 @@ import { BsChevronCompactDown } from 'react-icons/bs';
 import { FaChevronDown } from 'react-icons/fa';
 import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import { animated, useSpring } from 'react-spring';
+import { useLocation } from '@reach/router';
 import clsx from 'clsx';
 import { LatLng, LatLngTuple, LeafletMouseEvent } from 'leaflet';
 
-import { leafletAttribution, leafletAttributionLink } from '../../utils/constants/attributions';
-import { useOutsideClick } from '../../utils/hooks/useOutsideClick';
-import { Optional } from '../../utils/types';
+import { leafletAttribution, leafletAttributionLink } from '../../../utils/constants/attributions';
+import { useOutsideClick } from '../../../utils/hooks/useOutsideClick';
+import { Optional } from '../../../utils/types';
 
 import style from './Map.module.less';
 
@@ -52,12 +53,17 @@ const MapComponent: ({
 };
 
 export const EventMap: React.FC<EventMapProps> = ({ position, locationName }) => {
+  const location = useLocation();
   const [active, setActive] = useState(false);
   const heightStyle = useSpring({ height: active ? '40vh' : '20vh' });
   const wrapperRef = useRef<HTMLDivElement>(null);
   const chevronClassName = clsx(style.chevron, {
     [style.chevronActive]: active,
   });
+
+  useEffect(() => {
+    if (location.href.includes('#mapOpen')) setActive(true);
+  }, []);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {

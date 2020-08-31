@@ -1,10 +1,13 @@
 import React from 'react';
 import { TiHomeOutline } from 'react-icons/ti';
+import { navigate } from '@reach/router';
 import { List } from 'antd';
 
 import { GroupPartyListType } from '../../mappers/events/PartyMapperTypes';
-import { EmptyEventsList } from '../list-utils/EmptyList';
-import { getFriendCountText } from '../list-utils/OtherParticipants';
+import { eventsGroupRoute, eventsRoute } from '../../navigation/routerConstants';
+import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
+import { EmptyEventsList } from '../common/EmptyList';
+import { getFriendCountText } from '../common/OtherParticipants';
 
 import style from '../../utils/components/List.module.less';
 
@@ -17,9 +20,12 @@ const ListItem: React.FC<{ item: GroupPartyListType }> = ({ item }) => {
   const friendsCountText = getFriendCountText(item.partyParticipants.length - 1);
 
   return (
-    <List.Item className={style.listItem}>
+    <List.Item
+      className={style.listItem}
+      onClick={() => navigate(`${eventsGroupRoute}/${item.id}`)}
+    >
       <List.Item.Meta
-        avatar={<TiHomeOutline className={style.avatar} />}
+        avatar={<IdenticonAvatar id={item.id} size={20} wrapperClassName={style.avatar} />}
         description={`Ty, ${item.partyParticipants[0]?.name} ${friendsCountText ?? ''}`}
         title={item.name}
       />

@@ -134,6 +134,15 @@
       {
         "devDependencies": true
       }
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 100,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreComments": true
+      }
     ]
   }
 }
