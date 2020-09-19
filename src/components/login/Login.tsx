@@ -1,10 +1,9 @@
 import React from 'react';
-import { RouteComponentProps, useLocation } from '@reach/router';
+import { useLocation } from '@reach/router';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { FormItemProps } from 'antd/es/form';
 import clsx from 'clsx';
 
-import { AuthData } from '../config/authentication/useAuthentication';
 import { registerRoute } from '../navigation/routerConstants';
 import { TransitionElement } from '../utils/animations/TransitionElement';
 import { OtherOption } from './OtherOption';

@@ -39,7 +39,9 @@ describe('expenses test', () => {
     cy.get('.ant-card-body').first().click();
     cy.wait('@singleExpense');
 
+    cy.gqlRoute('fx:payments/singlePayment').as('singlePayment');
     getCollapseBody(0, 'li').eq(0).click();
+    cy.wait('@singlePayment');
     cy.url().should('contain', 'payments/15');
     cy.go('back');
 
@@ -60,6 +62,6 @@ describe('expenses test', () => {
     cy.wait('@singleExpense');
 
     getCollapseBody(0).contains('Opłać').click();
-    cy.url().should('contain', 'payments/17/pay');
+    cy.url().should('contain', 'payments/17/makePayment');
   });
 });

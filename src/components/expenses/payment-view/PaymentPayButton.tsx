@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { ExclamationCircleOutlined } from '@ant-design/icons/lib';
+import React, { useContext, useEffect } from 'react';
 import { useLocation } from '@reach/router';
 import { Button, Modal } from 'antd';
+import clsx from 'clsx';
 
 import { UserContext } from '../../config/UserProvider';
 import { currency } from '../../utils/constants/currency';
@@ -13,9 +13,13 @@ import style from './PaymentView.module.less';
 
 export interface PaymentPayButtonProps {
   payment: NotOptional<PaymentQueryType>;
+
+  onPaySuccess(): any;
 }
 
-export const PaymentPayButton: React.FC<PaymentPayButtonProps> = ({ payment }) => {
+const buttonClassName = clsx(style.payButton, 'data-cy-main-pay-button');
+
+export const PaymentPayButton: React.FC<PaymentPayButtonProps> = ({ payment, onPaySuccess }) => {
   const { userId } = useContext(UserContext);
   const location = useLocation();
 
@@ -24,17 +28,19 @@ export const PaymentPayButton: React.FC<PaymentPayButtonProps> = ({ payment }) =
 
   const handlePaymentPay = () =>
     new Promise((resolve, reject) => {
-      setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+      setTimeout(() => {
+        onPaySuccess();
+        resolve();
+      }, 1000);
     }).catch(() => console.log('Oops errors!'));
 
-  const showPromiseModal = () => {
+  const showPromiseModal = () =>
     Modal.confirm({
       title: 'Rozlicz się',
       content: modalContent,
       maskClosable: true,
       onOk: handlePaymentPay,
     });
-  };
 
   useEffect(() => {
     if (location.href.includes('/makePayment')) showPromiseModal();
@@ -42,7 +48,7 @@ export const PaymentPayButton: React.FC<PaymentPayButtonProps> = ({ payment }) =
 
   return userId === payment.paymentPayer.id ? (
     <div className={style.buttonWrapper}>
-      <Button className={style.payButton} size="large" type="primary" onClick={showPromiseModal}>
+      <Button className={buttonClassName} size="large" type="primary" onClick={showPromiseModal}>
         Zapłać
       </Button>
     </div>

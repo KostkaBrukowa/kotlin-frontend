@@ -1,11 +1,10 @@
-import React, { ReactElement, RefObject, useEffect, useRef, useState } from 'react';
-import { BsChevronCompactDown } from 'react-icons/bs';
+import React, { RefObject, useEffect, useRef, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import { animated, useSpring } from 'react-spring';
 import { useLocation } from '@reach/router';
 import clsx from 'clsx';
-import { LatLng, LatLngTuple, LeafletMouseEvent } from 'leaflet';
+import { LatLng, LatLngTuple } from 'leaflet';
 
 import { leafletAttribution, leafletAttributionLink } from '../../../utils/constants/attributions';
 import { useOutsideClick } from '../../../utils/hooks/useOutsideClick';

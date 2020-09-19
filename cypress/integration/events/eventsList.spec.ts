@@ -1,6 +1,6 @@
 export {};
 
-describe('', () => {
+describe('events list', () => {
   beforeEach(() => {
     cy.enterAnApp();
   });

@@ -18,7 +18,7 @@ interface RouteParams {
 export type PaymentViewProps = RouteComponentProps<RouteParams>;
 
 export const PaymentView: React.FC<PaymentViewProps> = ({ paymentId }) => {
-  const { dataComponent, extractedData: payment } = useSinglePayment(paymentId);
+  const { dataComponent, extractedData: payment, refetch } = useSinglePayment(paymentId);
   const { payerNameRectRef, receiverNameRectRef, style: arrowStyle } = usePaymentArrowStyle();
 
   if (dataComponent !== null || !payment) return dataComponent;
@@ -42,7 +42,7 @@ export const PaymentView: React.FC<PaymentViewProps> = ({ paymentId }) => {
           receiverRefCallback={receiverNameRectRef}
         />
       </div>
-      <PaymentPayButton payment={payment} />
+      <PaymentPayButton payment={payment} onPaySuccess={refetch} />
     </>
   );
 };

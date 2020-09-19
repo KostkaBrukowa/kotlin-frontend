@@ -1,4 +1,4 @@
-import { Ref, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export type RefCallback = (node: HTMLDivElement) => void;
 

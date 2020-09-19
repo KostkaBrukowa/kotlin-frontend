@@ -18,6 +18,7 @@ describe('notifications test', () => {
     cy.url().should('contain', 'expenses');
 
     cy.go('back');
+    cy.gqlRoute('fx:payments/singlePayment');
     cy.get('.ant-list-items > :nth-child(2)').click();
     cy.url().should('contain', 'payments');
 

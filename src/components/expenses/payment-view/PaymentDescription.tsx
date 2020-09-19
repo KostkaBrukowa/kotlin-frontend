@@ -25,7 +25,7 @@ export const PaymentDescription: React.FC<PaymentDescriptionProps> = ({
   payerRefCallback,
   receiverRefCallback,
 }) => (
-  <div className={style.infoWrapper}>
+  <div>
     <div className={style.infoSection} ref={payerRefCallback}>
       <Statistic title="Płaci:" value={capitalize(payment.paymentPayer.name)} />
     </div>

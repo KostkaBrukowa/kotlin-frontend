@@ -5,8 +5,7 @@ import { navigate } from '@reach/router';
 import { Button, Divider, List } from 'antd';
 
 import { EventPartyListType } from '../../mappers/events/PartyMapperTypes';
-import { eventsEventRoute, eventsRoute } from '../../navigation/routerConstants';
-import { stopPropagation } from '../../utils/functions/utilFunctions';
+import { eventsEventRoute } from '../../navigation/routerConstants';
 import { EmptyEventsList } from '../common/EmptyList';
 import { ListItemMeta } from '../common/ListItemMeta';
 

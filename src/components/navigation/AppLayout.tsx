@@ -13,7 +13,7 @@ import { Expenses } from '../expenses/Expenses';
 import { PaymentView } from '../expenses/payment-view/PaymentView';
 import { Home } from '../home/Home';
 import { Login } from '../login/Login';
-import { NewExpense } from '../new-expense/NewExpense';
+import { NewExpenseForm } from '../new-expense/NewExpenseForm';
 import { Notifications } from '../notifications/Notifications';
 import { Settings } from '../settings/Settings';
 import { ResourceNotFound } from '../utils/not-found/ResourceNotFound';
@@ -46,7 +46,7 @@ export const AppLayout: React.FC = () => {
     <UserProvider userId={userId}>
       <Layout className={style.wrapper}>
         <AppHeader />
-        {!refreshingToken && (
+        {!refreshingToken && userId && (
           <>
             <main className={style.mainWrapper}>
               <Router>
@@ -63,7 +63,7 @@ export const AppLayout: React.FC = () => {
                 <FriendsView path={`${eventsFiendsRoute}/:friendsId/*`} />
 
                 <Expenses path={expensesRoute} />
-                <NewExpense path={newExpenseRoute} />
+                <NewExpenseForm path={newExpenseRoute} />
                 <ExpenseView path={`${expensesRoute}/:expenseId`} />
                 <PaymentView path={`${paymentsRoute}/:paymentId/*`} />
 

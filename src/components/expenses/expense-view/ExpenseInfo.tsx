@@ -5,8 +5,6 @@ import { dateFrom, formatDate } from '../../utils/functions/date';
 import { NotOptional } from '../../utils/types';
 import { ExpenseQueryType } from './useSingleExpenseQuery';
 
-import style from './ExpenseView.module.less';
-
 export interface ExpenseInfoProps {
   expense: NotOptional<ExpenseQueryType>;
 }

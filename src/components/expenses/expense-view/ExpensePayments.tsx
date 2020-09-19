@@ -33,8 +33,6 @@ const ListItem = ({ payment, userId }: ExpensePaymentProps) => {
     return navigate(`${paymentsRoute}/${id}/makePayment`);
   };
 
-  console.log('AmountValue', payment);
-
   return (
     <List.Item className={style.paymentsList} key={id} onClick={handleListItemClick}>
       <FaReceipt className={style.receiptIcon} size="1.6rem" />

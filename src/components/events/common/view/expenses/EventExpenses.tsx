@@ -1,15 +1,12 @@
 import React, { useContext } from 'react';
 import { FaWallet } from 'react-icons/all';
 import { navigate } from '@reach/router';
-import { Collapse, List, Tooltip, Typography } from 'antd';
-import clsx from 'clsx';
+import { List, Typography } from 'antd';
 
 import { UserContext } from '../../../../config/UserProvider';
-import { getExpenseTooltipProps } from '../../../../enum-renderers/expenseTooltipRenderer';
 import { expensesRoute } from '../../../../navigation/routerConstants';
 import { currency } from '../../../../utils/constants/currency';
 import { capitalize } from '../../../../utils/functions/string';
-import { stopPropagation } from '../../../../utils/functions/utilFunctions';
 import { NotOptional } from '../../../../utils/types';
 import { EmptyEventsList } from '../../EmptyList';
 import { EventQueryType } from '../useSingleEvent';

@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import * as ApolloReactCommon from '@apollo/client';
 import * as ApolloReactHooks from '@apollo/client';
+
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -19,7 +20,7 @@ export type Scalars = {
 export enum BulkPaymentStatus {
   InProgress = 'IN_PROGRESS',
   Paid = 'PAID',
-  Confirmed = 'CONFIRMED'
+  Confirmed = 'CONFIRMED',
 }
 
 export type BulkPaymentType = GqlResponseType & {
@@ -33,7 +34,6 @@ export type BulkPaymentType = GqlResponseType & {
   id: Scalars['ID'];
   status: BulkPaymentStatus;
 };
-
 
 export type EditPartyInput = {
   description?: Maybe<Scalars['String']>;
@@ -76,7 +76,7 @@ export enum ExpenseStatus {
   InProgressRequesting = 'IN_PROGRESS_REQUESTING',
   InProgressPaying = 'IN_PROGRESS_PAYING',
   Declined = 'DECLINED',
-  Resolved = 'RESOLVED'
+  Resolved = 'RESOLVED',
 }
 
 export type ExpenseType = GqlResponseType & {
@@ -97,7 +97,6 @@ export type GqlResponseType = {
   id: Scalars['ID'];
 };
 
-
 export type MessageResponseType = GqlResponseType & {
   __typename?: 'MessageResponseType';
   id: Scalars['ID'];
@@ -110,7 +109,7 @@ export enum MessageType {
   Party = 'PARTY',
   Payment = 'PAYMENT',
   BulkPayment = 'BULK_PAYMENT',
-  Expense = 'EXPENSE'
+  Expense = 'EXPENSE',
 }
 
 export type Mutation = {
@@ -146,120 +145,97 @@ export type Mutation = {
   removeFriend: Scalars['Boolean'];
 };
 
-
 export type MutationLogInArgs = {
   input: UserAuthInput;
 };
-
 
 export type MutationSignUpArgs = {
   input: UserAuthInput;
 };
 
-
 export type MutationChangeExpenseStatusArgs = {
   updateExpenseStatusInput: UpdateExpenseStatusInput;
 };
-
 
 export type MutationCreateExpenseArgs = {
   newExpenseInput: NewExpenseInput;
 };
 
-
 export type MutationDeleteExpenseArgs = {
   expenseId: Scalars['Long'];
 };
-
 
 export type MutationUpdateExpenseArgs = {
   updateExpenseInput: UpdateExpenseInput;
 };
 
-
 export type MutationUpdateExpenseAmountArgs = {
   updateExpenseAmountInput: UpdateExpenseAmountInput;
 };
 
-
 export type MutationCreateMessageArgs = {
   newMessageInput: NewMessageInput;
 };
-
 
 export type MutationRemoveMessageArgs = {
   messageId: Scalars['String'];
   messageType: MessageType;
 };
 
-
 export type MutationMarkNotificationsAsReadArgs = {
   notificationsIds: Array<Scalars['String']>;
 };
-
 
 export type MutationCreatePartyArgs = {
   newPartyInput: NewPartyInput;
 };
 
-
 export type MutationDeletePartyArgs = {
   id: Scalars['String'];
 };
-
 
 export type MutationRemoveParticipantArgs = {
   partyId: Scalars['String'];
   participantId: Scalars['String'];
 };
 
-
 export type MutationUpdatePartyArgs = {
   id: Scalars['String'];
   editPartyInput: EditPartyInput;
 };
 
-
 export type MutationAcceptPartyRequestArgs = {
   partyRequestId: Scalars['String'];
 };
-
 
 export type MutationDeclinePartyRequestArgs = {
   partyRequestId: Scalars['String'];
 };
 
-
 export type MutationRemovePartyRequestArgs = {
   partyRequestId: Scalars['String'];
 };
-
 
 export type MutationSendPartyRequestArgs = {
   partyId: Scalars['String'];
   requestReceiverId: Scalars['String'];
 };
 
-
 export type MutationBulkPaymentsArgs = {
   paymentsIds: Array<Scalars['String']>;
 };
-
 
 export type MutationUpdateBulkPaymentStatusArgs = {
   updatePaymentStatusInput: UpdateBulkPaymentStatusInput;
 };
 
-
 export type MutationUpdatePaymentStatusArgs = {
   updatePaymentStatusInput: UpdatePaymentStatusInput;
 };
 
-
 export type MutationAddFriendArgs = {
   userId: Scalars['String'];
 };
-
 
 export type MutationRemoveFriendArgs = {
   userId: Scalars['String'];
@@ -301,7 +277,7 @@ export enum NotificationEvent {
   Declined = 'DECLINED',
   Paid = 'PAID',
   Confirmed = 'CONFIRMED',
-  Bulked = 'BULKED'
+  Bulked = 'BULKED',
 }
 
 export type NotificationType = {
@@ -318,7 +294,7 @@ export type NotificationType = {
 export enum NotificationTypeEnum {
   Payment = 'PAYMENT',
   Expense = 'EXPENSE',
-  PartyRequest = 'PARTY_REQUEST'
+  PartyRequest = 'PARTY_REQUEST',
 }
 
 export type Party = {
@@ -341,7 +317,7 @@ export type Party = {
 export enum PartyKind {
   Event = 'EVENT',
   Group = 'GROUP',
-  Friends = 'FRIENDS'
+  Friends = 'FRIENDS',
 }
 
 export type PartyRequest = {
@@ -368,7 +344,7 @@ export type PartyRequestNotification = NotificationType & {
 export enum PartyRequestStatus {
   Accepted = 'ACCEPTED',
   Declined = 'DECLINED',
-  InProgress = 'IN_PROGRESS'
+  InProgress = 'IN_PROGRESS',
 }
 
 export type PartyRequestType = GqlResponseType & {
@@ -426,7 +402,7 @@ export enum PaymentStatus {
   InProgress = 'IN_PROGRESS',
   Paid = 'PAID',
   Confirmed = 'CONFIRMED',
-  Bulked = 'BULKED'
+  Bulked = 'BULKED',
 }
 
 export type PaymentType = GqlResponseType & {
@@ -457,73 +433,60 @@ export type Query = {
   getUser?: Maybe<UserType>;
 };
 
-
 export type QueryGetExpensesForPartyArgs = {
   partyId: Scalars['String'];
 };
-
 
 export type QueryGetExpensesForUserArgs = {
   userId: Scalars['String'];
 };
 
-
 export type QueryGetSingleExpenseArgs = {
   expenseId: Scalars['String'];
 };
-
 
 export type QueryFindUserNotificationsArgs = {
   userId: Scalars['String'];
 };
 
-
 export type QueryGetAllPartiesArgs = {
   userId: Scalars['String'];
 };
-
 
 export type QueryGetSinglePartyArgs = {
   partyId: Scalars['String'];
 };
 
-
 export type QueryGetPartyRequestsForPartyArgs = {
   partyId: Scalars['String'];
 };
-
 
 export type QueryGetPartyRequestsForUserArgs = {
   userId: Scalars['String'];
 };
 
-
 export type QueryGetClientBulkPaymentsArgs = {
   userId: Scalars['String'];
 };
-
 
 export type QueryGetClientsPaymentsArgs = {
   userId: Scalars['String'];
 };
 
-
 export type QueryGetSinglePaymentArgs = {
   paymentId: Scalars['String'];
 };
 
-
 export type QueryFindUsersFriendsArgs = {
   userId: Scalars['String'];
 };
-
 
 export type QueryGetUserArgs = {
   id: Scalars['String'];
 };
 
 export enum Roles {
-  User = 'USER'
+  User = 'USER',
 }
 
 export type UpdateBulkPaymentStatusInput = {
@@ -590,118 +553,268 @@ export type UserType = GqlResponseType & {
   userPayments: Array<PaymentType>;
 };
 
-export type ParticipantListFragmentFragment = { __typename?: 'UserType', id: string, name?: Maybe<string> };
+export type ParticipantListFragmentFragment = {
+  __typename?: 'UserType';
+  id: string;
+  name?: Maybe<string>;
+};
 
-export type RefreshTokenMutationVariables = Exact<{ [key: string]: never; }>;
+export type RefreshTokenMutationVariables = Exact<{ [key: string]: never }>;
 
-
-export type RefreshTokenMutation = { __typename?: 'Mutation', refreshToken: { __typename?: 'UserAuthResponse', token: string, userId: string } };
+export type RefreshTokenMutation = {
+  __typename?: 'Mutation';
+  refreshToken: { __typename?: 'UserAuthResponse'; token: string; userId: string };
+};
 
 export type GetUserPartiesQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
 
-
-export type GetUserPartiesQuery = { __typename?: 'Query', getAllParties: Array<{ __typename?: 'PartyType', id: string, name?: Maybe<string>, description?: Maybe<string>, locationName?: Maybe<string>, type: PartyKind, owner?: Maybe<{ __typename?: 'User', name?: Maybe<string> }>, partyParticipants: Array<{ __typename?: 'UserType', id: string, name?: Maybe<string> }> }> };
+export type GetUserPartiesQuery = {
+  __typename?: 'Query';
+  getAllParties: Array<{
+    __typename?: 'PartyType';
+    id: string;
+    name?: Maybe<string>;
+    description?: Maybe<string>;
+    locationName?: Maybe<string>;
+    type: PartyKind;
+    owner?: Maybe<{ __typename?: 'User'; name?: Maybe<string> }>;
+    partyParticipants: Array<{ __typename?: 'UserType'; id: string; name?: Maybe<string> }>;
+  }>;
+};
 
 export type SingleEventQueryVariables = Exact<{
   eventId: Scalars['String'];
 }>;
 
-
-export type SingleEventQuery = { __typename?: 'Query', getSingleParty?: Maybe<{ __typename?: 'PartyType', id: string, name?: Maybe<string>, description?: Maybe<string>, locationName?: Maybe<string>, type: PartyKind, startDate: any, endDate?: Maybe<any>, locationLatitude?: Maybe<number>, locationLongitude?: Maybe<number>, owner?: Maybe<{ __typename?: 'User', name?: Maybe<string> }>, partyParticipants: Array<(
-      { __typename?: 'UserType' }
-      & ParticipantListFragmentFragment
-    )>, partyMessages: Array<(
-      { __typename?: 'MessageResponseType' }
-      & MessageDetailsFragment
-    )>, partyPartyRequests: Array<{ __typename?: 'PartyRequestType', id: string, status: PartyRequestStatus, partyRequestReceiver: { __typename?: 'UserType', id: string, name?: Maybe<string> } }>, partyExpenses: Array<{ __typename?: 'ExpenseType', id: string, amount: number, description: string, expenseStatus: ExpenseStatus, name: string, expensePayer: { __typename?: 'UserType', id: string, name?: Maybe<string> } }> }> };
+export type SingleEventQuery = {
+  __typename?: 'Query';
+  getSingleParty?: Maybe<{
+    __typename?: 'PartyType';
+    id: string;
+    name?: Maybe<string>;
+    description?: Maybe<string>;
+    locationName?: Maybe<string>;
+    type: PartyKind;
+    startDate: any;
+    endDate?: Maybe<any>;
+    locationLatitude?: Maybe<number>;
+    locationLongitude?: Maybe<number>;
+    owner?: Maybe<{ __typename?: 'User'; name?: Maybe<string> }>;
+    partyParticipants: Array<{ __typename?: 'UserType' } & ParticipantListFragmentFragment>;
+    partyMessages: Array<{ __typename?: 'MessageResponseType' } & MessageDetailsFragment>;
+    partyPartyRequests: Array<{
+      __typename?: 'PartyRequestType';
+      id: string;
+      status: PartyRequestStatus;
+      partyRequestReceiver: { __typename?: 'UserType'; id: string; name?: Maybe<string> };
+    }>;
+    partyExpenses: Array<{
+      __typename?: 'ExpenseType';
+      id: string;
+      amount: number;
+      description: string;
+      expenseStatus: ExpenseStatus;
+      name: string;
+      expensePayer: { __typename?: 'UserType'; id: string; name?: Maybe<string> };
+    }>;
+  }>;
+};
 
 export type GetUserExpensesQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
 
-
-export type GetUserExpensesQuery = { __typename?: 'Query', getExpensesForUser: Array<{ __typename?: 'ExpenseType', id: string, amount: number, description: string, name: string, expenseStatus: ExpenseStatus }>, getClientsPayments: Array<{ __typename?: 'PaymentType', id: string, amount?: Maybe<number>, status: PaymentStatus, paymentExpense: { __typename?: 'ExpenseType', id: string, description: string, name: string, expenseStatus: ExpenseStatus } }> };
+export type GetUserExpensesQuery = {
+  __typename?: 'Query';
+  getExpensesForUser: Array<{
+    __typename?: 'ExpenseType';
+    id: string;
+    amount: number;
+    description: string;
+    name: string;
+    expenseStatus: ExpenseStatus;
+  }>;
+  getClientsPayments: Array<{
+    __typename?: 'PaymentType';
+    id: string;
+    amount?: Maybe<number>;
+    status: PaymentStatus;
+    paymentExpense: {
+      __typename?: 'ExpenseType';
+      id: string;
+      description: string;
+      name: string;
+      expenseStatus: ExpenseStatus;
+    };
+  }>;
+};
 
 export type SingleExpenseQueryVariables = Exact<{
   expenseId: Scalars['String'];
 }>;
 
-
-export type SingleExpenseQuery = { __typename?: 'Query', getSingleExpense?: Maybe<{ __typename?: 'ExpenseType', id: string, name: string, description: string, expenseDate: any, amount: number, expenseStatus: ExpenseStatus, expensePayer: { __typename?: 'UserType', id: string, name?: Maybe<string> }, expensePayments: Array<{ __typename?: 'PaymentType', id: string, amount?: Maybe<number>, status: PaymentStatus, paymentPayer: { __typename?: 'UserType', id: string, name?: Maybe<string> } }> }> };
+export type SingleExpenseQuery = {
+  __typename?: 'Query';
+  getSingleExpense?: Maybe<{
+    __typename?: 'ExpenseType';
+    id: string;
+    name: string;
+    description: string;
+    expenseDate: any;
+    amount: number;
+    expenseStatus: ExpenseStatus;
+    expensePayer: { __typename?: 'UserType'; id: string; name?: Maybe<string> };
+    expensePayments: Array<{
+      __typename?: 'PaymentType';
+      id: string;
+      amount?: Maybe<number>;
+      status: PaymentStatus;
+      paymentPayer: { __typename?: 'UserType'; id: string; name?: Maybe<string> };
+    }>;
+  }>;
+};
 
 export type SinglePaymentQueryVariables = Exact<{
   paymentId: Scalars['String'];
 }>;
 
-
-export type SinglePaymentQuery = { __typename?: 'Query', getSinglePayment?: Maybe<{ __typename?: 'PaymentType', id: string, amount?: Maybe<number>, status: PaymentStatus, paymentMessages: Array<(
-      { __typename?: 'MessageResponseType' }
-      & MessageDetailsFragment
-    )>, paymentExpense: { __typename?: 'ExpenseType', id: string, name: string, expensePayer: { __typename?: 'UserType', id: string, name?: Maybe<string> } }, paymentPayer: { __typename?: 'UserType', id: string, name?: Maybe<string> } }> };
+export type SinglePaymentQuery = {
+  __typename?: 'Query';
+  getSinglePayment?: Maybe<{
+    __typename?: 'PaymentType';
+    id: string;
+    amount?: Maybe<number>;
+    status: PaymentStatus;
+    paymentMessages: Array<{ __typename?: 'MessageResponseType' } & MessageDetailsFragment>;
+    paymentExpense: {
+      __typename?: 'ExpenseType';
+      id: string;
+      name: string;
+      expensePayer: { __typename?: 'UserType'; id: string; name?: Maybe<string> };
+    };
+    paymentPayer: { __typename?: 'UserType'; id: string; name?: Maybe<string> };
+  }>;
+};
 
 export type LoginUserMutationVariables = Exact<{
   input: UserAuthInput;
 }>;
 
-
-export type LoginUserMutation = { __typename?: 'Mutation', logIn?: Maybe<{ __typename?: 'UserAuthResponse', token: string, userId: string }> };
+export type LoginUserMutation = {
+  __typename?: 'Mutation';
+  logIn?: Maybe<{ __typename?: 'UserAuthResponse'; token: string; userId: string }>;
+};
 
 export type SignUpUserMutationVariables = Exact<{
   input: UserAuthInput;
 }>;
 
-
-export type SignUpUserMutation = { __typename?: 'Mutation', signUp: { __typename?: 'UserAuthResponse', token: string, userId: string } };
+export type SignUpUserMutation = {
+  __typename?: 'Mutation';
+  signUp: { __typename?: 'UserAuthResponse'; token: string; userId: string };
+};
 
 export type GetUserNotificationsQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
 
-
-export type GetUserNotificationsQuery = { __typename?: 'Query', findUserNotifications: Array<{ __typename?: 'ExpenseNotification', expenseId: string, id: string, createdAt: any, isRead: boolean, event: NotificationEvent, type: NotificationTypeEnum, actor?: Maybe<{ __typename?: 'UserType', id: string, name?: Maybe<string> }>, receiver?: Maybe<{ __typename?: 'UserType', id: string, name?: Maybe<string> }> } | { __typename?: 'PartyRequestNotification', partyId: string, id: string, createdAt: any, isRead: boolean, event: NotificationEvent, type: NotificationTypeEnum, actor?: Maybe<{ __typename?: 'UserType', id: string, name?: Maybe<string> }>, receiver?: Maybe<{ __typename?: 'UserType', id: string, name?: Maybe<string> }> } | { __typename?: 'PaymentNotification', paymentId: string, id: string, createdAt: any, isRead: boolean, event: NotificationEvent, type: NotificationTypeEnum, actor?: Maybe<{ __typename?: 'UserType', id: string, name?: Maybe<string> }>, receiver?: Maybe<{ __typename?: 'UserType', id: string, name?: Maybe<string> }> }> };
+export type GetUserNotificationsQuery = {
+  __typename?: 'Query';
+  findUserNotifications: Array<
+    | {
+        __typename?: 'ExpenseNotification';
+        expenseId: string;
+        id: string;
+        createdAt: any;
+        isRead: boolean;
+        event: NotificationEvent;
+        type: NotificationTypeEnum;
+        actor?: Maybe<{ __typename?: 'UserType'; id: string; name?: Maybe<string> }>;
+        receiver?: Maybe<{ __typename?: 'UserType'; id: string; name?: Maybe<string> }>;
+      }
+    | {
+        __typename?: 'PartyRequestNotification';
+        partyId: string;
+        id: string;
+        createdAt: any;
+        isRead: boolean;
+        event: NotificationEvent;
+        type: NotificationTypeEnum;
+        actor?: Maybe<{ __typename?: 'UserType'; id: string; name?: Maybe<string> }>;
+        receiver?: Maybe<{ __typename?: 'UserType'; id: string; name?: Maybe<string> }>;
+      }
+    | {
+        __typename?: 'PaymentNotification';
+        paymentId: string;
+        id: string;
+        createdAt: any;
+        isRead: boolean;
+        event: NotificationEvent;
+        type: NotificationTypeEnum;
+        actor?: Maybe<{ __typename?: 'UserType'; id: string; name?: Maybe<string> }>;
+        receiver?: Maybe<{ __typename?: 'UserType'; id: string; name?: Maybe<string> }>;
+      }
+  >;
+};
 
 export type GetUserDetailsQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
 
+export type GetUserDetailsQuery = {
+  __typename?: 'Query';
+  getUser?: Maybe<{
+    __typename?: 'UserType';
+    id: string;
+    name?: Maybe<string>;
+    bankAccount?: Maybe<string>;
+    email: string;
+  }>;
+};
 
-export type GetUserDetailsQuery = { __typename?: 'Query', getUser?: Maybe<{ __typename?: 'UserType', id: string, name?: Maybe<string>, bankAccount?: Maybe<string>, email: string }> };
+export type LogoutMutationVariables = Exact<{ [key: string]: never }>;
 
-export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+export type LogoutMutation = { __typename?: 'Mutation'; logOut: boolean };
 
-
-export type LogoutMutation = { __typename?: 'Mutation', logOut: boolean };
-
-export type MessageDetailsFragment = { __typename?: 'MessageResponseType', id: string, sendDate: any, text: string, messageSender: { __typename?: 'UserType', id: string, name?: Maybe<string> } };
+export type MessageDetailsFragment = {
+  __typename?: 'MessageResponseType';
+  id: string;
+  sendDate: any;
+  text: string;
+  messageSender: { __typename?: 'UserType'; id: string; name?: Maybe<string> };
+};
 
 export const ParticipantListFragmentFragmentDoc = gql`
-    fragment ParticipantListFragment on UserType {
-  id
-  name
-}
-    `;
-export const MessageDetailsFragmentDoc = gql`
-    fragment MessageDetails on MessageResponseType {
-  id
-  sendDate
-  text
-  messageSender {
+  fragment ParticipantListFragment on UserType {
     id
     name
   }
-}
-    `;
-export const RefreshTokenDocument = gql`
-    mutation RefreshToken {
-  refreshToken {
-    token
-    userId
+`;
+export const MessageDetailsFragmentDoc = gql`
+  fragment MessageDetails on MessageResponseType {
+    id
+    sendDate
+    text
+    messageSender {
+      id
+      name
+    }
   }
-}
-    `;
-export type RefreshTokenMutationFn = ApolloReactCommon.MutationFunction<RefreshTokenMutation, RefreshTokenMutationVariables>;
+`;
+export const RefreshTokenDocument = gql`
+  mutation RefreshToken {
+    refreshToken {
+      token
+      userId
+    }
+  }
+`;
+export type RefreshTokenMutationFn = ApolloReactCommon.MutationFunction<
+  RefreshTokenMutation,
+  RefreshTokenMutationVariables
+>;
 
 /**
  * __useRefreshTokenMutation__
@@ -719,30 +832,41 @@ export type RefreshTokenMutationFn = ApolloReactCommon.MutationFunction<RefreshT
  *   },
  * });
  */
-export function useRefreshTokenMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RefreshTokenMutation, RefreshTokenMutationVariables>) {
-        return ApolloReactHooks.useMutation<RefreshTokenMutation, RefreshTokenMutationVariables>(RefreshTokenDocument, baseOptions);
-      }
+export function useRefreshTokenMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    RefreshTokenMutation,
+    RefreshTokenMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<RefreshTokenMutation, RefreshTokenMutationVariables>(
+    RefreshTokenDocument,
+    baseOptions,
+  );
+}
 export type RefreshTokenMutationHookResult = ReturnType<typeof useRefreshTokenMutation>;
 export type RefreshTokenMutationResult = ApolloReactCommon.MutationResult<RefreshTokenMutation>;
-export type RefreshTokenMutationOptions = ApolloReactCommon.BaseMutationOptions<RefreshTokenMutation, RefreshTokenMutationVariables>;
+export type RefreshTokenMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  RefreshTokenMutation,
+  RefreshTokenMutationVariables
+>;
 export const GetUserPartiesDocument = gql`
-    query GetUserParties($userId: String!) {
-  getAllParties(userId: $userId) {
-    id
-    name
-    description
-    locationName
-    type
-    owner {
-      name
-    }
-    partyParticipants {
+  query GetUserParties($userId: String!) {
+    getAllParties(userId: $userId) {
       id
       name
+      description
+      locationName
+      type
+      owner {
+        name
+      }
+      partyParticipants {
+        id
+        name
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetUserPartiesQuery__
@@ -760,59 +884,79 @@ export const GetUserPartiesDocument = gql`
  *   },
  * });
  */
-export function useGetUserPartiesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserPartiesQuery, GetUserPartiesQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetUserPartiesQuery, GetUserPartiesQueryVariables>(GetUserPartiesDocument, baseOptions);
-      }
-export function useGetUserPartiesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserPartiesQuery, GetUserPartiesQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetUserPartiesQuery, GetUserPartiesQueryVariables>(GetUserPartiesDocument, baseOptions);
-        }
+export function useGetUserPartiesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    GetUserPartiesQuery,
+    GetUserPartiesQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<GetUserPartiesQuery, GetUserPartiesQueryVariables>(
+    GetUserPartiesDocument,
+    baseOptions,
+  );
+}
+export function useGetUserPartiesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetUserPartiesQuery,
+    GetUserPartiesQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<GetUserPartiesQuery, GetUserPartiesQueryVariables>(
+    GetUserPartiesDocument,
+    baseOptions,
+  );
+}
 export type GetUserPartiesQueryHookResult = ReturnType<typeof useGetUserPartiesQuery>;
 export type GetUserPartiesLazyQueryHookResult = ReturnType<typeof useGetUserPartiesLazyQuery>;
-export type GetUserPartiesQueryResult = ApolloReactCommon.QueryResult<GetUserPartiesQuery, GetUserPartiesQueryVariables>;
+export type GetUserPartiesQueryResult = ApolloReactCommon.QueryResult<
+  GetUserPartiesQuery,
+  GetUserPartiesQueryVariables
+>;
 export const SingleEventDocument = gql`
-    query SingleEvent($eventId: String!) {
-  getSingleParty(partyId: $eventId) {
-    id
-    name
-    description
-    locationName
-    type
-    startDate
-    endDate
-    locationLatitude
-    locationLongitude
-    owner {
-      name
-    }
-    partyParticipants {
-      ...ParticipantListFragment
-    }
-    partyMessages {
-      ...MessageDetails
-    }
-    partyPartyRequests {
+  query SingleEvent($eventId: String!) {
+    getSingleParty(partyId: $eventId) {
       id
-      status
-      partyRequestReceiver {
-        id
+      name
+      description
+      locationName
+      type
+      startDate
+      endDate
+      locationLatitude
+      locationLongitude
+      owner {
         name
       }
-    }
-    partyExpenses {
-      id
-      amount
-      description
-      expenseStatus
-      name
-      expensePayer {
+      partyParticipants {
+        ...ParticipantListFragment
+      }
+      partyMessages {
+        ...MessageDetails
+      }
+      partyPartyRequests {
         id
+        status
+        partyRequestReceiver {
+          id
+          name
+        }
+      }
+      partyExpenses {
+        id
+        amount
+        description
+        expenseStatus
         name
+        expensePayer {
+          id
+          name
+        }
       }
     }
   }
-}
-    ${ParticipantListFragmentFragmentDoc}
-${MessageDetailsFragmentDoc}`;
+  ${ParticipantListFragmentFragmentDoc}
+  ${MessageDetailsFragmentDoc}
+`;
 
 /**
  * __useSingleEventQuery__
@@ -830,37 +974,50 @@ ${MessageDetailsFragmentDoc}`;
  *   },
  * });
  */
-export function useSingleEventQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SingleEventQuery, SingleEventQueryVariables>) {
-        return ApolloReactHooks.useQuery<SingleEventQuery, SingleEventQueryVariables>(SingleEventDocument, baseOptions);
-      }
-export function useSingleEventLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SingleEventQuery, SingleEventQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<SingleEventQuery, SingleEventQueryVariables>(SingleEventDocument, baseOptions);
-        }
+export function useSingleEventQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<SingleEventQuery, SingleEventQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<SingleEventQuery, SingleEventQueryVariables>(
+    SingleEventDocument,
+    baseOptions,
+  );
+}
+export function useSingleEventLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SingleEventQuery, SingleEventQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<SingleEventQuery, SingleEventQueryVariables>(
+    SingleEventDocument,
+    baseOptions,
+  );
+}
 export type SingleEventQueryHookResult = ReturnType<typeof useSingleEventQuery>;
 export type SingleEventLazyQueryHookResult = ReturnType<typeof useSingleEventLazyQuery>;
-export type SingleEventQueryResult = ApolloReactCommon.QueryResult<SingleEventQuery, SingleEventQueryVariables>;
+export type SingleEventQueryResult = ApolloReactCommon.QueryResult<
+  SingleEventQuery,
+  SingleEventQueryVariables
+>;
 export const GetUserExpensesDocument = gql`
-    query GetUserExpenses($userId: String!) {
-  getExpensesForUser(userId: $userId) {
-    id
-    amount
-    description
-    name
-    expenseStatus
-  }
-  getClientsPayments(userId: $userId) {
-    id
-    amount
-    status
-    paymentExpense {
+  query GetUserExpenses($userId: String!) {
+    getExpensesForUser(userId: $userId) {
       id
+      amount
       description
       name
       expenseStatus
     }
+    getClientsPayments(userId: $userId) {
+      id
+      amount
+      status
+      paymentExpense {
+        id
+        description
+        name
+        expenseStatus
+      }
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetUserExpensesQuery__
@@ -878,40 +1035,59 @@ export const GetUserExpensesDocument = gql`
  *   },
  * });
  */
-export function useGetUserExpensesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserExpensesQuery, GetUserExpensesQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetUserExpensesQuery, GetUserExpensesQueryVariables>(GetUserExpensesDocument, baseOptions);
-      }
-export function useGetUserExpensesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserExpensesQuery, GetUserExpensesQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetUserExpensesQuery, GetUserExpensesQueryVariables>(GetUserExpensesDocument, baseOptions);
-        }
+export function useGetUserExpensesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    GetUserExpensesQuery,
+    GetUserExpensesQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<GetUserExpensesQuery, GetUserExpensesQueryVariables>(
+    GetUserExpensesDocument,
+    baseOptions,
+  );
+}
+export function useGetUserExpensesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetUserExpensesQuery,
+    GetUserExpensesQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<GetUserExpensesQuery, GetUserExpensesQueryVariables>(
+    GetUserExpensesDocument,
+    baseOptions,
+  );
+}
 export type GetUserExpensesQueryHookResult = ReturnType<typeof useGetUserExpensesQuery>;
 export type GetUserExpensesLazyQueryHookResult = ReturnType<typeof useGetUserExpensesLazyQuery>;
-export type GetUserExpensesQueryResult = ApolloReactCommon.QueryResult<GetUserExpensesQuery, GetUserExpensesQueryVariables>;
+export type GetUserExpensesQueryResult = ApolloReactCommon.QueryResult<
+  GetUserExpensesQuery,
+  GetUserExpensesQueryVariables
+>;
 export const SingleExpenseDocument = gql`
-    query SingleExpense($expenseId: String!) {
-  getSingleExpense(expenseId: $expenseId) {
-    id
-    name
-    description
-    expenseDate
-    amount
-    expenseStatus
-    expensePayer {
+  query SingleExpense($expenseId: String!) {
+    getSingleExpense(expenseId: $expenseId) {
       id
       name
-    }
-    expensePayments {
-      id
+      description
+      expenseDate
       amount
-      status
-      paymentPayer {
+      expenseStatus
+      expensePayer {
         id
         name
       }
+      expensePayments {
+        id
+        amount
+        status
+        paymentPayer {
+          id
+          name
+        }
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useSingleExpenseQuery__
@@ -929,39 +1105,56 @@ export const SingleExpenseDocument = gql`
  *   },
  * });
  */
-export function useSingleExpenseQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SingleExpenseQuery, SingleExpenseQueryVariables>) {
-        return ApolloReactHooks.useQuery<SingleExpenseQuery, SingleExpenseQueryVariables>(SingleExpenseDocument, baseOptions);
-      }
-export function useSingleExpenseLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SingleExpenseQuery, SingleExpenseQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<SingleExpenseQuery, SingleExpenseQueryVariables>(SingleExpenseDocument, baseOptions);
-        }
+export function useSingleExpenseQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<SingleExpenseQuery, SingleExpenseQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<SingleExpenseQuery, SingleExpenseQueryVariables>(
+    SingleExpenseDocument,
+    baseOptions,
+  );
+}
+export function useSingleExpenseLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    SingleExpenseQuery,
+    SingleExpenseQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<SingleExpenseQuery, SingleExpenseQueryVariables>(
+    SingleExpenseDocument,
+    baseOptions,
+  );
+}
 export type SingleExpenseQueryHookResult = ReturnType<typeof useSingleExpenseQuery>;
 export type SingleExpenseLazyQueryHookResult = ReturnType<typeof useSingleExpenseLazyQuery>;
-export type SingleExpenseQueryResult = ApolloReactCommon.QueryResult<SingleExpenseQuery, SingleExpenseQueryVariables>;
+export type SingleExpenseQueryResult = ApolloReactCommon.QueryResult<
+  SingleExpenseQuery,
+  SingleExpenseQueryVariables
+>;
 export const SinglePaymentDocument = gql`
-    query SinglePayment($paymentId: String!) {
-  getSinglePayment(paymentId: $paymentId) {
-    id
-    amount
-    status
-    paymentMessages {
-      ...MessageDetails
-    }
-    paymentExpense {
+  query SinglePayment($paymentId: String!) {
+    getSinglePayment(paymentId: $paymentId) {
       id
-      name
-      expensePayer {
+      amount
+      status
+      paymentMessages {
+        ...MessageDetails
+      }
+      paymentExpense {
+        id
+        name
+        expensePayer {
+          id
+          name
+        }
+      }
+      paymentPayer {
         id
         name
       }
     }
-    paymentPayer {
-      id
-      name
-    }
   }
-}
-    ${MessageDetailsFragmentDoc}`;
+  ${MessageDetailsFragmentDoc}
+`;
 
 /**
  * __useSinglePaymentQuery__
@@ -979,24 +1172,43 @@ export const SinglePaymentDocument = gql`
  *   },
  * });
  */
-export function useSinglePaymentQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SinglePaymentQuery, SinglePaymentQueryVariables>) {
-        return ApolloReactHooks.useQuery<SinglePaymentQuery, SinglePaymentQueryVariables>(SinglePaymentDocument, baseOptions);
-      }
-export function useSinglePaymentLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SinglePaymentQuery, SinglePaymentQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<SinglePaymentQuery, SinglePaymentQueryVariables>(SinglePaymentDocument, baseOptions);
-        }
+export function useSinglePaymentQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<SinglePaymentQuery, SinglePaymentQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<SinglePaymentQuery, SinglePaymentQueryVariables>(
+    SinglePaymentDocument,
+    baseOptions,
+  );
+}
+export function useSinglePaymentLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    SinglePaymentQuery,
+    SinglePaymentQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<SinglePaymentQuery, SinglePaymentQueryVariables>(
+    SinglePaymentDocument,
+    baseOptions,
+  );
+}
 export type SinglePaymentQueryHookResult = ReturnType<typeof useSinglePaymentQuery>;
 export type SinglePaymentLazyQueryHookResult = ReturnType<typeof useSinglePaymentLazyQuery>;
-export type SinglePaymentQueryResult = ApolloReactCommon.QueryResult<SinglePaymentQuery, SinglePaymentQueryVariables>;
+export type SinglePaymentQueryResult = ApolloReactCommon.QueryResult<
+  SinglePaymentQuery,
+  SinglePaymentQueryVariables
+>;
 export const LoginUserDocument = gql`
-    mutation LoginUser($input: UserAuthInput!) {
-  logIn(input: $input) {
-    token
-    userId
+  mutation LoginUser($input: UserAuthInput!) {
+    logIn(input: $input) {
+      token
+      userId
+    }
   }
-}
-    `;
-export type LoginUserMutationFn = ApolloReactCommon.MutationFunction<LoginUserMutation, LoginUserMutationVariables>;
+`;
+export type LoginUserMutationFn = ApolloReactCommon.MutationFunction<
+  LoginUserMutation,
+  LoginUserMutationVariables
+>;
 
 /**
  * __useLoginUserMutation__
@@ -1015,21 +1227,32 @@ export type LoginUserMutationFn = ApolloReactCommon.MutationFunction<LoginUserMu
  *   },
  * });
  */
-export function useLoginUserMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<LoginUserMutation, LoginUserMutationVariables>) {
-        return ApolloReactHooks.useMutation<LoginUserMutation, LoginUserMutationVariables>(LoginUserDocument, baseOptions);
-      }
+export function useLoginUserMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<LoginUserMutation, LoginUserMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<LoginUserMutation, LoginUserMutationVariables>(
+    LoginUserDocument,
+    baseOptions,
+  );
+}
 export type LoginUserMutationHookResult = ReturnType<typeof useLoginUserMutation>;
 export type LoginUserMutationResult = ApolloReactCommon.MutationResult<LoginUserMutation>;
-export type LoginUserMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>;
+export type LoginUserMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  LoginUserMutation,
+  LoginUserMutationVariables
+>;
 export const SignUpUserDocument = gql`
-    mutation SignUpUser($input: UserAuthInput!) {
-  signUp(input: $input) {
-    token
-    userId
+  mutation SignUpUser($input: UserAuthInput!) {
+    signUp(input: $input) {
+      token
+      userId
+    }
   }
-}
-    `;
-export type SignUpUserMutationFn = ApolloReactCommon.MutationFunction<SignUpUserMutation, SignUpUserMutationVariables>;
+`;
+export type SignUpUserMutationFn = ApolloReactCommon.MutationFunction<
+  SignUpUserMutation,
+  SignUpUserMutationVariables
+>;
 
 /**
  * __useSignUpUserMutation__
@@ -1048,40 +1271,51 @@ export type SignUpUserMutationFn = ApolloReactCommon.MutationFunction<SignUpUser
  *   },
  * });
  */
-export function useSignUpUserMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SignUpUserMutation, SignUpUserMutationVariables>) {
-        return ApolloReactHooks.useMutation<SignUpUserMutation, SignUpUserMutationVariables>(SignUpUserDocument, baseOptions);
-      }
+export function useSignUpUserMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    SignUpUserMutation,
+    SignUpUserMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<SignUpUserMutation, SignUpUserMutationVariables>(
+    SignUpUserDocument,
+    baseOptions,
+  );
+}
 export type SignUpUserMutationHookResult = ReturnType<typeof useSignUpUserMutation>;
 export type SignUpUserMutationResult = ApolloReactCommon.MutationResult<SignUpUserMutation>;
-export type SignUpUserMutationOptions = ApolloReactCommon.BaseMutationOptions<SignUpUserMutation, SignUpUserMutationVariables>;
+export type SignUpUserMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  SignUpUserMutation,
+  SignUpUserMutationVariables
+>;
 export const GetUserNotificationsDocument = gql`
-    query GetUserNotifications($userId: String!) {
-  findUserNotifications(userId: $userId) {
-    id
-    createdAt
-    isRead
-    event
-    type
-    actor {
+  query GetUserNotifications($userId: String!) {
+    findUserNotifications(userId: $userId) {
       id
-      name
-    }
-    receiver {
-      id
-      name
-    }
-    ... on ExpenseNotification {
-      expenseId
-    }
-    ... on PartyRequestNotification {
-      partyId
-    }
-    ... on PaymentNotification {
-      paymentId
+      createdAt
+      isRead
+      event
+      type
+      actor {
+        id
+        name
+      }
+      receiver {
+        id
+        name
+      }
+      ... on ExpenseNotification {
+        expenseId
+      }
+      ... on PartyRequestNotification {
+        partyId
+      }
+      ... on PaymentNotification {
+        paymentId
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetUserNotificationsQuery__
@@ -1099,25 +1333,46 @@ export const GetUserNotificationsDocument = gql`
  *   },
  * });
  */
-export function useGetUserNotificationsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserNotificationsQuery, GetUserNotificationsQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetUserNotificationsQuery, GetUserNotificationsQueryVariables>(GetUserNotificationsDocument, baseOptions);
-      }
-export function useGetUserNotificationsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserNotificationsQuery, GetUserNotificationsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetUserNotificationsQuery, GetUserNotificationsQueryVariables>(GetUserNotificationsDocument, baseOptions);
-        }
-export type GetUserNotificationsQueryHookResult = ReturnType<typeof useGetUserNotificationsQuery>;
-export type GetUserNotificationsLazyQueryHookResult = ReturnType<typeof useGetUserNotificationsLazyQuery>;
-export type GetUserNotificationsQueryResult = ApolloReactCommon.QueryResult<GetUserNotificationsQuery, GetUserNotificationsQueryVariables>;
-export const GetUserDetailsDocument = gql`
-    query GetUserDetails($userId: String!) {
-  getUser(id: $userId) {
-    id
-    name
-    bankAccount
-    email
-  }
+export function useGetUserNotificationsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    GetUserNotificationsQuery,
+    GetUserNotificationsQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<GetUserNotificationsQuery, GetUserNotificationsQueryVariables>(
+    GetUserNotificationsDocument,
+    baseOptions,
+  );
 }
-    `;
+export function useGetUserNotificationsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetUserNotificationsQuery,
+    GetUserNotificationsQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<
+    GetUserNotificationsQuery,
+    GetUserNotificationsQueryVariables
+  >(GetUserNotificationsDocument, baseOptions);
+}
+export type GetUserNotificationsQueryHookResult = ReturnType<typeof useGetUserNotificationsQuery>;
+export type GetUserNotificationsLazyQueryHookResult = ReturnType<
+  typeof useGetUserNotificationsLazyQuery
+>;
+export type GetUserNotificationsQueryResult = ApolloReactCommon.QueryResult<
+  GetUserNotificationsQuery,
+  GetUserNotificationsQueryVariables
+>;
+export const GetUserDetailsDocument = gql`
+  query GetUserDetails($userId: String!) {
+    getUser(id: $userId) {
+      id
+      name
+      bankAccount
+      email
+    }
+  }
+`;
 
 /**
  * __useGetUserDetailsQuery__
@@ -1135,21 +1390,43 @@ export const GetUserDetailsDocument = gql`
  *   },
  * });
  */
-export function useGetUserDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserDetailsQuery, GetUserDetailsQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetUserDetailsQuery, GetUserDetailsQueryVariables>(GetUserDetailsDocument, baseOptions);
-      }
-export function useGetUserDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserDetailsQuery, GetUserDetailsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetUserDetailsQuery, GetUserDetailsQueryVariables>(GetUserDetailsDocument, baseOptions);
-        }
+export function useGetUserDetailsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    GetUserDetailsQuery,
+    GetUserDetailsQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<GetUserDetailsQuery, GetUserDetailsQueryVariables>(
+    GetUserDetailsDocument,
+    baseOptions,
+  );
+}
+export function useGetUserDetailsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetUserDetailsQuery,
+    GetUserDetailsQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<GetUserDetailsQuery, GetUserDetailsQueryVariables>(
+    GetUserDetailsDocument,
+    baseOptions,
+  );
+}
 export type GetUserDetailsQueryHookResult = ReturnType<typeof useGetUserDetailsQuery>;
 export type GetUserDetailsLazyQueryHookResult = ReturnType<typeof useGetUserDetailsLazyQuery>;
-export type GetUserDetailsQueryResult = ApolloReactCommon.QueryResult<GetUserDetailsQuery, GetUserDetailsQueryVariables>;
+export type GetUserDetailsQueryResult = ApolloReactCommon.QueryResult<
+  GetUserDetailsQuery,
+  GetUserDetailsQueryVariables
+>;
 export const LogoutDocument = gql`
-    mutation Logout {
-  logOut
-}
-    `;
-export type LogoutMutationFn = ApolloReactCommon.MutationFunction<LogoutMutation, LogoutMutationVariables>;
+  mutation Logout {
+    logOut
+  }
+`;
+export type LogoutMutationFn = ApolloReactCommon.MutationFunction<
+  LogoutMutation,
+  LogoutMutationVariables
+>;
 
 /**
  * __useLogoutMutation__
@@ -1167,9 +1444,17 @@ export type LogoutMutationFn = ApolloReactCommon.MutationFunction<LogoutMutation
  *   },
  * });
  */
-export function useLogoutMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<LogoutMutation, LogoutMutationVariables>) {
-        return ApolloReactHooks.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument, baseOptions);
-      }
+export function useLogoutMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<LogoutMutation, LogoutMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<LogoutMutation, LogoutMutationVariables>(
+    LogoutDocument,
+    baseOptions,
+  );
+}
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = ApolloReactCommon.MutationResult<LogoutMutation>;
-export type LogoutMutationOptions = ApolloReactCommon.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export type LogoutMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  LogoutMutation,
+  LogoutMutationVariables
+>;

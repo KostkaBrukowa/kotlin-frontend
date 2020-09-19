@@ -1,10 +1,9 @@
 import React from 'react';
-import { TiHomeOutline } from 'react-icons/ti';
 import { navigate } from '@reach/router';
 import { List } from 'antd';
 
 import { GroupPartyListType } from '../../mappers/events/PartyMapperTypes';
-import { eventsGroupRoute, eventsRoute } from '../../navigation/routerConstants';
+import { eventsGroupRoute } from '../../navigation/routerConstants';
 import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
 import { EmptyEventsList } from '../common/EmptyList';
 import { getFriendCountText } from '../common/OtherParticipants';

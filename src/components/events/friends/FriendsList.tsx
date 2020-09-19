@@ -1,10 +1,9 @@
 import React from 'react';
-import { AiOutlineTeam } from 'react-icons/ai';
 import { navigate } from '@reach/router';
 import { List } from 'antd';
 
 import { FriendsPartyListType } from '../../mappers/events/PartyMapperTypes';
-import { eventsFiendsRoute, eventsGroupRoute } from '../../navigation/routerConstants';
+import { eventsFiendsRoute } from '../../navigation/routerConstants';
 import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
 import { EmptyEventsList } from '../common/EmptyList';
 import { getFriendCountText } from '../common/OtherParticipants';

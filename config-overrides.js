@@ -7,10 +7,12 @@ const {
   addBabelPlugin,
 } = require('customize-cra');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 const { getThemeVariables } = require('antd/dist/theme');
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = override(
+  addWebpackPlugin(new AntdDayjsWebpackPlugin()),
   isDevelopment && addWebpackPlugin(new ReactRefreshWebpackPlugin()),
   isDevelopment && addBabelPlugin('react-refresh/babel'),
   fixBabelImports('import', {

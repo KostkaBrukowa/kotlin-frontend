@@ -1,13 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { animated, useTransition } from 'react-spring';
 import { CheckCircleOutlined } from '@ant-design/icons/lib';
 import { Button } from 'antd';
 
 import { UserContext } from '../../../../config/UserProvider';
-import {
-  TransitionElement,
-  TransitionElementProps,
-} from '../../../../utils/animations/TransitionElement';
+import { TransitionElement } from '../../../../utils/animations/TransitionElement';
 import { NotOptional } from '../../../../utils/types';
 import { EventQueryType } from '../useSingleEvent';
 

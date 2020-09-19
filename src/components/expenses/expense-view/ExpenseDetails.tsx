@@ -1,12 +1,8 @@
 import React from 'react';
-import { AiOutlineArrowLeft } from 'react-icons/all';
-import { navigate } from '@reach/router';
 import { Row, Statistic } from 'antd';
 
 import { ElementHeader } from '../../common/element-header/ElementHeader';
 import { renderExpenseStatus } from '../../enum-renderers/expenseStatusRenderer';
-import { expensesRoute } from '../../navigation/routerConstants';
-import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
 import { currency } from '../../utils/constants/currency';
 import { NotOptional } from '../../utils/types';
 import { ExpenseInfo } from './ExpenseInfo';

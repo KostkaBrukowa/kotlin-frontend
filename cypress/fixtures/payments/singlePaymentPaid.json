@@ -1,0 +1,26 @@
+{
+  "data" : {
+    "getSinglePayment" : {
+      "id" : "22",
+      "amount" : 42.11,
+      "status" : "PAID",
+      "paymentMessages" : [ ],
+      "paymentExpense" : {
+        "id" : "21",
+        "name" : "some name",
+        "expensePayer" : {
+          "id" : "1",
+          "name" : "persistent user test name",
+          "__typename" : "UserType"
+        },
+        "__typename" : "ExpenseType"
+      },
+      "paymentPayer" : {
+        "id" : "1",
+        "name" : "persistent user test name",
+        "__typename" : "UserType"
+      },
+      "__typename" : "PaymentType"
+    }
+  }
+}

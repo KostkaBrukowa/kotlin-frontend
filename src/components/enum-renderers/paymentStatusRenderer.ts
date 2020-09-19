@@ -13,7 +13,7 @@ export function renderPaymentStatus(status: PaymentStatus): string {
     case PaymentStatus.Declined:
       return 'Platność odrzucona.';
     case PaymentStatus.Paid:
-      return 'Użytkownik opłacona.';
+      return 'Platność opłacona.';
     default:
       throw new Error(`Uknown payment status ${status}`);
   }

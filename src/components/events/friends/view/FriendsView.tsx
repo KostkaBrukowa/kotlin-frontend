@@ -1,6 +1,5 @@
 import React from 'react';
 import { RouteComponentProps } from '@reach/router';
-import { Typography } from 'antd';
 import clsx from 'clsx';
 
 import { ElementHeader } from '../../../common/element-header/ElementHeader';

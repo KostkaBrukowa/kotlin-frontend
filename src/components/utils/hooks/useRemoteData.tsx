@@ -34,8 +34,16 @@ export const useRemoteData = <TExtractedData, TData, TVariables>(
   variables: Partial<TVariables>,
   options?: QueryLazyOptions<TVariables>,
 ) => {
-  const [fetchData, { loading, called }] = queryProps;
+  const [fetchData, { loading, called, refetch }] = queryProps;
   const dataComponent = useRemoteDataComponent(extractedData, loading || !called);
+
+  const refetchCallback = () =>
+    refetch &&
+    refetch({
+      ...options,
+      // @ts-ignore
+      variables,
+    });
 
   useDeepCompareEffect(() => {
     if (allVariablesNotNull(variables)) {
@@ -51,5 +59,6 @@ export const useRemoteData = <TExtractedData, TData, TVariables>(
   return {
     dataComponent: dataComponent ?? null,
     extractedData,
+    refetch: refetchCallback,
   };
 };
