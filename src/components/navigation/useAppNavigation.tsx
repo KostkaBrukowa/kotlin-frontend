@@ -10,7 +10,7 @@ import style from './Toolbar.module.less';
 import {
   eventsRoute,
   expensesRoute,
-  newExpenseRoute,
+  expenseFormRoute,
   notificationsRoute,
   settingsRoute,
 } from './routerConstants';
@@ -38,8 +38,8 @@ export const menuTabs: MenuTabItem[] = [
   {
     key: '3',
     icon: <PlusCircleOutlined className={style.icon} />,
-    to: newExpenseRoute,
-    title: 'Nowy Wydatek',
+    to: expenseFormRoute,
+    title: 'Zapisz wydatek',
   },
   {
     key: '4',

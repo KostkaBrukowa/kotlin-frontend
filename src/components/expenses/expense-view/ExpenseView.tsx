@@ -1,6 +1,7 @@
 import React from 'react';
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
 import { RouteComponentProps } from '@reach/router';
-import { Collapse } from 'antd';
+import { Button, Collapse } from 'antd';
 
 import { renderCollapsableArrow } from '../../utils/components/CollapsableArrow';
 import { ExpenseDetails } from './ExpenseDetails';
@@ -8,6 +9,8 @@ import { ExpenseMessages } from './ExpenseMessages';
 import { ExpenseParticipants } from './ExpenseParticipants';
 import { ExpensePayments } from './ExpensePayments';
 import { useSingleExpense } from './useSingleExpenseQuery';
+
+import style from './ExpenseView.module.less';
 
 enum CollapsableKeys {
   PAYMENTS,
@@ -44,6 +47,11 @@ export const ExpenseView: React.FC<ExpenseViewProps> = ({ expenseId }) => {
           <ExpenseMessages />
         </Collapse.Panel>
       </Collapse>
+      <div className={style.buttonGroup}>
+        <Button danger className={style.deleteButton} icon={<DeleteOutlined />} type="primary">
+          Usuń
+        </Button>
+      </div>
     </>
   );
 };

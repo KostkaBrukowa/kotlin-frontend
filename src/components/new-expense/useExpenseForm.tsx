@@ -1,0 +1,86 @@
+import { useEffect } from 'react';
+import { navigate } from '@reach/router';
+import { Form } from 'antd';
+import { Moment } from 'moment';
+
+import { Dayjs } from '../../@types/dayjs';
+import {
+  PartyKind,
+  useCreateExpenseMutation,
+  useEditExpenseDataLazyQuery,
+  useUpdateExpenseMutation,
+} from '../../generated/graphql';
+import { ExpenseRequestMapper } from '../mappers/expenses/ExpenseRequestMapper';
+import { expensesRoute } from '../navigation/routerConstants';
+import { useRemoteData } from '../utils/hooks/useRemoteData';
+import { useEditExpenseData } from './useEditExpenseData';
+
+export const partyKindToPartyType = (partyKind: PartyKind | undefined) => {
+  switch (partyKind) {
+    case PartyKind.Event:
+      return PartyType.EVENT;
+    case PartyKind.Group:
+      return PartyType.GROUP;
+    case PartyKind.Friends:
+      return PartyType.FRIENDS;
+  }
+
+  return null;
+};
+
+export enum PartyType {
+  EVENT = 'EVENT',
+  GROUP = 'GROUP',
+  FRIENDS = 'FRIENDS',
+}
+
+export enum FormFields {
+  name = 'name',
+  partyType = 'partyType',
+  partyId = 'partyId',
+  participantIds = 'participantIds',
+  cost = 'cost',
+  date = 'date',
+  description = 'description',
+}
+
+export interface FormValues {
+  [FormFields.name]: string | null;
+  [FormFields.partyType]: PartyType | null;
+  [FormFields.partyId]: string | null;
+  [FormFields.participantIds]: string[];
+  [FormFields.cost]: string;
+  [FormFields.description]: string;
+  [FormFields.date]: Moment;
+}
+
+const expenseMapper = new ExpenseRequestMapper();
+
+export const useExpenseForm = (expenseId: string | undefined) => {
+  const [form] = Form.useForm<FormValues>();
+  const editExpenseData = useEditExpenseData(expenseId);
+  const [createExpense, { loading: createSubmitting }] = useCreateExpenseMutation();
+  const [updateExpense, { loading: updateSubmitting }] = useUpdateExpenseMutation();
+
+  const onSubmit = async (values: FormValues) => {
+    console.log('submiting');
+    try {
+      if (expenseId) {
+        await updateExpense({
+          variables: { expense: expenseMapper.toUpdateRequest(values, expenseId) },
+        });
+      } else {
+        await createExpense({ variables: { expense: expenseMapper.toRequest(values) } });
+      }
+
+      await navigate(expensesRoute);
+    } catch (e) {}
+  };
+
+  return {
+    form,
+    onSubmit,
+    submitting: createSubmitting || updateSubmitting,
+    editExpenseData,
+  };
+};

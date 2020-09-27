@@ -1,7 +1,6 @@
 import gql from 'graphql-tag';
 import * as ApolloReactCommon from '@apollo/client';
 import * as ApolloReactHooks from '@apollo/client';
-
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -85,7 +84,7 @@ export type ExpenseType = GqlResponseType & {
   description: Scalars['String'];
   expenseDate: Scalars['Date'];
   expenseMessages: Array<MessageResponseType>;
-  expenseParty: PartyRequestType;
+  expenseParty: PartyType;
   expensePayer: UserType;
   expensePayments: Array<PaymentType>;
   expenseStatus: ExpenseStatus;
@@ -126,7 +125,6 @@ export type Mutation = {
   createExpense: ExpenseType;
   deleteExpense: Scalars['Boolean'];
   updateExpense: ExpenseType;
-  updateExpenseAmount: ExpenseType;
   createMessage: MessageResponseType;
   removeMessage: Scalars['Boolean'];
   markNotificationsAsRead: Scalars['Boolean'];
@@ -167,10 +165,6 @@ export type MutationDeleteExpenseArgs = {
 
 export type MutationUpdateExpenseArgs = {
   updateExpenseInput: UpdateExpenseInput;
-};
-
-export type MutationUpdateExpenseAmountArgs = {
-  updateExpenseAmountInput: UpdateExpenseAmountInput;
 };
 
 export type MutationCreateMessageArgs = {
@@ -494,12 +488,8 @@ export type UpdateBulkPaymentStatusInput = {
   status: BulkPaymentStatus;
 };
 
-export type UpdateExpenseAmountInput = {
-  amount: Scalars['Float'];
-  id: Scalars['String'];
-};
-
 export type UpdateExpenseInput = {
+  amount: Scalars['Float'];
   description: Scalars['String'];
   expenseDate: Scalars['Date'];
   id: Scalars['String'];
@@ -714,6 +704,67 @@ export type SignUpUserMutationVariables = Exact<{
 export type SignUpUserMutation = {
   __typename?: 'Mutation';
   signUp: { __typename?: 'UserAuthResponse'; token: string; userId: string };
+};
+
+export type CreateExpenseMutationVariables = Exact<{
+  expense: NewExpenseInput;
+}>;
+
+export type CreateExpenseMutation = {
+  __typename?: 'Mutation';
+  createExpense: {
+    __typename?: 'ExpenseType';
+    id: string;
+    amount: number;
+    description: string;
+    name: string;
+    expenseStatus: ExpenseStatus;
+  };
+};
+
+export type EditExpenseDataQueryVariables = Exact<{
+  expenseId: Scalars['String'];
+}>;
+
+export type EditExpenseDataQuery = {
+  __typename?: 'Query';
+  getSingleExpense?: Maybe<{
+    __typename?: 'ExpenseType';
+    id: string;
+    name: string;
+    description: string;
+    expenseDate: any;
+    amount: number;
+    expenseStatus: ExpenseStatus;
+    expenseParty: {
+      __typename?: 'PartyType';
+      id: string;
+      name?: Maybe<string>;
+      type: PartyKind;
+      partyParticipants: Array<{ __typename?: 'UserType'; id: string; name?: Maybe<string> }>;
+    };
+    expensePayments: Array<{
+      __typename?: 'PaymentType';
+      id: string;
+      paymentPayer: { __typename?: 'UserType'; id: string; name?: Maybe<string> };
+    }>;
+  }>;
+};
+
+export type UpdateExpenseMutationVariables = Exact<{
+  expense: UpdateExpenseInput;
+}>;
+
+export type UpdateExpenseMutation = {
+  __typename?: 'Mutation';
+  updateExpense: {
+    __typename?: 'ExpenseType';
+    id: string;
+    amount: number;
+    description: string;
+    name: string;
+    expenseStatus: ExpenseStatus;
+  };
 };
 
 export type GetUserNotificationsQueryVariables = Exact<{
@@ -1287,6 +1338,179 @@ export type SignUpUserMutationResult = ApolloReactCommon.MutationResult<SignUpUs
 export type SignUpUserMutationOptions = ApolloReactCommon.BaseMutationOptions<
   SignUpUserMutation,
   SignUpUserMutationVariables
+>;
+export const CreateExpenseDocument = gql`
+  mutation CreateExpense($expense: NewExpenseInput!) {
+    createExpense(newExpenseInput: $expense) {
+      id
+      amount
+      description
+      name
+      expenseStatus
+    }
+  }
+`;
+export type CreateExpenseMutationFn = ApolloReactCommon.MutationFunction<
+  CreateExpenseMutation,
+  CreateExpenseMutationVariables
+>;
+
+/**
+ * __useCreateExpenseMutation__
+ *
+ * To run a mutation, you first call `useCreateExpenseMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateExpenseMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createExpenseMutation, { data, loading, error }] = useCreateExpenseMutation({
+ *   variables: {
+ *      expense: // value for 'expense'
+ *   },
+ * });
+ */
+export function useCreateExpenseMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    CreateExpenseMutation,
+    CreateExpenseMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<CreateExpenseMutation, CreateExpenseMutationVariables>(
+    CreateExpenseDocument,
+    baseOptions,
+  );
+}
+export type CreateExpenseMutationHookResult = ReturnType<typeof useCreateExpenseMutation>;
+export type CreateExpenseMutationResult = ApolloReactCommon.MutationResult<CreateExpenseMutation>;
+export type CreateExpenseMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateExpenseMutation,
+  CreateExpenseMutationVariables
+>;
+export const EditExpenseDataDocument = gql`
+  query EditExpenseData($expenseId: String!) {
+    getSingleExpense(expenseId: $expenseId) {
+      id
+      name
+      description
+      expenseDate
+      amount
+      expenseStatus
+      expenseParty {
+        id
+        name
+        type
+        partyParticipants {
+          id
+          name
+        }
+      }
+      expensePayments {
+        id
+        paymentPayer {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useEditExpenseDataQuery__
+ *
+ * To run a query within a React component, call `useEditExpenseDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEditExpenseDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEditExpenseDataQuery({
+ *   variables: {
+ *      expenseId: // value for 'expenseId'
+ *   },
+ * });
+ */
+export function useEditExpenseDataQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    EditExpenseDataQuery,
+    EditExpenseDataQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<EditExpenseDataQuery, EditExpenseDataQueryVariables>(
+    EditExpenseDataDocument,
+    baseOptions,
+  );
+}
+export function useEditExpenseDataLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    EditExpenseDataQuery,
+    EditExpenseDataQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<EditExpenseDataQuery, EditExpenseDataQueryVariables>(
+    EditExpenseDataDocument,
+    baseOptions,
+  );
+}
+export type EditExpenseDataQueryHookResult = ReturnType<typeof useEditExpenseDataQuery>;
+export type EditExpenseDataLazyQueryHookResult = ReturnType<typeof useEditExpenseDataLazyQuery>;
+export type EditExpenseDataQueryResult = ApolloReactCommon.QueryResult<
+  EditExpenseDataQuery,
+  EditExpenseDataQueryVariables
+>;
+export const UpdateExpenseDocument = gql`
+  mutation UpdateExpense($expense: UpdateExpenseInput!) {
+    updateExpense(updateExpenseInput: $expense) {
+      id
+      amount
+      description
+      name
+      expenseStatus
+    }
+  }
+`;
+export type UpdateExpenseMutationFn = ApolloReactCommon.MutationFunction<
+  UpdateExpenseMutation,
+  UpdateExpenseMutationVariables
+>;
+
+/**
+ * __useUpdateExpenseMutation__
+ *
+ * To run a mutation, you first call `useUpdateExpenseMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateExpenseMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateExpenseMutation, { data, loading, error }] = useUpdateExpenseMutation({
+ *   variables: {
+ *      expense: // value for 'expense'
+ *   },
+ * });
+ */
+export function useUpdateExpenseMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateExpenseMutation,
+    UpdateExpenseMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateExpenseMutation, UpdateExpenseMutationVariables>(
+    UpdateExpenseDocument,
+    baseOptions,
+  );
+}
+export type UpdateExpenseMutationHookResult = ReturnType<typeof useUpdateExpenseMutation>;
+export type UpdateExpenseMutationResult = ApolloReactCommon.MutationResult<UpdateExpenseMutation>;
+export type UpdateExpenseMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateExpenseMutation,
+  UpdateExpenseMutationVariables
 >;
 export const GetUserNotificationsDocument = gql`
   query GetUserNotifications($userId: String!) {

@@ -60,7 +60,7 @@ type ExpenseType implements GQLResponseType {
     description: String!
     expenseDate: Date!
     expenseMessages: [MessageResponseType!]!
-    expenseParty: PartyRequestType!
+    expenseParty: PartyType!
     expensePayer: UserType!
     expensePayments: [PaymentType!]!
     expenseStatus: ExpenseStatus!
@@ -102,7 +102,6 @@ type Mutation {
     signUp(input: UserAuthInput!): UserAuthResponse!
     updateBulkPaymentStatus(updatePaymentStatusInput: UpdateBulkPaymentStatusInput!): BulkPaymentType!
     updateExpense(updateExpenseInput: UpdateExpenseInput!): ExpenseType!
-    updateExpenseAmount(updateExpenseAmountInput: UpdateExpenseAmountInput!): ExpenseType!
     updateParty(editPartyInput: EditPartyInput!, id: String!): Party!
     updatePaymentStatus(updatePaymentStatusInput: UpdatePaymentStatusInput!): PaymentType!
 }
@@ -348,12 +347,8 @@ input UpdateBulkPaymentStatusInput {
     status: BulkPaymentStatus!
 }
 
-input UpdateExpenseAmountInput {
-    amount: Float!
-    id: String!
-}
-
 input UpdateExpenseInput {
+    amount: Float!
     description: String!
     expenseDate: Date!
     id: String!

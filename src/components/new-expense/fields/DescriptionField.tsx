@@ -1,9 +1,8 @@
 import React from 'react';
-import { Form } from 'antd';
+import { Form, Input } from 'antd';
 import { FormInstance, FormItemProps } from 'antd/es/form';
-import TextArea from 'antd/es/input/TextArea';
 
-import { FormFields, FormValues } from '../useNewExpenseForm';
+import { FormFields, FormValues } from '../useExpenseForm';
 
 const formItemProps: Omit<FormItemProps, 'children'> = {
   label: 'Opis wydatku:',
@@ -13,6 +12,6 @@ const formItemProps: Omit<FormItemProps, 'children'> = {
 
 export const DescriptionField: React.FC = () => (
   <Form.Item {...formItemProps}>
-    <TextArea autoSize placeholder="Wpisz krótki opis wydatku" />
+    <Input.TextArea autoSize placeholder="Wpisz krótki opis wydatku" />
   </Form.Item>
 );

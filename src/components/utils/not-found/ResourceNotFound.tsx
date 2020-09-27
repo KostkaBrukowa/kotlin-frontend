@@ -1,5 +1,5 @@
 import React from 'react';
-import { AiOutlineArrowLeft } from 'react-icons/all';
+import AiOutlineArrowLeft from '@ant-design/icons/ArrowLeftOutlined';
 import { navigate, RouteComponentProps } from '@reach/router';
 import { Button, Empty } from 'antd';
 

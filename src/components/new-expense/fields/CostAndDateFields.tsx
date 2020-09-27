@@ -1,9 +1,9 @@
 import React from 'react';
 import { DatePicker, Form, InputNumber, TimePicker } from 'antd';
-import { FormInstance, FormItemProps } from 'antd/es/form';
+import { FormItemProps } from 'antd/es/form';
 
-import { currency } from '../../utils/constants/currency';
-import { FormFields, FormValues } from '../useNewExpenseForm';
+import { ExpenseStatus } from '../../../generated/graphql';
+import { FormFields } from '../useExpenseForm';
 
 import style from '../NewExpense.module.less';
 
@@ -28,13 +28,18 @@ const timeFormItemProps: Omit<FormItemProps, 'children'> = {
 };
 
 export interface CostAndDateFieldsProps {
-  form: FormInstance<FormValues>;
+  expenseStatus?: ExpenseStatus;
+  editMode: boolean;
 }
 
-export const CostAndDateFields: React.FC<CostAndDateFieldsProps> = ({ form }) => (
+export const CostAndDateFields: React.FC<CostAndDateFieldsProps> = ({
+  editMode,
+  expenseStatus,
+}) => (
   <div className={style.cashSection}>
     <Form.Item {...costFormItemProps}>
       <InputNumber
+        disabled={editMode && expenseStatus !== ExpenseStatus.InProgressRequesting}
         formatter={(value) => `${value} zł`}
         min={0}
         parser={(value) => value?.replace(letterRegex, '').trim() ?? ''}

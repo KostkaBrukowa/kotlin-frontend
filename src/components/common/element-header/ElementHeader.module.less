@@ -1,7 +1,5 @@
-
 .mainInfoWrapper {
   flex-grow: 1;
-  margin-right: 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,5 +7,15 @@
 }
 
 .headerWrapper {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+}
+
+.arrow {
+  justify-self: start;
+}
+
+.editButton {
+  justify-self: end;
 }

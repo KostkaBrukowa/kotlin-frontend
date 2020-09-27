@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { CheckCircleOutlined } from '@ant-design/icons/lib';
+import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
 import { Button } from 'antd';
 
 import { UserContext } from '../../../../config/UserProvider';

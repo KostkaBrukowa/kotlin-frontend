@@ -5,6 +5,7 @@ const {
   addLessLoader,
   addWebpackPlugin,
   addBabelPlugin,
+  addBabelPreset,
 } = require('customize-cra');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
@@ -13,6 +14,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = override(
   addWebpackPlugin(new AntdDayjsWebpackPlugin()),
+  addBabelPreset('@babel/preset-typescript'),
   isDevelopment && addWebpackPlugin(new ReactRefreshWebpackPlugin()),
   isDevelopment && addBabelPlugin('react-refresh/babel'),
   fixBabelImports('import', {

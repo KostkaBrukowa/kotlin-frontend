@@ -9,7 +9,7 @@ import { useDelayedLoading } from './useDelayedLoading';
 import style from './useRemoteData.module.less';
 
 const allVariablesNotNull = (obj?: Record<string, any>): boolean =>
-  obj ? Object.values(obj).every((it) => it !== null) : true;
+  obj ? Object.values(obj).every((it) => it !== null && it !== undefined) : true;
 
 const useRemoteDataComponent = <TExtractedData,>(
   extractedData: TExtractedData,
@@ -35,7 +35,8 @@ export const useRemoteData = <TExtractedData, TData, TVariables>(
   options?: QueryLazyOptions<TVariables>,
 ) => {
   const [fetchData, { loading, called, refetch }] = queryProps;
-  const dataComponent = useRemoteDataComponent(extractedData, loading || !called);
+  const dataLoading = loading || !called;
+  const dataComponent = useRemoteDataComponent(extractedData, dataLoading);
 
   const refetchCallback = () =>
     refetch &&
@@ -46,6 +47,8 @@ export const useRemoteData = <TExtractedData, TData, TVariables>(
     });
 
   useDeepCompareEffect(() => {
+    console.log('Variables', variables);
+
     if (allVariablesNotNull(variables)) {
       console.log('fetching');
       fetchData({
@@ -60,5 +63,6 @@ export const useRemoteData = <TExtractedData, TData, TVariables>(
     dataComponent: dataComponent ?? null,
     extractedData,
     refetch: refetchCallback,
+    loading: dataLoading,
   };
 };

@@ -1,0 +1,28 @@
+query EditExpenseData($expenseId: String!) {
+    getSingleExpense(expenseId: $expenseId)  {
+        id
+        name
+        description
+        expenseDate
+        amount
+        expenseStatus
+
+        expenseParty {
+            id
+            name
+            type
+            partyParticipants {
+                id
+                name
+            }
+        }
+
+        expensePayments {
+            id
+            paymentPayer {
+                id
+                name
+            }
+        }
+    }
+}

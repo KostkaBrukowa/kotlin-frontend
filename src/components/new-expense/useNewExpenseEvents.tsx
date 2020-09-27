@@ -8,7 +8,7 @@ import {
 } from '../../generated/graphql';
 import { UserContext } from '../config/UserProvider';
 import { useRemoteData } from '../utils/hooks/useRemoteData';
-import { PartyType } from './useNewExpenseForm';
+import { PartyType } from './useExpenseForm';
 
 export type PartyElementType = GetUserPartiesQuery['getAllParties'][0];
 
@@ -31,11 +31,17 @@ const isEventTypeOf = (party: { type: PartyKind }, partyType: PartyType | null):
 export const useNewExpenseEvents = (selection: PartyType | null) => {
   const { userId } = useContext(UserContext);
   const query = useGetUserPartiesLazyQuery();
-  const { extractedData } = useRemoteData(query, query[1].data?.getAllParties, {
-    userId: userId ?? undefined,
-  });
+  const { extractedData, loading, dataComponent } = useRemoteData(
+    query,
+    query[1].data?.getAllParties,
+    {
+      userId: userId ?? undefined,
+    },
+  );
 
   return {
     extractedData: extractedData?.filter((it) => isEventTypeOf(it, selection)),
+    loading,
+    dataComponent,
   };
 };

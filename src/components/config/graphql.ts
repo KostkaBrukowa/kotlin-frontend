@@ -13,6 +13,16 @@ const isNonAuthenticatedRoute = () => {
   return nonAuthenticatedRoutes.some((route) => pathname.includes(route));
 };
 
+const authMiddleware = new ApolloLink((operation, forward) => {
+  operation.setContext({
+    headers: {
+      Authorization: `Bearer ${JWT_TOKEN}`,
+    },
+  });
+
+  return forward(operation);
+});
+
 const handleGraphqlErrors = ({ graphQLErrors }: Pick<ErrorResponse, 'graphQLErrors'>) => {
   // eslint-disable-next-line no-unused-expressions
   graphQLErrors?.forEach(({ message, locations, path }) => {
@@ -21,7 +31,7 @@ const handleGraphqlErrors = ({ graphQLErrors }: Pick<ErrorResponse, 'graphQLErro
         navigate('/login').then(() => antDMessage.info('Aby kontynuować zaloguj się pnownie.'));
       }
     } else {
-      antDMessage.info(message.split(':')[1]);
+      antDMessage.info(message);
     }
 
     console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
@@ -31,16 +41,6 @@ const handleGraphqlErrors = ({ graphQLErrors }: Pick<ErrorResponse, 'graphQLErro
 const httpLink = new HttpLink({
   uri: 'http://localhost:8080/graphql',
   credentials: 'include',
-});
-
-const authMiddleware = new ApolloLink((operation, forward) => {
-  operation.setContext({
-    headers: {
-      Authorization: `Bearer ${JWT_TOKEN}`,
-    },
-  });
-
-  return forward(operation);
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
@@ -53,6 +53,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     console.log(`[Network error]: ${networkError}`);
   }
 });
+
 // @ts-ignore
 const link = from([errorLink, authMiddleware, httpLink]);
 

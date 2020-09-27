@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import MinusCircleOutlined from '@ant-design/icons/MinusCircleOutlined';
 import PlusCircleOutlined from '@ant-design/icons/PlusCircleOutlined';
 import clsx from 'clsx';
@@ -8,6 +8,9 @@ import { AnimatedNumber } from '../utils/animations/AnimatedNumber';
 import { currency } from '../utils/constants/currency';
 
 import style from './OwsSection.module.less';
+
+const isFocused = (div: HTMLDivElement | null): boolean | null =>
+  div && div === document.activeElement;
 
 export interface OwsSectionProps {
   amount: number | undefined;
@@ -31,6 +34,7 @@ export const OwsSection: React.FC<OwsSectionProps> = ({ amount, type }) => {
     state: { currentOwsType },
     dispatch,
   } = useContext(AppContext);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
   const { className, title, icon } = type === OwsType.USER_OWS ? owsUserProps : userOwsProps;
   const active = currentOwsType === type;
 
@@ -39,9 +43,13 @@ export const OwsSection: React.FC<OwsSectionProps> = ({ amount, type }) => {
 
   return (
     <div
+      aria-checked={active}
       className={clsx(`data-cy-ows-${type}`, className, { [style.owsActive]: active })}
+      ref={wrapperRef}
+      role="switch"
       tabIndex={0}
       onClick={handleClick}
+      onKeyDown={(e) => e.key === ' ' && isFocused(wrapperRef.current) && handleClick()}
     >
       {icon}
       <h4 className={style.owsTitle}>{title}</h4>

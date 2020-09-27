@@ -26,8 +26,9 @@
         }
       }
     ],
-    "types": ["cypress" ,"@testing-library/react", "node", "jest", "@testing-library/jest-dom"],
-//    "types": ["@testing-library/react", "node", "jest", "@testing-library/jest-dom"],
+//    "types": ["cypress" ,"@testing-library/react", "node", "jest", "@testing-library/jest-dom"],
+    "types": ["@testing-library/react", "node", "jest", "@testing-library/jest-dom"],
+
     "isolatedModules": true
   },
   "include": ["src", "src/react-app-env.d.ts", "cypress/**/*.ts", "@testing-library/react", "@testing-library/jest-dom"]
