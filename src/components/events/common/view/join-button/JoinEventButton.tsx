@@ -31,7 +31,8 @@ const AnimatedIcon: React.FC<{ visible: boolean }> = ({ visible }) => {
 const JoinEventButton: React.FC<JoinEventButtonProps> = ({ event, text }) => {
   const { userId } = useContext(UserContext);
   const [joined, setJoined] = useState(false); // todo remove
-  const userJoinedEvent = event.partyParticipants.some((participant) => participant.id === userId);
+  // const userJoinedEvent = event.partyParticipants.some((participant) => participant.id === userId);
+  const userJoinedEvent = joined;
 
   return (
     <Button

@@ -1306,14 +1306,6 @@
     core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime-corejs3@^7.10.5":
-  version "7.11.2"
-  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.11.2.tgz#02c3029743150188edeb66541195f54600278419"
-  integrity sha512-qh5IR+8VgFz83VBa6OkaET6uN/mJOhHONuy3m1sgF0CV6mXdPSEBdA7e1eUbVvyNtANjMbg22JUv71BaDXLY6A==
-  dependencies:
-    core-js-pure "^3.0.0"
-    regenerator-runtime "^0.13.4"
-
 "@babel/runtime@7.9.0":
   version "7.9.0"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.0.tgz#337eda67401f5b066a6f205a3113d4ac18ba495b"
@@ -2225,13 +2217,10 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
 
-"@react-leaflet/core@^1.0.0-beta.3":
-  version "1.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@react-leaflet/core/-/core-1.0.0-beta.3.tgz#114707ea1a96df08e41dac317af0b2ecf24dc202"
-  integrity sha512-XSop2xSn2EPOjlv2vaimw7sW7g6jdiX8KrXcUCLOfzzmB/itknbyM+sBYTchaBsXXpLCc2D2/qNPBpU//ITamw==
-  dependencies:
-    "@babel/runtime-corejs3" "^7.10.5"
-    core-js "^3.6.5"
+"@react-leaflet/core@^1.0.0-beta.5":
+  version "1.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/@react-leaflet/core/-/core-1.0.0-beta.5.tgz#f6d8d7a3d05711fa2597ffd0f81758d5089dbc6f"
+  integrity sha512-hw9tVvjboCdNmYHDSGDFCBQ7BV95xnSq68NxGV7SoMFGPhKB4Y3U18eRNYBjmmqRiCgL5NJRaqhmidVYUEZLlQ==
 
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
@@ -4610,7 +4599,7 @@ core-js@^2.4.0, core-js@^2.4.1:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
   integrity sha512-5wjnpaT/3dV+XB4borEsnAYQchn00XSgTAWKDkEqv+K8KevjbzmofK6hfJ9TZIlpj2N0xQpazy7PiRQiWHqzWg==
 
-core-js@^3.5.0, core-js@^3.6.5:
+core-js@^3.5.0:
   version "3.6.5"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.6.5.tgz#7395dc273af37fb2e50e9bd3d9fe841285231d1a"
   integrity sha512-vZVEEwZoIsI+vPEuoF9Iqf5H7/M3eeQqWlQnYa8FSKKePuYTf5MWnxb5SDAzCa60b3JBRS5g9b+Dq7b1y/RCrA==
@@ -8672,7 +8661,7 @@ lcid@^2.0.0:
   dependencies:
     invert-kv "^2.0.0"
 
-leaflet@^1.6.0:
+leaflet@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.6.0.tgz#aecbb044b949ec29469eeb31c77a88e2f448f308"
   integrity sha512-CPkhyqWUKZKFJ6K8umN5/D2wrJ2+/8UIpXppY7QDnUZW5bZL5+SEI2J7GBpwh4LIupOKqbNSQXgqmrEJopHVNQ==
@@ -11895,14 +11884,12 @@ react-is@^16.12.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-leaflet@3.0.0-beta.2:
-  version "3.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-3.0.0-beta.2.tgz#dc5d66ac3fb6d4d67b9acd8a1b591c9384f1b92c"
-  integrity sha512-UgQEZu253j0J2jHEhBZgbbr+gva20rttsPk9UuH/IM0ag9CKv+9qdCS2BQEAlx7IoWMP/vS9na4q8pgBlACWqw==
+react-leaflet@3.0.0-beta.5:
+  version "3.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-3.0.0-beta.5.tgz#2956ff9e15880efe81f5d95ac46a2da62c377e0e"
+  integrity sha512-QT60Vj6iyJ4rbUm3p/ah4AgxcGK3BUbG/PIoQVa3HIMHsiT274TdLzAWyV/OlRZzZpDybGfpyj87rHGC1qYeJw==
   dependencies:
-    "@babel/runtime-corejs3" "^7.10.5"
-    "@react-leaflet/core" "^1.0.0-beta.3"
-    core-js "^3.6.5"
+    "@react-leaflet/core" "^1.0.0-beta.5"
 
 react-lifecycles-compat@^3.0.4:
   version "3.0.4"

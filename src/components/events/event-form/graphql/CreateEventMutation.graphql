@@ -1,0 +1,22 @@
+mutation CreateEvent($event: NewPartyInput!) {
+    createParty(newPartyInput: $event) {
+        id
+        name
+        description
+        locationName
+        type
+        startDate
+        endDate
+        locationLatitude
+        locationLongitude
+
+        owner {
+            name
+        }
+
+        partyParticipants {
+            id
+            name
+        }
+    }
+}

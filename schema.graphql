@@ -102,7 +102,7 @@ type Mutation {
     signUp(input: UserAuthInput!): UserAuthResponse!
     updateBulkPaymentStatus(updatePaymentStatusInput: UpdateBulkPaymentStatusInput!): BulkPaymentType!
     updateExpense(updateExpenseInput: UpdateExpenseInput!): ExpenseType!
-    updateParty(editPartyInput: EditPartyInput!, id: String!): Party!
+    updateParty(editPartyInput: EditPartyInput!): PartyType!
     updatePaymentStatus(updatePaymentStatusInput: UpdatePaymentStatusInput!): PaymentType!
 }
 
@@ -307,6 +307,7 @@ enum Roles {
 input EditPartyInput {
     description: String
     endDate: Date!
+    id: String!
     locationLatitude: Float
     locationLongitude: Float
     locationName: String

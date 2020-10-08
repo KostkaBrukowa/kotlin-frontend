@@ -29,7 +29,6 @@ interface ParticipantsSelectProps {
   loading: boolean;
   disabled: boolean;
   rerender: () => void;
-  selectedParty: Optional<PartyElementType>;
 }
 
 export const ExpenseParticipantsSelectField: React.FC<ExpenseParticipantsSelectFieldProps> = ({
@@ -38,11 +37,9 @@ export const ExpenseParticipantsSelectField: React.FC<ExpenseParticipantsSelectF
   editMode,
 }) => {
   const { partyType, partyId } = form.getFieldsValue() as Record<FormFields, any>;
-  const { extractedData: parties, loading, dataComponent } = useNewExpenseEvents(partyType);
+  const { extractedData: parties, loading } = useNewExpenseEvents(partyType);
   const selectedParty = parties?.find((it) => it.id === partyId);
   const disabled = (!selectedParty && partyType !== PartyType.FRIENDS) || editMode;
-
-  // if (loading || !parties) return <Spin />;
 
   return (
     <Form.Item {...formItemProps} label={editMode ? 'Uczestnicy:' : formItemProps.label}>

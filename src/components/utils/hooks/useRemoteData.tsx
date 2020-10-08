@@ -47,10 +47,7 @@ export const useRemoteData = <TExtractedData, TData, TVariables>(
     });
 
   useDeepCompareEffect(() => {
-    console.log('Variables', variables);
-
     if (allVariablesNotNull(variables)) {
-      console.log('fetching');
       fetchData({
         ...options,
         // @ts-ignore

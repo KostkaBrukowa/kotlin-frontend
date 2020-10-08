@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import { RouteComponentProps } from '@reach/router';
+import { Link, navigate, RouteComponentProps } from '@reach/router';
 import { Button, Tabs } from 'antd';
 
 import { ActionType, AppContext, EventsTabKeys } from '../app-context/AppContext';
+import { eventFormRoute } from '../navigation/routerConstants';
 import { EventsList } from './event/EventsList';
 import { FriendsList } from './friends/FriendsList';
 import { GroupsList } from './groups/GroupsList';
@@ -25,11 +26,15 @@ export const Events: React.FC<EventsProps> = () => {
       payload: { activeEventsTab: key as EventsTabKeys },
     });
 
+  const handleNewEventButtonClick = () => navigate('');
+
   return (
     <div>
       <div className={style.headerWrapper}>
         <h2 className={style.header}>Twoje:</h2>
-        <Button type="primary">Dodaj nowe</Button>
+        <Button type="primary">
+          <Link to={`${eventFormRoute}`}>Dodaj nowe</Link>
+        </Button>
       </div>
       <Tabs activeKey={activeEventsTab} className={style.tabs} onChange={handleTabChange}>
         <Tabs.TabPane key={EventsTabKeys.EVENTS} tab="Wydarzenia">

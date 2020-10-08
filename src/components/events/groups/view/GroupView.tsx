@@ -1,9 +1,9 @@
 import React from 'react';
-import { RouteComponentProps } from '@reach/router';
-import { Typography } from 'antd';
+import { navigate, RouteComponentProps } from '@reach/router';
 import clsx from 'clsx';
 
 import { ElementHeader } from '../../../common/element-header/ElementHeader';
+import { eventFormRoute } from '../../../navigation/routerConstants';
 import { Info, ViewDescription } from '../../../utils/components/ViewDescription';
 import { currency } from '../../../utils/constants/currency';
 import { capitalize } from '../../../utils/functions/string';
@@ -19,14 +19,12 @@ interface RouteParams {
 
 export type GroupViewProps = RouteComponentProps<RouteParams>;
 
-const { Text } = Typography;
-
 export const GroupView: React.FC<GroupViewProps> = ({ groupId }) => {
   const { dataComponent, extractedData: event } = useSingleEvent(groupId);
 
   if (dataComponent !== null || !event) return dataComponent;
 
-  const { locationName, partyExpenses } = event;
+  const { partyExpenses } = event;
   const unbalancedAmount = partyExpenses?.reduce((acc, expense) => acc + expense.amount, 0) ?? 0; // convert to hook and take into account inactive expenses
   const balanceClassName = clsx({
     [style.outstandingBalance]: unbalancedAmount !== 0,
@@ -36,7 +34,7 @@ export const GroupView: React.FC<GroupViewProps> = ({ groupId }) => {
   return (
     <div>
       <div className={style.infoWrapper}>
-        <ElementHeader id={event.id} />
+        <ElementHeader id={event.id} onEdit={() => navigate(`${eventFormRoute}/${event.id}`)} />
         <h2 className={style.groupName}>{capitalize(event.name)}</h2>
         <JoinEventButton event={event} text="Dołączyłem do grupy" />
         <ViewDescription>

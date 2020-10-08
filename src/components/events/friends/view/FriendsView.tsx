@@ -1,8 +1,9 @@
 import React from 'react';
-import { RouteComponentProps } from '@reach/router';
+import { navigate, RouteComponentProps } from '@reach/router';
 import clsx from 'clsx';
 
 import { ElementHeader } from '../../../common/element-header/ElementHeader';
+import { eventFormRoute, expenseFormRoute } from '../../../navigation/routerConstants';
 import { Info, ViewDescription } from '../../../utils/components/ViewDescription';
 import { currency } from '../../../utils/constants/currency';
 import { capitalize } from '../../../utils/functions/string';
@@ -35,7 +36,7 @@ export const FriendsView: React.FC<FriendsViewProps> = ({ friendsId }) => {
   return (
     <div>
       <div className={style.infoWrapper}>
-        <ElementHeader id={event.id} />
+        <ElementHeader id={event.id} onEdit={() => navigate(`${eventFormRoute}/${event.id}`)} />
         <h2 className={style.groupName}>{`Ty, ${owner?.name} ${friendsCountText ?? ''}`}</h2>
         <ViewDescription>
           <Info

@@ -2,10 +2,10 @@ import React from 'react';
 import { Form, Input } from 'antd';
 import { FormItemProps } from 'antd/es/form';
 
-import { FormFields } from '../useExpenseForm';
+import { FormFields } from '../useEventForm';
 
 const formItemProps: Omit<FormItemProps, 'children'> = {
-  label: 'Nazwa wydatku',
+  label: 'Nazwa wydarzenia:',
   name: FormFields.name,
   rules: [{ required: true }, { min: 3 }, { max: 50 }],
 };

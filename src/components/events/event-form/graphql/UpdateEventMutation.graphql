@@ -1,0 +1,22 @@
+mutation UpdateEvent($event: EditPartyInput!) {
+    updateParty(editPartyInput: $event) {
+        id
+        name
+        description
+        locationName
+        type
+        startDate
+        endDate
+        locationLatitude
+        locationLongitude
+
+        owner {
+            name
+        }
+
+        partyParticipants {
+            id
+            name
+        }
+    }
+}

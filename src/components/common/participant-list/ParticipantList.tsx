@@ -11,17 +11,27 @@ import style from './ParticipantList.module.less';
 const participantWrapperClassName = clsx(style.participantWrapper, 'data-cy-participant-wrapper');
 
 export interface ParticipantListProps {
+  notFoundContent?: React.ReactNode;
   participants: Optional<Array<{ id: string; name?: string | null }>>;
   loading?: boolean;
 }
 
-export const ParticipantList: React.FC<ParticipantListProps> = ({ participants, loading }) => {
+// @ts-ignore
+export const ParticipantList: React.FC<ParticipantListProps> = ({
+  participants,
+  loading,
+  notFoundContent,
+}) => {
   if (loading) {
     return (
       <div className={style.spin}>
         <Spin />
       </div>
     );
+  }
+
+  if (participants?.length === 0) {
+    return notFoundContent || <NameNotFound />;
   }
 
   return (
@@ -39,3 +49,10 @@ export const ParticipantList: React.FC<ParticipantListProps> = ({ participants, 
     </div>
   );
 };
+
+const NameNotFound: React.FC = () => (
+  <>
+    <h3>Pusto...</h3>
+    <p>Brak użytkowników</p>
+  </>
+);

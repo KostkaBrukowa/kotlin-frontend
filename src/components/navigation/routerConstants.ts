@@ -1,14 +1,17 @@
 export const loginRoute = '/login';
-export const registerRoute = '/login/register';
-export const eventsRoute = '/events';
-export const expensesRoute = '/expenses';
-export const paymentsRoute = '/expenses/payments';
-export const expenseFormRoute = '/expenseForm';
+export const registerRoute = `${loginRoute}/register`;
+
 export const notificationsRoute = '/notifications';
 export const settingsRoute = '/settings';
 
-export const eventsEventRoute = '/events/event';
-export const eventsGroupRoute = '/events/group';
-export const eventsFiendsRoute = '/events/friends';
+export const expensesRoute = '/expenses';
+export const paymentsRoute = `${expensesRoute}/payments`;
+export const expenseFormRoute = `${expensesRoute}/expenseForm`;
+
+export const eventsRoute = '/events';
+export const eventFormRoute = `${eventsRoute}/eventForm`;
+export const eventsEventRoute = `${eventsRoute}/event`;
+export const eventsGroupRoute = `${eventsRoute}/group`;
+export const eventsFiendsRoute = `${eventsRoute}/friends`;
 
 export const nonAuthenticatedRoutes = [loginRoute, registerRoute];

@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 
 import { useAuthentication } from '../config/authentication/useAuthentication';
 import { UserProvider } from '../config/UserProvider';
+import { EventForm } from '../events/event-form/EventForm';
 import { EventView } from '../events/event/view/EventView';
 import { Events } from '../events/Events';
 import { FriendsView } from '../events/friends/view/FriendsView';
@@ -19,6 +20,7 @@ import { Settings } from '../settings/Settings';
 import { ResourceNotFound } from '../utils/not-found/ResourceNotFound';
 import { AppHeader } from './AppHeader';
 import {
+  eventFormRoute,
   eventsEventRoute,
   eventsFiendsRoute,
   eventsGroupRoute,
@@ -58,12 +60,14 @@ export const AppLayout: React.FC = () => {
                 />
 
                 <Events path={eventsRoute} />
+                <EventForm path={eventFormRoute} />
+                <EventForm path={`${eventFormRoute}/:eventId`} />
                 <EventView path={`${eventsEventRoute}/:eventId/*`} />
                 <GroupView path={`${eventsGroupRoute}/:groupId/*`} />
                 <FriendsView path={`${eventsFiendsRoute}/:friendsId/*`} />
 
                 <Expenses path={expensesRoute} />
-                <ExpenseForm path={`${expenseFormRoute}`} />
+                <ExpenseForm path={expenseFormRoute} />
                 <ExpenseForm path={`${expenseFormRoute}/:expenseId`} />
                 <ExpenseView path={`${expensesRoute}/:expenseId`} />
                 <PaymentView path={`${paymentsRoute}/:paymentId/*`} />
