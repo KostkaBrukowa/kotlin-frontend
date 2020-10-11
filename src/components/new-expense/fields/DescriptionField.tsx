@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Input } from 'antd';
-import { FormInstance, FormItemProps } from 'antd/es/form';
+import { FormItemProps } from 'antd/es/form';
 
-import { FormFields, FormValues } from '../useExpenseForm';
+import { FormFields } from '../useExpenseForm';
 
 const formItemProps: Omit<FormItemProps, 'children'> = {
   label: 'Opis wydatku:',

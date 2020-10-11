@@ -11,6 +11,9 @@ export const validateMessages = {
     len: 'Pole musi mieć ${len} elementów.',
     min: 'Pole musi mieć więcej niż ${min} elementów.',
     max: 'Pole musi mieć mniej niż ${max} elementów.',
-    range: 'Pole musi mieć między ${min} a ${max} elementów',
+    range: 'Pole musi mieć między ${min} a ${max} elementów.',
+  },
+  types: {
+    email: 'Email jest niepoprawny.',
   },
 };

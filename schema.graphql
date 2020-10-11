@@ -77,7 +77,7 @@ type MessageResponseType implements GQLResponseType {
 
 type Mutation {
     acceptPartyRequest(partyRequestId: String!): Boolean!
-    addFriend(userId: String!): Boolean!
+    addFriend(userEmail: String!): UserType
     bulkPayments(paymentsIds: [String!]!): BulkPaymentType
     changeExpenseStatus(updateExpenseStatusInput: UpdateExpenseStatusInput!): ExpenseType!
     createExpense(newExpenseInput: NewExpenseInput!): ExpenseType!
@@ -118,7 +118,7 @@ type Party {
     owner: User
     participants: [User!]!
     partyRequests: [PartyRequest!]!
-    startDate: Date!
+    startDate: Date
     type: PartyKind!
 }
 
@@ -161,7 +161,7 @@ type PartyType implements GQLResponseType {
     partyMessages: [MessageResponseType!]!
     partyParticipants: [UserType!]!
     partyPartyRequests: [PartyRequestType!]!
-    startDate: Date!
+    startDate: Date
     type: PartyKind!
 }
 
@@ -220,7 +220,7 @@ type User {
     friends: [User!]!
     id: Long!
     joinedParties: [Party!]!
-    name: String
+    name: String!
     partyRequests: [PartyRequest!]!
     payments: [Payment!]!
 }
@@ -234,7 +234,7 @@ type UserType implements GQLResponseType {
     bankAccount: String
     email: String!
     id: ID!
-    name: String
+    name: String!
     userExpenses: [ExpenseType!]!
     userJoinedParties: [PartyType!]!
     userPartyRequests: [PartyRequestType!]!
@@ -306,13 +306,13 @@ enum Roles {
 
 input EditPartyInput {
     description: String
-    endDate: Date!
+    endDate: Date
     id: String!
     locationLatitude: Float
     locationLongitude: Float
     locationName: String
     name: String!
-    startDate: Date!
+    startDate: Date
     type: PartyKind!
 }
 

@@ -5,9 +5,9 @@ import { FormInstance, FormItemProps } from 'antd/es/form';
 
 import { ParticipantList } from '../../../common/participant-list/ParticipantList';
 import { eventsEventRoute } from '../../../navigation/routerConstants';
+import { useUserFriends } from '../../../utils/hooks/graphql/friends/useUserFriends';
 import { Optional } from '../../../utils/types';
 import { FormFields, FormValues } from '../useEventForm';
-import { useUserFriends } from './useUserFriends';
 
 import style from '../../../new-expense/fields/Fields.module.less';
 
@@ -51,13 +51,11 @@ export const EventParticipantIdsField: React.FC<ExpenseParticipantsSelectFieldPr
   return (
     <Form.Item {...formItemProps} label={editMode ? editModeTitle : formItemProps.label}>
       {eventId ? (
-        <>
-          <ParticipantList
-            loading={loading || !friends}
-            notFoundContent={<NoParticipants eventId={eventId} />}
-            participants={friends}
-          />
-        </>
+        <ParticipantList
+          loading={loading || !friends}
+          notFoundContent={<NoParticipants eventId={eventId} />}
+          participants={friends}
+        />
       ) : (
         <Select
           disabled={disabled}
@@ -68,7 +66,6 @@ export const EventParticipantIdsField: React.FC<ExpenseParticipantsSelectFieldPr
         >
           {friends?.map((it) => (
             <Select.Option className={style.option} key={it.id} value={it.id}>
-              {console.log(it)}
               {it.name ?? ''}
             </Select.Option>
           ))}
@@ -81,7 +78,9 @@ export const EventParticipantIdsField: React.FC<ExpenseParticipantsSelectFieldPr
 const NameNotFound: React.FC = () => (
   <>
     <h3>Pusto...</h3>
-    <p>Nie ma żadnego uczestnika o takim imieniu</p>
+    <p>
+      Nie ma żadnego uczestnika o takim imieniu <Link to="/">Dodaj znajomego</Link>
+    </p>
   </>
 );
 

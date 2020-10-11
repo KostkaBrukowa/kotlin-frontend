@@ -1,11 +1,10 @@
 import React from 'react';
-import { Form, List, Select, Spin } from 'antd';
+import { Form, Select } from 'antd';
 import { FormInstance, FormItemProps } from 'antd/es/form';
 
 import { ParticipantList } from '../../common/participant-list/ParticipantList';
-import { Optional } from '../../utils/types';
 import { FormFields, FormValues, PartyType } from '../useExpenseForm';
-import { PartyElementType, useNewExpenseEvents } from '../useNewExpenseEvents';
+import { useNewExpenseEvents } from '../useNewExpenseEvents';
 
 import style from './Fields.module.less';
 

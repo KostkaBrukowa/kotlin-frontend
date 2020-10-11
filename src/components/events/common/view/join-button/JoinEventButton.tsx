@@ -4,8 +4,8 @@ import { Button } from 'antd';
 
 import { UserContext } from '../../../../config/UserProvider';
 import { TransitionElement } from '../../../../utils/animations/TransitionElement';
+import { EventQueryType } from '../../../../utils/hooks/graphql/singleEvent/useSingleEvent';
 import { NotOptional } from '../../../../utils/types';
-import { EventQueryType } from '../useSingleEvent';
 
 import style from '../../../event/view/EventView.module.less';
 

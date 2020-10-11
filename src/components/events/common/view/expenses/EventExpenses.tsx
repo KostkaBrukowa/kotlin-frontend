@@ -7,9 +7,9 @@ import { UserContext } from '../../../../config/UserProvider';
 import { expensesRoute } from '../../../../navigation/routerConstants';
 import { currency } from '../../../../utils/constants/currency';
 import { capitalize } from '../../../../utils/functions/string';
+import { EventQueryType } from '../../../../utils/hooks/graphql/singleEvent/useSingleEvent';
 import { NotOptional } from '../../../../utils/types';
 import { EmptyEventsList } from '../../EmptyList';
-import { EventQueryType } from '../useSingleEvent';
 
 import style from './EventExpenses.module.less';
 

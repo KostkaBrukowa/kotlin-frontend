@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import React from 'react';
+import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
 import { Form, Input } from 'antd';
 import { FormInstance, FormItemProps } from 'antd/es/form';
 import { LatLngTuple, LeafletMouseEvent } from 'leaflet';
@@ -9,7 +9,7 @@ import { TransitionElement } from '../../../utils/animations/TransitionElement';
 import { opacityOnlyOptions } from '../../../utils/animations/TransitionElementCommonOptions';
 import { leafletAttribution, leafletAttributionLink } from '../../../utils/constants/attributions';
 import { useRerender } from '../../../utils/hooks/useRerender';
-import { EventType, FormFields, FormValues } from '../useEventForm';
+import { FormFields, FormValues } from '../useEventForm';
 
 import style from './Fields.module.less';
 

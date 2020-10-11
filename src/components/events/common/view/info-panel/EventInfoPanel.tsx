@@ -3,9 +3,9 @@ import { Collapse } from 'antd';
 
 import { ParticipantList } from '../../../../common/participant-list/ParticipantList';
 import { renderCollapsableArrow } from '../../../../utils/components/CollapsableArrow';
+import { EventQueryType } from '../../../../utils/hooks/graphql/singleEvent/useSingleEvent';
 import { NotOptional } from '../../../../utils/types';
 import { EventExpenses } from '../expenses/EventExpenses';
-import { EventQueryType } from '../useSingleEvent';
 
 import style from '../../../event/view/EventView.module.less';
 

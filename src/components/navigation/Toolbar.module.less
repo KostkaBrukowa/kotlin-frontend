@@ -1,4 +1,4 @@
-@import "../../../node_modules/antd/lib/style/dark.less";
+@import '../../../node_modules/antd/lib/style/dark.less';
 @toolbarHeight: 56px;
 
 .toolbarWrapper {
@@ -44,6 +44,10 @@
   svg {
     transition: transform 200ms ease-in;
   }
+}
+
+.optionWrapper:focus {
+  transform: translateY(-3px);
 }
 
 .activeOptionWrapper {

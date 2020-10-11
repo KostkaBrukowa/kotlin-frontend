@@ -1,5 +1,5 @@
-import { SingleEventQuery, useSingleEventLazyQuery } from '../../../../generated/graphql';
-import { useRemoteData } from '../../../utils/hooks/useRemoteData';
+import { SingleEventQuery, useSingleEventLazyQuery } from '../../../../../generated/graphql';
+import { useRemoteData } from '../../useRemoteData';
 
 export type EventQueryType = SingleEventQuery['getSingleParty'];
 

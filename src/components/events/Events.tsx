@@ -5,7 +5,7 @@ import { Button, Tabs } from 'antd';
 import { ActionType, AppContext, EventsTabKeys } from '../app-context/AppContext';
 import { eventFormRoute } from '../navigation/routerConstants';
 import { EventsList } from './event/EventsList';
-import { FriendsList } from './friends/FriendsList';
+import { FriendEventsList } from './friends/FriendEventsList';
 import { GroupsList } from './groups/GroupsList';
 import { useUserParties } from './useUserParties';
 
@@ -44,7 +44,7 @@ export const Events: React.FC<EventsProps> = () => {
           <GroupsList events={parties?.groups} loading={loading} />
         </Tabs.TabPane>
         <Tabs.TabPane key={EventsTabKeys.FRIENDS} tab="Znajomi">
-          <FriendsList events={parties?.friends} loading={loading} />
+          <FriendEventsList friends={parties?.friends} loading={loading} />
         </Tabs.TabPane>
       </Tabs>
     </div>

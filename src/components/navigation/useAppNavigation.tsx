@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'; // eslint-disable-line
 import { BsBell } from 'react-icons/all';
-import ControlOutlined from '@ant-design/icons/ControlOutlined';
+import UserOutlined from '@ant-design/icons/UserOutlined';
 import DollarOutlined from '@ant-design/icons/DollarOutlined';
 import HomeOutlined from '@ant-design/icons/HomeOutlined';
 import PlusCircleOutlined from '@ant-design/icons/PlusCircleOutlined';
@@ -9,8 +9,8 @@ import { useLocation } from '@reach/router';
 import style from './Toolbar.module.less';
 import {
   eventsRoute,
-  expensesRoute,
   expenseFormRoute,
+  expensesRoute,
   notificationsRoute,
   settingsRoute,
 } from './routerConstants';
@@ -49,9 +49,9 @@ export const menuTabs: MenuTabItem[] = [
   },
   {
     key: '5',
-    icon: <ControlOutlined className={style.icon} />,
+    icon: <UserOutlined className={style.icon} />,
     to: settingsRoute,
-    title: 'Ustawienia',
+    title: 'Twoje dane',
   },
 ];
 

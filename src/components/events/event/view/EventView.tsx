@@ -7,9 +7,9 @@ import { eventFormRoute } from '../../../navigation/routerConstants';
 import { Info, ViewDescription } from '../../../utils/components/ViewDescription';
 import { dateFrom, formatDate, getDayOfTheWeek } from '../../../utils/functions/date';
 import { capitalize } from '../../../utils/functions/string';
+import { useSingleEvent } from '../../../utils/hooks/graphql/singleEvent/useSingleEvent';
 import { EventInfoPanel } from '../../common/view/info-panel/EventInfoPanel';
 import { JoinEventButton } from '../../common/view/join-button/JoinEventButton';
-import { useSingleEvent } from '../../common/view/useSingleEvent';
 import { EventMap } from './EventLeafletMap';
 
 import style from './EventView.module.less';

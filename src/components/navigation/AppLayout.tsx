@@ -7,7 +7,7 @@ import { UserProvider } from '../config/UserProvider';
 import { EventForm } from '../events/event-form/EventForm';
 import { EventView } from '../events/event/view/EventView';
 import { Events } from '../events/Events';
-import { FriendsView } from '../events/friends/view/FriendsView';
+import { FriendsEventView } from '../events/friends/view/FriendsEventView';
 import { GroupView } from '../events/groups/view/GroupView';
 import { ExpenseView } from '../expenses/expense-view/ExpenseView';
 import { Expenses } from '../expenses/Expenses';
@@ -16,7 +16,8 @@ import { Home } from '../home/Home';
 import { Login } from '../login/Login';
 import { ExpenseForm } from '../new-expense/ExpenseForm';
 import { Notifications } from '../notifications/Notifications';
-import { Settings } from '../settings/Settings';
+import { FriendsView } from '../settings/friends-view/FriendsView';
+import { UserView } from '../settings/UserView';
 import { ResourceNotFound } from '../utils/not-found/ResourceNotFound';
 import { AppHeader } from './AppHeader';
 import {
@@ -27,6 +28,7 @@ import {
   eventsRoute,
   expenseFormRoute,
   expensesRoute,
+  friendsRoute,
   loginRoute,
   notificationsRoute,
   paymentsRoute,
@@ -64,7 +66,7 @@ export const AppLayout: React.FC = () => {
                 <EventForm path={`${eventFormRoute}/:eventId`} />
                 <EventView path={`${eventsEventRoute}/:eventId/*`} />
                 <GroupView path={`${eventsGroupRoute}/:groupId/*`} />
-                <FriendsView path={`${eventsFiendsRoute}/:friendsId/*`} />
+                <FriendsEventView path={`${eventsFiendsRoute}/:friendsId/*`} />
 
                 <Expenses path={expensesRoute} />
                 <ExpenseForm path={expenseFormRoute} />
@@ -74,7 +76,8 @@ export const AppLayout: React.FC = () => {
 
                 <Notifications path={notificationsRoute} />
 
-                <Settings path={settingsRoute} setAuthData={setAuthData} />
+                <UserView path={settingsRoute} setAuthData={setAuthData} />
+                <FriendsView path={friendsRoute} />
 
                 <ResourceNotFound default />
               </Router>

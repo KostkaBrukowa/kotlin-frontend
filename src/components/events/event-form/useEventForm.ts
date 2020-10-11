@@ -1,20 +1,16 @@
 import { navigate } from '@reach/router';
 import { Form } from 'antd';
-import { LatLng, LatLngTuple } from 'leaflet';
+import { LatLngTuple } from 'leaflet';
 import { Moment } from 'moment';
 
 import {
   PartyKind,
   useCreateEventMutation,
-  useCreateExpenseMutation,
   useUpdateEventMutation,
-  useUpdateExpenseMutation,
 } from '../../../generated/graphql';
 import { EventMapper } from '../../mappers/events/EventMapper';
-import { ExpenseRequestMapper } from '../../mappers/expenses/ExpenseRequestMapper';
-import { eventsRoute, expensesRoute } from '../../navigation/routerConstants';
-import { useEditExpenseData } from '../../new-expense/useEditExpenseData';
-import { useSingleEvent } from '../common/view/useSingleEvent';
+import { eventsRoute } from '../../navigation/routerConstants';
+import { useSingleEvent } from '../../utils/hooks/graphql/singleEvent/useSingleEvent';
 
 export const partyKindToPartyType = (partyKind: PartyKind | undefined) => {
   switch (partyKind) {

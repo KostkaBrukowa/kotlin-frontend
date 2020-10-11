@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { RouteComponentProps } from '@reach/router';
-import { Button, DatePicker, Form, TimePicker } from 'antd';
+import { Button, Form } from 'antd';
 import moment from 'moment';
 
-import { EditExpenseDataQuery, PartyKind, SingleEventQuery } from '../../../generated/graphql';
-import { TransitionElement } from '../../utils/animations/TransitionElement';
+import { SingleEventQuery } from '../../../generated/graphql';
 import { validateMessages } from '../../utils/form/validationMessages';
 import { dateFrom } from '../../utils/functions/date';
 import { useRerender } from '../../utils/hooks/useRerender';

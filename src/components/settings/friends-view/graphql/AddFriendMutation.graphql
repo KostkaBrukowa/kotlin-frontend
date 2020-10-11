@@ -1,0 +1,5 @@
+mutation AddFriend($userEmail: String!){
+    addFriend(userEmail: $userEmail) {
+        ...UserListData
+    }
+}

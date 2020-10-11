@@ -1,9 +1,9 @@
 import React from 'react';
-import { navigate } from '@reach/router';
-import { List } from 'antd';
+import { Link, navigate } from '@reach/router';
+import { Button, List } from 'antd';
 
 import { FriendsPartyListType } from '../../mappers/events/PartyMapperTypes';
-import { eventsFiendsRoute } from '../../navigation/routerConstants';
+import { eventsFiendsRoute, friendsRoute } from '../../navigation/routerConstants';
 import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
 import { EmptyEventsList } from '../common/EmptyList';
 import { getFriendCountText } from '../common/OtherParticipants';
@@ -11,7 +11,7 @@ import { getFriendCountText } from '../common/OtherParticipants';
 import style from '../../utils/components/List.module.less';
 
 export interface FriendsListProps {
-  events?: FriendsPartyListType[];
+  friends?: FriendsPartyListType[];
   loading: boolean;
 }
 const ListItemMeta: React.FC<{
@@ -34,13 +34,20 @@ const ListItem: React.FC<{ item: FriendsPartyListType }> = ({ item }) => (
   </List.Item>
 );
 
-export const FriendsList: React.FC<FriendsListProps> = ({ events, loading }) => (
-  <List
-    dataSource={events}
-    itemLayout="vertical"
-    loading={loading || !events}
-    locale={{ emptyText: <EmptyEventsList type="znajomych" /> }}
-    renderItem={(item: FriendsPartyListType) => <ListItem item={item} key={item.id} />}
-    size="large"
-  />
+export const FriendEventsList: React.FC<FriendsListProps> = ({ friends, loading }) => (
+  <>
+    <div className={style.addFriendWrapper}>
+      <Button>
+        <Link to={friendsRoute}>Dodaj znajomego</Link>
+      </Button>
+    </div>
+    <List
+      dataSource={friends}
+      itemLayout="vertical"
+      loading={loading || !friends}
+      locale={{ emptyText: <EmptyEventsList type="znajomych" /> }}
+      renderItem={(item: FriendsPartyListType) => <ListItem item={item} key={item.id} />}
+      size="large"
+    />
+  </>
 );

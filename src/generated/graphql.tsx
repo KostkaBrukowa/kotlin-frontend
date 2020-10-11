@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import * as ApolloReactCommon from '@apollo/client';
 import * as ApolloReactHooks from '@apollo/client';
+
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -142,7 +143,7 @@ export type Mutation = {
   bulkPayments?: Maybe<BulkPaymentType>;
   updateBulkPaymentStatus: BulkPaymentType;
   updatePaymentStatus: PaymentType;
-  addFriend: Scalars['Boolean'];
+  addFriend?: Maybe<UserType>;
   removeFriend: Scalars['Boolean'];
 };
 
@@ -251,7 +252,7 @@ export type MutationUpdatePaymentStatusArgs = {
 
 
 export type MutationAddFriendArgs = {
-  userId: Scalars['String'];
+  userEmail: Scalars['String'];
 };
 
 
@@ -552,7 +553,7 @@ export type User = {
   friends: Array<User>;
   id: Scalars['Long'];
   joinedParties: Array<Party>;
-  name?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
   partyRequests: Array<PartyRequest>;
   payments: Array<Payment>;
 };
@@ -573,14 +574,14 @@ export type UserType = GqlResponseType & {
   bankAccount?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   id: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
   userExpenses: Array<ExpenseType>;
   userJoinedParties: Array<PartyType>;
   userPartyRequests: Array<PartyRequestType>;
   userPayments: Array<PaymentType>;
 };
 
-export type ParticipantListFragmentFragment = { __typename?: 'UserType', id: string, name?: Maybe<string> };
+export type ParticipantListFragmentFragment = { __typename?: 'UserType', id: string, name: string };
 
 export type RefreshTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -592,41 +593,21 @@ export type GetUserPartiesQueryVariables = Exact<{
 }>;
 
 
-export type GetUserPartiesQuery = { __typename?: 'Query', getAllParties: Array<{ __typename?: 'PartyType', id: string, name?: Maybe<string>, description?: Maybe<string>, locationName?: Maybe<string>, type: PartyKind, owner?: Maybe<{ __typename?: 'User', name?: Maybe<string> }>, partyParticipants: Array<{ __typename?: 'UserType', id: string, name?: Maybe<string> }> }> };
-
-export type SingleEventQueryVariables = Exact<{
-  eventId: Scalars['String'];
-}>;
-
-
-export type SingleEventQuery = { __typename?: 'Query', getSingleParty?: Maybe<{ __typename?: 'PartyType', id: string, name?: Maybe<string>, description?: Maybe<string>, locationName?: Maybe<string>, type: PartyKind, startDate?: Maybe<any>, endDate?: Maybe<any>, locationLatitude?: Maybe<number>, locationLongitude?: Maybe<number>, owner?: Maybe<{ __typename?: 'User', name?: Maybe<string> }>, partyParticipants: Array<(
-      { __typename?: 'UserType' }
-      & ParticipantListFragmentFragment
-    )>, partyMessages: Array<(
-      { __typename?: 'MessageResponseType' }
-      & MessageDetailsFragment
-    )>, partyPartyRequests: Array<{ __typename?: 'PartyRequestType', id: string, status: PartyRequestStatus, partyRequestReceiver: { __typename?: 'UserType', id: string, name?: Maybe<string> } }>, partyExpenses: Array<{ __typename?: 'ExpenseType', id: string, amount: number, description: string, expenseStatus: ExpenseStatus, name: string, expensePayer: { __typename?: 'UserType', id: string, name?: Maybe<string> } }> }> };
+export type GetUserPartiesQuery = { __typename?: 'Query', getAllParties: Array<{ __typename?: 'PartyType', id: string, name?: Maybe<string>, description?: Maybe<string>, locationName?: Maybe<string>, type: PartyKind, owner?: Maybe<{ __typename?: 'User', name: string }>, partyParticipants: Array<{ __typename?: 'UserType', id: string, name: string }> }> };
 
 export type CreateEventMutationVariables = Exact<{
   event: NewPartyInput;
 }>;
 
 
-export type CreateEventMutation = { __typename?: 'Mutation', createParty: { __typename?: 'PartyType', id: string, name?: Maybe<string>, description?: Maybe<string>, locationName?: Maybe<string>, type: PartyKind, startDate?: Maybe<any>, endDate?: Maybe<any>, locationLatitude?: Maybe<number>, locationLongitude?: Maybe<number>, owner?: Maybe<{ __typename?: 'User', name?: Maybe<string> }>, partyParticipants: Array<{ __typename?: 'UserType', id: string, name?: Maybe<string> }> } };
-
-export type GetUserFriendsQueryVariables = Exact<{
-  userId: Scalars['String'];
-}>;
-
-
-export type GetUserFriendsQuery = { __typename?: 'Query', findUsersFriends: Array<{ __typename?: 'UserType', id: string, name?: Maybe<string> }> };
+export type CreateEventMutation = { __typename?: 'Mutation', createParty: { __typename?: 'PartyType', id: string, name?: Maybe<string>, description?: Maybe<string>, locationName?: Maybe<string>, type: PartyKind, startDate?: Maybe<any>, endDate?: Maybe<any>, locationLatitude?: Maybe<number>, locationLongitude?: Maybe<number>, owner?: Maybe<{ __typename?: 'User', name: string }>, partyParticipants: Array<{ __typename?: 'UserType', id: string, name: string }> } };
 
 export type UpdateEventMutationVariables = Exact<{
   event: EditPartyInput;
 }>;
 
 
-export type UpdateEventMutation = { __typename?: 'Mutation', updateParty: { __typename?: 'PartyType', id: string, name?: Maybe<string>, description?: Maybe<string>, locationName?: Maybe<string>, type: PartyKind, startDate?: Maybe<any>, endDate?: Maybe<any>, locationLatitude?: Maybe<number>, locationLongitude?: Maybe<number>, owner?: Maybe<{ __typename?: 'User', name?: Maybe<string> }>, partyParticipants: Array<{ __typename?: 'UserType', id: string, name?: Maybe<string> }> } };
+export type UpdateEventMutation = { __typename?: 'Mutation', updateParty: { __typename?: 'PartyType', id: string, name?: Maybe<string>, description?: Maybe<string>, locationName?: Maybe<string>, type: PartyKind, startDate?: Maybe<any>, endDate?: Maybe<any>, locationLatitude?: Maybe<number>, locationLongitude?: Maybe<number>, owner?: Maybe<{ __typename?: 'User', name: string }>, partyParticipants: Array<{ __typename?: 'UserType', id: string, name: string }> } };
 
 export type GetUserExpensesQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -640,7 +621,7 @@ export type SingleExpenseQueryVariables = Exact<{
 }>;
 
 
-export type SingleExpenseQuery = { __typename?: 'Query', getSingleExpense?: Maybe<{ __typename?: 'ExpenseType', id: string, name: string, description: string, expenseDate: any, amount: number, expenseStatus: ExpenseStatus, expensePayer: { __typename?: 'UserType', id: string, name?: Maybe<string> }, expensePayments: Array<{ __typename?: 'PaymentType', id: string, amount?: Maybe<number>, status: PaymentStatus, paymentPayer: { __typename?: 'UserType', id: string, name?: Maybe<string> } }> }> };
+export type SingleExpenseQuery = { __typename?: 'Query', getSingleExpense?: Maybe<{ __typename?: 'ExpenseType', id: string, name: string, description: string, expenseDate: any, amount: number, expenseStatus: ExpenseStatus, expensePayer: { __typename?: 'UserType', id: string, name: string }, expensePayments: Array<{ __typename?: 'PaymentType', id: string, amount?: Maybe<number>, status: PaymentStatus, paymentPayer: { __typename?: 'UserType', id: string, name: string } }> }> };
 
 export type SinglePaymentQueryVariables = Exact<{
   paymentId: Scalars['String'];
@@ -650,7 +631,7 @@ export type SinglePaymentQueryVariables = Exact<{
 export type SinglePaymentQuery = { __typename?: 'Query', getSinglePayment?: Maybe<{ __typename?: 'PaymentType', id: string, amount?: Maybe<number>, status: PaymentStatus, paymentMessages: Array<(
       { __typename?: 'MessageResponseType' }
       & MessageDetailsFragment
-    )>, paymentExpense: { __typename?: 'ExpenseType', id: string, name: string, expensePayer: { __typename?: 'UserType', id: string, name?: Maybe<string> } }, paymentPayer: { __typename?: 'UserType', id: string, name?: Maybe<string> } }> };
+    )>, paymentExpense: { __typename?: 'ExpenseType', id: string, name: string, expensePayer: { __typename?: 'UserType', id: string, name: string } }, paymentPayer: { __typename?: 'UserType', id: string, name: string } }> };
 
 export type LoginUserMutationVariables = Exact<{
   input: UserAuthInput;
@@ -678,7 +659,7 @@ export type EditExpenseDataQueryVariables = Exact<{
 }>;
 
 
-export type EditExpenseDataQuery = { __typename?: 'Query', getSingleExpense?: Maybe<{ __typename?: 'ExpenseType', id: string, name: string, description: string, expenseDate: any, amount: number, expenseStatus: ExpenseStatus, expenseParty: { __typename?: 'PartyType', id: string, name?: Maybe<string>, type: PartyKind, partyParticipants: Array<{ __typename?: 'UserType', id: string, name?: Maybe<string> }> }, expensePayments: Array<{ __typename?: 'PaymentType', id: string, paymentPayer: { __typename?: 'UserType', id: string, name?: Maybe<string> } }> }> };
+export type EditExpenseDataQuery = { __typename?: 'Query', getSingleExpense?: Maybe<{ __typename?: 'ExpenseType', id: string, name: string, description: string, expenseDate: any, amount: number, expenseStatus: ExpenseStatus, expenseParty: { __typename?: 'PartyType', id: string, name?: Maybe<string>, type: PartyKind, partyParticipants: Array<{ __typename?: 'UserType', id: string, name: string }> }, expensePayments: Array<{ __typename?: 'PaymentType', id: string, paymentPayer: { __typename?: 'UserType', id: string, name: string } }> }> };
 
 export type UpdateExpenseMutationVariables = Exact<{
   expense: UpdateExpenseInput;
@@ -692,21 +673,63 @@ export type GetUserNotificationsQueryVariables = Exact<{
 }>;
 
 
-export type GetUserNotificationsQuery = { __typename?: 'Query', findUserNotifications: Array<{ __typename?: 'ExpenseNotification', expenseId: string, id: string, createdAt: any, isRead: boolean, event: NotificationEvent, type: NotificationTypeEnum, actor?: Maybe<{ __typename?: 'UserType', id: string, name?: Maybe<string> }>, receiver?: Maybe<{ __typename?: 'UserType', id: string, name?: Maybe<string> }> } | { __typename?: 'PartyRequestNotification', partyId: string, id: string, createdAt: any, isRead: boolean, event: NotificationEvent, type: NotificationTypeEnum, actor?: Maybe<{ __typename?: 'UserType', id: string, name?: Maybe<string> }>, receiver?: Maybe<{ __typename?: 'UserType', id: string, name?: Maybe<string> }> } | { __typename?: 'PaymentNotification', paymentId: string, id: string, createdAt: any, isRead: boolean, event: NotificationEvent, type: NotificationTypeEnum, actor?: Maybe<{ __typename?: 'UserType', id: string, name?: Maybe<string> }>, receiver?: Maybe<{ __typename?: 'UserType', id: string, name?: Maybe<string> }> }> };
+export type GetUserNotificationsQuery = { __typename?: 'Query', findUserNotifications: Array<{ __typename?: 'ExpenseNotification', expenseId: string, id: string, createdAt: any, isRead: boolean, event: NotificationEvent, type: NotificationTypeEnum, actor?: Maybe<{ __typename?: 'UserType', id: string, name: string }>, receiver?: Maybe<{ __typename?: 'UserType', id: string, name: string }> } | { __typename?: 'PartyRequestNotification', partyId: string, id: string, createdAt: any, isRead: boolean, event: NotificationEvent, type: NotificationTypeEnum, actor?: Maybe<{ __typename?: 'UserType', id: string, name: string }>, receiver?: Maybe<{ __typename?: 'UserType', id: string, name: string }> } | { __typename?: 'PaymentNotification', paymentId: string, id: string, createdAt: any, isRead: boolean, event: NotificationEvent, type: NotificationTypeEnum, actor?: Maybe<{ __typename?: 'UserType', id: string, name: string }>, receiver?: Maybe<{ __typename?: 'UserType', id: string, name: string }> }> };
 
 export type GetUserDetailsQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
 
 
-export type GetUserDetailsQuery = { __typename?: 'Query', getUser?: Maybe<{ __typename?: 'UserType', id: string, name?: Maybe<string>, bankAccount?: Maybe<string>, email: string }> };
+export type GetUserDetailsQuery = { __typename?: 'Query', getUser?: Maybe<{ __typename?: 'UserType', id: string, name: string, bankAccount?: Maybe<string>, email: string }> };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type LogoutMutation = { __typename?: 'Mutation', logOut: boolean };
 
-export type MessageDetailsFragment = { __typename?: 'MessageResponseType', id: string, sendDate: any, text: string, messageSender: { __typename?: 'UserType', id: string, name?: Maybe<string> } };
+export type AddFriendMutationVariables = Exact<{
+  userEmail: Scalars['String'];
+}>;
+
+
+export type AddFriendMutation = { __typename?: 'Mutation', addFriend?: Maybe<(
+    { __typename?: 'UserType' }
+    & UserListDataFragment
+  )> };
+
+export type RemoveFriendMutationVariables = Exact<{
+  friendId: Scalars['String'];
+}>;
+
+
+export type RemoveFriendMutation = { __typename?: 'Mutation', removeFriend: boolean };
+
+export type MessageDetailsFragment = { __typename?: 'MessageResponseType', id: string, sendDate: any, text: string, messageSender: { __typename?: 'UserType', id: string, name: string } };
+
+export type GetUserFriendsQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type GetUserFriendsQuery = { __typename?: 'Query', findUsersFriends: Array<(
+    { __typename?: 'UserType' }
+    & UserListDataFragment
+  )> };
+
+export type UserListDataFragment = { __typename?: 'UserType', id: string, name: string, email: string };
+
+export type SingleEventQueryVariables = Exact<{
+  eventId: Scalars['String'];
+}>;
+
+
+export type SingleEventQuery = { __typename?: 'Query', getSingleParty?: Maybe<{ __typename?: 'PartyType', id: string, name?: Maybe<string>, description?: Maybe<string>, locationName?: Maybe<string>, type: PartyKind, startDate?: Maybe<any>, endDate?: Maybe<any>, locationLatitude?: Maybe<number>, locationLongitude?: Maybe<number>, owner?: Maybe<{ __typename?: 'User', name: string }>, partyParticipants: Array<(
+      { __typename?: 'UserType' }
+      & ParticipantListFragmentFragment
+    )>, partyMessages: Array<(
+      { __typename?: 'MessageResponseType' }
+      & MessageDetailsFragment
+    )>, partyPartyRequests: Array<{ __typename?: 'PartyRequestType', id: string, status: PartyRequestStatus, partyRequestReceiver: { __typename?: 'UserType', id: string, name: string } }>, partyExpenses: Array<{ __typename?: 'ExpenseType', id: string, amount: number, description: string, expenseStatus: ExpenseStatus, name: string, expensePayer: { __typename?: 'UserType', id: string, name: string } }> }> };
 
 export const ParticipantListFragmentFragmentDoc = gql`
     fragment ParticipantListFragment on UserType {
@@ -723,6 +746,13 @@ export const MessageDetailsFragmentDoc = gql`
     id
     name
   }
+}
+    `;
+export const UserListDataFragmentDoc = gql`
+    fragment UserListData on UserType {
+  id
+  name
+  email
 }
     `;
 export const RefreshTokenDocument = gql`
@@ -801,76 +831,6 @@ export function useGetUserPartiesLazyQuery(baseOptions?: ApolloReactHooks.LazyQu
 export type GetUserPartiesQueryHookResult = ReturnType<typeof useGetUserPartiesQuery>;
 export type GetUserPartiesLazyQueryHookResult = ReturnType<typeof useGetUserPartiesLazyQuery>;
 export type GetUserPartiesQueryResult = ApolloReactCommon.QueryResult<GetUserPartiesQuery, GetUserPartiesQueryVariables>;
-export const SingleEventDocument = gql`
-    query SingleEvent($eventId: String!) {
-  getSingleParty(partyId: $eventId) {
-    id
-    name
-    description
-    locationName
-    type
-    startDate
-    endDate
-    locationLatitude
-    locationLongitude
-    owner {
-      name
-    }
-    partyParticipants {
-      ...ParticipantListFragment
-    }
-    partyMessages {
-      ...MessageDetails
-    }
-    partyPartyRequests {
-      id
-      status
-      partyRequestReceiver {
-        id
-        name
-      }
-    }
-    partyExpenses {
-      id
-      amount
-      description
-      expenseStatus
-      name
-      expensePayer {
-        id
-        name
-      }
-    }
-  }
-}
-    ${ParticipantListFragmentFragmentDoc}
-${MessageDetailsFragmentDoc}`;
-
-/**
- * __useSingleEventQuery__
- *
- * To run a query within a React component, call `useSingleEventQuery` and pass it any options that fit your needs.
- * When your component renders, `useSingleEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useSingleEventQuery({
- *   variables: {
- *      eventId: // value for 'eventId'
- *   },
- * });
- */
-export function useSingleEventQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SingleEventQuery, SingleEventQueryVariables>) {
-        return ApolloReactHooks.useQuery<SingleEventQuery, SingleEventQueryVariables>(SingleEventDocument, baseOptions);
-      }
-export function useSingleEventLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SingleEventQuery, SingleEventQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<SingleEventQuery, SingleEventQueryVariables>(SingleEventDocument, baseOptions);
-        }
-export type SingleEventQueryHookResult = ReturnType<typeof useSingleEventQuery>;
-export type SingleEventLazyQueryHookResult = ReturnType<typeof useSingleEventLazyQuery>;
-export type SingleEventQueryResult = ApolloReactCommon.QueryResult<SingleEventQuery, SingleEventQueryVariables>;
 export const CreateEventDocument = gql`
     mutation CreateEvent($event: NewPartyInput!) {
   createParty(newPartyInput: $event) {
@@ -918,40 +878,6 @@ export function useCreateEventMutation(baseOptions?: ApolloReactHooks.MutationHo
 export type CreateEventMutationHookResult = ReturnType<typeof useCreateEventMutation>;
 export type CreateEventMutationResult = ApolloReactCommon.MutationResult<CreateEventMutation>;
 export type CreateEventMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateEventMutation, CreateEventMutationVariables>;
-export const GetUserFriendsDocument = gql`
-    query GetUserFriends($userId: String!) {
-  findUsersFriends(userId: $userId) {
-    id
-    name
-  }
-}
-    `;
-
-/**
- * __useGetUserFriendsQuery__
- *
- * To run a query within a React component, call `useGetUserFriendsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUserFriendsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetUserFriendsQuery({
- *   variables: {
- *      userId: // value for 'userId'
- *   },
- * });
- */
-export function useGetUserFriendsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserFriendsQuery, GetUserFriendsQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetUserFriendsQuery, GetUserFriendsQueryVariables>(GetUserFriendsDocument, baseOptions);
-      }
-export function useGetUserFriendsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserFriendsQuery, GetUserFriendsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetUserFriendsQuery, GetUserFriendsQueryVariables>(GetUserFriendsDocument, baseOptions);
-        }
-export type GetUserFriendsQueryHookResult = ReturnType<typeof useGetUserFriendsQuery>;
-export type GetUserFriendsLazyQueryHookResult = ReturnType<typeof useGetUserFriendsLazyQuery>;
-export type GetUserFriendsQueryResult = ApolloReactCommon.QueryResult<GetUserFriendsQuery, GetUserFriendsQueryVariables>;
 export const UpdateEventDocument = gql`
     mutation UpdateEvent($event: EditPartyInput!) {
   updateParty(editPartyInput: $event) {
@@ -1459,3 +1385,168 @@ export function useLogoutMutation(baseOptions?: ApolloReactHooks.MutationHookOpt
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = ApolloReactCommon.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = ApolloReactCommon.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const AddFriendDocument = gql`
+    mutation AddFriend($userEmail: String!) {
+  addFriend(userEmail: $userEmail) {
+    ...UserListData
+  }
+}
+    ${UserListDataFragmentDoc}`;
+export type AddFriendMutationFn = ApolloReactCommon.MutationFunction<AddFriendMutation, AddFriendMutationVariables>;
+
+/**
+ * __useAddFriendMutation__
+ *
+ * To run a mutation, you first call `useAddFriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddFriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addFriendMutation, { data, loading, error }] = useAddFriendMutation({
+ *   variables: {
+ *      userEmail: // value for 'userEmail'
+ *   },
+ * });
+ */
+export function useAddFriendMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddFriendMutation, AddFriendMutationVariables>) {
+        return ApolloReactHooks.useMutation<AddFriendMutation, AddFriendMutationVariables>(AddFriendDocument, baseOptions);
+      }
+export type AddFriendMutationHookResult = ReturnType<typeof useAddFriendMutation>;
+export type AddFriendMutationResult = ApolloReactCommon.MutationResult<AddFriendMutation>;
+export type AddFriendMutationOptions = ApolloReactCommon.BaseMutationOptions<AddFriendMutation, AddFriendMutationVariables>;
+export const RemoveFriendDocument = gql`
+    mutation RemoveFriend($friendId: String!) {
+  removeFriend(userId: $friendId)
+}
+    `;
+export type RemoveFriendMutationFn = ApolloReactCommon.MutationFunction<RemoveFriendMutation, RemoveFriendMutationVariables>;
+
+/**
+ * __useRemoveFriendMutation__
+ *
+ * To run a mutation, you first call `useRemoveFriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFriendMutation, { data, loading, error }] = useRemoveFriendMutation({
+ *   variables: {
+ *      friendId: // value for 'friendId'
+ *   },
+ * });
+ */
+export function useRemoveFriendMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveFriendMutation, RemoveFriendMutationVariables>) {
+        return ApolloReactHooks.useMutation<RemoveFriendMutation, RemoveFriendMutationVariables>(RemoveFriendDocument, baseOptions);
+      }
+export type RemoveFriendMutationHookResult = ReturnType<typeof useRemoveFriendMutation>;
+export type RemoveFriendMutationResult = ApolloReactCommon.MutationResult<RemoveFriendMutation>;
+export type RemoveFriendMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveFriendMutation, RemoveFriendMutationVariables>;
+export const GetUserFriendsDocument = gql`
+    query GetUserFriends($userId: String!) {
+  findUsersFriends(userId: $userId) {
+    ...UserListData
+  }
+}
+    ${UserListDataFragmentDoc}`;
+
+/**
+ * __useGetUserFriendsQuery__
+ *
+ * To run a query within a React component, call `useGetUserFriendsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserFriendsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserFriendsQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetUserFriendsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserFriendsQuery, GetUserFriendsQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetUserFriendsQuery, GetUserFriendsQueryVariables>(GetUserFriendsDocument, baseOptions);
+      }
+export function useGetUserFriendsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserFriendsQuery, GetUserFriendsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetUserFriendsQuery, GetUserFriendsQueryVariables>(GetUserFriendsDocument, baseOptions);
+        }
+export type GetUserFriendsQueryHookResult = ReturnType<typeof useGetUserFriendsQuery>;
+export type GetUserFriendsLazyQueryHookResult = ReturnType<typeof useGetUserFriendsLazyQuery>;
+export type GetUserFriendsQueryResult = ApolloReactCommon.QueryResult<GetUserFriendsQuery, GetUserFriendsQueryVariables>;
+export const SingleEventDocument = gql`
+    query SingleEvent($eventId: String!) {
+  getSingleParty(partyId: $eventId) {
+    id
+    name
+    description
+    locationName
+    type
+    startDate
+    endDate
+    locationLatitude
+    locationLongitude
+    owner {
+      name
+    }
+    partyParticipants {
+      ...ParticipantListFragment
+    }
+    partyMessages {
+      ...MessageDetails
+    }
+    partyPartyRequests {
+      id
+      status
+      partyRequestReceiver {
+        id
+        name
+      }
+    }
+    partyExpenses {
+      id
+      amount
+      description
+      expenseStatus
+      name
+      expensePayer {
+        id
+        name
+      }
+    }
+  }
+}
+    ${ParticipantListFragmentFragmentDoc}
+${MessageDetailsFragmentDoc}`;
+
+/**
+ * __useSingleEventQuery__
+ *
+ * To run a query within a React component, call `useSingleEventQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSingleEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSingleEventQuery({
+ *   variables: {
+ *      eventId: // value for 'eventId'
+ *   },
+ * });
+ */
+export function useSingleEventQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SingleEventQuery, SingleEventQueryVariables>) {
+        return ApolloReactHooks.useQuery<SingleEventQuery, SingleEventQueryVariables>(SingleEventDocument, baseOptions);
+      }
+export function useSingleEventLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SingleEventQuery, SingleEventQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<SingleEventQuery, SingleEventQueryVariables>(SingleEventDocument, baseOptions);
+        }
+export type SingleEventQueryHookResult = ReturnType<typeof useSingleEventQuery>;
+export type SingleEventLazyQueryHookResult = ReturnType<typeof useSingleEventLazyQuery>;
+export type SingleEventQueryResult = ApolloReactCommon.QueryResult<SingleEventQuery, SingleEventQueryVariables>;

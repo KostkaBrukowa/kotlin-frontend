@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { RouteComponentProps } from '@reach/router';
-import { Form } from 'antd';
+import { navigate, RouteComponentProps } from '@reach/router';
+import { Button, Form } from 'antd';
 
 import { AuthData } from '../config/authentication/useAuthentication';
+import { friendsRoute } from '../navigation/routerConstants';
 import { Optional } from '../utils/types';
 import { EditUserDetailModal } from './EditUserDetailModal';
 import { UserDetailsFormFields } from './FormFieldsConfig';
@@ -16,7 +17,7 @@ export interface SettingsProps extends RouteComponentProps {
   setAuthData(authData: AuthData): void;
 }
 
-export const Settings: React.FC<SettingsProps> = ({ setAuthData }) => {
+export const UserView: React.FC<SettingsProps> = ({ setAuthData }) => {
   const { extractedData: user, dataComponent } = useUserDetails();
   const [modalVisible, setModalVisible] = useState(false);
   const [userDetailsTypeToEdit, setUserDetailsTypeToEdit] = useState(UserDetailsFormFields.name);
@@ -68,6 +69,8 @@ export const Settings: React.FC<SettingsProps> = ({ setAuthData }) => {
             type={UserDetailsFormFields.email}
             onButtonClick={onEditButtonClick}
           />
+
+          <Button onClick={() => navigate(friendsRoute)}>Twoi znajomi</Button>
         </Form>
       </div>
     </div>

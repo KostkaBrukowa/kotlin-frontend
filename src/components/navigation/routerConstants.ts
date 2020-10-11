@@ -2,7 +2,9 @@ export const loginRoute = '/login';
 export const registerRoute = `${loginRoute}/register`;
 
 export const notificationsRoute = '/notifications';
+
 export const settingsRoute = '/settings';
+export const friendsRoute = '/settings/friends';
 
 export const expensesRoute = '/expenses';
 export const paymentsRoute = `${expensesRoute}/payments`;

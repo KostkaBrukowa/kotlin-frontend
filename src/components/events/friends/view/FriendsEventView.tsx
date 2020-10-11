@@ -3,13 +3,13 @@ import { navigate, RouteComponentProps } from '@reach/router';
 import clsx from 'clsx';
 
 import { ElementHeader } from '../../../common/element-header/ElementHeader';
-import { eventFormRoute, expenseFormRoute } from '../../../navigation/routerConstants';
+import { eventFormRoute } from '../../../navigation/routerConstants';
 import { Info, ViewDescription } from '../../../utils/components/ViewDescription';
 import { currency } from '../../../utils/constants/currency';
 import { capitalize } from '../../../utils/functions/string';
+import { useSingleEvent } from '../../../utils/hooks/graphql/singleEvent/useSingleEvent';
 import { getFriendCountText } from '../../common/OtherParticipants';
 import { EventInfoPanel } from '../../common/view/info-panel/EventInfoPanel';
-import { useSingleEvent } from '../../common/view/useSingleEvent';
 
 import style from './FriendsView.module.less';
 
@@ -19,12 +19,12 @@ interface RouteParams {
 
 export type FriendsViewProps = RouteComponentProps<RouteParams>;
 
-export const FriendsView: React.FC<FriendsViewProps> = ({ friendsId }) => {
+export const FriendsEventView: React.FC<FriendsViewProps> = ({ friendsId }) => {
   const { dataComponent, extractedData: event } = useSingleEvent(friendsId);
 
   if (dataComponent !== null || !event) return dataComponent;
 
-  const { locationName, partyExpenses, partyParticipants, owner } = event;
+  const { partyExpenses, partyParticipants, owner } = event;
   const unbalancedAmount = partyExpenses?.reduce((acc, expense) => acc + expense.amount, 0) ?? 0; // convert to hook and take into account inactive expenses
   const balanceClassName = clsx({
     [style.outstandingBalance]: unbalancedAmount !== 0,
