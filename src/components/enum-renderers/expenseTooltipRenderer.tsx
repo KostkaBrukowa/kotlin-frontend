@@ -16,35 +16,35 @@ function getPaymentTooltipProps(status: PaymentStatus): TooltipProps {
     case PaymentStatus.InProgress:
       return {
         icon: <CheckCircleOutlined className={style.infoCircle} />,
-        title: 'Platność czeka na potwierdzenie od innego użytkownika',
+        title: 'Płatność czeka na potwierdzenie od innego użytkownika',
       };
     case PaymentStatus.Accepted:
       return {
         icon: <CheckCircleOutlined className={style.infoCircle} />,
-        title: 'Platność zostala zaakceptowana i czeka za zaplatę.',
+        title: 'Płatność została zaakceptowana i czeka za zapłatę.',
       };
     case PaymentStatus.Bulked:
       return {
         icon: <CheckCircleOutlined className={style.infoCircle} />,
-        title: 'Platność zostala polączona w jedna wiekszą platność.',
+        title: 'Płatność została połączona w jedna większą płatność.',
       };
     case PaymentStatus.Confirmed:
       return {
         icon: <CheckCircleOutlined className={style.infoCircle} />,
-        title: 'Platność zakonczona.',
+        title: 'Płatność zakończona.',
       };
     case PaymentStatus.Declined:
       return {
         icon: <CheckCircleOutlined className={style.infoCircle} />,
-        title: 'Platność odrzucona.',
+        title: 'Płatność odrzucona.',
       };
     case PaymentStatus.Paid:
       return {
         icon: <CheckCircleOutlined className={style.infoCircle} />,
-        title: 'Użytkownik oplacil jego część.',
+        title: 'Użytkownik opłacił jego część.',
       };
     default:
-      throw new Error(`Uknown payment status ${status}`);
+      throw new Error(`Unknown payment status ${status}`);
   }
 }
 
@@ -53,25 +53,25 @@ export function getExpenseTooltipProps(status: ExpenseStatus): TooltipProps {
     case ExpenseStatus.InProgressRequesting:
       return {
         icon: <CheckCircleOutlined className={style.infoCircle} />,
-        title: 'Nie wszyscy zaakceptowali swoje platności.',
+        title: 'Nie wszyscy zaakceptowali swoje płatności.',
       };
     case ExpenseStatus.InProgressPaying:
       return {
         icon: <CheckCircleOutlined className={style.infoCircle} />,
-        title: 'Czekamy na platności.',
+        title: 'Czekamy na płatności.',
       };
     case ExpenseStatus.Declined:
       return {
         icon: <CheckCircleOutlined className={style.infoCircle} />,
-        title: 'Wydatek zostal odrzucony.',
+        title: 'Wydatek został odrzucony.',
       };
     case ExpenseStatus.Resolved:
       return {
         icon: <CheckCircleOutlined className={style.infoCircle} />,
-        title: 'Wszyscy zaplacili swoją część.',
+        title: 'Wszyscy zapłacili swoją część.',
       };
     default:
-      throw new Error(`Uknown expense status status ${status}`);
+      throw new Error(`Unknown expense status status ${status}`);
   }
 }
 

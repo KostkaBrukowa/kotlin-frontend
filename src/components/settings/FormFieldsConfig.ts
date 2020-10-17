@@ -9,8 +9,8 @@ export enum UserDetailsFormFields {
 export const fields: Record<UserDetailsFormFields, Omit<FormItemProps, 'children'>> = {
   [UserDetailsFormFields.name]: {
     rules: [
-      { required: true, message: 'Podaj swoje imie' },
-      { min: 3, message: 'Imie musi mieć więcej niż 3 znaki.' },
+      { required: true, message: 'Podaj swoje imię' },
+      { min: 3, message: 'Imię musi mieć więcej niż 3 znaki.' },
     ],
     name: UserDetailsFormFields.name,
     label: 'Twoje imię: ',

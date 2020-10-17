@@ -1,7 +1,6 @@
 import gql from 'graphql-tag';
 import * as ApolloReactCommon from '@apollo/client';
 import * as ApolloReactHooks from '@apollo/client';
-
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -616,12 +615,28 @@ export type GetUserExpensesQueryVariables = Exact<{
 
 export type GetUserExpensesQuery = { __typename?: 'Query', getExpensesForUser: Array<{ __typename?: 'ExpenseType', id: string, amount: number, description: string, name: string, expenseStatus: ExpenseStatus }>, getClientsPayments: Array<{ __typename?: 'PaymentType', id: string, amount?: Maybe<number>, status: PaymentStatus, paymentExpense: { __typename?: 'ExpenseType', id: string, description: string, name: string, expenseStatus: ExpenseStatus } }> };
 
+export type ChangeExpenseStatusMutationVariables = Exact<{
+  expenseId: Scalars['String'];
+  status: ExpenseStatus;
+}>;
+
+
+export type ChangeExpenseStatusMutation = { __typename?: 'Mutation', changeExpenseStatus: { __typename?: 'ExpenseType', id: string, expenseStatus: ExpenseStatus } };
+
 export type SingleExpenseQueryVariables = Exact<{
   expenseId: Scalars['String'];
 }>;
 
 
 export type SingleExpenseQuery = { __typename?: 'Query', getSingleExpense?: Maybe<{ __typename?: 'ExpenseType', id: string, name: string, description: string, expenseDate: any, amount: number, expenseStatus: ExpenseStatus, expensePayer: { __typename?: 'UserType', id: string, name: string }, expensePayments: Array<{ __typename?: 'PaymentType', id: string, amount?: Maybe<number>, status: PaymentStatus, paymentPayer: { __typename?: 'UserType', id: string, name: string } }> }> };
+
+export type ChangePaymentStatusMutationVariables = Exact<{
+  paymentId: Scalars['String'];
+  paymentStatus: PaymentStatus;
+}>;
+
+
+export type ChangePaymentStatusMutation = { __typename?: 'Mutation', updatePaymentStatus: { __typename?: 'PaymentType', id: string, status: PaymentStatus } };
 
 export type SinglePaymentQueryVariables = Exact<{
   paymentId: Scalars['String'];
@@ -631,7 +646,7 @@ export type SinglePaymentQueryVariables = Exact<{
 export type SinglePaymentQuery = { __typename?: 'Query', getSinglePayment?: Maybe<{ __typename?: 'PaymentType', id: string, amount?: Maybe<number>, status: PaymentStatus, paymentMessages: Array<(
       { __typename?: 'MessageResponseType' }
       & MessageDetailsFragment
-    )>, paymentExpense: { __typename?: 'ExpenseType', id: string, name: string, expensePayer: { __typename?: 'UserType', id: string, name: string } }, paymentPayer: { __typename?: 'UserType', id: string, name: string } }> };
+    )>, paymentExpense: { __typename?: 'ExpenseType', id: string, name: string, expenseStatus: ExpenseStatus, expensePayer: { __typename?: 'UserType', id: string, name: string } }, paymentPayer: { __typename?: 'UserType', id: string, name: string } }> };
 
 export type LoginUserMutationVariables = Exact<{
   input: UserAuthInput;
@@ -973,6 +988,40 @@ export function useGetUserExpensesLazyQuery(baseOptions?: ApolloReactHooks.LazyQ
 export type GetUserExpensesQueryHookResult = ReturnType<typeof useGetUserExpensesQuery>;
 export type GetUserExpensesLazyQueryHookResult = ReturnType<typeof useGetUserExpensesLazyQuery>;
 export type GetUserExpensesQueryResult = ApolloReactCommon.QueryResult<GetUserExpensesQuery, GetUserExpensesQueryVariables>;
+export const ChangeExpenseStatusDocument = gql`
+    mutation ChangeExpenseStatus($expenseId: String!, $status: ExpenseStatus!) {
+  changeExpenseStatus(updateExpenseStatusInput: {id: $expenseId, expenseStatus: $status}) {
+    id
+    expenseStatus
+  }
+}
+    `;
+export type ChangeExpenseStatusMutationFn = ApolloReactCommon.MutationFunction<ChangeExpenseStatusMutation, ChangeExpenseStatusMutationVariables>;
+
+/**
+ * __useChangeExpenseStatusMutation__
+ *
+ * To run a mutation, you first call `useChangeExpenseStatusMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangeExpenseStatusMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changeExpenseStatusMutation, { data, loading, error }] = useChangeExpenseStatusMutation({
+ *   variables: {
+ *      expenseId: // value for 'expenseId'
+ *      status: // value for 'status'
+ *   },
+ * });
+ */
+export function useChangeExpenseStatusMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ChangeExpenseStatusMutation, ChangeExpenseStatusMutationVariables>) {
+        return ApolloReactHooks.useMutation<ChangeExpenseStatusMutation, ChangeExpenseStatusMutationVariables>(ChangeExpenseStatusDocument, baseOptions);
+      }
+export type ChangeExpenseStatusMutationHookResult = ReturnType<typeof useChangeExpenseStatusMutation>;
+export type ChangeExpenseStatusMutationResult = ApolloReactCommon.MutationResult<ChangeExpenseStatusMutation>;
+export type ChangeExpenseStatusMutationOptions = ApolloReactCommon.BaseMutationOptions<ChangeExpenseStatusMutation, ChangeExpenseStatusMutationVariables>;
 export const SingleExpenseDocument = gql`
     query SingleExpense($expenseId: String!) {
   getSingleExpense(expenseId: $expenseId) {
@@ -1024,6 +1073,40 @@ export function useSingleExpenseLazyQuery(baseOptions?: ApolloReactHooks.LazyQue
 export type SingleExpenseQueryHookResult = ReturnType<typeof useSingleExpenseQuery>;
 export type SingleExpenseLazyQueryHookResult = ReturnType<typeof useSingleExpenseLazyQuery>;
 export type SingleExpenseQueryResult = ApolloReactCommon.QueryResult<SingleExpenseQuery, SingleExpenseQueryVariables>;
+export const ChangePaymentStatusDocument = gql`
+    mutation ChangePaymentStatus($paymentId: String!, $paymentStatus: PaymentStatus!) {
+  updatePaymentStatus(updatePaymentStatusInput: {paymentId: $paymentId, status: $paymentStatus}) {
+    id
+    status
+  }
+}
+    `;
+export type ChangePaymentStatusMutationFn = ApolloReactCommon.MutationFunction<ChangePaymentStatusMutation, ChangePaymentStatusMutationVariables>;
+
+/**
+ * __useChangePaymentStatusMutation__
+ *
+ * To run a mutation, you first call `useChangePaymentStatusMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangePaymentStatusMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changePaymentStatusMutation, { data, loading, error }] = useChangePaymentStatusMutation({
+ *   variables: {
+ *      paymentId: // value for 'paymentId'
+ *      paymentStatus: // value for 'paymentStatus'
+ *   },
+ * });
+ */
+export function useChangePaymentStatusMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ChangePaymentStatusMutation, ChangePaymentStatusMutationVariables>) {
+        return ApolloReactHooks.useMutation<ChangePaymentStatusMutation, ChangePaymentStatusMutationVariables>(ChangePaymentStatusDocument, baseOptions);
+      }
+export type ChangePaymentStatusMutationHookResult = ReturnType<typeof useChangePaymentStatusMutation>;
+export type ChangePaymentStatusMutationResult = ApolloReactCommon.MutationResult<ChangePaymentStatusMutation>;
+export type ChangePaymentStatusMutationOptions = ApolloReactCommon.BaseMutationOptions<ChangePaymentStatusMutation, ChangePaymentStatusMutationVariables>;
 export const SinglePaymentDocument = gql`
     query SinglePayment($paymentId: String!) {
   getSinglePayment(paymentId: $paymentId) {
@@ -1036,6 +1119,7 @@ export const SinglePaymentDocument = gql`
     paymentExpense {
       id
       name
+      expenseStatus
       expensePayer {
         id
         name

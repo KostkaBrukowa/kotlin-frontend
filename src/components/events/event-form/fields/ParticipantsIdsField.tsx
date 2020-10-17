@@ -42,6 +42,7 @@ export const EventParticipantIdsField: React.FC<ExpenseParticipantsSelectFieldPr
   const { eventType } = form.getFieldsValue() as Record<FormFields, any>;
   const { extractedData: friends, loading } = useUserFriends();
   const disabled = !eventType;
+
   const editModeTitle = (
     <div>
       Uczestnicy <Link to={`${eventsEventRoute}/${eventId}`}>Sprawdź stan zaproszeń</Link>

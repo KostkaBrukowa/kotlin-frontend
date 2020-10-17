@@ -3,6 +3,7 @@ import { Form, Select } from 'antd';
 import { FormInstance, FormItemProps } from 'antd/es/form';
 
 import { ParticipantList } from '../../common/participant-list/ParticipantList';
+import { useUserFriends } from '../../utils/hooks/graphql/friends/useUserFriends';
 import { FormFields, FormValues, PartyType } from '../useExpenseForm';
 import { useNewExpenseEvents } from '../useNewExpenseEvents';
 
@@ -36,17 +37,18 @@ export const ExpenseParticipantsSelectField: React.FC<ExpenseParticipantsSelectF
   editMode,
 }) => {
   const { partyType, partyId } = form.getFieldsValue() as Record<FormFields, any>;
-  const { extractedData: parties, loading } = useNewExpenseEvents(partyType);
+  const { extractedData: parties, loading: partiesLoading } = useNewExpenseEvents(partyType);
+  const { extractedData: friends, loading: friendsLoading } = useUserFriends();
   const selectedParty = parties?.find((it) => it.id === partyId);
   const disabled = (!selectedParty && partyType !== PartyType.FRIENDS) || editMode;
+
+  const participants = partyType === PartyType.FRIENDS ? friends : selectedParty?.partyParticipants;
+  const loading = partyType === PartyType.FRIENDS ? friendsLoading : partiesLoading;
 
   return (
     <Form.Item {...formItemProps} label={editMode ? 'Uczestnicy:' : formItemProps.label}>
       {editMode ? (
-        <ParticipantList
-          loading={loading || !parties}
-          participants={selectedParty?.partyParticipants}
-        />
+        <ParticipantList loading={loading || !parties} participants={participants} />
       ) : (
         <Select
           disabled={disabled}
@@ -55,7 +57,7 @@ export const ExpenseParticipantsSelectField: React.FC<ExpenseParticipantsSelectF
           notFoundContent={<NameNotFound />}
           onChange={rerender}
         >
-          {selectedParty?.partyParticipants.map((it) => (
+          {participants?.map((it) => (
             <Select.Option className={style.option} key={it.id} value={it.id}>
               {it.name ?? ''}
             </Select.Option>

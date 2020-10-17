@@ -8,7 +8,7 @@ import { expenseFormRoute } from '../../navigation/routerConstants';
 import { currency } from '../../utils/constants/currency';
 import { NotOptional } from '../../utils/types';
 import { ExpenseInfo } from './ExpenseInfo';
-import { ExpenseQueryType } from './useSingleExpenseQuery';
+import { ExpenseQueryType } from './graphql/useSingleExpenseQuery';
 
 import style from './ExpenseView.module.less';
 

@@ -10,7 +10,7 @@ interface ListItemMetaProps {
 export const ListItemMeta: React.FC<ListItemMetaProps> = ({ name, ownerName, icon }) => (
   <List.Item.Meta
     avatar={icon}
-    description={ownerName ? `Zalożyciel: ${ownerName}` : null}
+    description={ownerName ? `Założyciel: ${ownerName}` : null}
     title={name}
   />
 );

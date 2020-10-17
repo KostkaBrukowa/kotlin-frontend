@@ -1,4 +1,5 @@
 import React from 'react';
+import { gql } from '@apollo/client';
 import { navigate } from '@reach/router';
 import { Card, Tooltip } from 'antd';
 import Meta from 'antd/es/card/Meta';
@@ -6,8 +7,9 @@ import clsx from 'clsx';
 
 import { ExpenseStatus, PaymentStatus } from '../../../generated/graphql';
 import { OwsType } from '../../app-context/AppContext';
+import { client } from '../../config/graphql';
 import { getTooltipProps } from '../../enum-renderers/expenseTooltipRenderer';
-import { expensesRoute } from '../../navigation/routerConstants';
+import { expensesRoute, paymentsRoute } from '../../navigation/routerConstants';
 import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
 import { currency } from '../../utils/constants/currency';
 import { stopPropagation } from '../../utils/functions/utilFunctions';
@@ -45,7 +47,9 @@ export const ExpenseItemCard: React.FC<ExpenseItemCardProps> = ({
       bordered
       hoverable
       className={style.card}
-      onClick={() => navigate(`${expensesRoute}/${id}`)}
+      onClick={() =>
+        navigate(`${owsType === OwsType.USER_OWS ? paymentsRoute : expensesRoute}/${id}`)
+      }
     >
       <Meta
         avatar={<IdenticonAvatar id={id} size={20} />}

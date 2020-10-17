@@ -20,7 +20,7 @@ export interface ElementHeaderProps {
 
 export const ElementHeader: React.FC<ElementHeaderProps> = ({ id, className, onEdit }) => (
   <div className={clsx(style.headerWrapper, className)}>
-    <AiOutlineArrowLeft className={style.arrow} size={18} onClick={() => navigate(-1)} />
+    <AiOutlineArrowLeft className={style.arrow} onClick={() => navigate(-1)} />
     <div className={style.mainInfoWrapper}>
       <IdenticonAvatar id={id || null} size={AVATAR_SIZE} />
     </div>

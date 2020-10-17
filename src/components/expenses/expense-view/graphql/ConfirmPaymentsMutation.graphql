@@ -1,0 +1,6 @@
+mutation ChangeExpenseStatus($expenseId: String!, $status: ExpenseStatus!) {
+  changeExpenseStatus(updateExpenseStatusInput: { id: $expenseId, expenseStatus: $status }) {
+    id
+    expenseStatus
+  }
+}

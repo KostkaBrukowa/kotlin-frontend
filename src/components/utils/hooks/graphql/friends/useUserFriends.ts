@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { GetUserFriendsQuery, useGetUserFriendsLazyQuery, } from '../../../../../generated/graphql';
+import { GetUserFriendsQuery, useGetUserFriendsLazyQuery } from '../../../../../generated/graphql';
 import { UserContext } from '../../../../config/UserProvider';
 import { useRemoteData } from '../../useRemoteData';
 

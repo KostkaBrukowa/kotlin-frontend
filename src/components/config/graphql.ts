@@ -28,7 +28,7 @@ const handleGraphqlErrors = ({ graphQLErrors }: Pick<ErrorResponse, 'graphQLErro
   graphQLErrors?.forEach(({ message, locations, path }) => {
     if (message.includes('Token was not valid')) {
       if (!isNonAuthenticatedRoute()) {
-        navigate('/login').then(() => antDMessage.info('Aby kontynuować zaloguj się pnownie.'));
+        navigate('/login').then(() => antDMessage.info('Aby kontynuować zaloguj się ponownie.'));
       }
     } else {
       antDMessage.info(message);
@@ -49,7 +49,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   }
 
   if (networkError) {
-    antDMessage.info('Brak polączenia z serwerem.');
+    antDMessage.info('Brak połączenia z serwerem.');
     console.log(`[Network error]: ${networkError}`);
   }
 });

@@ -3,7 +3,7 @@ import React from 'react';
 import { Info, ViewDescription } from '../../utils/components/ViewDescription';
 import { dateFrom, formatDate } from '../../utils/functions/date';
 import { NotOptional } from '../../utils/types';
-import { ExpenseQueryType } from './useSingleExpenseQuery';
+import { ExpenseQueryType } from './graphql/useSingleExpenseQuery';
 
 export interface ExpenseInfoProps {
   expense: NotOptional<ExpenseQueryType>;

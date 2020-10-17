@@ -1,0 +1,6 @@
+mutation ChangePaymentStatus($paymentId: String!, $paymentStatus: PaymentStatus!) {
+  updatePaymentStatus(updatePaymentStatusInput: { paymentId: $paymentId, status: $paymentStatus }) {
+    id
+    status
+  }
+}

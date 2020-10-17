@@ -59,7 +59,6 @@ export const useExpenseForm = (expenseId: string | undefined) => {
   const [updateExpense, { loading: updateSubmitting }] = useUpdateExpenseMutation();
 
   const onSubmit = async (values: FormValues) => {
-    console.log('submiting');
     try {
       if (expenseId) {
         await updateExpense({

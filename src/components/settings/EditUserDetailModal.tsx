@@ -58,7 +58,7 @@ export const EditUserDetailModal: React.FC<EditUserDetailModalProps> = ({
 const getModalTitle = (type: UserDetailsFormFields, currentValue: Optional<string>) => {
   switch (type) {
     case UserDetailsFormFields.name:
-      return `Imie: ${currentValue}`;
+      return `: ${currentValue}`;
     case UserDetailsFormFields.email:
       return `Email: ${currentValue}`;
     case UserDetailsFormFields.bankAccount:
@@ -71,7 +71,7 @@ const getModalTitle = (type: UserDetailsFormFields, currentValue: Optional<strin
 const getModalLabel = (type: UserDetailsFormFields) => {
   switch (type) {
     case UserDetailsFormFields.name:
-      return 'Nowe imie:';
+      return 'Nowe imię:';
     case UserDetailsFormFields.email:
       return 'Nowy email:';
     case UserDetailsFormFields.bankAccount:

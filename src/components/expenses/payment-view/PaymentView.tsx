@@ -4,10 +4,10 @@ import { navigate, RouteComponentProps } from '@reach/router';
 import { PageHeader } from 'antd';
 
 import { expensesRoute } from '../../navigation/routerConstants';
+import { useSinglePayment } from './graphql/useSinglePayment';
 import { PaymentDescription } from './PaymentDescription';
-import { PaymentPayButton } from './PaymentPayButton';
+import { PaymentStatusManagementButton } from './PaymentStatusManagementButton';
 import { usePaymentArrowStyle } from './usePaymentArrowStyle';
-import { useSinglePayment } from './useSinglePaymentQuery';
 
 import style from './PaymentView.module.less';
 
@@ -18,7 +18,7 @@ interface RouteParams {
 export type PaymentViewProps = RouteComponentProps<RouteParams>;
 
 export const PaymentView: React.FC<PaymentViewProps> = ({ paymentId }) => {
-  const { dataComponent, extractedData: payment, refetch } = useSinglePayment(paymentId);
+  const { dataComponent, extractedData: payment } = useSinglePayment(paymentId);
   const { payerNameRectRef, receiverNameRectRef, style: arrowStyle } = usePaymentArrowStyle();
 
   if (dataComponent !== null || !payment) return dataComponent;
@@ -42,7 +42,7 @@ export const PaymentView: React.FC<PaymentViewProps> = ({ paymentId }) => {
           receiverRefCallback={receiverNameRectRef}
         />
       </div>
-      <PaymentPayButton payment={payment} onPaySuccess={refetch} />
+      <PaymentStatusManagementButton payment={payment} />
     </>
   );
 };

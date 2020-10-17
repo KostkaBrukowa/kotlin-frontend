@@ -23,7 +23,7 @@ export const EmptyList: React.FC<EmptyListProps> = ({ nonFinishedPresent }) => {
     <>
       <div className={style.wrapper}>
         <h3>Wszystko ogarnięte!</h3>
-        <p>Nie masz aktualnie aktywnych platności</p>
+        <p>Nie masz aktualnie aktywnych płatności</p>
         {nonFinishedPresent && (
           <Button className={style.button} type="primary" onClick={onButtonClick}>
             Pokaż historyczne wydatki

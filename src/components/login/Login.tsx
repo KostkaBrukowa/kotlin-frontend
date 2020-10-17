@@ -50,7 +50,7 @@ export const Login: React.FC<LoginProps> = (props) => {
   const location = useLocation();
   const register = location.pathname.includes(registerRoute);
   const { onSubmit, loading, form } = useLogin(props, register);
-  const submitButtonTitle = register ? 'Zajerestruj się' : 'Zaloguj się';
+  const submitButtonTitle = register ? 'Zarejestruj się' : 'Zaloguj się';
 
   return (
     <div className={style.wrapper}>

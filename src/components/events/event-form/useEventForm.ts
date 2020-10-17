@@ -62,7 +62,6 @@ export const useEventForm = (eventId: string | undefined) => {
   const [updateEvent, { loading: updateSubmitting }] = useUpdateEventMutation();
 
   const onSubmit = async (values: FormValues) => {
-    console.log('submiting');
     try {
       if (eventId) {
         await updateEvent({

@@ -25,7 +25,7 @@ export const ExpenseNotification: React.FC<ExpenseNotificationProps> = ({
     switch (event) {
       case NotificationEvent.Creation:
         return isActorCurrentUser
-          ? 'Ty utworzyleś wydatek'
+          ? 'Ty utworzyłeś wydatek'
           : `${receiver?.name} zaprosił cię do wzięcia udziału w wydatku.`;
       case NotificationEvent.Paid:
         return isActorCurrentUser

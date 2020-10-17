@@ -13,6 +13,6 @@ export function renderExpenseStatus(status?: ExpenseStatus): string {
     case ExpenseStatus.Resolved:
       return 'Zakończone';
     default:
-      throw new Error(`Uknown expense status status ${status}`);
+      throw new Error(`Unknown expense status status ${status}`);
   }
 }

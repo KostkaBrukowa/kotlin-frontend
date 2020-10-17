@@ -1,5 +1,5 @@
-import { SingleExpenseQuery, useSingleExpenseLazyQuery } from '../../../generated/graphql';
-import { useRemoteData } from '../../utils/hooks/useRemoteData';
+import { SingleExpenseQuery, useSingleExpenseLazyQuery } from '../../../../generated/graphql';
+import { useRemoteData } from '../../../utils/hooks/useRemoteData';
 
 // export type ExpenseQueryType = Pick<SingleExpenseQuery, 'getSingleExpense'>['getSingleExpense'];
 export type ExpenseQueryType = SingleExpenseQuery['getSingleExpense'];

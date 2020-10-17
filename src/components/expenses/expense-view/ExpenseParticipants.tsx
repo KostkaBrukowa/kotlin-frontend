@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ParticipantList } from '../../common/participant-list/ParticipantList';
 import { NotOptional } from '../../utils/types';
-import { ExpenseQueryType } from './useSingleExpenseQuery';
+import { ExpenseQueryType } from './graphql/useSingleExpenseQuery';
 
 export interface ExpenseParticipantsProps {
   payments: NotOptional<ExpenseQueryType>['expensePayments'];
