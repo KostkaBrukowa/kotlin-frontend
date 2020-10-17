@@ -16,6 +16,8 @@ const menuClassName = clsx('data-cy-toolbar', style.toolbarWrapper);
 export const Toolbar: React.FC = () => {
   const [tabs, activeTab] = useMenuTabs();
 
+  return null;
+
   return (
     <Menu className={menuClassName} mode="inline" selectedKeys={activeTab} theme="dark">
       {tabs.map(({ key, icon, to, title }) => (

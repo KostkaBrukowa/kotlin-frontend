@@ -45,7 +45,8 @@ export const EventParticipantIdsField: React.FC<ExpenseParticipantsSelectFieldPr
 
   const editModeTitle = (
     <div>
-      Uczestnicy <Link to={`${eventsEventRoute}/${eventId}`}>Sprawdź stan zaproszeń</Link>
+      Uczestnicy{' '}
+      <Link to={`${eventsEventRoute}/${eventId}#participants`}>Sprawdź stan zaproszeń</Link>
     </div>
   );
 
