@@ -23,6 +23,7 @@ export enum EventsTabKeys {
   EVENTS = 'EVENTS',
   GROUPS = 'GROUPS',
   FRIENDS = 'FRIENDS',
+  INVITES = 'INVITES',
 }
 
 export type Action =

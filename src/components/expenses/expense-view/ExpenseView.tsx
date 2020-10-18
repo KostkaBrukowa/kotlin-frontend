@@ -3,18 +3,18 @@ import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
 import { RouteComponentProps } from '@reach/router';
 import { Button, Collapse } from 'antd';
 
+import { UserContext } from '../../config/UserProvider';
 import { renderCollapsableArrow } from '../../utils/components/CollapsableArrow';
-import { useChangeExpenseStatusModal } from './UseChangeExpenseStatusModal';
+import { ConfirmPaymentsButton } from './ConfirmPaymentsButton';
+import { EndExpenseButton } from './EndExpenseButton';
 import { ExpenseDetails } from './ExpenseDetails';
 import { ExpenseMessages } from './ExpenseMessages';
 import { ExpenseParticipants } from './ExpenseParticipants';
 import { ExpensePayments } from './ExpensePayments';
 import { useSingleExpense } from './graphql/useSingleExpenseQuery';
+import { useChangeExpenseStatusModal } from './UseChangeExpenseStatusModal';
 
 import style from './ExpenseView.module.less';
-import { ConfirmPaymentsButton } from './ConfirmPaymentsButton';
-import { UserContext } from '../../config/UserProvider';
-import { EndExpenseButton } from './EndExpenseButton';
 
 enum CollapsableKeys {
   PAYMENTS,
@@ -44,9 +44,9 @@ export const ExpenseView: React.FC<ExpenseViewProps> = ({ expenseId }) => {
         expandIcon={renderCollapsableArrow}
       >
         <Collapse.Panel
+          extra={<ConfirmPaymentsButton expense={expense} />}
           header="Płatności"
           key={CollapsableKeys.PAYMENTS}
-          extra={<ConfirmPaymentsButton expense={expense} />}
         >
           <ExpensePayments expense={expense} payments={expense.expensePayments} />
         </Collapse.Panel>

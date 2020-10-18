@@ -1,0 +1,5 @@
+mutation AcceptPartyRequest($partyRequestId: String!) {
+  acceptPartyRequest(partyRequestId: $partyRequestId) {
+    id
+  }
+}

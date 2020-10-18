@@ -1,5 +1,7 @@
+@import (reference) '../../../../../node_modules/antd/lib/style/dark.less';
+
 .mapWrapper {
-  border: 1px solid red;
+  border: 1px solid @red-6;
   max-width: 100vw;
   max-height: 100vh;
 }
@@ -35,4 +37,11 @@
 .headerDateWrapper {
   display: flex;
   justify-content: space-between;
+}
+
+.notAcceptedHeaderWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  border-bottom: 1px solid @primary-5;
 }

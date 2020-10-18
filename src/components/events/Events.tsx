@@ -7,6 +7,7 @@ import { eventFormRoute } from '../navigation/routerConstants';
 import { EventsList } from './event/EventsList';
 import { FriendEventsList } from './friends/FriendEventsList';
 import { GroupsList } from './groups/GroupsList';
+import { PartyRequestsList } from './party-requests/PartyRequestsList';
 import { useUserParties } from './useUserParties';
 
 import style from './Events.module.less';
@@ -26,8 +27,6 @@ export const Events: React.FC<EventsProps> = () => {
       payload: { activeEventsTab: key as EventsTabKeys },
     });
 
-  const handleNewEventButtonClick = () => navigate('');
-
   return (
     <div>
       <div className={style.headerWrapper}>
@@ -36,7 +35,7 @@ export const Events: React.FC<EventsProps> = () => {
           <Link to={`${eventFormRoute}`}>Dodaj nowe</Link>
         </Button>
       </div>
-      <Tabs activeKey={activeEventsTab} className={style.tabs} onChange={handleTabChange}>
+      <Tabs centered activeKey={activeEventsTab} className={style.tabs} onChange={handleTabChange}>
         <Tabs.TabPane key={EventsTabKeys.EVENTS} tab="Wydarzenia">
           <EventsList events={parties?.events} loading={loading} />
         </Tabs.TabPane>
@@ -45,6 +44,9 @@ export const Events: React.FC<EventsProps> = () => {
         </Tabs.TabPane>
         <Tabs.TabPane key={EventsTabKeys.FRIENDS} tab="Znajomi">
           <FriendEventsList friends={parties?.friends} loading={loading} />
+        </Tabs.TabPane>
+        <Tabs.TabPane key={EventsTabKeys.INVITES} tab="Zaproszenia">
+          <PartyRequestsList />
         </Tabs.TabPane>
       </Tabs>
     </div>

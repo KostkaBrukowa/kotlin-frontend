@@ -1,6 +1,7 @@
 import React from 'react';
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
 import { Dropdown, Menu, Modal } from 'antd';
+
 import { Friend } from '../../utils/hooks/graphql/friends/useUserFriends';
 import { useRemoveFriend } from './graphql/useRemoveFriend';
 
@@ -9,7 +10,7 @@ import style from './FriendsView.module.less';
 export const FriendDropdown: React.FC<{ friend: Friend }> = ({ friend: { id, name } }) => {
   const { removeFriend } = useRemoveFriend(id);
 
-  const showPromiseModal = () =>
+  const showRemoveFriendModal = () =>
     Modal.confirm({
       okText: 'Usuń',
       cancelText: 'Anuluj',
@@ -24,7 +25,7 @@ export const FriendDropdown: React.FC<{ friend: Friend }> = ({ friend: { id, nam
       className={style.dropdownButton}
       overlay={
         <Menu>
-          <Menu.Item icon={<DeleteOutlined />} key="1" onClick={showPromiseModal}>
+          <Menu.Item icon={<DeleteOutlined />} key="1" onClick={showRemoveFriendModal}>
             Usuń z listy znajomych
           </Menu.Item>
         </Menu>

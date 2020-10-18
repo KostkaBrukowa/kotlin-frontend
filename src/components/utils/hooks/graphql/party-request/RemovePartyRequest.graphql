@@ -1,0 +1,6 @@
+mutation RemovePartyRequest($partyRequestId: String!) {
+  removePartyRequest(partyRequestId: $partyRequestId) {
+    id
+    __typename
+  }
+}

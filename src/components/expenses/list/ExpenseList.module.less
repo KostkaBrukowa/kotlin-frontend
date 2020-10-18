@@ -1,4 +1,4 @@
-@import "../../../../node_modules/antd/lib/style/dark.less";
+@import (reference) '../../../../node_modules/antd/lib/style/dark.less';
 
 .headerWrapper {
   display: flex;
@@ -23,7 +23,7 @@
 }
 
 .card:active {
-  transform: scale(0.96);
+  background: lighten(@background-color-base, 40%);
 }
 
 .card + .card {
@@ -60,4 +60,3 @@
 .tooltip {
   text-align: center;
 }
-

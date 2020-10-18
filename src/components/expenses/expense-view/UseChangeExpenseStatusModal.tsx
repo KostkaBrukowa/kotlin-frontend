@@ -1,12 +1,9 @@
 import React from 'react';
-import { Form, Input, Modal } from 'antd';
-import { FormItemProps } from 'antd/es/form';
-import { useForm } from 'antd/es/form/Form';
-
-import { validateMessages } from '../../utils/form/validationMessages';
-import { useChangeExpenseStatus } from './graphql/useChangeExpenseStatus';
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
+import { Modal } from 'antd';
+
 import { ExpenseStatus } from '../../../generated/graphql';
+import { useChangeExpenseStatus } from './graphql/useChangeExpenseStatus';
 
 export interface ChangeExpenseModalProps {
   expenseId: string;
@@ -17,7 +14,7 @@ export const useChangeExpenseStatusModal = ({
   expenseId,
   expenseStatus,
 }: ChangeExpenseModalProps) => {
-  const { loading, changeExpenseStatus } = useChangeExpenseStatus(expenseId, expenseStatus);
+  const { changeExpenseStatus } = useChangeExpenseStatus(expenseId, expenseStatus);
 
   const openModal = () => {
     Modal.confirm({

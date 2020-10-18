@@ -133,11 +133,11 @@ export type Mutation = {
   markNotificationsAsRead: Scalars['Boolean'];
   createParty: PartyType;
   deleteParty: Scalars['Boolean'];
-  removeParticipant: Scalars['Boolean'];
+  removeParticipant?: Maybe<PartyType>;
   updateParty: PartyType;
-  acceptPartyRequest: Scalars['Boolean'];
-  declinePartyRequest: Scalars['Boolean'];
-  removePartyRequest: Scalars['Boolean'];
+  acceptPartyRequest: PartyRequestType;
+  declinePartyRequest: PartyRequestType;
+  removePartyRequest: PartyRequestType;
   sendPartyRequest?: Maybe<PartyRequestType>;
   bulkPayments?: Maybe<BulkPaymentType>;
   updateBulkPaymentStatus: BulkPaymentType;
@@ -733,19 +733,70 @@ export type GetUserFriendsQuery = { __typename?: 'Query', findUsersFriends: Arra
 
 export type UserListDataFragment = { __typename?: 'UserType', id: string, name: string, email: string };
 
+export type RemovePartyParticipantMutationVariables = Exact<{
+  partyId: Scalars['String'];
+  userId: Scalars['String'];
+}>;
+
+
+export type RemovePartyParticipantMutation = { __typename?: 'Mutation', removeParticipant?: Maybe<{ __typename?: 'PartyType', id: string, partyParticipants: Array<(
+      { __typename?: 'UserType' }
+      & ParticipantListFragmentFragment
+    )> }> };
+
+export type AcceptPartyRequestMutationVariables = Exact<{
+  partyRequestId: Scalars['String'];
+}>;
+
+
+export type AcceptPartyRequestMutation = { __typename?: 'Mutation', acceptPartyRequest: { __typename?: 'PartyRequestType', id: string, status: PartyRequestStatus } };
+
+export type DeclinePartyRequestMutationVariables = Exact<{
+  partyRequestId: Scalars['String'];
+}>;
+
+
+export type DeclinePartyRequestMutation = { __typename?: 'Mutation', declinePartyRequest: { __typename: 'PartyRequestType', id: string, status: PartyRequestStatus } };
+
+export type RemovePartyRequestMutationVariables = Exact<{
+  partyRequestId: Scalars['String'];
+}>;
+
+
+export type RemovePartyRequestMutation = { __typename?: 'Mutation', removePartyRequest: { __typename: 'PartyRequestType', id: string } };
+
+export type GetUserPartyRequestsQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type GetUserPartyRequestsQuery = { __typename?: 'Query', getPartyRequestsForUser: Array<{ __typename?: 'PartyRequestType', id: string, status: PartyRequestStatus, partyRequestParty: { __typename?: 'PartyType', id: string, name?: Maybe<string> } }> };
+
 export type SingleEventQueryVariables = Exact<{
   eventId: Scalars['String'];
 }>;
 
 
-export type SingleEventQuery = { __typename?: 'Query', getSingleParty?: Maybe<{ __typename?: 'PartyType', id: string, name?: Maybe<string>, description?: Maybe<string>, locationName?: Maybe<string>, type: PartyKind, startDate?: Maybe<any>, endDate?: Maybe<any>, locationLatitude?: Maybe<number>, locationLongitude?: Maybe<number>, owner?: Maybe<{ __typename?: 'User', name: string }>, partyParticipants: Array<(
-      { __typename?: 'UserType' }
-      & ParticipantListFragmentFragment
-    )>, partyMessages: Array<(
-      { __typename?: 'MessageResponseType' }
-      & MessageDetailsFragment
-    )>, partyPartyRequests: Array<{ __typename?: 'PartyRequestType', id: string, status: PartyRequestStatus, partyRequestReceiver: { __typename?: 'UserType', id: string, name: string } }>, partyExpenses: Array<{ __typename?: 'ExpenseType', id: string, amount: number, description: string, expenseStatus: ExpenseStatus, name: string, expensePayer: { __typename?: 'UserType', id: string, name: string } }> }> };
+export type SingleEventQuery = { __typename?: 'Query', getSingleParty?: Maybe<(
+    { __typename?: 'PartyType' }
+    & SingleEventDataFragment
+  )> };
 
+export type SingleEventDataFragment = { __typename?: 'PartyType', id: string, name?: Maybe<string>, description?: Maybe<string>, locationName?: Maybe<string>, type: PartyKind, startDate?: Maybe<any>, endDate?: Maybe<any>, locationLatitude?: Maybe<number>, locationLongitude?: Maybe<number>, owner?: Maybe<{ __typename?: 'User', name: string }>, partyParticipants: Array<(
+    { __typename?: 'UserType' }
+    & ParticipantListFragmentFragment
+  )>, partyMessages: Array<(
+    { __typename?: 'MessageResponseType' }
+    & MessageDetailsFragment
+  )>, partyPartyRequests: Array<{ __typename?: 'PartyRequestType', id: string, status: PartyRequestStatus, partyRequestReceiver: { __typename?: 'UserType', id: string, name: string } }>, partyExpenses: Array<{ __typename?: 'ExpenseType', id: string, amount: number, description: string, expenseStatus: ExpenseStatus, name: string, expensePayer: { __typename?: 'UserType', id: string, name: string } }> };
+
+export const UserListDataFragmentDoc = gql`
+    fragment UserListData on UserType {
+  id
+  name
+  email
+}
+    `;
 export const ParticipantListFragmentFragmentDoc = gql`
     fragment ParticipantListFragment on UserType {
   id
@@ -763,13 +814,48 @@ export const MessageDetailsFragmentDoc = gql`
   }
 }
     `;
-export const UserListDataFragmentDoc = gql`
-    fragment UserListData on UserType {
+export const SingleEventDataFragmentDoc = gql`
+    fragment SingleEventData on PartyType {
   id
   name
-  email
+  description
+  locationName
+  type
+  startDate
+  endDate
+  locationLatitude
+  locationLongitude
+  owner {
+    name
+  }
+  partyParticipants {
+    ...ParticipantListFragment
+  }
+  partyMessages {
+    ...MessageDetails
+  }
+  partyPartyRequests {
+    id
+    status
+    partyRequestReceiver {
+      id
+      name
+    }
+  }
+  partyExpenses {
+    id
+    amount
+    description
+    expenseStatus
+    name
+    expensePayer {
+      id
+      name
+    }
+  }
 }
-    `;
+    ${ParticipantListFragmentFragmentDoc}
+${MessageDetailsFragmentDoc}`;
 export const RefreshTokenDocument = gql`
     mutation RefreshToken {
   refreshToken {
@@ -1564,50 +1650,187 @@ export function useGetUserFriendsLazyQuery(baseOptions?: ApolloReactHooks.LazyQu
 export type GetUserFriendsQueryHookResult = ReturnType<typeof useGetUserFriendsQuery>;
 export type GetUserFriendsLazyQueryHookResult = ReturnType<typeof useGetUserFriendsLazyQuery>;
 export type GetUserFriendsQueryResult = ApolloReactCommon.QueryResult<GetUserFriendsQuery, GetUserFriendsQueryVariables>;
-export const SingleEventDocument = gql`
-    query SingleEvent($eventId: String!) {
-  getSingleParty(partyId: $eventId) {
+export const RemovePartyParticipantDocument = gql`
+    mutation RemovePartyParticipant($partyId: String!, $userId: String!) {
+  removeParticipant(partyId: $partyId, participantId: $userId) {
     id
-    name
-    description
-    locationName
-    type
-    startDate
-    endDate
-    locationLatitude
-    locationLongitude
-    owner {
-      name
-    }
     partyParticipants {
       ...ParticipantListFragment
     }
-    partyMessages {
-      ...MessageDetails
-    }
-    partyPartyRequests {
-      id
-      status
-      partyRequestReceiver {
-        id
-        name
+  }
+}
+    ${ParticipantListFragmentFragmentDoc}`;
+export type RemovePartyParticipantMutationFn = ApolloReactCommon.MutationFunction<RemovePartyParticipantMutation, RemovePartyParticipantMutationVariables>;
+
+/**
+ * __useRemovePartyParticipantMutation__
+ *
+ * To run a mutation, you first call `useRemovePartyParticipantMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemovePartyParticipantMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removePartyParticipantMutation, { data, loading, error }] = useRemovePartyParticipantMutation({
+ *   variables: {
+ *      partyId: // value for 'partyId'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useRemovePartyParticipantMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RemovePartyParticipantMutation, RemovePartyParticipantMutationVariables>) {
+        return ApolloReactHooks.useMutation<RemovePartyParticipantMutation, RemovePartyParticipantMutationVariables>(RemovePartyParticipantDocument, baseOptions);
       }
-    }
-    partyExpenses {
+export type RemovePartyParticipantMutationHookResult = ReturnType<typeof useRemovePartyParticipantMutation>;
+export type RemovePartyParticipantMutationResult = ApolloReactCommon.MutationResult<RemovePartyParticipantMutation>;
+export type RemovePartyParticipantMutationOptions = ApolloReactCommon.BaseMutationOptions<RemovePartyParticipantMutation, RemovePartyParticipantMutationVariables>;
+export const AcceptPartyRequestDocument = gql`
+    mutation AcceptPartyRequest($partyRequestId: String!) {
+  acceptPartyRequest(partyRequestId: $partyRequestId) {
+    id
+    status
+  }
+}
+    `;
+export type AcceptPartyRequestMutationFn = ApolloReactCommon.MutationFunction<AcceptPartyRequestMutation, AcceptPartyRequestMutationVariables>;
+
+/**
+ * __useAcceptPartyRequestMutation__
+ *
+ * To run a mutation, you first call `useAcceptPartyRequestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAcceptPartyRequestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [acceptPartyRequestMutation, { data, loading, error }] = useAcceptPartyRequestMutation({
+ *   variables: {
+ *      partyRequestId: // value for 'partyRequestId'
+ *   },
+ * });
+ */
+export function useAcceptPartyRequestMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AcceptPartyRequestMutation, AcceptPartyRequestMutationVariables>) {
+        return ApolloReactHooks.useMutation<AcceptPartyRequestMutation, AcceptPartyRequestMutationVariables>(AcceptPartyRequestDocument, baseOptions);
+      }
+export type AcceptPartyRequestMutationHookResult = ReturnType<typeof useAcceptPartyRequestMutation>;
+export type AcceptPartyRequestMutationResult = ApolloReactCommon.MutationResult<AcceptPartyRequestMutation>;
+export type AcceptPartyRequestMutationOptions = ApolloReactCommon.BaseMutationOptions<AcceptPartyRequestMutation, AcceptPartyRequestMutationVariables>;
+export const DeclinePartyRequestDocument = gql`
+    mutation DeclinePartyRequest($partyRequestId: String!) {
+  declinePartyRequest(partyRequestId: $partyRequestId) {
+    id
+    status
+    __typename
+  }
+}
+    `;
+export type DeclinePartyRequestMutationFn = ApolloReactCommon.MutationFunction<DeclinePartyRequestMutation, DeclinePartyRequestMutationVariables>;
+
+/**
+ * __useDeclinePartyRequestMutation__
+ *
+ * To run a mutation, you first call `useDeclinePartyRequestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeclinePartyRequestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [declinePartyRequestMutation, { data, loading, error }] = useDeclinePartyRequestMutation({
+ *   variables: {
+ *      partyRequestId: // value for 'partyRequestId'
+ *   },
+ * });
+ */
+export function useDeclinePartyRequestMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeclinePartyRequestMutation, DeclinePartyRequestMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeclinePartyRequestMutation, DeclinePartyRequestMutationVariables>(DeclinePartyRequestDocument, baseOptions);
+      }
+export type DeclinePartyRequestMutationHookResult = ReturnType<typeof useDeclinePartyRequestMutation>;
+export type DeclinePartyRequestMutationResult = ApolloReactCommon.MutationResult<DeclinePartyRequestMutation>;
+export type DeclinePartyRequestMutationOptions = ApolloReactCommon.BaseMutationOptions<DeclinePartyRequestMutation, DeclinePartyRequestMutationVariables>;
+export const RemovePartyRequestDocument = gql`
+    mutation RemovePartyRequest($partyRequestId: String!) {
+  removePartyRequest(partyRequestId: $partyRequestId) {
+    id
+    __typename
+  }
+}
+    `;
+export type RemovePartyRequestMutationFn = ApolloReactCommon.MutationFunction<RemovePartyRequestMutation, RemovePartyRequestMutationVariables>;
+
+/**
+ * __useRemovePartyRequestMutation__
+ *
+ * To run a mutation, you first call `useRemovePartyRequestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemovePartyRequestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removePartyRequestMutation, { data, loading, error }] = useRemovePartyRequestMutation({
+ *   variables: {
+ *      partyRequestId: // value for 'partyRequestId'
+ *   },
+ * });
+ */
+export function useRemovePartyRequestMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RemovePartyRequestMutation, RemovePartyRequestMutationVariables>) {
+        return ApolloReactHooks.useMutation<RemovePartyRequestMutation, RemovePartyRequestMutationVariables>(RemovePartyRequestDocument, baseOptions);
+      }
+export type RemovePartyRequestMutationHookResult = ReturnType<typeof useRemovePartyRequestMutation>;
+export type RemovePartyRequestMutationResult = ApolloReactCommon.MutationResult<RemovePartyRequestMutation>;
+export type RemovePartyRequestMutationOptions = ApolloReactCommon.BaseMutationOptions<RemovePartyRequestMutation, RemovePartyRequestMutationVariables>;
+export const GetUserPartyRequestsDocument = gql`
+    query GetUserPartyRequests($userId: String!) {
+  getPartyRequestsForUser(userId: $userId) {
+    id
+    status
+    partyRequestParty {
       id
-      amount
-      description
-      expenseStatus
       name
-      expensePayer {
-        id
-        name
-      }
     }
   }
 }
-    ${ParticipantListFragmentFragmentDoc}
-${MessageDetailsFragmentDoc}`;
+    `;
+
+/**
+ * __useGetUserPartyRequestsQuery__
+ *
+ * To run a query within a React component, call `useGetUserPartyRequestsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserPartyRequestsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserPartyRequestsQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetUserPartyRequestsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserPartyRequestsQuery, GetUserPartyRequestsQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetUserPartyRequestsQuery, GetUserPartyRequestsQueryVariables>(GetUserPartyRequestsDocument, baseOptions);
+      }
+export function useGetUserPartyRequestsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserPartyRequestsQuery, GetUserPartyRequestsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetUserPartyRequestsQuery, GetUserPartyRequestsQueryVariables>(GetUserPartyRequestsDocument, baseOptions);
+        }
+export type GetUserPartyRequestsQueryHookResult = ReturnType<typeof useGetUserPartyRequestsQuery>;
+export type GetUserPartyRequestsLazyQueryHookResult = ReturnType<typeof useGetUserPartyRequestsLazyQuery>;
+export type GetUserPartyRequestsQueryResult = ApolloReactCommon.QueryResult<GetUserPartyRequestsQuery, GetUserPartyRequestsQueryVariables>;
+export const SingleEventDocument = gql`
+    query SingleEvent($eventId: String!) {
+  getSingleParty(partyId: $eventId) {
+    ...SingleEventData
+  }
+}
+    ${SingleEventDataFragmentDoc}`;
 
 /**
  * __useSingleEventQuery__

@@ -1,11 +1,11 @@
 import React, { MouseEvent } from 'react';
 import { FiMapPin } from 'react-icons/fi';
-import { MdEvent } from 'react-icons/md';
 import { navigate } from '@reach/router';
 import { Button, Divider, List } from 'antd';
 
 import { EventPartyListType } from '../../mappers/events/PartyMapperTypes';
 import { eventsEventRoute } from '../../navigation/routerConstants';
+import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
 import { EmptyEventsList } from '../common/EmptyList';
 import { ListItemMeta } from '../common/ListItemMeta';
 
@@ -37,7 +37,7 @@ const ListItemFooter: React.FC<{ locationName: string; id: string }> = ({ locati
 const ListItem: React.FC<{ item: EventPartyListType }> = ({ item }) => (
   <List.Item className={style.listItem} onClick={() => navigate(`${eventsEventRoute}/${item.id}`)}>
     <ListItemMeta
-      icon={<MdEvent className={style.avatar} />}
+      avatar={<IdenticonAvatar id={item.id} size={20} wrapperClassName={style.avatar} />}
       name={item.name}
       ownerName={item.owner?.name}
     />

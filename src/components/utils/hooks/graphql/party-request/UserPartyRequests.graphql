@@ -1,0 +1,11 @@
+query GetUserPartyRequests ($userId: String!){
+  getPartyRequestsForUser(userId: $userId) {
+    id
+    status
+
+    partyRequestParty {
+      id
+      name
+    }
+  }
+}

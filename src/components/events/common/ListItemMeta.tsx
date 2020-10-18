@@ -4,12 +4,12 @@ import { List } from 'antd';
 interface ListItemMetaProps {
   name: string;
   ownerName?: string | null;
-  icon: React.ReactNode;
+  avatar: React.ReactNode;
 }
 
-export const ListItemMeta: React.FC<ListItemMetaProps> = ({ name, ownerName, icon }) => (
+export const ListItemMeta: React.FC<ListItemMetaProps> = ({ name, ownerName, avatar }) => (
   <List.Item.Meta
-    avatar={icon}
+    avatar={avatar}
     description={ownerName ? `Założyciel: ${ownerName}` : null}
     title={name}
   />

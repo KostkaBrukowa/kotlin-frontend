@@ -1,0 +1,9 @@
+mutation RemovePartyParticipant($partyId: String!, $userId: String!) {
+  removeParticipant(partyId: $partyId, participantId: $userId) {
+    id
+    partyParticipants {
+      ...ParticipantListFragment
+    }
+  }
+}
+

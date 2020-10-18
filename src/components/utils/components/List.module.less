@@ -1,11 +1,14 @@
-@import '../../../../node_modules/antd/lib/style/dark.less';
+@import (reference) '../../../../node_modules/antd/lib/style/dark.less';
 @list-background-color: rgba(150, 150, 150, 0.08);
 
 .listItem {
   background: @list-background-color;
-  //border-color: #767676 !important;
   cursor: pointer;
   transition: transform 200ms ease-in;
+}
+
+.listItem:active {
+  background: lighten(@list-background-color, 40%);
 }
 
 .addFriendWrapper {

@@ -7,6 +7,7 @@ import { renderCollapsableArrow } from '../../../../utils/components/Collapsable
 import { EventQueryType } from '../../../../utils/hooks/graphql/singleEvent/useSingleEvent';
 import { NotOptional } from '../../../../utils/types';
 import { EventExpenses } from '../expenses/EventExpenses';
+import { ParticipantsPanel } from './ParticipantsPanel';
 
 import style from '../../../event/view/EventView.module.less';
 
@@ -22,7 +23,6 @@ export const collapseKeys = {
 
 export const EventInfoPanel: React.FC<EventInfoPanelProps> = ({ event }) => {
   const location = useLocation();
-  const [openPanel, setOpenPanel] = useState<number | undefined>(undefined);
   const participantsRef = useRef<HTMLDivElement | null>(null);
   const defaultKey = location.hash.includes('#expenses')
     ? collapseKeys.expenses
@@ -32,25 +32,11 @@ export const EventInfoPanel: React.FC<EventInfoPanelProps> = ({ event }) => {
     ? collapseKeys.messages
     : null;
 
-  useEffect(() => {
-    console.log('1');
-    setOpenPanel(collapseKeys.expenses);
-
-    if (defaultKey && participantsRef) {
-      setTimeout(() => {
-        // window.scrollTo({ top: participantsRef.current?.getBoundingClientRect().top! + 3000 });
-        window.scrollTo(0, document.body.scrollHeight);
-        console.log(':wall', participantsRef.current?.getBoundingClientRect());
-      }, 1000);
-    }
-  }, [defaultKey, participantsRef]);
-
   return (
     <Collapse
-      activeKey={openPanel}
       bordered={false}
       className={style.collapsableWrapper}
-      // defaultActiveKey={[defaultKey ?? collapseKeys.expenses]}
+      defaultActiveKey={[defaultKey ?? collapseKeys.expenses]}
       expandIcon={renderCollapsableArrow}
       expandIconPosition="right"
     >
@@ -60,7 +46,7 @@ export const EventInfoPanel: React.FC<EventInfoPanelProps> = ({ event }) => {
       </Collapse.Panel>
       <div id="#participantsCollapse" ref={participantsRef} />
       <Collapse.Panel header="Uczestnicy" key={collapseKeys.participants}>
-        <ParticipantList participants={event.partyParticipants} />
+        <ParticipantsPanel event={event} />
       </Collapse.Panel>
       <div id="#messagesCollapse" />
       <Collapse.Panel header="Wiadomości" key={collapseKeys.messages} />
