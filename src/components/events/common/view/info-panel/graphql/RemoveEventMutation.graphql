@@ -1,0 +1,5 @@
+mutation RemoveEvent ($eventId: String!) {
+  removeParty(id: $eventId) {
+    id
+  }
+}

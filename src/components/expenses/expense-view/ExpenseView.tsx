@@ -12,6 +12,7 @@ import { ExpenseMessages } from './ExpenseMessages';
 import { ExpenseParticipants } from './ExpenseParticipants';
 import { ExpensePayments } from './ExpensePayments';
 import { useSingleExpense } from './graphql/useSingleExpenseQuery';
+import { RemoveExpenseButton } from './RemoveExpenseButton';
 import { useChangeExpenseStatusModal } from './UseChangeExpenseStatusModal';
 
 import style from './ExpenseView.module.less';
@@ -29,7 +30,6 @@ interface RouteParams {
 export type ExpenseViewProps = RouteComponentProps<RouteParams>;
 
 export const ExpenseView: React.FC<ExpenseViewProps> = ({ expenseId }) => {
-  const { userId } = useContext(UserContext);
   const { dataComponent, extractedData: expense } = useSingleExpense(expenseId);
 
   if (dataComponent !== null || !expense) return dataComponent;
@@ -57,13 +57,7 @@ export const ExpenseView: React.FC<ExpenseViewProps> = ({ expenseId }) => {
           <ExpenseMessages />
         </Collapse.Panel>
       </Collapse>
-      <div className={style.buttonGroup}>
-        {userId === expense.expensePayer.id && (
-          <Button danger className={style.deleteButton} icon={<DeleteOutlined />} type="primary">
-            Usuń
-          </Button>
-        )}
-      </div>
+      <RemoveExpenseButton expense={expense} />
     </>
   );
 };

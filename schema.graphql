@@ -84,8 +84,6 @@ type Mutation {
   createMessage(newMessageInput: NewMessageInput!): MessageResponseType!
   createParty(newPartyInput: NewPartyInput!): PartyType!
   declinePartyRequest(partyRequestId: String!): PartyRequestType!
-  deleteExpense(expenseId: Long!): Boolean!
-  deleteParty(id: String!): Boolean!
   "Logs in user and return JWT token as return value"
   logIn(input: UserAuthInput!): UserAuthResponse
   "Removes the cookie from request"
@@ -93,9 +91,11 @@ type Mutation {
   markNotificationsAsRead(notificationsIds: [String!]!): Boolean!
   "Registers user and return JWT token as return value"
   refreshToken: UserAuthResponse!
+  removeExpense(expenseId: String!): ExpenseType!
   removeFriend(userId: String!): Boolean!
   removeMessage(messageId: String!, messageType: MessageType!): Boolean!
   removeParticipant(participantId: String!, partyId: String!): PartyType
+  removeParty(id: String!): PartyType
   removePartyRequest(partyRequestId: String!): PartyRequestType!
   sendPartyRequest(partyId: String!, requestReceiverId: String!): PartyRequestType
   "Registers user and return JWT token as return value"

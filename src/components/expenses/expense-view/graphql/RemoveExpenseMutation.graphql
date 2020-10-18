@@ -1,0 +1,5 @@
+mutation RemoveExpense ($expenseId: String!) {
+  removeExpense(expenseId: $expenseId) {
+    id
+  }
+}

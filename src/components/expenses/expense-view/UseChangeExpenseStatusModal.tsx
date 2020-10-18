@@ -16,7 +16,7 @@ export const useChangeExpenseStatusModal = ({
 }: ChangeExpenseModalProps) => {
   const { changeExpenseStatus } = useChangeExpenseStatus(expenseId, expenseStatus);
 
-  const openModal = () => {
+  return () => {
     Modal.confirm({
       maskClosable: true,
       title: getTitleForStatus(expenseStatus),
@@ -26,8 +26,6 @@ export const useChangeExpenseStatusModal = ({
       onCancel() {},
     });
   };
-
-  return openModal;
 };
 
 const getTitleForStatus = (expenseStatus: ExpenseStatus): string => {

@@ -126,14 +126,14 @@ export type Mutation = {
   signUp: UserAuthResponse;
   changeExpenseStatus: ExpenseType;
   createExpense: ExpenseType;
-  deleteExpense: Scalars['Boolean'];
+  removeExpense: ExpenseType;
   updateExpense: ExpenseType;
   createMessage: MessageResponseType;
   removeMessage: Scalars['Boolean'];
   markNotificationsAsRead: Scalars['Boolean'];
   createParty: PartyType;
-  deleteParty: Scalars['Boolean'];
   removeParticipant?: Maybe<PartyType>;
+  removeParty?: Maybe<PartyType>;
   updateParty: PartyType;
   acceptPartyRequest: PartyRequestType;
   declinePartyRequest: PartyRequestType;
@@ -167,8 +167,8 @@ export type MutationCreateExpenseArgs = {
 };
 
 
-export type MutationDeleteExpenseArgs = {
-  expenseId: Scalars['Long'];
+export type MutationRemoveExpenseArgs = {
+  expenseId: Scalars['String'];
 };
 
 
@@ -198,14 +198,14 @@ export type MutationCreatePartyArgs = {
 };
 
 
-export type MutationDeletePartyArgs = {
-  id: Scalars['String'];
-};
-
-
 export type MutationRemoveParticipantArgs = {
   partyId: Scalars['String'];
   participantId: Scalars['String'];
+};
+
+
+export type MutationRemovePartyArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -594,6 +594,13 @@ export type GetUserPartiesQueryVariables = Exact<{
 
 export type GetUserPartiesQuery = { __typename?: 'Query', getAllParties: Array<{ __typename?: 'PartyType', id: string, name?: Maybe<string>, description?: Maybe<string>, locationName?: Maybe<string>, type: PartyKind, owner?: Maybe<{ __typename?: 'User', name: string }>, partyParticipants: Array<{ __typename?: 'UserType', id: string, name: string }> }> };
 
+export type RemoveEventMutationVariables = Exact<{
+  eventId: Scalars['String'];
+}>;
+
+
+export type RemoveEventMutation = { __typename?: 'Mutation', removeParty?: Maybe<{ __typename?: 'PartyType', id: string }> };
+
 export type CreateEventMutationVariables = Exact<{
   event: NewPartyInput;
 }>;
@@ -622,6 +629,13 @@ export type ChangeExpenseStatusMutationVariables = Exact<{
 
 
 export type ChangeExpenseStatusMutation = { __typename?: 'Mutation', changeExpenseStatus: { __typename?: 'ExpenseType', id: string, expenseStatus: ExpenseStatus } };
+
+export type RemoveExpenseMutationVariables = Exact<{
+  expenseId: Scalars['String'];
+}>;
+
+
+export type RemoveExpenseMutation = { __typename?: 'Mutation', removeExpense: { __typename?: 'ExpenseType', id: string } };
 
 export type SingleExpenseQueryVariables = Exact<{
   expenseId: Scalars['String'];
@@ -749,14 +763,14 @@ export type AcceptPartyRequestMutationVariables = Exact<{
 }>;
 
 
-export type AcceptPartyRequestMutation = { __typename?: 'Mutation', acceptPartyRequest: { __typename?: 'PartyRequestType', id: string, status: PartyRequestStatus } };
+export type AcceptPartyRequestMutation = { __typename?: 'Mutation', acceptPartyRequest: { __typename?: 'PartyRequestType', id: string } };
 
 export type DeclinePartyRequestMutationVariables = Exact<{
   partyRequestId: Scalars['String'];
 }>;
 
 
-export type DeclinePartyRequestMutation = { __typename?: 'Mutation', declinePartyRequest: { __typename: 'PartyRequestType', id: string, status: PartyRequestStatus } };
+export type DeclinePartyRequestMutation = { __typename?: 'Mutation', declinePartyRequest: { __typename?: 'PartyRequestType', id: string } };
 
 export type RemovePartyRequestMutationVariables = Exact<{
   partyRequestId: Scalars['String'];
@@ -932,6 +946,38 @@ export function useGetUserPartiesLazyQuery(baseOptions?: ApolloReactHooks.LazyQu
 export type GetUserPartiesQueryHookResult = ReturnType<typeof useGetUserPartiesQuery>;
 export type GetUserPartiesLazyQueryHookResult = ReturnType<typeof useGetUserPartiesLazyQuery>;
 export type GetUserPartiesQueryResult = ApolloReactCommon.QueryResult<GetUserPartiesQuery, GetUserPartiesQueryVariables>;
+export const RemoveEventDocument = gql`
+    mutation RemoveEvent($eventId: String!) {
+  removeParty(id: $eventId) {
+    id
+  }
+}
+    `;
+export type RemoveEventMutationFn = ApolloReactCommon.MutationFunction<RemoveEventMutation, RemoveEventMutationVariables>;
+
+/**
+ * __useRemoveEventMutation__
+ *
+ * To run a mutation, you first call `useRemoveEventMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveEventMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeEventMutation, { data, loading, error }] = useRemoveEventMutation({
+ *   variables: {
+ *      eventId: // value for 'eventId'
+ *   },
+ * });
+ */
+export function useRemoveEventMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveEventMutation, RemoveEventMutationVariables>) {
+        return ApolloReactHooks.useMutation<RemoveEventMutation, RemoveEventMutationVariables>(RemoveEventDocument, baseOptions);
+      }
+export type RemoveEventMutationHookResult = ReturnType<typeof useRemoveEventMutation>;
+export type RemoveEventMutationResult = ApolloReactCommon.MutationResult<RemoveEventMutation>;
+export type RemoveEventMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveEventMutation, RemoveEventMutationVariables>;
 export const CreateEventDocument = gql`
     mutation CreateEvent($event: NewPartyInput!) {
   createParty(newPartyInput: $event) {
@@ -1108,6 +1154,38 @@ export function useChangeExpenseStatusMutation(baseOptions?: ApolloReactHooks.Mu
 export type ChangeExpenseStatusMutationHookResult = ReturnType<typeof useChangeExpenseStatusMutation>;
 export type ChangeExpenseStatusMutationResult = ApolloReactCommon.MutationResult<ChangeExpenseStatusMutation>;
 export type ChangeExpenseStatusMutationOptions = ApolloReactCommon.BaseMutationOptions<ChangeExpenseStatusMutation, ChangeExpenseStatusMutationVariables>;
+export const RemoveExpenseDocument = gql`
+    mutation RemoveExpense($expenseId: String!) {
+  removeExpense(expenseId: $expenseId) {
+    id
+  }
+}
+    `;
+export type RemoveExpenseMutationFn = ApolloReactCommon.MutationFunction<RemoveExpenseMutation, RemoveExpenseMutationVariables>;
+
+/**
+ * __useRemoveExpenseMutation__
+ *
+ * To run a mutation, you first call `useRemoveExpenseMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveExpenseMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeExpenseMutation, { data, loading, error }] = useRemoveExpenseMutation({
+ *   variables: {
+ *      expenseId: // value for 'expenseId'
+ *   },
+ * });
+ */
+export function useRemoveExpenseMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveExpenseMutation, RemoveExpenseMutationVariables>) {
+        return ApolloReactHooks.useMutation<RemoveExpenseMutation, RemoveExpenseMutationVariables>(RemoveExpenseDocument, baseOptions);
+      }
+export type RemoveExpenseMutationHookResult = ReturnType<typeof useRemoveExpenseMutation>;
+export type RemoveExpenseMutationResult = ApolloReactCommon.MutationResult<RemoveExpenseMutation>;
+export type RemoveExpenseMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveExpenseMutation, RemoveExpenseMutationVariables>;
 export const SingleExpenseDocument = gql`
     query SingleExpense($expenseId: String!) {
   getSingleExpense(expenseId: $expenseId) {
@@ -1690,7 +1768,6 @@ export const AcceptPartyRequestDocument = gql`
     mutation AcceptPartyRequest($partyRequestId: String!) {
   acceptPartyRequest(partyRequestId: $partyRequestId) {
     id
-    status
   }
 }
     `;
@@ -1723,8 +1800,6 @@ export const DeclinePartyRequestDocument = gql`
     mutation DeclinePartyRequest($partyRequestId: String!) {
   declinePartyRequest(partyRequestId: $partyRequestId) {
     id
-    status
-    __typename
   }
 }
     `;
