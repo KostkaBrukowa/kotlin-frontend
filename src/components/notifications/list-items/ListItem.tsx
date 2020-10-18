@@ -12,8 +12,8 @@ export interface ListItemProps {
   date: Date;
   title: string;
   avatarIcon: ReactNode;
+  notificationId: string;
 
-  onRemove(): void;
   onClick?(): void;
 }
 
@@ -22,10 +22,10 @@ export const ListItem: React.FC<ListItemProps> = ({
   date,
   avatarIcon,
   onClick,
-  onRemove,
+  notificationId,
 }) => (
   <List.Item
-    actions={[<ListItemDropdownAction onRemove={onRemove} />]}
+    actions={[<ListItemDropdownAction notificationId={notificationId} />]}
     className={clsx(listStyle.listItem, style.listItem)}
     onClick={onClick}
   >

@@ -14,19 +14,18 @@ export interface PaymentNotificationProps {
 }
 
 export const PaymentNotification: React.FC<PaymentNotificationProps> = ({
-  notificationModel: { actor, receiver, paymentId, createdAt, event },
+  notificationModel: { id, actor, receiver, paymentId, createdAt, event },
   userId,
 }) => {
   const handleClick = () => navigate(`${expensesRoute}/payments/${paymentId}`);
-  const handleDelete = () => console.log('Removed payment');
 
   return (
     <ListItem
       avatarIcon={<MdReceipt />}
       date={createdAt}
+      notificationId={id}
       title={renderPaymentTitle(event, actor?.id, userId, receiver)}
       onClick={handleClick}
-      onRemove={handleDelete}
     />
   );
 };

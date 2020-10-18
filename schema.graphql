@@ -94,6 +94,7 @@ type Mutation {
   removeExpense(expenseId: String!): ExpenseType!
   removeFriend(userId: String!): Boolean!
   removeMessage(messageId: String!, messageType: MessageType!): Boolean!
+  removeNotification(notificationId: String!): Notification!
   removeParticipant(participantId: String!, partyId: String!): PartyType
   removeParty(id: String!): PartyType
   removePartyRequest(partyRequestId: String!): PartyRequestType!
@@ -104,6 +105,18 @@ type Mutation {
   updateExpense(updateExpenseInput: UpdateExpenseInput!): ExpenseType!
   updateParty(editPartyInput: EditPartyInput!): PartyType!
   updatePaymentStatus(updatePaymentStatusInput: UpdatePaymentStatusInput!): PaymentType!
+}
+
+type Notification {
+  actor: User
+  createdAt: Date!
+  event: NotificationEvent!
+  id: Long!
+  isRead: Boolean!
+  objectId: Long!
+  objectName: String
+  objectType: NotificationObjectType!
+  receiver: User
 }
 
 type Party {
@@ -271,6 +284,14 @@ enum NotificationEvent {
   MODIFICATION
   NEW_MESSAGE
   PAID
+}
+
+enum NotificationObjectType {
+  BULK_PAYMENT
+  EXPENSE
+  PARTY
+  PARTY_REQUEST
+  PAYMENT
 }
 
 enum NotificationTypeEnum {

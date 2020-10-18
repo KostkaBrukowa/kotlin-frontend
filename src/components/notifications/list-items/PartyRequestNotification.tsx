@@ -13,11 +13,10 @@ export interface PartyRequestNotificationProps {
 }
 
 export const PartyRequestNotification: React.FC<PartyRequestNotificationProps> = ({
-  notificationModel: { actor, receiver, partyId, createdAt, event },
+  notificationModel: { id, actor, receiver, partyId, createdAt, event },
   userId,
 }) => {
   const handleClick = () => navigate(`${eventsRoute}/${partyId}`);
-  const handleDelete = () => console.log('Removed expense');
 
   const renderTitle = () => {
     const isActorCurrentUser = actor?.id === userId;
@@ -48,9 +47,9 @@ export const PartyRequestNotification: React.FC<PartyRequestNotificationProps> =
     <ListItem
       avatarIcon={<BsFillEnvelopeFill />}
       date={createdAt}
+      notificationId={id}
       title={renderTitle()}
       onClick={handleClick}
-      onRemove={handleDelete}
     />
   );
 };

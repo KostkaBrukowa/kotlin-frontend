@@ -17,13 +17,6 @@ export const Notifications: React.FC<NotificationsProps> = (props) => {
   const { notifications, loading } = useUserNotifications();
   const listPlaceholder = { emptyText: <EmptyEventsList type="powiadomień" /> };
 
-  useEffect(
-    () => () => {
-      console.log('on unmount');
-    },
-    [],
-  );
-
   return (
     <>
       <h2 className={style.header}>Twoje powiadomienia:</h2>

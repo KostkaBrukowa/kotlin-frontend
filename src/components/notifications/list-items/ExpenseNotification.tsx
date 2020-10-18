@@ -13,11 +13,10 @@ export interface ExpenseNotificationProps {
 }
 
 export const ExpenseNotification: React.FC<ExpenseNotificationProps> = ({
-  notificationModel: { actor, receiver, expenseId, createdAt, event },
+  notificationModel: { id, actor, receiver, expenseId, createdAt, event },
   userId,
 }) => {
   const handleClick = () => navigate(`${expensesRoute}/${expenseId}`);
-  const handleDelete = () => console.log('Removed expense');
 
   const renderText = () => {
     const isActorCurrentUser = actor?.id === userId;
@@ -44,9 +43,9 @@ export const ExpenseNotification: React.FC<ExpenseNotificationProps> = ({
     <ListItem
       avatarIcon={<GiWallet />}
       date={createdAt}
+      notificationId={id}
       title={renderText()}
       onClick={handleClick}
-      onRemove={handleDelete}
     />
   );
 };

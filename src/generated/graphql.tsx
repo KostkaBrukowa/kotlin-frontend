@@ -131,6 +131,7 @@ export type Mutation = {
   createMessage: MessageResponseType;
   removeMessage: Scalars['Boolean'];
   markNotificationsAsRead: Scalars['Boolean'];
+  removeNotification: Notification;
   createParty: PartyType;
   removeParticipant?: Maybe<PartyType>;
   removeParty?: Maybe<PartyType>;
@@ -190,6 +191,11 @@ export type MutationRemoveMessageArgs = {
 
 export type MutationMarkNotificationsAsReadArgs = {
   notificationsIds: Array<Scalars['String']>;
+};
+
+
+export type MutationRemoveNotificationArgs = {
+  notificationId: Scalars['String'];
 };
 
 
@@ -286,6 +292,19 @@ export type NewPartyInput = {
   type: PartyKind;
 };
 
+export type Notification = {
+  __typename?: 'Notification';
+  actor?: Maybe<User>;
+  createdAt: Scalars['Date'];
+  event: NotificationEvent;
+  id: Scalars['Long'];
+  isRead: Scalars['Boolean'];
+  objectId: Scalars['Long'];
+  objectName?: Maybe<Scalars['String']>;
+  objectType: NotificationObjectType;
+  receiver?: Maybe<User>;
+};
+
 export enum NotificationEvent {
   NewMessage = 'NEW_MESSAGE',
   Creation = 'CREATION',
@@ -296,6 +315,14 @@ export enum NotificationEvent {
   Paid = 'PAID',
   Confirmed = 'CONFIRMED',
   Bulked = 'BULKED'
+}
+
+export enum NotificationObjectType {
+  Expense = 'EXPENSE',
+  Party = 'PARTY',
+  PartyRequest = 'PARTY_REQUEST',
+  Payment = 'PAYMENT',
+  BulkPayment = 'BULK_PAYMENT'
 }
 
 export type NotificationType = {
@@ -703,6 +730,13 @@ export type GetUserNotificationsQueryVariables = Exact<{
 
 
 export type GetUserNotificationsQuery = { __typename?: 'Query', findUserNotifications: Array<{ __typename?: 'ExpenseNotification', expenseId: string, id: string, createdAt: any, isRead: boolean, event: NotificationEvent, type: NotificationTypeEnum, actor?: Maybe<{ __typename?: 'UserType', id: string, name: string }>, receiver?: Maybe<{ __typename?: 'UserType', id: string, name: string }> } | { __typename?: 'PartyRequestNotification', partyId: string, id: string, createdAt: any, isRead: boolean, event: NotificationEvent, type: NotificationTypeEnum, actor?: Maybe<{ __typename?: 'UserType', id: string, name: string }>, receiver?: Maybe<{ __typename?: 'UserType', id: string, name: string }> } | { __typename?: 'PaymentNotification', paymentId: string, id: string, createdAt: any, isRead: boolean, event: NotificationEvent, type: NotificationTypeEnum, actor?: Maybe<{ __typename?: 'UserType', id: string, name: string }>, receiver?: Maybe<{ __typename?: 'UserType', id: string, name: string }> }> };
+
+export type RemoveNotificationMutationVariables = Exact<{
+  notificationId: Scalars['String'];
+}>;
+
+
+export type RemoveNotificationMutation = { __typename?: 'Mutation', removeNotification: { __typename?: 'Notification', id: any } };
 
 export type GetUserDetailsQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -1568,6 +1602,38 @@ export function useGetUserNotificationsLazyQuery(baseOptions?: ApolloReactHooks.
 export type GetUserNotificationsQueryHookResult = ReturnType<typeof useGetUserNotificationsQuery>;
 export type GetUserNotificationsLazyQueryHookResult = ReturnType<typeof useGetUserNotificationsLazyQuery>;
 export type GetUserNotificationsQueryResult = ApolloReactCommon.QueryResult<GetUserNotificationsQuery, GetUserNotificationsQueryVariables>;
+export const RemoveNotificationDocument = gql`
+    mutation RemoveNotification($notificationId: String!) {
+  removeNotification(notificationId: $notificationId) {
+    id
+  }
+}
+    `;
+export type RemoveNotificationMutationFn = ApolloReactCommon.MutationFunction<RemoveNotificationMutation, RemoveNotificationMutationVariables>;
+
+/**
+ * __useRemoveNotificationMutation__
+ *
+ * To run a mutation, you first call `useRemoveNotificationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveNotificationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeNotificationMutation, { data, loading, error }] = useRemoveNotificationMutation({
+ *   variables: {
+ *      notificationId: // value for 'notificationId'
+ *   },
+ * });
+ */
+export function useRemoveNotificationMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveNotificationMutation, RemoveNotificationMutationVariables>) {
+        return ApolloReactHooks.useMutation<RemoveNotificationMutation, RemoveNotificationMutationVariables>(RemoveNotificationDocument, baseOptions);
+      }
+export type RemoveNotificationMutationHookResult = ReturnType<typeof useRemoveNotificationMutation>;
+export type RemoveNotificationMutationResult = ApolloReactCommon.MutationResult<RemoveNotificationMutation>;
+export type RemoveNotificationMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveNotificationMutation, RemoveNotificationMutationVariables>;
 export const GetUserDetailsDocument = gql`
     query GetUserDetails($userId: String!) {
   getUser(id: $userId) {

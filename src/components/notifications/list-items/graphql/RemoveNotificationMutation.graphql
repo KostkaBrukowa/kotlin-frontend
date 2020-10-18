@@ -1,0 +1,5 @@
+mutation RemoveNotification($notificationId: String!) {
+  removeNotification(notificationId: $notificationId) {
+    id
+  }
+}

@@ -5,19 +5,23 @@ import clsx from 'clsx';
 import { MenuClickEventHandler } from 'rc-menu/lib/interface';
 
 import { stopPropagation } from '../../utils/functions/utilFunctions';
+import { useRemoveNotification } from './graphql/useRemoveNotification';
 
 import style from '../Notifications.module.less';
 
 const triggerButtonClassName = clsx(style.dropdownButton, 'data-cy-dropdown-trigger');
 
 interface ListItemDropdownActionProps {
-  onRemove(): void;
+  notificationId: string;
 }
 
-export const ListItemDropdownAction: React.FC<ListItemDropdownActionProps> = ({ onRemove }) => {
+export const ListItemDropdownAction: React.FC<ListItemDropdownActionProps> = ({
+  notificationId,
+}) => {
+  const { removeNotification } = useRemoveNotification(notificationId);
   const handleDeleteMenuItemClick: MenuClickEventHandler = (info) => {
     info.domEvent.stopPropagation();
-    onRemove();
+    removeNotification();
   };
 
   const menu = (
