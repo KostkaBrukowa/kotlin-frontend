@@ -4,7 +4,7 @@ import { FormInstance, FormItemProps } from 'antd/es/form';
 
 import { EventType, FormFields, FormValues } from '../useEventForm';
 
-import style from '../../../new-expense/NewExpense.module.less';
+import style from './Fields.module.less';
 
 const formItemProps: Omit<FormItemProps, 'children'> = {
   label: 'Rodzaj wydarzenia:',
@@ -32,9 +32,6 @@ export const EventTypeField: React.FC<ExpenseTypeFieldProps> = ({ form, rerender
         </Radio.Button>
         <Radio.Button className={style.typeSelection} value={EventType.GROUP}>
           Grupa
-        </Radio.Button>
-        <Radio.Button className={style.typeSelection} value={EventType.FRIENDS}>
-          Znajomi
         </Radio.Button>
       </Radio.Group>
     </Form.Item>

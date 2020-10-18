@@ -11,6 +11,7 @@ import {
 import { EventMapper } from '../../mappers/events/EventMapper';
 import { eventsRoute } from '../../navigation/routerConstants';
 import { useSingleEvent } from '../../utils/hooks/graphql/singleEvent/useSingleEvent';
+import { useCreateEvent } from './graphql/useCreateEvent';
 
 export const partyKindToPartyType = (partyKind: PartyKind | undefined) => {
   switch (partyKind) {
@@ -58,7 +59,7 @@ const eventMapper = new EventMapper();
 export const useEventForm = (eventId: string | undefined) => {
   const [form] = Form.useForm<FormValues>();
   const editEventData = useSingleEvent(eventId);
-  const [createEvent, { loading: createSubmitting }] = useCreateEventMutation();
+  const [createEvent, { loading: createSubmitting }] = useCreateEvent();
   const [updateEvent, { loading: updateSubmitting }] = useUpdateEventMutation();
 
   const onSubmit = async (values: FormValues) => {

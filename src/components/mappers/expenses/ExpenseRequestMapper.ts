@@ -1,4 +1,4 @@
-import { NewExpenseInput, UpdateExpenseInput } from '../../../generated/graphql';
+import { NewExpenseInput, PartyKind, UpdateExpenseInput } from '../../../generated/graphql';
 import { FormValues } from '../../new-expense/useExpenseForm';
 import { RequestMapper } from '../mapper';
 
@@ -12,7 +12,8 @@ export class ExpenseRequestMapper extends RequestMapper<FormValues, NewExpenseIn
       expenseDate: date.toISOString(),
       name: name ?? '',
       participants: participantIds,
-      partyId: partyId ?? '0',
+      partyId: partyId ?? null,
+      partyType: partyType ?? PartyKind.Friends,
     };
   }
 

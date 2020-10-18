@@ -12,23 +12,7 @@ import { PartyType } from './useExpenseForm';
 
 export type PartyElementType = GetUserPartiesQuery['getAllParties'][0];
 
-const isEventTypeOf = (party: { type: PartyKind }, partyType: PartyType | null): boolean => {
-  if (partyType === PartyType.EVENT) {
-    return party.type === PartyKind.Event;
-  }
-
-  if (partyType === PartyType.GROUP) {
-    return party.type === PartyKind.Group;
-  }
-
-  if (partyType === PartyType.FRIENDS) {
-    return party.type === PartyKind.Friends;
-  }
-
-  return false;
-};
-
-export const useNewExpenseEvents = (selection: PartyType | null) => {
+export const useNewExpenseEvents = (selection: PartyKind | null) => {
   const { userId } = useContext(UserContext);
   const query = useGetUserPartiesLazyQuery();
   const { extractedData, loading, dataComponent } = useRemoteData(
@@ -40,7 +24,7 @@ export const useNewExpenseEvents = (selection: PartyType | null) => {
   );
 
   return {
-    extractedData: extractedData?.filter((it) => isEventTypeOf(it, selection)),
+    extractedData: extractedData?.filter((it) => it.type === selection),
     loading,
     dataComponent,
   };

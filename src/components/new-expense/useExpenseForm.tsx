@@ -9,20 +9,8 @@ import {
 } from '../../generated/graphql';
 import { ExpenseRequestMapper } from '../mappers/expenses/ExpenseRequestMapper';
 import { expensesRoute } from '../navigation/routerConstants';
+import { useCreateExpense } from './graphql/useCreateExpense';
 import { useEditExpenseData } from './useEditExpenseData';
-
-export const partyKindToPartyType = (partyKind: PartyKind | undefined) => {
-  switch (partyKind) {
-    case PartyKind.Event:
-      return PartyType.EVENT;
-    case PartyKind.Group:
-      return PartyType.GROUP;
-    case PartyKind.Friends:
-      return PartyType.FRIENDS;
-  }
-
-  return null;
-};
 
 export enum PartyType {
   EVENT = 'EVENT',
@@ -42,7 +30,7 @@ export enum FormFields {
 
 export interface FormValues {
   [FormFields.name]: string | null;
-  [FormFields.partyType]: PartyType | null;
+  [FormFields.partyType]: PartyKind | null;
   [FormFields.partyId]: string | null;
   [FormFields.participantIds]: string[];
   [FormFields.cost]: string;
@@ -55,7 +43,7 @@ const expenseMapper = new ExpenseRequestMapper();
 export const useExpenseForm = (expenseId: string | undefined) => {
   const [form] = Form.useForm<FormValues>();
   const editExpenseData = useEditExpenseData(expenseId);
-  const [createExpense, { loading: createSubmitting }] = useCreateExpenseMutation();
+  const [createExpense, { loading: createSubmitting }] = useCreateExpense();
   const [updateExpense, { loading: updateSubmitting }] = useUpdateExpenseMutation();
 
   const onSubmit = async (values: FormValues) => {

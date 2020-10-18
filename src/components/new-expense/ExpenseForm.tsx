@@ -15,7 +15,7 @@ import { ExpenseTypeField } from './fields/ExpenseTypeField';
 import { GroupIdSelectField } from './fields/GroupIdSelectField';
 import { NameField } from './fields/NameField';
 import { SaveExpenseButton } from './SaveExpenseButton';
-import { FormValues, partyKindToPartyType, useExpenseForm } from './useExpenseForm';
+import { FormValues, useExpenseForm } from './useExpenseForm';
 
 import style from './NewExpense.module.less';
 
@@ -36,7 +36,7 @@ const getInitialValues = (
     participantIds: expense.expensePayments.map((it) => it.paymentPayer.id),
     date: moment(dateFrom(expense.expenseDate)),
     name: expense.name,
-    partyType: partyKindToPartyType(expense.expenseParty.type),
+    partyType: expense.expenseParty.type,
     partyId: expense.expenseParty.id,
   };
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Select } from 'antd';
 import { FormInstance, FormItemProps } from 'antd/es/form';
 
+import { PartyKind } from '../../../generated/graphql';
 import { TransitionElement } from '../../utils/animations/TransitionElement';
 import { FormFields, FormValues, PartyType } from '../useExpenseForm';
 import { useNewExpenseEvents } from '../useNewExpenseEvents';
@@ -26,7 +27,7 @@ export const GroupIdSelectField: React.FC<GroupIdSelectFieldProps> = ({
   const { partyType } = form.getFieldsValue() as FormValues;
   const { extractedData: parties, loading } = useNewExpenseEvents(partyType);
 
-  const visible = partyType === PartyType.FRIENDS || partyType === undefined;
+  const visible = partyType === PartyKind.Friends || partyType === undefined;
 
   return (
     <TransitionElement initialHeight="96px" visible={!visible}>

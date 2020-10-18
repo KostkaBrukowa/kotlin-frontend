@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
-    "@apollo/client": "3.0.2",
+    "@apollo/client": "3.2.4",
     "@apollo/link-context": "^2.0.0-beta.3",
     "@apollo/link-error": "^2.0.0-beta.3",
     "@dicebear/avatars": "^4.2.1",

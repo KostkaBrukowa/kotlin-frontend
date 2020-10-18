@@ -131,7 +131,7 @@ export type Mutation = {
   createMessage: MessageResponseType;
   removeMessage: Scalars['Boolean'];
   markNotificationsAsRead: Scalars['Boolean'];
-  removeNotification: Notification;
+  removeNotification: NotificationType;
   createParty: PartyType;
   removeParticipant?: Maybe<PartyType>;
   removeParty?: Maybe<PartyType>;
@@ -271,7 +271,8 @@ export type NewExpenseInput = {
   expenseDate: Scalars['Date'];
   name: Scalars['String'];
   participants: Array<Scalars['String']>;
-  partyId: Scalars['String'];
+  partyId?: Maybe<Scalars['String']>;
+  partyType: PartyKind;
 };
 
 export type NewMessageInput = {
@@ -292,19 +293,6 @@ export type NewPartyInput = {
   type: PartyKind;
 };
 
-export type Notification = {
-  __typename?: 'Notification';
-  actor?: Maybe<User>;
-  createdAt: Scalars['Date'];
-  event: NotificationEvent;
-  id: Scalars['Long'];
-  isRead: Scalars['Boolean'];
-  objectId: Scalars['Long'];
-  objectName?: Maybe<Scalars['String']>;
-  objectType: NotificationObjectType;
-  receiver?: Maybe<User>;
-};
-
 export enum NotificationEvent {
   NewMessage = 'NEW_MESSAGE',
   Creation = 'CREATION',
@@ -315,14 +303,6 @@ export enum NotificationEvent {
   Paid = 'PAID',
   Confirmed = 'CONFIRMED',
   Bulked = 'BULKED'
-}
-
-export enum NotificationObjectType {
-  Expense = 'EXPENSE',
-  Party = 'PARTY',
-  PartyRequest = 'PARTY_REQUEST',
-  Payment = 'PAYMENT',
-  BulkPayment = 'BULK_PAYMENT'
 }
 
 export type NotificationType = {
@@ -736,7 +716,7 @@ export type RemoveNotificationMutationVariables = Exact<{
 }>;
 
 
-export type RemoveNotificationMutation = { __typename?: 'Mutation', removeNotification: { __typename?: 'Notification', id: any } };
+export type RemoveNotificationMutation = { __typename?: 'Mutation', removeNotification: { __typename?: 'ExpenseNotification', id: string } | { __typename?: 'PartyRequestNotification', id: string } | { __typename?: 'PaymentNotification', id: string } };
 
 export type GetUserDetailsQueryVariables = Exact<{
   userId: Scalars['String'];
