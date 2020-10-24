@@ -1,10 +1,11 @@
 import React from 'react';
-import { AiOutlineCalendar } from 'react-icons/all';
+import CalendarOutlined from '@ant-design/icons/CalendarOutlined';
 import { Statistic } from 'antd';
 import clsx from 'clsx';
 
 import { renderPaymentStatus } from '../../enum-renderers/paymentStatusRenderer';
 import { currency } from '../../utils/constants/currency';
+import { dateFrom, formatDate } from '../../utils/functions/date';
 import { capitalize } from '../../utils/functions/string';
 import { RefCallback } from '../../utils/hooks/useClientRect';
 import { NotOptional } from '../../utils/types';
@@ -38,17 +39,18 @@ export const PaymentDescription: React.FC<PaymentDescriptionProps> = ({
     <div className={style.infoSection}>
       <Statistic title="Status:" value={renderPaymentStatus(payment.status)} />
     </div>
-    {/* <div className={dateInfoClassName}> */}
-    {/*  <div className={style.dateWrapper}> */}
-    {/*    <AiOutlineCalendar className={style.calendarIcon} /> */}
-    {/*    Data wystawienia: */}
-    {/*    <br /> 20.01.2020 */}
-    {/*  </div> */}
-    {/*  <div className={style.dateWrapper}> */}
-    {/*    <AiOutlineCalendar className={style.calendarIcon} /> */}
-    {/*    Data zapłaty: <br /> /!* todo add the dates to a payment *!/ */}
-    {/*    Nie zapłacone */}
-    {/*  </div> */}
-    {/* </div> */}
+    <div className={dateInfoClassName}>
+      <div className={style.dateWrapper}>
+        <CalendarOutlined className={style.calendarIcon} />
+        Wystawiona:
+        <br />
+        {formatDate(dateFrom(payment.createdAt))}
+      </div>
+      <div className={style.dateWrapper}>
+        <CalendarOutlined className={style.calendarIcon} />
+        Opłacona: <br />
+        {payment.paidAt ? formatDate(dateFrom(payment.createdAt)) : 'Nie zapłacone'}
+      </div>
+    </div>
   </div>
 );

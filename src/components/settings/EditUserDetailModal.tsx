@@ -27,7 +27,7 @@ export const EditUserDetailModal: React.FC<EditUserDetailModalProps> = ({
 
   useEffect(() => {
     if (open) form.setFields([{ name: type, value: currentValue }]);
-  }, [open]);
+  }, [currentValue, form, open, type]);
 
   const handleCancel = () => {
     console.log('Clicked cancel button');
@@ -58,7 +58,7 @@ export const EditUserDetailModal: React.FC<EditUserDetailModalProps> = ({
 const getModalTitle = (type: UserDetailsFormFields, currentValue: Optional<string>) => {
   switch (type) {
     case UserDetailsFormFields.name:
-      return `: ${currentValue}`;
+      return `Imię: ${currentValue}`;
     case UserDetailsFormFields.email:
       return `Email: ${currentValue}`;
     case UserDetailsFormFields.bankAccount:

@@ -13,7 +13,7 @@ import style from './Login.module.less';
 
 const fields: Record<FormFields, Omit<FormItemProps, 'children'>> = {
   [FormFields.login]: {
-    rules: [{ required: true, message: 'Podaj email' }],
+    rules: [{ required: true, message: 'Podaj email' }, { type: 'email' }],
     name: FormFields.login,
     label: 'Email',
   },

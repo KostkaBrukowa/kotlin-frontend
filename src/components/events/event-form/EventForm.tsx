@@ -72,7 +72,7 @@ export const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
         validateMessages={validateMessages}
         onFinish={onSubmit}
       >
-        <NameField />
+        <NameField editMode={editMode} form={form} />
 
         <EventTypeField editMode={editMode} form={form} rerender={rerender} />
 

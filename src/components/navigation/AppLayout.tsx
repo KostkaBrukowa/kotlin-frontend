@@ -5,6 +5,7 @@ import { Layout } from 'antd';
 import { useAuthentication } from '../config/authentication/useAuthentication';
 import { UserProvider } from '../config/UserProvider';
 import { EventForm } from '../events/event-form/EventForm';
+import { EventRedirect } from '../events/event-redirect/EventRedirect';
 import { EventView } from '../events/event/view/EventView';
 import { Events } from '../events/Events';
 import { FriendsEventView } from '../events/friends/view/FriendsEventView';
@@ -16,14 +17,16 @@ import { Home } from '../home/Home';
 import { Login } from '../login/Login';
 import { ExpenseForm } from '../new-expense/ExpenseForm';
 import { Notifications } from '../notifications/Notifications';
+import { CurrentUserView } from '../settings/CurrentUserView';
 import { FriendsView } from '../settings/friends-view/FriendsView';
-import { UserView } from '../settings/UserView';
+import { UserViewItem } from '../settings/UserViewItem';
+import { UserView } from '../user/UserView';
 import { ResourceNotFound } from '../utils/not-found/ResourceNotFound';
 import { AppHeader } from './AppHeader';
 import {
   eventFormRoute,
   eventsEventRoute,
-  eventsFiendsRoute,
+  eventsFriendsRoute,
   eventsGroupRoute,
   eventsRoute,
   expenseFormRoute,
@@ -33,6 +36,8 @@ import {
   notificationsRoute,
   paymentsRoute,
   settingsRoute,
+  unknownEventTypeRoute,
+  userRoute,
 } from './routerConstants';
 import { Toolbar } from './Toolbar';
 
@@ -62,11 +67,12 @@ export const AppLayout: React.FC = () => {
                 />
 
                 <Events path={eventsRoute} />
+                <EventRedirect path={`${unknownEventTypeRoute}/:eventId`} />
                 <EventForm path={eventFormRoute} />
                 <EventForm path={`${eventFormRoute}/:eventId`} />
                 <EventView path={`${eventsEventRoute}/:eventId/*`} />
                 <GroupView path={`${eventsGroupRoute}/:groupId/*`} />
-                <FriendsEventView path={`${eventsFiendsRoute}/:friendsId/*`} />
+                <FriendsEventView path={`${eventsFriendsRoute}/:friendsId/*`} />
 
                 <Expenses path={expensesRoute} />
                 <ExpenseForm path={expenseFormRoute} />
@@ -76,7 +82,9 @@ export const AppLayout: React.FC = () => {
 
                 <Notifications path={notificationsRoute} />
 
-                <UserView path={settingsRoute} setAuthData={setAuthData} />
+                <CurrentUserView path={userRoute} setAuthData={setAuthData} />
+                <CurrentUserView path={settingsRoute} setAuthData={setAuthData} />
+                <UserView path={`${userRoute}/:userId`} />
                 <FriendsView path={friendsRoute} />
 
                 <ResourceNotFound default />

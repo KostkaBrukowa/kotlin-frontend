@@ -2,6 +2,7 @@ import React from 'react';
 
 import { PaymentStatus } from '../../../generated/graphql';
 import { OwsType } from '../../app-context/AppContext';
+import { finishedPaymentStatuses } from '../common/FinishedStatuses';
 import { PaymentsQueryType } from '../useUserExpenses';
 import { EmptyList } from './EmptyList';
 import { ExpenseItemCard } from './ExpenseItemCard';
@@ -13,12 +14,6 @@ interface PaymentListProps {
   loading: boolean;
   showFinished: boolean;
 }
-
-const finishedPaymentStatuses: PaymentStatus[] = [
-  PaymentStatus.Confirmed,
-  PaymentStatus.Declined,
-  PaymentStatus.Bulked,
-];
 
 export const PaymentList: React.FC<PaymentListProps> = ({ payments, loading, showFinished }) => {
   const filteredExpenses = payments?.filter(

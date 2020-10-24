@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ExpenseStatus } from '../../../generated/graphql';
 import { OwsType } from '../../app-context/AppContext';
+import { finishedExpenseStatuses } from '../common/FinishedStatuses';
 import { ExpensesQueryType } from '../useUserExpenses';
 import { EmptyList } from './EmptyList';
 import { ExpenseItemCard } from './ExpenseItemCard';
@@ -13,8 +14,6 @@ interface ExpenseListProps {
   loading: boolean;
   showFinished: boolean;
 }
-
-const finishedExpenseStatuses: ExpenseStatus[] = [ExpenseStatus.Resolved, ExpenseStatus.Declined];
 
 export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, loading, showFinished }) => {
   const filteredExpenses = expenses?.filter(

@@ -31,18 +31,6 @@ type BulkPaymentType implements GQLResponseType {
   status: BulkPaymentStatus!
 }
 
-type Expense {
-  amount: Float!
-  description: String!
-  expenseDate: Date!
-  expenseStatus: ExpenseStatus!
-  id: Long!
-  name: String!
-  party: Party
-  payments: [Payment!]!
-  user: User
-}
-
 type ExpenseNotification implements NotificationType {
   actor: UserType
   createdAt: Date!
@@ -107,29 +95,6 @@ type Mutation {
   updatePaymentStatus(updatePaymentStatusInput: UpdatePaymentStatusInput!): PaymentType!
 }
 
-type Party {
-  description: String
-  endDate: Date
-  expenses: [Expense!]!
-  id: Long!
-  locationLatitude: Float
-  locationLongitude: Float
-  locationName: String
-  name: String
-  owner: User
-  participants: [User!]!
-  partyRequests: [PartyRequest!]!
-  startDate: Date
-  type: PartyKind!
-}
-
-type PartyRequest {
-  id: Long!
-  party: Party
-  status: PartyRequestStatus!
-  user: User
-}
-
 type PartyRequestNotification implements NotificationType {
   actor: UserType
   createdAt: Date!
@@ -157,22 +122,13 @@ type PartyType implements GQLResponseType {
   locationLongitude: Float
   locationName: String
   name: String
-  owner: User
+  owner: UserType
   partyExpenses: [ExpenseType!]!
   partyMessages: [MessageResponseType!]!
   partyParticipants: [UserType!]!
   partyPartyRequests: [PartyRequestType!]!
   startDate: Date
   type: PartyKind!
-}
-
-type Payment {
-  amount: Float
-  confirmImageUrl: String
-  expense: Expense
-  id: Long!
-  status: PaymentStatus!
-  user: User
 }
 
 type PaymentNotification implements NotificationType {
@@ -190,7 +146,9 @@ type PaymentNotification implements NotificationType {
 type PaymentType implements GQLResponseType {
   amount: Float
   confirmImageUrl: String
+  createdAt: Date!
   id: ID!
+  paidAt: Date
   paymentExpense: ExpenseType!
   paymentMessages: [MessageResponseType!]!
   paymentPayer: UserType!
@@ -211,19 +169,6 @@ type Query {
   getSingleParty(partyId: String!): PartyType
   getSinglePayment(paymentId: String!): PaymentType
   getUser(id: String!): UserType
-}
-
-type User {
-  bankAccount: String
-  email: String!
-  expenses: [Expense!]!
-  friendOf: [User!]!
-  friends: [User!]!
-  id: Long!
-  joinedParties: [Party!]!
-  name: String!
-  partyRequests: [PartyRequest!]!
-  payments: [Payment!]!
 }
 
 type UserAuthResponse {
@@ -312,7 +257,7 @@ input EditPartyInput {
   locationLatitude: Float
   locationLongitude: Float
   locationName: String
-  name: String!
+  name: String
   startDate: Date
   type: PartyKind!
 }

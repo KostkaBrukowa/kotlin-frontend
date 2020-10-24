@@ -1,0 +1,37 @@
+query GetUserViewData($userId: String!, $currentUserId: String!) {
+  getExpensesForUser(userId: $currentUserId) {
+    id
+    amount
+    expenseStatus
+    expensePayments {
+      id
+      amount
+      paymentPayer {
+        id
+      }
+    }
+  }
+
+  getClientsPayments(userId: $currentUserId) {
+    id
+    status
+    amount
+    paymentExpense {
+      id
+      expensePayer {
+        id
+      }
+    }
+  }
+
+  findUsersFriends(userId: $currentUserId){
+    ...UserListData
+  }
+
+  getUser(id: $userId){
+    id
+    name
+    bankAccount
+    email
+  }
+}

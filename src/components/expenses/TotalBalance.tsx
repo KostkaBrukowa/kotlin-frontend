@@ -4,17 +4,22 @@ import { Spin } from 'antd';
 import { OwsType } from '../app-context/AppContext';
 import { AnimatedNumber } from '../utils/animations/AnimatedNumber';
 import { currency } from '../utils/constants/currency';
+import { finishedExpenseStatuses, finishedPaymentStatuses } from './common/FinishedStatuses';
 import { OwsSection } from './OwsSection';
 import { useUserExpenses } from './useUserExpenses';
 
 import style from './TotalBalance.module.less';
 
-export interface TotalBalanceProps {}
-
-export const TotalBalance: React.FC<TotalBalanceProps> = (props) => {
+export const TotalBalance: React.FC = () => {
   const { expenses, payments, loading } = useUserExpenses();
-  const owsUserAmount = expenses?.reduce((acc, expense) => acc + expense.amount, 0) ?? 0;
-  const userOwsAmount = payments?.reduce((acc, payment) => acc + (payment?.amount ?? 0), 0) ?? 0;
+  const owsUserAmount =
+    expenses
+      ?.filter((it) => !finishedExpenseStatuses.includes(it.expenseStatus))
+      ?.reduce((acc, expense) => acc + expense.amount, 0) ?? 0;
+  const userOwsAmount =
+    payments
+      ?.filter((it) => !finishedPaymentStatuses.includes(it.status))
+      ?.reduce((acc, payment) => acc + (payment?.amount ?? 0), 0) ?? 0;
 
   return (
     <div className={style.wrapper}>

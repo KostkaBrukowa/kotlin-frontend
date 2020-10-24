@@ -3,7 +3,7 @@ import { Link, navigate } from '@reach/router';
 import { Button, List } from 'antd';
 
 import { FriendsPartyListType } from '../../mappers/events/PartyMapperTypes';
-import { eventsFiendsRoute, friendsRoute } from '../../navigation/routerConstants';
+import { eventsFriendsRoute, friendsRoute } from '../../navigation/routerConstants';
 import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
 import { EmptyEventsList } from '../common/EmptyList';
 import { getFriendCountText } from '../common/OtherParticipants';
@@ -29,7 +29,10 @@ const ListItemMeta: React.FC<{
 };
 
 const ListItem: React.FC<{ item: FriendsPartyListType }> = ({ item }) => (
-  <List.Item className={style.listItem} onClick={() => navigate(`${eventsFiendsRoute}/${item.id}`)}>
+  <List.Item
+    className={style.listItem}
+    onClick={() => navigate(`${eventsFriendsRoute}/${item.id}`)}
+  >
     <ListItemMeta party={item} />
   </List.Item>
 );

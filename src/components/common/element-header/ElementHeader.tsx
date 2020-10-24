@@ -6,13 +6,14 @@ import { Button } from 'antd';
 import clsx from 'clsx';
 
 import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
+import { Optional } from '../../utils/types';
 
 import style from './ElementHeader.module.less';
 
-const AVATAR_SIZE = 40;
+export const AVATAR_SIZE = 40;
 
 export interface ElementHeaderProps {
-  id: string | null;
+  id: Optional<string>;
   className?: string;
 
   onEdit?(): void;
@@ -20,12 +21,18 @@ export interface ElementHeaderProps {
 
 export const ElementHeader: React.FC<ElementHeaderProps> = ({ id, className, onEdit }) => (
   <div className={clsx(style.headerWrapper, className)}>
-    <AiOutlineArrowLeft className={style.arrow} onClick={() => navigate(-1)} />
+    <Button
+      className={style.arrowButton}
+      icon={<AiOutlineArrowLeft className={style.arrow} onClick={() => navigate(-1)} />}
+    />
+
     <div className={style.mainInfoWrapper}>
       <IdenticonAvatar id={id || null} size={AVATAR_SIZE} />
     </div>
-    <Button className={style.editButton} icon={<EditOutlined />} onClick={onEdit}>
-      Edytuj
-    </Button>
+    {onEdit && (
+      <Button className={style.editButton} icon={<EditOutlined />} onClick={onEdit}>
+        Edytuj
+      </Button>
+    )}
   </div>
 );

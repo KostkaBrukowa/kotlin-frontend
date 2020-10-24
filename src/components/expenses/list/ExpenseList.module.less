@@ -1,5 +1,6 @@
 @import (reference) '../../../../node_modules/antd/lib/style/dark.less';
 
+@list-background-color: rgba(150, 150, 150, 0.08);
 .headerWrapper {
   display: flex;
   justify-content: space-between;
@@ -17,13 +18,15 @@
 
 .card {
   margin-top: 0;
-  background: @background-color-base;
+  background: @list-background-color;
   border: initial;
   transition: transform 350ms ease-out;
+  cursor: pointer;
 }
 
-.card:active {
-  background: lighten(@background-color-base, 40%);
+.card:active,
+.card:hover {
+  background: lighten(@list-background-color, 40%);
 }
 
 .card + .card {

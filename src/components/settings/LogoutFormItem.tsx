@@ -24,10 +24,10 @@ export const LogoutFormItem: React.FC<LogoutFormItemProps> = ({ setAuthData }) =
   };
 
   return (
-    <Form.Item>
-      <Button danger className={style.button} type="primary" onClick={onLogout}>
+    <div className={style.logoutButtonWrapper}>
+      <Button danger type="primary" onClick={onLogout}>
         Wyloguj
       </Button>
-    </Form.Item>
+    </div>
   );
 };

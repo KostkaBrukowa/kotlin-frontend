@@ -11,7 +11,7 @@ import style from './useRemoteData.module.less';
 const allVariablesNotNull = (obj?: Record<string, any>): boolean =>
   obj ? Object.values(obj).every((it) => it !== null && it !== undefined) : true;
 
-const useRemoteDataComponent = <TExtractedData,>(
+export const useRemoteDataComponent = <TExtractedData,>(
   extractedData: TExtractedData,
   loading: boolean,
 ): ReactElement | undefined | null => {

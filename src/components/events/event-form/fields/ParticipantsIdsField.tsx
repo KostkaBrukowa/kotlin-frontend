@@ -3,10 +3,16 @@ import { Link } from '@reach/router';
 import { Form, Select } from 'antd';
 import { FormInstance, FormItemProps } from 'antd/es/form';
 
+import { PartyKind } from '../../../../generated/graphql';
 import { ParticipantList } from '../../../common/participant-list/ParticipantList';
-import { eventsEventRoute } from '../../../navigation/routerConstants';
+import {
+  eventsEventRoute,
+  eventsFriendsRoute,
+  eventsGroupRoute,
+} from '../../../navigation/routerConstants';
 import { useUserFriends } from '../../../utils/hooks/graphql/friends/useUserFriends';
 import { Optional } from '../../../utils/types';
+import { eventTypeToRoute } from '../../common/Route';
 import { FormFields, FormValues } from '../useEventForm';
 
 import style from '../../../new-expense/fields/Fields.module.less';
@@ -27,12 +33,6 @@ export interface ExpenseParticipantsSelectFieldProps {
   rerender(): void;
 }
 
-interface ParticipantsSelectProps {
-  loading: boolean;
-  disabled: boolean;
-  rerender: () => void;
-}
-
 export const EventParticipantIdsField: React.FC<ExpenseParticipantsSelectFieldProps> = ({
   form,
   rerender,
@@ -46,7 +46,9 @@ export const EventParticipantIdsField: React.FC<ExpenseParticipantsSelectFieldPr
   const editModeTitle = (
     <div>
       Uczestnicy{' '}
-      <Link to={`${eventsEventRoute}/${eventId}#participants`}>Sprawdź stan zaproszeń</Link>
+      <Link to={`${eventTypeToRoute(eventType)}/${eventId}#participants`}>
+        Sprawdź stan zaproszeń
+      </Link>
     </div>
   );
 

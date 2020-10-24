@@ -5,7 +5,7 @@ import { FormItemProps } from 'antd/es/form';
 import { FormFields } from '../useEventForm';
 
 const formItemProps: Omit<FormItemProps, 'children'> = {
-  label: 'Opis wydarzenia:',
+  label: 'Opis:',
   name: FormFields.description,
   rules: [{ required: true }, { min: 3 }, { max: 150 }],
 };

@@ -8,6 +8,7 @@ export const useCreateExpense = () =>
           getExpensesForUser: (value, { DELETE }) => DELETE,
           getClientsPayments: (value, { DELETE }) => DELETE,
           getAllParties: (value, { DELETE }) => DELETE,
+          getSingleParty: (value, { DELETE }) => DELETE,
         },
       });
     },

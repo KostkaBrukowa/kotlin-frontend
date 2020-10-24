@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Form } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
+import { Button, Divider, Form } from 'antd';
 
 import { Optional } from '../utils/types';
 import { fields, UserDetailsFormFields } from './FormFieldsConfig';
@@ -18,12 +19,25 @@ export const SettingFormItem: React.FC<SettingFormItemProps> = ({
   onButtonClick,
   currentValues,
 }) => (
-  <Form.Item {...fields[type]}>
-    <div className={style.field}>
-      <p>{currentValues[type]}</p>
-      <Button size="small" onClick={() => onButtonClick(type)}>
-        Edytuj
-      </Button>
-    </div>
-  </Form.Item>
+  <>
+    <Form.Item
+      {...fields[type]}
+      label={
+        <>
+          {fields[type].label}
+          <Button
+            className={style.editButton}
+            icon={<EditOutlined />}
+            size="small"
+            onClick={() => onButtonClick(type)}
+          />
+        </>
+      }
+    >
+      <div className={style.field}>
+        <p>{currentValues[type]}</p>
+      </div>
+    </Form.Item>
+    <Divider className={style.divider} />
+  </>
 );

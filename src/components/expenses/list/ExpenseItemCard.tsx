@@ -10,6 +10,7 @@ import { OwsType } from '../../app-context/AppContext';
 import { client } from '../../config/graphql';
 import { getTooltipProps } from '../../enum-renderers/expenseTooltipRenderer';
 import { expensesRoute, paymentsRoute } from '../../navigation/routerConstants';
+import { handleSpaceAndEnter } from '../../utils/a11n/KeyHandlers';
 import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
 import { currency } from '../../utils/constants/currency';
 import { stopPropagation } from '../../utils/functions/utilFunctions';
@@ -34,7 +35,7 @@ export const ExpenseItemCard: React.FC<ExpenseItemCardProps> = ({
   id,
 }) => {
   const tooltipProps = getTooltipProps(owsType, status);
-  const TooltipTitle = () => (
+  const tooltipTitle = (
     <div className={clsx('data-cy-tooltip', style.tooltip)}>{tooltipProps.title}</div>
   );
   const cardAmountStyle = clsx(style.expenseAmount, {
@@ -42,21 +43,23 @@ export const ExpenseItemCard: React.FC<ExpenseItemCardProps> = ({
     [style.userOwsAmount]: owsType === OwsType.USER_OWS,
   });
 
+  const handleClick = () =>
+    navigate(`${owsType === OwsType.USER_OWS ? paymentsRoute : expensesRoute}/${id}`);
+
   return (
     <Card
       bordered
-      hoverable
       className={style.card}
-      onClick={() =>
-        navigate(`${owsType === OwsType.USER_OWS ? paymentsRoute : expensesRoute}/${id}`)
-      }
+      tabIndex={0}
+      onClick={handleClick}
+      onKeyPress={handleSpaceAndEnter(handleClick)}
     >
       <Meta
         avatar={<IdenticonAvatar id={id} size={20} />}
         description={description}
         title={
           <div className={style.titleWrapper}>
-            <Tooltip className="data-cy-title" title={<TooltipTitle />}>
+            <Tooltip className="data-cy-title" title={tooltipTitle}>
               <div onClick={stopPropagation}>
                 {name}
                 {tooltipProps.icon}

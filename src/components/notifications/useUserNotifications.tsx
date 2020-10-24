@@ -6,7 +6,9 @@ import { fromResponseList } from '../mappers/notifications/NotificationMapper';
 
 export const useUserNotifications = () => {
   const { userId } = useContext(UserContext);
-  const [getNotifications, { data, loading, called }] = useGetUserNotificationsLazyQuery();
+  const [getNotifications, { data, loading, called }] = useGetUserNotificationsLazyQuery({
+    pollInterval: 10000,
+  });
   const notifications = data ? fromResponseList(data.findUserNotifications) : null;
 
   useEffect(() => {

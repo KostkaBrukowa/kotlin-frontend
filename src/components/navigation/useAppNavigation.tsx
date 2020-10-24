@@ -13,6 +13,7 @@ import {
   expensesRoute,
   notificationsRoute,
   settingsRoute,
+  userRoute,
 } from './routerConstants';
 
 export interface MenuTabItem {
@@ -39,7 +40,7 @@ export const menuTabs: MenuTabItem[] = [
     key: '3',
     icon: <PlusCircleOutlined className={style.icon} />,
     to: expenseFormRoute,
-    title: 'Zapisz wydatek',
+    title: 'Nowy wydatek',
   },
   {
     key: '4',
@@ -50,13 +51,13 @@ export const menuTabs: MenuTabItem[] = [
   {
     key: '5',
     icon: <UserOutlined className={style.icon} />,
-    to: settingsRoute,
-    title: 'Twoje dane',
+    to: userRoute,
+    title: 'Profil',
   },
 ];
 
 const findMatchingMenuItem = (location: string) =>
-  menuTabs.find((tab) => location.includes(tab.to));
+  [...menuTabs].sort((a, b) => b.to.length - a.to.length).find((tab) => location.includes(tab.to));
 
 export const useMenuTabs = (): [MenuTabItem[], string[]] => {
   const location = useLocation();

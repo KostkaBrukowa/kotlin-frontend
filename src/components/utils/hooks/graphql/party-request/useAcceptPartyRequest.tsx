@@ -1,11 +1,14 @@
+import { message } from 'antd';
+
 import {
   PartyRequestStatus,
   useAcceptPartyRequestMutation,
 } from '../../../../../generated/graphql';
+import { Optional } from '../../../types';
 
-export const useAcceptPartyRequest = (partyRequestId: string) => {
-  const [acceptPartyRequest] = useAcceptPartyRequestMutation({
-    variables: { partyRequestId },
+export const useAcceptPartyRequest = () => {
+  const [acceptPartyRequest, { loading }] = useAcceptPartyRequestMutation({
+    onCompleted: () => message.success('Dołączyłeś do eventu.'),
     update: (cache, mutationResult) => {
       const { data } = mutationResult;
 
@@ -24,5 +27,9 @@ export const useAcceptPartyRequest = (partyRequestId: string) => {
     },
   });
 
-  return { acceptPartyRequest };
+  return {
+    acceptPartyRequest: (partyRequestId: string) =>
+      acceptPartyRequest({ variables: { partyRequestId } }),
+    loading,
+  };
 };

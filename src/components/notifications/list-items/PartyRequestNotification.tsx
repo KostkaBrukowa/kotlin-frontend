@@ -4,7 +4,7 @@ import { navigate } from '@reach/router';
 
 import { NotificationEvent } from '../../../generated/graphql';
 import { NotificationPartyRequestModel } from '../../mappers/notifications/NotificationMapperTypes';
-import { eventsRoute } from '../../navigation/routerConstants';
+import { eventsRoute, unknownEventTypeRoute } from '../../navigation/routerConstants';
 import { ListItem } from './ListItem';
 
 export interface PartyRequestNotificationProps {
@@ -16,7 +16,7 @@ export const PartyRequestNotification: React.FC<PartyRequestNotificationProps> =
   notificationModel: { id, actor, receiver, partyId, createdAt, event },
   userId,
 }) => {
-  const handleClick = () => navigate(`${eventsRoute}/${partyId}`);
+  const handleClick = () => navigate(`${unknownEventTypeRoute}/${partyId}`);
 
   const renderTitle = () => {
     const isActorCurrentUser = actor?.id === userId;

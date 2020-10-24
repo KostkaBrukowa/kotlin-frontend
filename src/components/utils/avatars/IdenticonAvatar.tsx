@@ -3,10 +3,12 @@ import Avatars from '@dicebear/avatars';
 import sprites from '@dicebear/avatars-identicon-sprites';
 import clsx from 'clsx';
 
+import { Optional } from '../types';
+
 import style from './IdenticonAvatar.module.less';
 
 export interface AvatarProps {
-  id: string | null;
+  id: Optional<string>;
   size: number;
   className?: string;
   wrapperClassName?: string;

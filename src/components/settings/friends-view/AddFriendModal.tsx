@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation, useParams } from '@reach/router';
 import { Form, Input, Modal } from 'antd';
 import { FormItemProps } from 'antd/es/form';
 import { useForm } from 'antd/es/form/Form';
 
+import { FormFields } from '../../events/event-form/useEventForm';
 import { validateMessages } from '../../utils/form/validationMessages';
+import { useMount } from '../../utils/hooks/useMount';
 import { useAddFriend } from './graphql/useAddFriend';
 
 export interface AddFriendModalProps {
   open: boolean;
+
+  onOpen: () => void;
   onClose: () => void;
 }
 
@@ -19,10 +24,20 @@ const friendEmailFieldProps: Omit<FormItemProps, 'children'> = {
   rules: [{ required: true }, { type: 'email' }],
 };
 
-export const AddFriendModal: React.FC<AddFriendModalProps> = ({ open, onClose }) => {
+export const AddFriendModal: React.FC<AddFriendModalProps> = ({ open, onClose, onOpen }) => {
   const [form] = useForm();
+  const location = useLocation();
   const { addFriend, loading } = useAddFriend();
   const title = 'Dodaj znajomego';
+
+  useMount(() => {
+    const email = new URLSearchParams(location.search).get('email');
+
+    if (email) {
+      form.setFieldsValue({ [EMAIL_FIELD_NAME]: email });
+      onOpen();
+    }
+  });
 
   const handleOk = async () => {
     try {

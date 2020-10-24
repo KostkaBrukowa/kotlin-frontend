@@ -3,6 +3,8 @@ query SinglePayment($paymentId: String!) {
         id
         amount
         status
+        createdAt
+        paidAt
 
         paymentMessages {
             ...MessageDetails
