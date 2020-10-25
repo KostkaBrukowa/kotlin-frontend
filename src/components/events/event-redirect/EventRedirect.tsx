@@ -18,7 +18,7 @@ export const EventRedirect: React.FC<EventRedirectProps> = ({ eventId }) => {
     }
   }, [event, eventId]);
 
-  if (dataComponent !== null || !event) return dataComponent;
+  if ((dataComponent !== null && !event) || !event) return dataComponent;
 
   return null;
 };

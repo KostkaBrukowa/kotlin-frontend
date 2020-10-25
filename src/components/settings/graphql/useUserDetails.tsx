@@ -1,5 +1,5 @@
-import { useGetUserDetailsLazyQuery } from '../../generated/graphql';
-import { useRemoteData } from '../utils/hooks/useRemoteData';
+import { useGetUserDetailsLazyQuery } from '../../../generated/graphql';
+import { useRemoteData } from '../../utils/hooks/useRemoteData';
 
 export const useUserDetails = (userId: string | null) => {
   const query = useGetUserDetailsLazyQuery();

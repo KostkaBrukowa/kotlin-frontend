@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, navigate } from '@reach/router';
 import { Button, List } from 'antd';
 
@@ -9,6 +9,7 @@ import { EmptyEventsList } from '../common/EmptyList';
 import { getFriendCountText } from '../common/OtherParticipants';
 
 import style from '../../utils/components/List.module.less';
+import { UserContext } from '../../config/UserProvider';
 
 export interface FriendsListProps {
   friends?: FriendsPartyListType[];
@@ -17,13 +18,15 @@ export interface FriendsListProps {
 const ListItemMeta: React.FC<{
   party: FriendsPartyListType;
 }> = ({ party: { partyParticipants, description, owner, id } }) => {
-  const friendsCountText = getFriendCountText(partyParticipants.length - 1);
+  const { userId } = useContext(UserContext);
+  const friendsCountText = getFriendCountText(partyParticipants.length - 2);
+  const firstParticipant = userId === owner?.id ? partyParticipants[0] : owner;
 
   return (
     <List.Item.Meta
       avatar={<IdenticonAvatar id={id} size={20} wrapperClassName={style.avatar} />}
       description={description}
-      title={`Ty, ${owner?.name} ${friendsCountText ?? ''}`}
+      title={`Ty, ${firstParticipant?.name} ${friendsCountText ?? ''}`}
     />
   );
 };
@@ -47,7 +50,7 @@ export const FriendEventsList: React.FC<FriendsListProps> = ({ friends, loading 
     <List
       dataSource={friends}
       itemLayout="vertical"
-      loading={loading || !friends}
+      loading={loading && !friends}
       locale={{ emptyText: <EmptyEventsList type="znajomych" /> }}
       renderItem={(item: FriendsPartyListType) => <ListItem item={item} key={item.id} />}
       size="large"

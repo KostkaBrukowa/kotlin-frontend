@@ -12,7 +12,7 @@ import { UserDetailsFormFields } from './FormFieldsConfig';
 import { LogoutFormItem } from './LogoutFormItem';
 import { SettingFormItem } from './SettingFormItem';
 import { UserViewItem } from './UserViewItem';
-import { useUserDetails } from './useUserDetails';
+import { useUserDetails } from './graphql/useUserDetails';
 
 import style from './Settings.module.less';
 
@@ -26,9 +26,9 @@ export const CurrentUserView: React.FC<SettingsProps> = ({ setAuthData }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [userDetailsTypeToEdit, setUserDetailsTypeToEdit] = useState(UserDetailsFormFields.name);
 
-  if (dataComponent !== null) return dataComponent;
+  if ((dataComponent !== null && !user) || !user) return dataComponent;
 
-  const onEditButtonClick = (field: UserDetailsFormFields) => {
+  const handleEditButtonClick = (field: UserDetailsFormFields) => {
     setUserDetailsTypeToEdit(field);
     setModalVisible(true);
   };
@@ -58,20 +58,16 @@ export const CurrentUserView: React.FC<SettingsProps> = ({ setAuthData }) => {
           <SettingFormItem
             currentValues={currentValues}
             type={UserDetailsFormFields.name}
-            onButtonClick={onEditButtonClick}
+            onButtonClick={handleEditButtonClick}
           />
 
           <SettingFormItem
             currentValues={currentValues}
             type={UserDetailsFormFields.bankAccount}
-            onButtonClick={onEditButtonClick}
+            onButtonClick={handleEditButtonClick}
           />
 
-          <SettingFormItem
-            currentValues={currentValues}
-            type={UserDetailsFormFields.email}
-            onButtonClick={onEditButtonClick}
-          />
+          <SettingFormItem currentValues={currentValues} type={UserDetailsFormFields.email} />
 
           <UserViewItem title="Twoi znajomi" onClick={() => navigate(friendsRoute)} />
           <LogoutFormItem setAuthData={setAuthData} />

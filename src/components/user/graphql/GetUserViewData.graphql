@@ -18,6 +18,7 @@ query GetUserViewData($userId: String!, $currentUserId: String!) {
     amount
     paymentExpense {
       id
+      expenseStatus
       expensePayer {
         id
       }

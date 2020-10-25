@@ -46,7 +46,7 @@ export const PaymentStatusManagementButton: React.FC<PaymentPayButtonProps> = ({
 
   useEffect(() => {
     if (location.href.includes('/makePayment') && shouldRenderButton) showPromiseModal();
-  }, [location.href, shouldRenderButton, showPromiseModal]);
+  }, [location.href, shouldRenderButton]);
 
   return shouldRenderButton ? (
     <div className={style.buttonWrapper}>

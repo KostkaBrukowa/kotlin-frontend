@@ -22,7 +22,7 @@ export type GroupViewProps = RouteComponentProps<RouteParams>;
 export const GroupView: React.FC<GroupViewProps> = ({ groupId }) => {
   const { dataComponent, extractedData: event } = useSingleEvent(groupId);
 
-  if (dataComponent !== null || !event) return dataComponent;
+  if (dataComponent !== null || !event || !event) return dataComponent;
 
   const { partyExpenses } = event;
   const unbalancedAmount = partyExpenses?.reduce((acc, expense) => acc + expense.amount, 0) ?? 0; // convert to hook and take into account inactive expenses

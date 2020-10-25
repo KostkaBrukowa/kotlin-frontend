@@ -32,7 +32,15 @@ export const GroupIdSelectField: React.FC<GroupIdSelectFieldProps> = ({
   return (
     <TransitionElement initialHeight="96px" visible={!visible}>
       <Form.Item {...formItemProps}>
-        <Select disabled={editMode} loading={loading} onChange={rerender}>
+        <Select
+          disabled={editMode}
+          filterOption={(inputValue, option) =>
+            parties?.find((it) => it.id === option?.key)?.name?.includes(inputValue) ?? false
+          }
+          loading={loading}
+          notFoundContent={<NameNotFound />}
+          onChange={rerender}
+        >
           {parties?.map((it) => (
             <Select.Option key={it.id} value={it.id}>
               {it.name ?? ''}
@@ -43,3 +51,10 @@ export const GroupIdSelectField: React.FC<GroupIdSelectFieldProps> = ({
     </TransitionElement>
   );
 };
+
+const NameNotFound: React.FC = () => (
+  <>
+    <h3>Pusto...</h3>
+    <p>Nie ma żadnej grupy o takiej nazwie</p>
+  </>
+);

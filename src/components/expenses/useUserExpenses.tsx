@@ -7,10 +7,10 @@ import { useDelayedLoading } from '../utils/hooks/useDelayedLoading';
 export type ExpensesQueryType = Pick<GetUserExpensesQuery, 'getExpensesForUser'>;
 export type PaymentsQueryType = Pick<GetUserExpensesQuery, 'getClientsPayments'>;
 
-export const useUserExpenses = () => {
+export const useUserExpenses = (cacheOnly?: boolean) => {
   const { userId } = useContext(UserContext);
   const [getExpenses, { data, loading }] = useGetUserExpensesLazyQuery({
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: cacheOnly ? 'cache-only' : 'cache-and-network',
   });
   const delayedLoading = useDelayedLoading({ loading });
   const expenses = data?.getExpensesForUser;

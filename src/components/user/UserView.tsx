@@ -1,19 +1,15 @@
 import React, { useContext, useEffect } from 'react';
-import AiOutlineArrowLeft from '@ant-design/icons/ArrowLeftOutlined';
 import { navigate, RouteComponentProps } from '@reach/router';
-import { Button, Row, Spin, Statistic } from 'antd';
+import { Button, Row, Statistic } from 'antd';
 
-import { AVATAR_SIZE, ElementHeader } from '../common/element-header/ElementHeader';
+import { ExpenseStatus } from '../../generated/graphql';
+import { ElementHeader } from '../common/element-header/ElementHeader';
 import { UserContext } from '../config/UserProvider';
-import { renderExpenseStatus } from '../enum-renderers/expenseStatusRenderer';
 import {
   finishedExpenseStatuses,
   finishedPaymentStatuses,
 } from '../expenses/common/FinishedStatuses';
-import { useUserExpenses } from '../expenses/useUserExpenses';
 import { friendsRoute, settingsRoute } from '../navigation/routerConstants';
-import { useUserDetails } from '../settings/useUserDetails';
-import { IdenticonAvatar } from '../utils/avatars/IdenticonAvatar';
 import { currency } from '../utils/constants/currency';
 import { useUserViewData } from './graphql/useUserViewData';
 import { UserInfoItem } from './UserInfoItem';
@@ -47,13 +43,19 @@ export const UserView: React.FC<UserViewProps> = ({ userId }) => {
 
   const handleAddFriend = () => navigate(`${friendsRoute}?email=${user?.email}`);
 
+  console.log('Payments', payments);
+
   const userOwsCurrentUser = expenses
-    .filter((it) => !finishedExpenseStatuses.includes(it.expenseStatus))
+    .filter((it) => it.expenseStatus === ExpenseStatus.InProgressPaying)
     .flatMap((it) => it.expensePayments.filter((payment) => payment.paymentPayer.id === userId))
     .reduce((acc, it) => acc + (it.amount ?? 0), 0);
   const currentUserOws = payments
-    .filter((it) => !finishedPaymentStatuses.includes(it.status))
-    .filter((it) => it.paymentExpense.expensePayer.id === currentUserId)
+    .filter(
+      (it) =>
+        !finishedPaymentStatuses.includes(it.status) &&
+        !finishedExpenseStatuses.includes(it.paymentExpense.expenseStatus),
+    )
+    .filter((it) => it.paymentExpense.expensePayer.id === userId)
     .reduce((acc, it) => acc + (it.amount ?? 0), 0);
   const isFriend = friends.some((it) => it.id === userId);
 

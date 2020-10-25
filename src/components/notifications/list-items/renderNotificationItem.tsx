@@ -5,7 +5,7 @@ import {
   NotificationPartyRequestModel,
   NotificationPaymentModel,
 } from '../../mappers/notifications/NotificationMapperTypes';
-import { useUserNotifications } from '../useUserNotifications';
+import { useUserNotifications } from '../graphql/useUserNotifications';
 import { ExpenseNotification } from './ExpenseNotification';
 import { PartyRequestNotification } from './PartyRequestNotification';
 import { PaymentNotification } from './PaymentNotification';

@@ -71,7 +71,9 @@ export function fromResponseList(notifications: NotificationResponseListType) {
     )
     .filter(Boolean);
 
-  return [...expenseNotifications, ...paymentNotifications, ...partyRequestNotifications]
-    .filter((it) => !it?.isRead)
-    .sort((left, right) => compareAsc(left!.createdAt, right!.createdAt));
+  return [
+    ...expenseNotifications,
+    ...paymentNotifications,
+    ...partyRequestNotifications,
+  ].sort((left, right) => compareAsc(left!.createdAt, right!.createdAt));
 }

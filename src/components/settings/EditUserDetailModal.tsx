@@ -4,6 +4,7 @@ import { useForm } from 'antd/es/form/Form';
 
 import { Optional } from '../utils/types';
 import { fields, UserDetailsFormFields } from './FormFieldsConfig';
+import { useEditUserData } from './graphql/useEditUserData';
 
 export interface EditUserDetailModalProps {
   open: boolean;
@@ -24,19 +25,21 @@ export const EditUserDetailModal: React.FC<EditUserDetailModalProps> = ({
   const [form] = useForm();
   const title = getModalTitle(type, currentValue);
   const label = getModalLabel(type);
+  const { editUserData } = useEditUserData();
 
   useEffect(() => {
     if (open) form.setFields([{ name: type, value: currentValue }]);
   }, [currentValue, form, open, type]);
 
-  const handleCancel = () => {
-    console.log('Clicked cancel button');
-    onClose();
-  };
-
   const handleOk = async () => {
     try {
       await form.validateFields();
+
+      if (type === UserDetailsFormFields.name) {
+        await editUserData(form.getFieldValue(UserDetailsFormFields.name), null);
+      } else {
+        await editUserData(null, form.getFieldValue(UserDetailsFormFields.bankAccount));
+      }
 
       onClose();
     } catch (e) {
@@ -45,7 +48,7 @@ export const EditUserDetailModal: React.FC<EditUserDetailModalProps> = ({
   };
 
   return (
-    <Modal title={title} visible={open} onCancel={handleCancel} onOk={handleOk}>
+    <Modal title={title} visible={open} onCancel={onClose} onOk={handleOk}>
       <Form form={form} initialValues={currentValues} preserve={false}>
         <Form.Item {...fields[type]} label={label}>
           <Input allowClear autoComplete="off" />

@@ -1,0 +1,7 @@
+mutation EditUserData($name: String, $bankAccount: String) {
+  changeUserData(userEmail: $name, userBankAccount: $bankAccount) {
+    id
+    name
+    bankAccount
+  }
+}

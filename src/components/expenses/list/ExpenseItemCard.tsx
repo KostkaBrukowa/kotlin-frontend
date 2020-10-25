@@ -22,7 +22,9 @@ export interface ExpenseItemCardProps {
   name: string;
   amount: number | null;
   description: string;
-  status: ExpenseStatus | PaymentStatus;
+  highlight?: boolean;
+  expenseStatus: ExpenseStatus;
+  paymentStatus?: PaymentStatus;
   owsType: OwsType;
 }
 
@@ -30,13 +32,15 @@ export const ExpenseItemCard: React.FC<ExpenseItemCardProps> = ({
   description,
   name,
   amount,
-  status,
+  highlight,
+  expenseStatus,
+  paymentStatus,
   owsType,
   id,
 }) => {
-  const tooltipProps = getTooltipProps(owsType, status);
+  const tooltipProps = getTooltipProps(owsType, expenseStatus, paymentStatus);
   const tooltipTitle = (
-    <div className={clsx('data-cy-tooltip', style.tooltip)}>{tooltipProps.title}</div>
+    <div className={clsx('data-cy-tooltip', style.tooltip)}>{tooltipProps?.title}</div>
   );
   const cardAmountStyle = clsx(style.expenseAmount, {
     [style.owsUserAmount]: owsType === OwsType.OWS_USER,
@@ -49,7 +53,7 @@ export const ExpenseItemCard: React.FC<ExpenseItemCardProps> = ({
   return (
     <Card
       bordered
-      className={style.card}
+      className={clsx(style.card, { [style.cardHighlight]: highlight })}
       tabIndex={0}
       onClick={handleClick}
       onKeyPress={handleSpaceAndEnter(handleClick)}
@@ -62,7 +66,7 @@ export const ExpenseItemCard: React.FC<ExpenseItemCardProps> = ({
             <Tooltip className="data-cy-title" title={tooltipTitle}>
               <div onClick={stopPropagation}>
                 {name}
-                {tooltipProps.icon}
+                {tooltipProps?.icon}
               </div>
             </Tooltip>
             <div className={cardAmountStyle}>

@@ -51,7 +51,7 @@ export interface FormValues {
   [FormFields.eventType]: PartyKind | null;
   [FormFields.participantIds]: string[];
   [FormFields.description]: string;
-  [FormFields.date]: Moment;
+  [FormFields.date]: Moment | null;
 }
 
 const eventMapper = new EventMapper();

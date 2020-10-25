@@ -9,6 +9,7 @@ import {
   eventsEventRoute,
   eventsFriendsRoute,
   eventsGroupRoute,
+  friendsRoute,
 } from '../../../navigation/routerConstants';
 import { useUserFriends } from '../../../utils/hooks/graphql/friends/useUserFriends';
 import { Optional } from '../../../utils/types';
@@ -18,7 +19,11 @@ import { FormFields, FormValues } from '../useEventForm';
 import style from '../../../new-expense/fields/Fields.module.less';
 
 const formItemProps: Omit<FormItemProps, 'children'> = {
-  label: 'Wybierz uczestników wydarzenia:',
+  label: (
+    <>
+      Wybierz uczestników wydarzenia:-{'>'} <Link to={`${friendsRoute}`}> Nowy znajomy</Link>
+    </>
+  ),
   name: FormFields.participantIds,
   rules: [
     { type: 'array', required: true },
@@ -63,6 +68,9 @@ export const EventParticipantIdsField: React.FC<ExpenseParticipantsSelectFieldPr
       ) : (
         <Select
           disabled={disabled}
+          filterOption={(inputValue, option) =>
+            friends?.find((it) => it.id === option?.key)?.name.includes(inputValue) ?? false
+          }
           loading={loading}
           mode="multiple"
           notFoundContent={<NameNotFound />}
@@ -70,7 +78,7 @@ export const EventParticipantIdsField: React.FC<ExpenseParticipantsSelectFieldPr
         >
           {friends?.map((it) => (
             <Select.Option className={style.option} key={it.id} value={it.id}>
-              {it.name ?? ''}
+              {it.name}
             </Select.Option>
           ))}
         </Select>
@@ -82,9 +90,7 @@ export const EventParticipantIdsField: React.FC<ExpenseParticipantsSelectFieldPr
 const NameNotFound: React.FC = () => (
   <>
     <h3>Pusto...</h3>
-    <p>
-      Nie ma żadnego uczestnika o takim imieniu <Link to="/">Dodaj znajomego</Link>
-    </p>
+    <p>Nie ma żadnego uczestnika o takim imieniu</p>
   </>
 );
 

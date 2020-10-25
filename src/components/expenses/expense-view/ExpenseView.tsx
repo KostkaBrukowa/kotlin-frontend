@@ -32,7 +32,7 @@ export type ExpenseViewProps = RouteComponentProps<RouteParams>;
 export const ExpenseView: React.FC<ExpenseViewProps> = ({ expenseId }) => {
   const { dataComponent, extractedData: expense } = useSingleExpense(expenseId);
 
-  if (dataComponent !== null || !expense) return dataComponent;
+  if ((dataComponent !== null && !expense) || !expense) return dataComponent;
 
   return (
     <>
@@ -53,9 +53,9 @@ export const ExpenseView: React.FC<ExpenseViewProps> = ({ expenseId }) => {
         <Collapse.Panel header="Uczestnicy" key={CollapsableKeys.PARTICIPANTS}>
           <ExpenseParticipants payments={expense.expensePayments} />
         </Collapse.Panel>
-        <Collapse.Panel header="Wiadomości" key={CollapsableKeys.MESSAGES}>
-          <ExpenseMessages />
-        </Collapse.Panel>
+        {/* <Collapse.Panel header="Wiadomości" key={CollapsableKeys.MESSAGES}> */}
+        {/*  <ExpenseMessages /> */}
+        {/* </Collapse.Panel> */}
       </Collapse>
       <RemoveExpenseButton expense={expense} />
     </>

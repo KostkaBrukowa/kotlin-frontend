@@ -2,7 +2,9 @@ import React from 'react';
 import { Router } from '@reach/router';
 import { Layout } from 'antd';
 
+import { AppContextProvider } from '../app-context/AppContext';
 import { useAuthentication } from '../config/authentication/useAuthentication';
+import { AuthenticationErrorBoundary } from '../config/AuthenticationErrorBoundary';
 import { UserProvider } from '../config/UserProvider';
 import { EventForm } from '../events/event-form/EventForm';
 import { EventRedirect } from '../events/event-redirect/EventRedirect';
@@ -16,6 +18,7 @@ import { PaymentView } from '../expenses/payment-view/PaymentView';
 import { Home } from '../home/Home';
 import { Login } from '../login/Login';
 import { ExpenseForm } from '../new-expense/ExpenseForm';
+import { useUserNotifications } from '../notifications/graphql/useUserNotifications';
 import { Notifications } from '../notifications/Notifications';
 import { CurrentUserView } from '../settings/CurrentUserView';
 import { FriendsView } from '../settings/friends-view/FriendsView';
@@ -57,39 +60,41 @@ export const AppLayout: React.FC = () => {
         <AppHeader />
         {!refreshingToken && (
           <>
-            <main className={style.mainWrapper}>
-              <Router>
-                <Home path="/" />
-                <Login
-                  path={`${loginRoute}/*`}
-                  setAuthData={setAuthData}
-                  tokenPresent={tokenPresent}
-                />
+            <AuthenticationErrorBoundary>
+              <main className={style.mainWrapper}>
+                <Router>
+                  <Home path="/" />
+                  <Login
+                    path={`${loginRoute}/*`}
+                    setAuthData={setAuthData}
+                    tokenPresent={tokenPresent}
+                  />
 
-                <Events path={eventsRoute} />
-                <EventRedirect path={`${unknownEventTypeRoute}/:eventId`} />
-                <EventForm path={eventFormRoute} />
-                <EventForm path={`${eventFormRoute}/:eventId`} />
-                <EventView path={`${eventsEventRoute}/:eventId/*`} />
-                <GroupView path={`${eventsGroupRoute}/:groupId/*`} />
-                <FriendsEventView path={`${eventsFriendsRoute}/:friendsId/*`} />
+                  <Events path={eventsRoute} />
+                  <EventRedirect path={`${unknownEventTypeRoute}/:eventId`} />
+                  <EventForm path={eventFormRoute} />
+                  <EventForm path={`${eventFormRoute}/:eventId`} />
+                  <EventView path={`${eventsEventRoute}/:eventId/*`} />
+                  <GroupView path={`${eventsGroupRoute}/:groupId/*`} />
+                  <FriendsEventView path={`${eventsFriendsRoute}/:friendsId/*`} />
 
-                <Expenses path={expensesRoute} />
-                <ExpenseForm path={expenseFormRoute} />
-                <ExpenseForm path={`${expenseFormRoute}/:expenseId`} />
-                <ExpenseView path={`${expensesRoute}/:expenseId`} />
-                <PaymentView path={`${paymentsRoute}/:paymentId/*`} />
+                  <Expenses path={expensesRoute} />
+                  <ExpenseForm path={expenseFormRoute} />
+                  <ExpenseForm path={`${expenseFormRoute}/:expenseId`} />
+                  <ExpenseView path={`${expensesRoute}/:expenseId`} />
+                  <PaymentView path={`${paymentsRoute}/:paymentId/*`} />
 
-                <Notifications path={notificationsRoute} />
+                  <Notifications path={notificationsRoute} />
 
-                <CurrentUserView path={userRoute} setAuthData={setAuthData} />
-                <CurrentUserView path={settingsRoute} setAuthData={setAuthData} />
-                <UserView path={`${userRoute}/:userId`} />
-                <FriendsView path={friendsRoute} />
+                  <CurrentUserView path={userRoute} setAuthData={setAuthData} />
+                  <CurrentUserView path={settingsRoute} setAuthData={setAuthData} />
+                  <UserView path={`${userRoute}/:userId`} />
+                  <FriendsView path={friendsRoute} />
 
-                <ResourceNotFound default />
-              </Router>
-            </main>
+                  <ResourceNotFound default />
+                </Router>
+              </main>
+            </AuthenticationErrorBoundary>
             {tokenPresent && <Toolbar />}
           </>
         )}

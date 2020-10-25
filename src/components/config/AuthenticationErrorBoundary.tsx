@@ -1,27 +1,34 @@
 import React from 'react';
 
+import style from './ErrorBoundary.module.less';
+
 interface State {
-  hasError: boolean;
+  error: string | null;
 }
 
 export class AuthenticationErrorBoundary extends React.Component<{}, State> {
   public readonly state: State = {
-    hasError: false,
+    error: null,
   };
 
   public static getDerivedStateFromError(error: any) {
-    console.log('Error', error);
-
-    return { hasError: true };
+    return { error: error.toString() };
   }
 
   render() {
     const { children } = this.props;
-    const { hasError } = this.state;
+    const { error } = this.state;
 
-    if (hasError) {
+    if (error) {
       // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>;
+      return (
+        <div className={style.wrapper}>
+          <h1>
+            Wystąpił nieoczekiwany błąd. Odśwież stronę. Jeżeli ci się chce to powiadom programistę
+            o błędzie na jiirra@gmail.com. Błąd który warto przesłać programiście: {error}
+          </h1>
+        </div>
+      );
     }
 
     return children;

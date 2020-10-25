@@ -8,9 +8,15 @@ import { Friend, useUserFriends } from '../../utils/hooks/graphql/friends/useUse
 import { FriendDropdown } from './FriendDropdown';
 
 import style from './FriendsView.module.less';
+import { navigate } from '@reach/router';
+import { userRoute } from '../../navigation/routerConstants';
 
 const ListItem: React.FC<{ friend: Friend }> = ({ friend }) => (
-  <List.Item actions={[<FriendDropdown friend={friend} />]} className={style.listItem}>
+  <List.Item
+    actions={[<FriendDropdown friend={friend} />]}
+    className={style.listItem}
+    onClick={() => navigate(`${userRoute}/${friend.id}`)}
+  >
     <List.Item.Meta
       avatar={<IdenticonAvatar id={friend.id} size={22} />}
       description={friend.email}
@@ -23,7 +29,7 @@ export const FriendsList: React.FC = () => {
   const [searchedText, setSearchedText] = useState('');
   const { dataComponent, extractedData: friends } = useUserFriends();
 
-  if (dataComponent || !friends) return dataComponent;
+  if ((dataComponent && !friends) || !friends) return dataComponent;
 
   const filteredFriends = friends.filter(
     (it) => it.name.includes(searchedText) || it.email.includes(searchedText),

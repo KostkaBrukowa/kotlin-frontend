@@ -3,8 +3,9 @@ import ScheduleOutlined from '@ant-design/icons/ScheduleOutlined';
 import { navigate } from '@reach/router';
 import { Avatar, List, Skeleton } from 'antd';
 
+import { PartyRequestStatus } from '../../../generated/graphql';
 import { renderPartyRequestStatus } from '../../enum-renderers/PartyReqestStatusRenderer';
-import { eventsEventRoute } from '../../navigation/routerConstants';
+import { eventsEventRoute, eventsRoute } from '../../navigation/routerConstants';
 import {
   PartyRequestQueryType,
   useUserPartyRequests,
@@ -22,7 +23,6 @@ export interface GroupsListProps {
 const ListItem: React.FC<{ partyRequest: PartyRequestQueryType[0] }> = (props) => {
   const {
     partyRequest: {
-      id,
       status,
       partyRequestParty: { name, id: partyId },
     },
@@ -33,7 +33,7 @@ const ListItem: React.FC<{ partyRequest: PartyRequestQueryType[0] }> = (props) =
     <List.Item
       actions={[<PartyRequestDropdown partyRequest={partyRequest} />]}
       className={listStyle.listItem}
-      onClick={() => navigate(`${eventsEventRoute}/${partyId}`)}
+      onClick={() => navigate(`${eventsRoute}/unknown/${partyId}`)}
     >
       <Skeleton avatar loading={false}>
         <List.Item.Meta
@@ -51,9 +51,9 @@ export const PartyRequestsList: React.FC = () => {
 
   return (
     <List
-      dataSource={partyRequests}
+      dataSource={partyRequests?.filter((it) => it.status === PartyRequestStatus.InProgress)}
       itemLayout="horizontal"
-      loading={loading || !partyRequests}
+      loading={loading && !partyRequests}
       locale={{ emptyText: <EmptyEventsList type="zaproszeń" /> }}
       renderItem={(item: PartyRequestQueryType[0]) => (
         <ListItem key={item.id} partyRequest={item} />

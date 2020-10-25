@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { PaymentStatus } from '../../../generated/graphql';
+import { ExpenseStatus, PaymentStatus } from '../../../generated/graphql';
 import { OwsType } from '../../app-context/AppContext';
-import { finishedPaymentStatuses } from '../common/FinishedStatuses';
+import { finishedExpenseStatuses, finishedPaymentStatuses } from '../common/FinishedStatuses';
 import { PaymentsQueryType } from '../useUserExpenses';
 import { EmptyList } from './EmptyList';
 import { ExpenseItemCard } from './ExpenseItemCard';
@@ -17,10 +17,13 @@ interface PaymentListProps {
 
 export const PaymentList: React.FC<PaymentListProps> = ({ payments, loading, showFinished }) => {
   const filteredExpenses = payments?.filter(
-    (it) => showFinished || !finishedPaymentStatuses.includes(it.status),
+    (it) =>
+      showFinished ||
+      (!finishedPaymentStatuses.includes(it.status) &&
+        !finishedExpenseStatuses.includes(it.paymentExpense.expenseStatus)),
   );
 
-  if (loading) {
+  if (loading && !payments) {
     return <LoadingCard />;
   }
 
@@ -35,17 +38,26 @@ export const PaymentList: React.FC<PaymentListProps> = ({ payments, loading, sho
   return (
     <>
       <ExpenseTitle title="Twoje płatności:" />
-      {filteredExpenses?.map(({ id, amount, status, paymentExpense: { name, description } }) => (
-        <ExpenseItemCard
-          amount={amount ?? null}
-          description={description}
-          id={id}
-          key={id}
-          name={name}
-          owsType={OwsType.USER_OWS}
-          status={status}
-        />
-      ))}
+      {filteredExpenses?.map(
+        ({ id, amount, status, paymentExpense: { name, description, expenseStatus } }) => (
+          <ExpenseItemCard
+            amount={amount ?? null}
+            description={description}
+            expenseStatus={expenseStatus}
+            highlight={
+              (status === PaymentStatus.InProgress &&
+                expenseStatus === ExpenseStatus.InProgressRequesting) ||
+              (status === PaymentStatus.Accepted &&
+                expenseStatus === ExpenseStatus.InProgressPaying)
+            }
+            id={id}
+            key={id}
+            name={name}
+            owsType={OwsType.USER_OWS}
+            paymentStatus={status}
+          />
+        ),
+      )}
     </>
   );
 };

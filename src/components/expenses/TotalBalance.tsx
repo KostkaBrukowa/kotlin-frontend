@@ -1,6 +1,7 @@
 import React from 'react';
 import { Spin } from 'antd';
 
+import { ExpenseStatus } from '../../generated/graphql';
 import { OwsType } from '../app-context/AppContext';
 import { AnimatedNumber } from '../utils/animations/AnimatedNumber';
 import { currency } from '../utils/constants/currency';
@@ -11,20 +12,25 @@ import { useUserExpenses } from './useUserExpenses';
 import style from './TotalBalance.module.less';
 
 export const TotalBalance: React.FC = () => {
-  const { expenses, payments, loading } = useUserExpenses();
+  const { expenses, payments, loading } = useUserExpenses(true);
   const owsUserAmount =
     expenses
-      ?.filter((it) => !finishedExpenseStatuses.includes(it.expenseStatus))
-      ?.reduce((acc, expense) => acc + expense.amount, 0) ?? 0;
+      ?.filter((it) => it.expenseStatus === ExpenseStatus.InProgressPaying)
+      ?.reduce((acc, expense) => {
+        const firstPaymentAmount =
+          expense.expensePayments.find((it) => Boolean(it.amount))?.amount ?? 0;
+
+        return acc + (expense.amount - firstPaymentAmount);
+      }, 0) ?? 0;
+
   const userOwsAmount =
     payments
-      ?.filter((it) => !finishedPaymentStatuses.includes(it.status))
+      ?.filter(
+        (it) =>
+          !finishedPaymentStatuses.includes(it.status) &&
+          !finishedExpenseStatuses.includes(it.paymentExpense.expenseStatus),
+      )
       ?.reduce((acc, payment) => acc + (payment?.amount ?? 0), 0) ?? 0;
-
-  console.log(
-    '',
-    payments?.filter((it) => !finishedPaymentStatuses.includes(it.status)),
-  );
 
   return (
     <div className={style.wrapper}>

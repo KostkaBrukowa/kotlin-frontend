@@ -14,7 +14,7 @@ export const FriendsView: React.FC<FriendsViewProps> = ({}) => {
   const [addFriendModalOpen, setAddFriendModalOpen] = useState(false);
   const { dataComponent, extractedData: friends } = useUserFriends();
 
-  if (dataComponent || !friends) return dataComponent;
+  if ((dataComponent && !friends) || !friends) return dataComponent;
 
   const openModal = () => setAddFriendModalOpen(true);
   const closeModal = () => setAddFriendModalOpen(false);

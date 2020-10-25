@@ -52,7 +52,9 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ expenseId }) => {
   const rerender = useRerender();
   const initialValues = getInitialValues(extractedData);
 
-  if ((dataComponent !== null || !extractedData) && editMode) return dataComponent;
+  if (((dataComponent !== null && !extractedData) || !extractedData) && editMode) {
+    return dataComponent;
+  }
 
   return (
     <div className={style.wrapper}>

@@ -2,6 +2,7 @@ import React from 'react';
 import { navigate, RouteComponentProps } from '@reach/router';
 import clsx from 'clsx';
 
+import { ExpenseStatus } from '../../../../generated/graphql';
 import { ElementHeader } from '../../../common/element-header/ElementHeader';
 import { eventFormRoute } from '../../../navigation/routerConstants';
 import { Info, ViewDescription } from '../../../utils/components/ViewDescription';
@@ -25,7 +26,10 @@ export const FriendsEventView: React.FC<FriendsViewProps> = ({ friendsId }) => {
   if (dataComponent !== null || !event) return dataComponent;
 
   const { partyExpenses, partyParticipants, owner } = event;
-  const unbalancedAmount = partyExpenses?.reduce((acc, expense) => acc + expense.amount, 0) ?? 0; // convert to hook and take into account inactive expenses
+  const unbalancedAmount =
+    partyExpenses
+      .filter((it) => it.expenseStatus !== ExpenseStatus.Resolved)
+      ?.reduce((acc, expense) => acc + expense.amount, 0) ?? 0; // convert to hook and take into account inactive expenses
   const balanceClassName = clsx({
     [style.outstandingBalance]: unbalancedAmount !== 0,
     [style.settledBalance]: unbalancedAmount === 0,

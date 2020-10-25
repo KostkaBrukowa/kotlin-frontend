@@ -21,7 +21,7 @@ export const PaymentView: React.FC<PaymentViewProps> = ({ paymentId }) => {
   const { dataComponent, extractedData: payment } = useSinglePayment(paymentId);
   const { payerNameRectRef, receiverNameRectRef, style: arrowStyle } = usePaymentArrowStyle();
 
-  if (dataComponent !== null || !payment) return dataComponent;
+  if ((dataComponent !== null && !payment) || !payment) return dataComponent;
 
   const handleBack = () =>
     navigate(`${expensesRoute}/${payment?.paymentExpense.id}`, { replace: true });
@@ -34,6 +34,7 @@ export const PaymentView: React.FC<PaymentViewProps> = ({ paymentId }) => {
         title="Płatność"
         onBack={handleBack}
       />
+      <PaymentStatusManagementButton payment={payment} />
       <div className={style.wrapper}>
         <GiArrowDunk className={style.icon} style={arrowStyle} />
         <PaymentDescription
@@ -42,7 +43,6 @@ export const PaymentView: React.FC<PaymentViewProps> = ({ paymentId }) => {
           receiverRefCallback={receiverNameRectRef}
         />
       </div>
-      <PaymentStatusManagementButton payment={payment} />
     </>
   );
 };

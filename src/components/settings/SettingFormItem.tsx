@@ -11,7 +11,7 @@ export interface SettingFormItemProps {
   type: UserDetailsFormFields;
   currentValues: Record<UserDetailsFormFields, Optional<string>>;
 
-  onButtonClick(type: UserDetailsFormFields): void;
+  onButtonClick?(type: UserDetailsFormFields): void;
 }
 
 export const SettingFormItem: React.FC<SettingFormItemProps> = ({
@@ -25,17 +25,19 @@ export const SettingFormItem: React.FC<SettingFormItemProps> = ({
       label={
         <>
           {fields[type].label}
-          <Button
-            className={style.editButton}
-            icon={<EditOutlined />}
-            size="small"
-            onClick={() => onButtonClick(type)}
-          />
+          {onButtonClick && (
+            <Button
+              className={style.editButton}
+              icon={<EditOutlined />}
+              size="small"
+              onClick={() => onButtonClick(type)}
+            />
+          )}
         </>
       }
     >
       <div className={style.field}>
-        <p>{currentValues[type]}</p>
+        <p>{currentValues[type] ?? 'Brak'}</p>
       </div>
     </Form.Item>
     <Divider className={style.divider} />

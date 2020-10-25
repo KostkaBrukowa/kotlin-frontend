@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button } from 'antd';
 
 import { ExpenseStatus, PaymentStatus } from '../../../generated/graphql';
+import { UserContext } from '../../config/UserProvider';
 import { NotOptional } from '../../utils/types';
+import { shouldNotRenderEndExpenseButton } from '../common/ExpenseActionButtonConditions';
 import { ExpenseQueryType } from './graphql/useSingleExpenseQuery';
 import { useChangeExpenseStatusModal } from './UseChangeExpenseStatusModal';
 
@@ -13,17 +15,13 @@ export interface ConfirmPaymentsButtonProps {
 }
 
 export const EndExpenseButton: React.FC<ConfirmPaymentsButtonProps> = ({ expense }) => {
+  const { userId } = useContext(UserContext);
   const openModal = useChangeExpenseStatusModal({
     expenseId: expense.id,
     expenseStatus: ExpenseStatus.Resolved,
   });
 
-  if (
-    expense.expenseStatus !== ExpenseStatus.InProgressPaying ||
-    expense.expensePayments.some(
-      (it) => it.status !== PaymentStatus.Paid && it.status !== PaymentStatus.Declined,
-    )
-  ) {
+  if (shouldNotRenderEndExpenseButton(expense, userId)) {
     return null;
   }
 

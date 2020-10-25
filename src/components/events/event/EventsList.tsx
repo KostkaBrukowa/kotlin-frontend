@@ -51,7 +51,7 @@ export const EventsList: React.FC<EventsListProps> = ({ events, loading }) => (
   <List
     dataSource={events}
     itemLayout="vertical"
-    loading={loading || !events}
+    loading={loading && !events}
     locale={{ emptyText: <EmptyEventsList type="wydarzeń" /> }}
     renderItem={(item: EventPartyListType) => <ListItem item={item} key={item.id} />}
     size="large"

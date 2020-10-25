@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { ExpenseStatus } from '../../../generated/graphql';
 import { OwsType } from '../../app-context/AppContext';
+import { UserContext } from '../../config/UserProvider';
+import {
+  shouldNotRenderConfirmPaymentsButton,
+  shouldNotRenderEndExpenseButton,
+} from '../common/ExpenseActionButtonConditions';
 import { finishedExpenseStatuses } from '../common/FinishedStatuses';
 import { ExpensesQueryType } from '../useUserExpenses';
 import { EmptyList } from './EmptyList';
@@ -16,6 +21,7 @@ interface ExpenseListProps {
 }
 
 export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, loading, showFinished }) => {
+  const { userId } = useContext(UserContext);
   const filteredExpenses = expenses?.filter(
     (it) => showFinished || !finishedExpenseStatuses.includes(it.expenseStatus),
   );
@@ -33,17 +39,26 @@ export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, loading, sho
   return (
     <>
       <ExpenseTitle title="Twoje wydatki:" />
-      {filteredExpenses?.map(({ amount, name, description, id, expenseStatus }) => (
-        <ExpenseItemCard
-          amount={amount}
-          description={description}
-          id={id}
-          key={id}
-          name={name}
-          owsType={OwsType.OWS_USER}
-          status={expenseStatus}
-        />
-      ))}
+      {filteredExpenses?.map((expense) => {
+        const { amount, name, description, id, expenseStatus } = expense;
+        const expenseWithExpensePayer = { ...expense, expensePayer: { id: userId ?? '0' } };
+
+        return (
+          <ExpenseItemCard
+            amount={amount}
+            description={description}
+            expenseStatus={expenseStatus}
+            highlight={
+              !shouldNotRenderConfirmPaymentsButton(expenseWithExpensePayer, userId) ||
+              !shouldNotRenderEndExpenseButton(expenseWithExpensePayer, userId)
+            }
+            id={id}
+            key={id}
+            name={name}
+            owsType={OwsType.OWS_USER}
+          />
+        );
+      })}
     </>
   );
 };

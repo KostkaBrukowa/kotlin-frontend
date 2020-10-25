@@ -12,9 +12,7 @@ export const renderPaymentTitle = (
 
   switch (event) {
     case NotificationEvent.Creation:
-      return isActorCurrentUser
-        ? 'Ty stworzyłeś płatność.'
-        : `${receiver?.name} stworzył płatność.`;
+      return isActorCurrentUser ? 'Ty stworzyłeś płatność.' : `${receiver?.name} stworzył wydatek.`;
     case NotificationEvent.Accepted:
       return isActorCurrentUser
         ? 'Ty zaakceptowałeś płatność.'

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import { Button, Dropdown, Menu } from 'antd';
+import { Button, Dropdown, Menu, message } from 'antd';
 import clsx from 'clsx';
 import { MenuClickEventHandler } from 'rc-menu/lib/interface';
 
@@ -19,9 +19,12 @@ export const ListItemDropdownAction: React.FC<ListItemDropdownActionProps> = ({
   notificationId,
 }) => {
   const { removeNotification } = useRemoveNotification(notificationId);
-  const handleDeleteMenuItemClick: MenuClickEventHandler = (info) => {
+  const handleDeleteMenuItemClick: MenuClickEventHandler = async (info) => {
     info.domEvent.stopPropagation();
-    removeNotification();
+    try {
+      await removeNotification();
+      message.success('Usunięto powiadomienie');
+    } catch {}
   };
 
   const menu = (

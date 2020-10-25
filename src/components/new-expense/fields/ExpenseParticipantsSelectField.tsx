@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from '@reach/router';
 import { Form, Select } from 'antd';
 import { FormInstance, FormItemProps } from 'antd/es/form';
 
 import { ParticipantList } from '../../common/participant-list/ParticipantList';
+import { friendsRoute } from '../../navigation/routerConstants';
 import { useUserFriends } from '../../utils/hooks/graphql/friends/useUserFriends';
 import { FormFields, FormValues, PartyType } from '../useExpenseForm';
 import { useNewExpenseEvents } from '../useNewExpenseEvents';
@@ -10,7 +12,11 @@ import { useNewExpenseEvents } from '../useNewExpenseEvents';
 import style from './Fields.module.less';
 
 const formItemProps: Omit<FormItemProps, 'children'> = {
-  label: 'Wybierz uczestników wydatku:',
+  label: (
+    <>
+      Wybierz uczestników wydatku:-{'>'} <Link to={`${friendsRoute}`}>Nowy znajomy</Link>
+    </>
+  ),
   name: FormFields.participantIds,
   rules: [
     { type: 'array', required: true },
@@ -53,6 +59,9 @@ export const ExpenseParticipantsSelectField: React.FC<ExpenseParticipantsSelectF
         <Select
           disabled={disabled}
           loading={loading}
+          filterOption={(inputValue, option) =>
+            participants?.find((it) => it.id === option?.key)?.name.includes(inputValue) ?? false
+          }
           mode="multiple"
           notFoundContent={<NameNotFound />}
           onChange={rerender}

@@ -18,7 +18,7 @@ interface TooltipProps {
   icon: React.ReactNode;
 }
 
-function getPaymentTooltipProps(status: PaymentStatus): TooltipProps {
+function getPaymentTooltipProps(expenseStatus: ExpenseStatus, status: PaymentStatus): TooltipProps {
   switch (status) {
     case PaymentStatus.InProgress:
       return {
@@ -28,7 +28,11 @@ function getPaymentTooltipProps(status: PaymentStatus): TooltipProps {
     case PaymentStatus.Accepted:
       return {
         icon: <HourglassOutlined className={style.infoCircle} />,
-        title: 'Płatność została zaakceptowana i czeka na twoją zapłatę.',
+        title:
+          expenseStatus === ExpenseStatus.InProgressPaying
+            ? 'Płatność została zaakceptowana i czeka na twoją zapłatę.'
+            : 'Płatność została zaakceptowana i czeka na' +
+              ' potwierdzenie od założyciela wydatku lub innych uczestników.',
       };
     case PaymentStatus.Bulked:
       return {
@@ -47,8 +51,16 @@ function getPaymentTooltipProps(status: PaymentStatus): TooltipProps {
       };
     case PaymentStatus.Paid:
       return {
-        icon: <DollarCircleOutlined className={style.infoCircle} />,
-        title: 'Opłaciłeś swoją część. Płatność oczekuje na potwierdzenie założyciela.',
+        icon:
+          expenseStatus === ExpenseStatus.InProgressPaying ? (
+            <DollarCircleOutlined className={style.infoCircle} />
+          ) : (
+            <CheckCircleTwoTone className={style.infoCircle} twoToneColor="#52c41a" />
+          ),
+        title:
+          expenseStatus === ExpenseStatus.InProgressPaying
+            ? 'Opłaciłeś swoją część. Płatność oczekuje na potwierdzenie założyciela.'
+            : 'Płatność zakończona',
       };
     default:
       throw new Error(`Unknown payment status ${status}`);
@@ -86,9 +98,12 @@ export function getExpenseTooltipProps(status: ExpenseStatus): TooltipProps {
 
 export const getTooltipProps = (
   owsType: OwsType,
-  status: ExpenseStatus | PaymentStatus,
-): TooltipProps => {
-  if (owsType === OwsType.USER_OWS) return getPaymentTooltipProps(status as PaymentStatus);
+  expenseStatus: ExpenseStatus,
+  paymentStatus?: PaymentStatus,
+): TooltipProps | null => {
+  if (owsType === OwsType.USER_OWS) {
+    return paymentStatus ? getPaymentTooltipProps(expenseStatus, paymentStatus) : null;
+  }
 
-  return getExpenseTooltipProps(status as ExpenseStatus);
+  return getExpenseTooltipProps(expenseStatus);
 };

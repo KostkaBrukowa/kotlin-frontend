@@ -25,7 +25,7 @@ const { Text } = Typography;
 export const EventView: React.FC<EventViewProps> = ({ eventId }) => {
   const { dataComponent, extractedData: event } = useSingleEvent(eventId);
 
-  if (dataComponent !== null || !event) return dataComponent;
+  if ((dataComponent !== null && !event) || !event) return dataComponent;
 
   const { locationLongitude, locationLatitude, locationName } = event;
   const startDate = dateFrom(event.startDate);

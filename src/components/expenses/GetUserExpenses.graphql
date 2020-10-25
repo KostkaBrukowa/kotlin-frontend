@@ -1,21 +1,26 @@
 query GetUserExpenses($userId: String!) {
-    getExpensesForUser(userId: $userId) {
-        id
-        amount
-        description
-        name
-        expenseStatus
+  getExpensesForUser(userId: $userId) {
+    id
+    amount
+    description
+    name
+    expenseStatus
+    expensePayments {
+      id
+      amount
+      status
     }
+  }
 
-    getClientsPayments(userId: $userId) {
-        id
-        amount
-        status
-        paymentExpense {
-            id
-            description
-            name
-            expenseStatus
-        }
+  getClientsPayments(userId: $userId) {
+    id
+    amount
+    status
+    paymentExpense {
+      id
+      description
+      name
+      expenseStatus
     }
+  }
 }

@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import { EditPartyInput, NewPartyInput, PartyKind } from '../../../generated/graphql';
 import { FormValues } from '../../events/event-form/useEventForm';
 import { RequestMapper } from '../mapper';
@@ -14,7 +16,7 @@ export class EventMapper extends RequestMapper<FormValues, NewPartyInput> {
       locationName: locationName ?? null,
       name: name ?? '',
       participants: participantIds,
-      startDate: date,
+      startDate: date ?? moment(),
       type: eventType ?? PartyKind.Friends,
     };
   }
@@ -30,7 +32,7 @@ export class EventMapper extends RequestMapper<FormValues, NewPartyInput> {
       endDate: null,
       locationName: locationName ?? null,
       name: name ?? '',
-      startDate: date,
+      startDate: date ?? moment(),
       type: eventType ?? PartyKind.Friends,
     };
   }

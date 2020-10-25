@@ -117,7 +117,7 @@ export type Mutation = {
   updateExpense: ExpenseType;
   createMessage: MessageResponseType;
   removeMessage: Scalars['Boolean'];
-  markNotificationsAsRead: Scalars['Boolean'];
+  markNotificationsAsRead: Array<NotificationType>;
   removeNotification: NotificationType;
   createParty: PartyType;
   removeParticipant?: Maybe<PartyType>;
@@ -131,6 +131,7 @@ export type Mutation = {
   updateBulkPaymentStatus: BulkPaymentType;
   updatePaymentStatus: PaymentType;
   addFriend?: Maybe<UserType>;
+  changeUserData?: Maybe<UserType>;
   removeFriend: Scalars['Boolean'];
 };
 
@@ -245,6 +246,12 @@ export type MutationUpdatePaymentStatusArgs = {
 
 export type MutationAddFriendArgs = {
   userEmail: Scalars['String'];
+};
+
+
+export type MutationChangeUserDataArgs = {
+  userEmail?: Maybe<Scalars['String']>;
+  userBankAccount?: Maybe<Scalars['String']>;
 };
 
 
@@ -581,7 +588,7 @@ export type GetUserExpensesQueryVariables = Exact<{
 }>;
 
 
-export type GetUserExpensesQuery = { __typename?: 'Query', getExpensesForUser: Array<{ __typename?: 'ExpenseType', id: string, amount: number, description: string, name: string, expenseStatus: ExpenseStatus }>, getClientsPayments: Array<{ __typename?: 'PaymentType', id: string, amount?: Maybe<number>, status: PaymentStatus, paymentExpense: { __typename?: 'ExpenseType', id: string, description: string, name: string, expenseStatus: ExpenseStatus } }> };
+export type GetUserExpensesQuery = { __typename?: 'Query', getExpensesForUser: Array<{ __typename?: 'ExpenseType', id: string, amount: number, description: string, name: string, expenseStatus: ExpenseStatus, expensePayments: Array<{ __typename?: 'PaymentType', id: string, amount?: Maybe<number>, status: PaymentStatus }> }>, getClientsPayments: Array<{ __typename?: 'PaymentType', id: string, amount?: Maybe<number>, status: PaymentStatus, paymentExpense: { __typename?: 'ExpenseType', id: string, description: string, name: string, expenseStatus: ExpenseStatus } }> };
 
 export type ChangeExpenseStatusMutationVariables = Exact<{
   expenseId: Scalars['String'];
@@ -665,24 +672,19 @@ export type GetUserNotificationsQueryVariables = Exact<{
 
 export type GetUserNotificationsQuery = { __typename?: 'Query', findUserNotifications: Array<{ __typename?: 'ExpenseNotification', expenseId: string, id: string, createdAt: any, isRead: boolean, event: NotificationEvent, type: NotificationTypeEnum, actor?: Maybe<{ __typename?: 'UserType', id: string, name: string }>, receiver?: Maybe<{ __typename?: 'UserType', id: string, name: string }> } | { __typename?: 'PartyRequestNotification', partyId: string, id: string, createdAt: any, isRead: boolean, event: NotificationEvent, type: NotificationTypeEnum, actor?: Maybe<{ __typename?: 'UserType', id: string, name: string }>, receiver?: Maybe<{ __typename?: 'UserType', id: string, name: string }> } | { __typename?: 'PaymentNotification', paymentId: string, id: string, createdAt: any, isRead: boolean, event: NotificationEvent, type: NotificationTypeEnum, actor?: Maybe<{ __typename?: 'UserType', id: string, name: string }>, receiver?: Maybe<{ __typename?: 'UserType', id: string, name: string }> }> };
 
+export type MarkNotificationsAsReadMutationVariables = Exact<{
+  notificationIds: Array<Scalars['String']>;
+}>;
+
+
+export type MarkNotificationsAsReadMutation = { __typename?: 'Mutation', markNotificationsAsRead: Array<{ __typename?: 'ExpenseNotification', id: string, isRead: boolean } | { __typename?: 'PartyRequestNotification', id: string, isRead: boolean } | { __typename?: 'PaymentNotification', id: string, isRead: boolean }> };
+
 export type RemoveNotificationMutationVariables = Exact<{
   notificationId: Scalars['String'];
 }>;
 
 
 export type RemoveNotificationMutation = { __typename?: 'Mutation', removeNotification: { __typename?: 'ExpenseNotification', id: string } | { __typename?: 'PartyRequestNotification', id: string } | { __typename?: 'PaymentNotification', id: string } };
-
-export type GetUserDetailsQueryVariables = Exact<{
-  userId: Scalars['String'];
-}>;
-
-
-export type GetUserDetailsQuery = { __typename?: 'Query', getUser?: Maybe<{ __typename?: 'UserType', id: string, name: string, bankAccount?: Maybe<string>, email: string }> };
-
-export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type LogoutMutation = { __typename?: 'Mutation', logOut: boolean };
 
 export type AddFriendMutationVariables = Exact<{
   userEmail: Scalars['String'];
@@ -701,13 +703,33 @@ export type RemoveFriendMutationVariables = Exact<{
 
 export type RemoveFriendMutation = { __typename?: 'Mutation', removeFriend: boolean };
 
+export type EditUserDataMutationVariables = Exact<{
+  name?: Maybe<Scalars['String']>;
+  bankAccount?: Maybe<Scalars['String']>;
+}>;
+
+
+export type EditUserDataMutation = { __typename?: 'Mutation', changeUserData?: Maybe<{ __typename?: 'UserType', id: string, name: string, bankAccount?: Maybe<string> }> };
+
+export type GetUserDetailsQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type GetUserDetailsQuery = { __typename?: 'Query', getUser?: Maybe<{ __typename?: 'UserType', id: string, name: string, bankAccount?: Maybe<string>, email: string }> };
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutMutation = { __typename?: 'Mutation', logOut: boolean };
+
 export type GetUserViewDataQueryVariables = Exact<{
   userId: Scalars['String'];
   currentUserId: Scalars['String'];
 }>;
 
 
-export type GetUserViewDataQuery = { __typename?: 'Query', getExpensesForUser: Array<{ __typename?: 'ExpenseType', id: string, amount: number, expenseStatus: ExpenseStatus, expensePayments: Array<{ __typename?: 'PaymentType', id: string, amount?: Maybe<number>, paymentPayer: { __typename?: 'UserType', id: string } }> }>, getClientsPayments: Array<{ __typename?: 'PaymentType', id: string, status: PaymentStatus, amount?: Maybe<number>, paymentExpense: { __typename?: 'ExpenseType', id: string, expensePayer: { __typename?: 'UserType', id: string } } }>, findUsersFriends: Array<(
+export type GetUserViewDataQuery = { __typename?: 'Query', getExpensesForUser: Array<{ __typename?: 'ExpenseType', id: string, amount: number, expenseStatus: ExpenseStatus, expensePayments: Array<{ __typename?: 'PaymentType', id: string, amount?: Maybe<number>, paymentPayer: { __typename?: 'UserType', id: string } }> }>, getClientsPayments: Array<{ __typename?: 'PaymentType', id: string, status: PaymentStatus, amount?: Maybe<number>, paymentExpense: { __typename?: 'ExpenseType', id: string, expenseStatus: ExpenseStatus, expensePayer: { __typename?: 'UserType', id: string } } }>, findUsersFriends: Array<(
     { __typename?: 'UserType' }
     & UserListDataFragment
   )>, getUser?: Maybe<{ __typename?: 'UserType', id: string, name: string, bankAccount?: Maybe<string>, email: string }> };
@@ -1097,6 +1119,11 @@ export const GetUserExpensesDocument = gql`
     description
     name
     expenseStatus
+    expensePayments {
+      id
+      amount
+      status
+    }
   }
   getClientsPayments(userId: $userId) {
     id
@@ -1588,6 +1615,39 @@ export function useGetUserNotificationsLazyQuery(baseOptions?: ApolloReactHooks.
 export type GetUserNotificationsQueryHookResult = ReturnType<typeof useGetUserNotificationsQuery>;
 export type GetUserNotificationsLazyQueryHookResult = ReturnType<typeof useGetUserNotificationsLazyQuery>;
 export type GetUserNotificationsQueryResult = ApolloReactCommon.QueryResult<GetUserNotificationsQuery, GetUserNotificationsQueryVariables>;
+export const MarkNotificationsAsReadDocument = gql`
+    mutation MarkNotificationsAsRead($notificationIds: [String!]!) {
+  markNotificationsAsRead(notificationsIds: $notificationIds) {
+    id
+    isRead
+  }
+}
+    `;
+export type MarkNotificationsAsReadMutationFn = ApolloReactCommon.MutationFunction<MarkNotificationsAsReadMutation, MarkNotificationsAsReadMutationVariables>;
+
+/**
+ * __useMarkNotificationsAsReadMutation__
+ *
+ * To run a mutation, you first call `useMarkNotificationsAsReadMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMarkNotificationsAsReadMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [markNotificationsAsReadMutation, { data, loading, error }] = useMarkNotificationsAsReadMutation({
+ *   variables: {
+ *      notificationIds: // value for 'notificationIds'
+ *   },
+ * });
+ */
+export function useMarkNotificationsAsReadMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<MarkNotificationsAsReadMutation, MarkNotificationsAsReadMutationVariables>) {
+        return ApolloReactHooks.useMutation<MarkNotificationsAsReadMutation, MarkNotificationsAsReadMutationVariables>(MarkNotificationsAsReadDocument, baseOptions);
+      }
+export type MarkNotificationsAsReadMutationHookResult = ReturnType<typeof useMarkNotificationsAsReadMutation>;
+export type MarkNotificationsAsReadMutationResult = ApolloReactCommon.MutationResult<MarkNotificationsAsReadMutation>;
+export type MarkNotificationsAsReadMutationOptions = ApolloReactCommon.BaseMutationOptions<MarkNotificationsAsReadMutation, MarkNotificationsAsReadMutationVariables>;
 export const RemoveNotificationDocument = gql`
     mutation RemoveNotification($notificationId: String!) {
   removeNotification(notificationId: $notificationId) {
@@ -1620,6 +1680,103 @@ export function useRemoveNotificationMutation(baseOptions?: ApolloReactHooks.Mut
 export type RemoveNotificationMutationHookResult = ReturnType<typeof useRemoveNotificationMutation>;
 export type RemoveNotificationMutationResult = ApolloReactCommon.MutationResult<RemoveNotificationMutation>;
 export type RemoveNotificationMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveNotificationMutation, RemoveNotificationMutationVariables>;
+export const AddFriendDocument = gql`
+    mutation AddFriend($userEmail: String!) {
+  addFriend(userEmail: $userEmail) {
+    ...UserListData
+  }
+}
+    ${UserListDataFragmentDoc}`;
+export type AddFriendMutationFn = ApolloReactCommon.MutationFunction<AddFriendMutation, AddFriendMutationVariables>;
+
+/**
+ * __useAddFriendMutation__
+ *
+ * To run a mutation, you first call `useAddFriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddFriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addFriendMutation, { data, loading, error }] = useAddFriendMutation({
+ *   variables: {
+ *      userEmail: // value for 'userEmail'
+ *   },
+ * });
+ */
+export function useAddFriendMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddFriendMutation, AddFriendMutationVariables>) {
+        return ApolloReactHooks.useMutation<AddFriendMutation, AddFriendMutationVariables>(AddFriendDocument, baseOptions);
+      }
+export type AddFriendMutationHookResult = ReturnType<typeof useAddFriendMutation>;
+export type AddFriendMutationResult = ApolloReactCommon.MutationResult<AddFriendMutation>;
+export type AddFriendMutationOptions = ApolloReactCommon.BaseMutationOptions<AddFriendMutation, AddFriendMutationVariables>;
+export const RemoveFriendDocument = gql`
+    mutation RemoveFriend($friendId: String!) {
+  removeFriend(userId: $friendId)
+}
+    `;
+export type RemoveFriendMutationFn = ApolloReactCommon.MutationFunction<RemoveFriendMutation, RemoveFriendMutationVariables>;
+
+/**
+ * __useRemoveFriendMutation__
+ *
+ * To run a mutation, you first call `useRemoveFriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFriendMutation, { data, loading, error }] = useRemoveFriendMutation({
+ *   variables: {
+ *      friendId: // value for 'friendId'
+ *   },
+ * });
+ */
+export function useRemoveFriendMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveFriendMutation, RemoveFriendMutationVariables>) {
+        return ApolloReactHooks.useMutation<RemoveFriendMutation, RemoveFriendMutationVariables>(RemoveFriendDocument, baseOptions);
+      }
+export type RemoveFriendMutationHookResult = ReturnType<typeof useRemoveFriendMutation>;
+export type RemoveFriendMutationResult = ApolloReactCommon.MutationResult<RemoveFriendMutation>;
+export type RemoveFriendMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveFriendMutation, RemoveFriendMutationVariables>;
+export const EditUserDataDocument = gql`
+    mutation EditUserData($name: String, $bankAccount: String) {
+  changeUserData(userEmail: $name, userBankAccount: $bankAccount) {
+    id
+    name
+    bankAccount
+  }
+}
+    `;
+export type EditUserDataMutationFn = ApolloReactCommon.MutationFunction<EditUserDataMutation, EditUserDataMutationVariables>;
+
+/**
+ * __useEditUserDataMutation__
+ *
+ * To run a mutation, you first call `useEditUserDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditUserDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editUserDataMutation, { data, loading, error }] = useEditUserDataMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      bankAccount: // value for 'bankAccount'
+ *   },
+ * });
+ */
+export function useEditUserDataMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<EditUserDataMutation, EditUserDataMutationVariables>) {
+        return ApolloReactHooks.useMutation<EditUserDataMutation, EditUserDataMutationVariables>(EditUserDataDocument, baseOptions);
+      }
+export type EditUserDataMutationHookResult = ReturnType<typeof useEditUserDataMutation>;
+export type EditUserDataMutationResult = ApolloReactCommon.MutationResult<EditUserDataMutation>;
+export type EditUserDataMutationOptions = ApolloReactCommon.BaseMutationOptions<EditUserDataMutation, EditUserDataMutationVariables>;
 export const GetUserDetailsDocument = gql`
     query GetUserDetails($userId: String!) {
   getUser(id: $userId) {
@@ -1685,68 +1842,6 @@ export function useLogoutMutation(baseOptions?: ApolloReactHooks.MutationHookOpt
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = ApolloReactCommon.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = ApolloReactCommon.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
-export const AddFriendDocument = gql`
-    mutation AddFriend($userEmail: String!) {
-  addFriend(userEmail: $userEmail) {
-    ...UserListData
-  }
-}
-    ${UserListDataFragmentDoc}`;
-export type AddFriendMutationFn = ApolloReactCommon.MutationFunction<AddFriendMutation, AddFriendMutationVariables>;
-
-/**
- * __useAddFriendMutation__
- *
- * To run a mutation, you first call `useAddFriendMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddFriendMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [addFriendMutation, { data, loading, error }] = useAddFriendMutation({
- *   variables: {
- *      userEmail: // value for 'userEmail'
- *   },
- * });
- */
-export function useAddFriendMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddFriendMutation, AddFriendMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddFriendMutation, AddFriendMutationVariables>(AddFriendDocument, baseOptions);
-      }
-export type AddFriendMutationHookResult = ReturnType<typeof useAddFriendMutation>;
-export type AddFriendMutationResult = ApolloReactCommon.MutationResult<AddFriendMutation>;
-export type AddFriendMutationOptions = ApolloReactCommon.BaseMutationOptions<AddFriendMutation, AddFriendMutationVariables>;
-export const RemoveFriendDocument = gql`
-    mutation RemoveFriend($friendId: String!) {
-  removeFriend(userId: $friendId)
-}
-    `;
-export type RemoveFriendMutationFn = ApolloReactCommon.MutationFunction<RemoveFriendMutation, RemoveFriendMutationVariables>;
-
-/**
- * __useRemoveFriendMutation__
- *
- * To run a mutation, you first call `useRemoveFriendMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRemoveFriendMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [removeFriendMutation, { data, loading, error }] = useRemoveFriendMutation({
- *   variables: {
- *      friendId: // value for 'friendId'
- *   },
- * });
- */
-export function useRemoveFriendMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveFriendMutation, RemoveFriendMutationVariables>) {
-        return ApolloReactHooks.useMutation<RemoveFriendMutation, RemoveFriendMutationVariables>(RemoveFriendDocument, baseOptions);
-      }
-export type RemoveFriendMutationHookResult = ReturnType<typeof useRemoveFriendMutation>;
-export type RemoveFriendMutationResult = ApolloReactCommon.MutationResult<RemoveFriendMutation>;
-export type RemoveFriendMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveFriendMutation, RemoveFriendMutationVariables>;
 export const GetUserViewDataDocument = gql`
     query GetUserViewData($userId: String!, $currentUserId: String!) {
   getExpensesForUser(userId: $currentUserId) {
@@ -1767,6 +1862,7 @@ export const GetUserViewDataDocument = gql`
     amount
     paymentExpense {
       id
+      expenseStatus
       expensePayer {
         id
       }

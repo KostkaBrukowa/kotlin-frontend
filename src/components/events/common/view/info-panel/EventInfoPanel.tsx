@@ -51,7 +51,7 @@ export const EventInfoPanel: React.FC<EventInfoPanelProps> = ({ event }) => {
           <ParticipantsPanel event={event} />
         </Collapse.Panel>
         <div id="#messagesCollapse" />
-        <Collapse.Panel header="Wiadomości" key={collapseKeys.messages} />
+        {/* <Collapse.Panel header="Wiadomości" key={collapseKeys.messages} /> */}
       </Collapse>
       <RemoveEventButton event={event} />
     </>

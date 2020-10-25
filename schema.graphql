@@ -68,6 +68,7 @@ type Mutation {
   addFriend(userEmail: String!): UserType
   bulkPayments(paymentsIds: [String!]!): BulkPaymentType
   changeExpenseStatus(updateExpenseStatusInput: UpdateExpenseStatusInput!): ExpenseType!
+  changeUserData(userBankAccount: String, userEmail: String): UserType
   createExpense(newExpenseInput: NewExpenseInput!): ExpenseType!
   createMessage(newMessageInput: NewMessageInput!): MessageResponseType!
   createParty(newPartyInput: NewPartyInput!): PartyType!
@@ -76,7 +77,7 @@ type Mutation {
   logIn(input: UserAuthInput!): UserAuthResponse
   "Removes the cookie from request"
   logOut: Boolean!
-  markNotificationsAsRead(notificationsIds: [String!]!): Boolean!
+  markNotificationsAsRead(notificationsIds: [String!]!): [NotificationType!]!
   "Registers user and return JWT token as return value"
   refreshToken: UserAuthResponse!
   removeExpense(expenseId: String!): ExpenseType!
