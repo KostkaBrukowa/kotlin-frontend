@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
-import { useChangeExpenseStatusModal } from './UseChangeExpenseStatusModal';
+
+import { ExpenseStatus, PaymentStatus } from '../../../generated/graphql';
 import { NotOptional } from '../../utils/types';
 import { ExpenseQueryType } from './graphql/useSingleExpenseQuery';
-import { ExpenseStatus, PaymentStatus } from '../../../generated/graphql';
+import { useChangeExpenseStatusModal } from './UseChangeExpenseStatusModal';
 
 import style from './ExpenseView.module.less';
 
@@ -12,7 +13,6 @@ export interface ConfirmPaymentsButtonProps {
 }
 
 export const EndExpenseButton: React.FC<ConfirmPaymentsButtonProps> = ({ expense }) => {
-  const [confirmPaymentsModalOpen, setConfirmPaymentsModalOpen] = useState(false);
   const openModal = useChangeExpenseStatusModal({
     expenseId: expense.id,
     expenseStatus: ExpenseStatus.Resolved,
@@ -20,7 +20,9 @@ export const EndExpenseButton: React.FC<ConfirmPaymentsButtonProps> = ({ expense
 
   if (
     expense.expenseStatus !== ExpenseStatus.InProgressPaying ||
-    expense.expensePayments.some((it) => it.status !== PaymentStatus.Confirmed)
+    expense.expensePayments.some(
+      (it) => it.status !== PaymentStatus.Paid && it.status !== PaymentStatus.Declined,
+    )
   ) {
     return null;
   }
@@ -28,7 +30,7 @@ export const EndExpenseButton: React.FC<ConfirmPaymentsButtonProps> = ({ expense
   return (
     <>
       <div className={style.endExpenseButtonWrapper}>
-        <Button onClick={openModal} size={'large'} type={'primary'}>
+        <Button size="large" type="primary" onClick={openModal}>
           Ukończ wydatek
         </Button>
       </div>

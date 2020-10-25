@@ -41,8 +41,10 @@ export const AddFriendModal: React.FC<AddFriendModalProps> = ({ open, onClose, o
 
   const handleOk = async () => {
     try {
+      console.log('Okok');
       await form.validateFields();
       await addFriend(form.getFieldValue(EMAIL_FIELD_NAME));
+      form.setFieldsValue({ [EMAIL_FIELD_NAME]: '' });
 
       onClose();
     } catch (e) {}
@@ -57,9 +59,13 @@ export const AddFriendModal: React.FC<AddFriendModalProps> = ({ open, onClose, o
       onCancel={onClose}
       onOk={handleOk}
     >
-      <Form colon={false} form={form} preserve={false} validateMessages={validateMessages}>
+      <Form preserve colon={false} form={form} validateMessages={validateMessages}>
         <Form.Item {...friendEmailFieldProps} label="Podaj email użytkownika:">
-          <Input allowClear autoComplete="off" />
+          <Input
+            allowClear
+            autoComplete="off"
+            onKeyPress={(e) => e.key === 'Enter' && handleOk()}
+          />
         </Form.Item>
       </Form>
     </Modal>

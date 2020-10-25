@@ -6,6 +6,7 @@ import clsx from 'clsx';
 
 import { registerRoute } from '../navigation/routerConstants';
 import { TransitionElement } from '../utils/animations/TransitionElement';
+import { validateMessages } from '../utils/form/validationMessages';
 import { OtherOption } from './OtherOption';
 import { FormFields, LoginProps, useLogin } from './useLogin';
 
@@ -13,12 +14,17 @@ import style from './Login.module.less';
 
 const fields: Record<FormFields, Omit<FormItemProps, 'children'>> = {
   [FormFields.login]: {
-    rules: [{ required: true, message: 'Podaj email' }, { type: 'email' }],
+    rules: [{ required: true }, { type: 'email' }],
     name: FormFields.login,
     label: 'Email',
   },
+  [FormFields.name]: {
+    rules: [{ required: true }],
+    name: FormFields.name,
+    label: 'Imię i nazwisko',
+  },
   [FormFields.password]: {
-    rules: [{ required: true, message: 'Podaj hasło' }],
+    rules: [{ required: true }],
     name: FormFields.password,
     label: 'Hasło',
   },
@@ -64,6 +70,7 @@ export const Login: React.FC<LoginProps> = (props) => {
           password: 'admin123',
           repeatedPassword: 'admin123',
         }}
+        validateMessages={validateMessages}
         onFinish={onSubmit}
       >
         <Form.Item {...fields.login}>
@@ -81,6 +88,16 @@ export const Login: React.FC<LoginProps> = (props) => {
         >
           <Form.Item {...fields.repeatedPassword}>
             <Input.Password />
+          </Form.Item>
+        </TransitionElement>
+
+        <TransitionElement
+          className="data-cy-repeat-password"
+          initialHeight="96px"
+          visible={register}
+        >
+          <Form.Item {...fields.name}>
+            <Input />
           </Form.Item>
         </TransitionElement>
 

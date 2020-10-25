@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
-import { useChangeExpenseStatusModal } from './UseChangeExpenseStatusModal';
+
+import { ExpenseStatus, PaymentStatus } from '../../../generated/graphql';
 import { NotOptional } from '../../utils/types';
 import { ExpenseQueryType } from './graphql/useSingleExpenseQuery';
-import { ExpenseStatus, PaymentStatus } from '../../../generated/graphql';
+import { useChangeExpenseStatusModal } from './UseChangeExpenseStatusModal';
 
 export interface ConfirmPaymentsButtonProps {
   expense: NotOptional<ExpenseQueryType>;
 }
 
 export const ConfirmPaymentsButton: React.FC<ConfirmPaymentsButtonProps> = ({ expense }) => {
-  const [confirmPaymentsModalOpen, setConfirmPaymentsModalOpen] = useState(false);
   const openModal = useChangeExpenseStatusModal({
     expenseId: expense.id,
     expenseStatus: ExpenseStatus.InProgressPaying,
   });
 
   if (
-    expense.expenseStatus !== ExpenseStatus.InProgressPaying ||
+    expense.expenseStatus !== ExpenseStatus.InProgressRequesting ||
     expense.expensePayments.some(
       (it) => it.status !== PaymentStatus.Accepted && it.status !== PaymentStatus.Declined,
     )
@@ -26,7 +26,7 @@ export const ConfirmPaymentsButton: React.FC<ConfirmPaymentsButtonProps> = ({ ex
   }
 
   return (
-    <Button onClick={openModal} size={'small'}>
+    <Button size="small" onClick={openModal}>
       Potwierdź uczestników
     </Button>
   );

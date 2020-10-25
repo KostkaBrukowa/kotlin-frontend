@@ -88,7 +88,7 @@ type Mutation {
   removePartyRequest(partyRequestId: String!): PartyRequestType!
   sendPartyRequest(partyId: String!, requestReceiverId: String!): PartyRequestType
   "Registers user and return JWT token as return value"
-  signUp(input: UserAuthInput!): UserAuthResponse!
+  signUp(input: NewUserInput!): UserAuthResponse!
   updateBulkPaymentStatus(updatePaymentStatusInput: UpdateBulkPaymentStatusInput!): BulkPaymentType!
   updateExpense(updateExpenseInput: UpdateExpenseInput!): ExpenseType!
   updateParty(editPartyInput: EditPartyInput!): PartyType!
@@ -288,6 +288,12 @@ input NewPartyInput {
   participants: [Long!]
   startDate: Date!
   type: PartyKind!
+}
+
+input NewUserInput {
+  email: String!
+  name: String!
+  password: String!
 }
 
 input UpdateBulkPaymentStatusInput {

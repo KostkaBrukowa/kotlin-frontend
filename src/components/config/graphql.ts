@@ -14,11 +14,13 @@ const isNonAuthenticatedRoute = () => {
 };
 
 const authMiddleware = new ApolloLink((operation, forward) => {
-  operation.setContext({
-    headers: {
-      Authorization: `Bearer ${JWT_TOKEN}`,
-    },
-  });
+  if (JWT_TOKEN) {
+    operation.setContext({
+      headers: {
+        Authorization: `Bearer ${JWT_TOKEN}`,
+      },
+    });
+  }
 
   return forward(operation);
 });
@@ -63,4 +65,9 @@ export const client = new ApolloClient({
   }),
   link,
   credentials: 'include',
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'cache-and-network',
+    },
+  },
 });

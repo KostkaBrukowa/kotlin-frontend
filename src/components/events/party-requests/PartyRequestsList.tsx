@@ -24,7 +24,7 @@ const ListItem: React.FC<{ partyRequest: PartyRequestQueryType[0] }> = (props) =
     partyRequest: {
       id,
       status,
-      partyRequestParty: { name },
+      partyRequestParty: { name, id: partyId },
     },
     partyRequest,
   } = props;
@@ -33,7 +33,7 @@ const ListItem: React.FC<{ partyRequest: PartyRequestQueryType[0] }> = (props) =
     <List.Item
       actions={[<PartyRequestDropdown partyRequest={partyRequest} />]}
       className={listStyle.listItem}
-      onClick={() => navigate(`${eventsEventRoute}/${id}`)}
+      onClick={() => navigate(`${eventsEventRoute}/${partyId}`)}
     >
       <Skeleton avatar loading={false}>
         <List.Item.Meta

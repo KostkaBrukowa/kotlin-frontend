@@ -5,15 +5,7 @@ import { UserContext } from '../../../../../config/UserProvider';
 
 export const useLeaveParty = () => {
   const { userId } = useContext(UserContext);
-  const [leaveParty, { loading }] = useLeavePartyMutation({
-    update: (cache) => {
-      cache.modify({
-        fields: {
-          getAllParties: (value, { DELETE }) => DELETE,
-        },
-      });
-    },
-  });
+  const [leaveParty, { loading }] = useLeavePartyMutation();
 
   return {
     loading,

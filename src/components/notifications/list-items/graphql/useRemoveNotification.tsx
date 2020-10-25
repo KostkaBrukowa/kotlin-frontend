@@ -10,11 +10,6 @@ export const useRemoveNotification = (notificationId: string) => {
         return;
       }
 
-      console.log(
-        'Cache.identify(data.removeNotification)',
-        cache.identify(data.removeNotification),
-      );
-
       cache.modify({
         id: cache.identify(data.removeNotification),
         fields: (value, { DELETE }) => DELETE,

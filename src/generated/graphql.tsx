@@ -141,7 +141,7 @@ export type MutationLogInArgs = {
 
 
 export type MutationSignUpArgs = {
-  input: UserAuthInput;
+  input: NewUserInput;
 };
 
 
@@ -278,6 +278,12 @@ export type NewPartyInput = {
   participants?: Maybe<Array<Scalars['Long']>>;
   startDate: Scalars['Date'];
   type: PartyKind;
+};
+
+export type NewUserInput = {
+  email: Scalars['String'];
+  name: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export enum NotificationEvent {
@@ -615,7 +621,7 @@ export type SinglePaymentQueryVariables = Exact<{
 export type SinglePaymentQuery = { __typename?: 'Query', getSinglePayment?: Maybe<{ __typename?: 'PaymentType', id: string, amount?: Maybe<number>, status: PaymentStatus, createdAt: any, paidAt?: Maybe<any>, paymentMessages: Array<(
       { __typename?: 'MessageResponseType' }
       & MessageDetailsFragment
-    )>, paymentExpense: { __typename?: 'ExpenseType', id: string, name: string, expenseStatus: ExpenseStatus, expensePayer: { __typename?: 'UserType', id: string, name: string } }, paymentPayer: { __typename?: 'UserType', id: string, name: string } }> };
+    )>, paymentExpense: { __typename?: 'ExpenseType', id: string, name: string, expenseStatus: ExpenseStatus, description: string, expensePayer: { __typename?: 'UserType', id: string, name: string } }, paymentPayer: { __typename?: 'UserType', id: string, name: string } }> };
 
 export type LoginUserMutationVariables = Exact<{
   input: UserAuthInput;
@@ -625,7 +631,7 @@ export type LoginUserMutationVariables = Exact<{
 export type LoginUserMutation = { __typename?: 'Mutation', logIn?: Maybe<{ __typename?: 'UserAuthResponse', token: string, userId: string }> };
 
 export type SignUpUserMutationVariables = Exact<{
-  input: UserAuthInput;
+  input: NewUserInput;
 }>;
 
 
@@ -1297,6 +1303,7 @@ export const SinglePaymentDocument = gql`
       id
       name
       expenseStatus
+      description
       expensePayer {
         id
         name
@@ -1369,7 +1376,7 @@ export type LoginUserMutationHookResult = ReturnType<typeof useLoginUserMutation
 export type LoginUserMutationResult = ApolloReactCommon.MutationResult<LoginUserMutation>;
 export type LoginUserMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>;
 export const SignUpUserDocument = gql`
-    mutation SignUpUser($input: UserAuthInput!) {
+    mutation SignUpUser($input: NewUserInput!) {
   signUp(input: $input) {
     token
     userId

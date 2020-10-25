@@ -23,12 +23,12 @@ function getPaymentTooltipProps(status: PaymentStatus): TooltipProps {
     case PaymentStatus.InProgress:
       return {
         icon: <SendOutlined className={style.infoCircle} />,
-        title: 'Płatność czeka na potwierdzenie od innego użytkownika.',
+        title: 'Płatność czeka na twoje potwierdzenie.',
       };
     case PaymentStatus.Accepted:
       return {
-        icon: <CheckCircleOutlined className={style.infoCircle} />,
-        title: 'Płatność została zaakceptowana i czeka za zapłatę.',
+        icon: <HourglassOutlined className={style.infoCircle} />,
+        title: 'Płatność została zaakceptowana i czeka na twoją zapłatę.',
       };
     case PaymentStatus.Bulked:
       return {
@@ -48,7 +48,7 @@ function getPaymentTooltipProps(status: PaymentStatus): TooltipProps {
     case PaymentStatus.Paid:
       return {
         icon: <DollarCircleOutlined className={style.infoCircle} />,
-        title: 'Użytkownik opłacił jego część.',
+        title: 'Opłaciłeś swoją część. Płatność oczekuje na potwierdzenie założyciela.',
       };
     default:
       throw new Error(`Unknown payment status ${status}`);

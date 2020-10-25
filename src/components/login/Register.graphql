@@ -1,4 +1,4 @@
-mutation SignUpUser($input: UserAuthInput!) {
+mutation SignUpUser($input: NewUserInput!) {
     signUp(input: $input) {
         token
         userId

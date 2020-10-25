@@ -34,7 +34,14 @@ export const PaymentDescription: React.FC<PaymentDescriptionProps> = ({
       <Statistic title="Odbiorca:" value={capitalize(payment.paymentExpense.expensePayer.name)} />
     </div>
     <div className={style.infoSection}>
-      <Statistic suffix={currency} title="Kwota:" value={payment.amount || '0'} />
+      <Statistic title="Opis wydatku:" value={capitalize(payment.paymentExpense.description)} />
+    </div>
+    <div className={style.infoSection}>
+      {payment.amount ? (
+        <Statistic suffix={currency} title="Kwota:" value={payment.amount || '0'} />
+      ) : (
+        <Statistic title="Kwota:" value="Nie wszyscy potwierdzili udział" />
+      )}
     </div>
     <div className={style.infoSection}>
       <Statistic title="Status:" value={renderPaymentStatus(payment.status)} />

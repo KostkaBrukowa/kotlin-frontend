@@ -9,7 +9,7 @@ import { renderPaymentStatus } from '../../enum-renderers/paymentStatusRenderer'
 import { currency } from '../../utils/constants/currency';
 import { capitalize } from '../../utils/functions/string';
 import { NotOptional } from '../../utils/types';
-import { isPaymentActionable } from '../common/PaymentButtonCommon';
+import { getManagePaymentButtonTitle, isPaymentActionable } from '../common/PaymentButtonCommon';
 import { useChangePaymentStatus } from './graphql/useChangePaymentStatus';
 import { PaymentQueryType } from './graphql/useSinglePayment';
 
@@ -32,13 +32,9 @@ export const PaymentStatusManagementButton: React.FC<PaymentPayButtonProps> = ({
     userId === payment.paymentPayer.id &&
     isPaymentActionable(payment.status, payment.paymentExpense.expenseStatus);
 
-  useEffect(() => {
-    if (location.href.includes('/makePayment') && shouldRenderButton) showPromiseModal();
-  }, []);
-
   const showPromiseModal = () =>
     Modal.confirm({
-      title: getButtonTitle(payment.status),
+      title: getManagePaymentButtonTitle(payment.status),
       content: getModalContent(payment),
       maskClosable: true,
       onOk: async () => {
@@ -48,25 +44,17 @@ export const PaymentStatusManagementButton: React.FC<PaymentPayButtonProps> = ({
       },
     });
 
+  useEffect(() => {
+    if (location.href.includes('/makePayment') && shouldRenderButton) showPromiseModal();
+  }, [location.href, shouldRenderButton, showPromiseModal]);
+
   return shouldRenderButton ? (
     <div className={style.buttonWrapper}>
       <Button className={buttonClassName} size="large" type="primary" onClick={showPromiseModal}>
-        {getButtonTitle(payment.status)}
+        {getManagePaymentButtonTitle(payment.status)}
       </Button>
     </div>
   ) : null;
-};
-
-const getButtonTitle = (paymentStatus: PaymentStatus) => {
-  switch (paymentStatus) {
-    case PaymentStatus.Accepted:
-      return 'Rozlicz się';
-    case PaymentStatus.InProgress:
-      return 'Potwierdź udział';
-    case PaymentStatus.Bulked: // todo bulked
-    default:
-      return null;
-  }
 };
 
 const getModalContent = (payment: NotOptional<PaymentQueryType>) => {

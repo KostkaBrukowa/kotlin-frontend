@@ -42,7 +42,7 @@
     "cypress/assertion-before-screenshot": "warn",
     "cypress/no-force": "warn",
     "react/state-in-constructor": "off",
-    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/exhaustive-deps": "off",
     "prefer-promise-reject-errors": "off",
     "no-return-assign": "off",
     "no-param-reassign": "off",

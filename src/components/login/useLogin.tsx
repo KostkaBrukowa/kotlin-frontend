@@ -13,6 +13,7 @@ import {
 } from '../../generated/graphql';
 import { AuthData } from '../config/authentication/useAuthentication';
 import { expensesRoute } from '../navigation/routerConstants';
+import { Optional } from '../utils/types';
 
 export interface LoginProps extends RouteComponentProps {
   tokenPresent: boolean;
@@ -24,12 +25,14 @@ export enum FormFields {
   login = 'login',
   password = 'password',
   repeatedPassword = 'repeatedPassword',
+  name = 'name',
   remember = 'remember',
 }
 
 interface FormValues extends Store {
   [FormFields.login]: string;
   [FormFields.password]: string;
+  [FormFields.name]: string;
   [FormFields.remember]: boolean;
 }
 
@@ -45,19 +48,28 @@ export const useLogin: (
   const [login, { loading: loggingLoading }] = useLoginUserMutation();
   const [signUp, { loading: registerLoading }] = useSignUpUserMutation();
 
+  const handleLogin = async (email: string, password: string) => {
+    const response = await login({ variables: { input: { email, password } } });
+
+    return response.data?.logIn;
+  };
+
+  const handleSignUp = async (email: string, password: string, name: string) => {
+    const response = await signUp({ variables: { input: { email, password, name } } });
+
+    return response.data?.signUp;
+  };
+
   const onSubmit = async (values: FormValues) => {
-    const { login: email, password } = values;
-    const mutation = register ? signUp : login;
+    const { login: email, password, name } = values;
 
     try {
-      const response = await mutation({ variables: { input: { email, password } } });
+      const mutationResult = register
+        ? await handleSignUp(email, password, name)
+        : await handleLogin(email, password);
 
-      const data = (response as LoginUserMutationResult | null)?.data?.logIn
-        ? (response as LoginUserMutationResult | null)?.data?.logIn
-        : (response as SignUpUserMutationResult | null)?.data?.signUp;
-
-      if (data) {
-        setAuthData({ jwtToken: data.token, userId: data.userId });
+      if (mutationResult) {
+        setAuthData({ jwtToken: mutationResult.token, userId: mutationResult.userId });
       } else {
         form.resetFields([FormFields.repeatedPassword, FormFields.password]);
         message.warning('Nieprawidłowe email lub hasło :(');

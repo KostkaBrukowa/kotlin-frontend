@@ -9,7 +9,9 @@ export type PaymentsQueryType = Pick<GetUserExpensesQuery, 'getClientsPayments'>
 
 export const useUserExpenses = () => {
   const { userId } = useContext(UserContext);
-  const [getExpenses, { data, loading }] = useGetUserExpensesLazyQuery();
+  const [getExpenses, { data, loading }] = useGetUserExpensesLazyQuery({
+    fetchPolicy: 'cache-and-network',
+  });
   const delayedLoading = useDelayedLoading({ loading });
   const expenses = data?.getExpensesForUser;
   const payments = data?.getClientsPayments;

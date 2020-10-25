@@ -21,6 +21,11 @@ export const TotalBalance: React.FC = () => {
       ?.filter((it) => !finishedPaymentStatuses.includes(it.status))
       ?.reduce((acc, payment) => acc + (payment?.amount ?? 0), 0) ?? 0;
 
+  console.log(
+    '',
+    payments?.filter((it) => !finishedPaymentStatuses.includes(it.status)),
+  );
+
   return (
     <div className={style.wrapper}>
       <h3 className={style.header}>

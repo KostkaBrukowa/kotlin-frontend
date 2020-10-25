@@ -10,7 +10,7 @@ import { paymentsRoute } from '../../navigation/routerConstants';
 import { currency } from '../../utils/constants/currency';
 import { stopPropagation } from '../../utils/functions/utilFunctions';
 import { NotOptional } from '../../utils/types';
-import { isPaymentActionable } from '../common/PaymentButtonCommon';
+import { getManagePaymentButtonTitle, isPaymentActionable } from '../common/PaymentButtonCommon';
 import { ExpenseQueryType } from './graphql/useSingleExpenseQuery';
 
 import style from './ExpenseView.module.less';
@@ -49,7 +49,11 @@ const ListItem = ({ payment, userId, expense }: ExpensePaymentProps) => {
       </div>
       <div className={style.amount}>
         {amountValue}
-        {paymentButtonVisible && <Button onClick={handlePayButtonClick}>Opłać</Button>}
+        {paymentButtonVisible && (
+          <Button onClick={handlePayButtonClick}>
+            {getManagePaymentButtonTitle(payment.status)}
+          </Button>
+        )}
       </div>
     </List.Item>
   );

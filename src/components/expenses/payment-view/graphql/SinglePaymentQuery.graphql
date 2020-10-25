@@ -14,6 +14,7 @@ query SinglePayment($paymentId: String!) {
             id
             name
             expenseStatus
+            description
 
             expensePayer {
                 id
