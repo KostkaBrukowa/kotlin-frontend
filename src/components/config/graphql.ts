@@ -41,7 +41,7 @@ const handleGraphqlErrors = ({ graphQLErrors }: Pick<ErrorResponse, 'graphQLErro
 };
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:8080/graphql',
+  uri: 'https://wisesplit-pl.herokuapp.com/graphql',
   credentials: 'include',
 });
 
