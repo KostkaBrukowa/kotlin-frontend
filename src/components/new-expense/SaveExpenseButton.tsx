@@ -1,8 +1,7 @@
-import React, { FormEvent, useRef } from 'react';
-import { Button, Form, Modal } from 'antd';
+import React, { FormEvent } from 'react';
+import { Button, Modal } from 'antd';
 import { FormInstance } from 'antd/es/form';
 
-import { stopPropagation } from '../utils/functions/utilFunctions';
 import { FormFields, FormValues } from './useExpenseForm';
 
 import style from './NewExpense.module.less';

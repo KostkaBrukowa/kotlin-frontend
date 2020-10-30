@@ -3,11 +3,7 @@ import { Form } from 'antd';
 import { LatLngTuple } from 'leaflet';
 import { Moment } from 'moment';
 
-import {
-  PartyKind,
-  useCreateEventMutation,
-  useUpdateEventMutation,
-} from '../../../generated/graphql';
+import { PartyKind, useUpdateEventMutation, } from '../../../generated/graphql';
 import { EventMapper } from '../../mappers/events/EventMapper';
 import { eventsRoute } from '../../navigation/routerConstants';
 import { useSingleEvent } from '../../utils/hooks/graphql/singleEvent/useSingleEvent';

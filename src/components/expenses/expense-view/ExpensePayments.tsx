@@ -3,7 +3,6 @@ import { FaReceipt } from 'react-icons/all';
 import { navigate } from '@reach/router';
 import { Button, List } from 'antd';
 
-import { ExpenseStatus } from '../../../generated/graphql';
 import { UserContext } from '../../config/UserProvider';
 import { renderPaymentStatus } from '../../enum-renderers/paymentStatusRenderer';
 import { paymentsRoute } from '../../navigation/routerConstants';
@@ -44,7 +43,7 @@ const ListItem = ({ payment, userId, expense }: ExpensePaymentProps) => {
     <List.Item className={style.paymentsList} key={id} onClick={handleListItemClick}>
       <FaReceipt className={style.receiptIcon} size="1.6rem" />
       <div>
-        <div>Od: {paymentPayer.name}</div>
+        <div>Dla: {paymentPayer.name}</div>
         <div>{renderPaymentStatus(status)}</div>
       </div>
       <div className={style.amount}>

@@ -1,5 +1,5 @@
 mutation EditUserData($name: String, $bankAccount: String) {
-  changeUserData(userEmail: $name, userBankAccount: $bankAccount) {
+  changeUserData(userName: $name, userBankAccount: $bankAccount) {
     id
     name
     bankAccount

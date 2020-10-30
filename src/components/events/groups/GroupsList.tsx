@@ -16,7 +16,7 @@ export interface GroupsListProps {
 }
 
 const ListItem: React.FC<{ item: GroupPartyListType }> = ({ item }) => {
-  const friendsCountText = getFriendCountText(item.partyParticipants.length - 1);
+  const friendsCountText = getFriendCountText(item.partyParticipants.length - 2);
 
   return (
     <List.Item

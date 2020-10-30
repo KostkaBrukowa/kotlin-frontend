@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link, navigate } from '@reach/router';
 import { Button, List } from 'antd';
 
+import { UserContext } from '../../config/UserProvider';
 import { FriendsPartyListType } from '../../mappers/events/PartyMapperTypes';
 import { eventsFriendsRoute, friendsRoute } from '../../navigation/routerConstants';
 import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
@@ -9,7 +10,6 @@ import { EmptyEventsList } from '../common/EmptyList';
 import { getFriendCountText } from '../common/OtherParticipants';
 
 import style from '../../utils/components/List.module.less';
-import { UserContext } from '../../config/UserProvider';
 
 export interface FriendsListProps {
   friends?: FriendsPartyListType[];

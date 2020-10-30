@@ -4,7 +4,7 @@ import { FormInstance, FormItemProps } from 'antd/es/form';
 
 import { PartyKind } from '../../../generated/graphql';
 import { TransitionElement } from '../../utils/animations/TransitionElement';
-import { FormFields, FormValues, PartyType } from '../useExpenseForm';
+import { FormFields, FormValues } from '../useExpenseForm';
 import { useNewExpenseEvents } from '../useNewExpenseEvents';
 
 const formItemProps: Omit<FormItemProps, 'children'> = {

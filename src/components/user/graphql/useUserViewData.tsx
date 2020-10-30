@@ -4,7 +4,6 @@ import { Spin } from 'antd';
 import { useGetUserViewDataLazyQuery } from '../../../generated/graphql';
 import { UserContext } from '../../config/UserProvider';
 import { useDelayedLoading } from '../../utils/hooks/useDelayedLoading';
-import { useRemoteDataComponent } from '../../utils/hooks/useRemoteData';
 import { ResourceNotFound } from '../../utils/not-found/ResourceNotFound';
 
 import style from '../../utils/hooks/useRemoteData.module.less';

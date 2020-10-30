@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Button } from 'antd';
 
-import { ExpenseStatus, PaymentStatus } from '../../../generated/graphql';
+import { ExpenseStatus } from '../../../generated/graphql';
 import { UserContext } from '../../config/UserProvider';
 import { NotOptional } from '../../utils/types';
 import { shouldNotRenderEndExpenseButton } from '../common/ExpenseActionButtonConditions';

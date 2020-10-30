@@ -1,10 +1,6 @@
 import { MockedResponse } from '@apollo/client/utilities/testing/mocking/mockLink';
 
-import {
-  EditExpenseDataDocument,
-  EditExpenseDataQuery,
-  GetUserPartiesDocument,
-} from '../../../generated/graphql';
+import { EditExpenseDataDocument, GetUserPartiesDocument } from '../../../generated/graphql';
 
 const mockedPartiesResponse = {
   request: {

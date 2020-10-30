@@ -19,20 +19,25 @@ export interface ElementHeaderProps {
   onEdit?(): void;
 }
 
-export const ElementHeader: React.FC<ElementHeaderProps> = ({ id, className, onEdit }) => (
-  <div className={clsx(style.headerWrapper, className)}>
-    <Button
-      className={style.arrowButton}
-      icon={<AiOutlineArrowLeft className={style.arrow} onClick={() => navigate(-1)} />}
-    />
+export const ElementHeader: React.FC<ElementHeaderProps> = ({ id, className, onEdit }) => {
+  const handleGoBack = () => navigate(-1);
 
-    <div className={style.mainInfoWrapper}>
-      <IdenticonAvatar id={id || null} size={AVATAR_SIZE} />
+  return (
+    <div className={clsx(style.headerWrapper, className)}>
+      <Button
+        className={style.arrowButton}
+        icon={<AiOutlineArrowLeft className={style.arrow} />}
+        onClick={handleGoBack}
+      />
+
+      <div className={style.mainInfoWrapper}>
+        <IdenticonAvatar id={id || null} size={AVATAR_SIZE} />
+      </div>
+      {onEdit && (
+        <Button className={style.editButton} icon={<EditOutlined />} onClick={onEdit}>
+          Edytuj
+        </Button>
+      )}
     </div>
-    {onEdit && (
-      <Button className={style.editButton} icon={<EditOutlined />} onClick={onEdit}>
-        Edytuj
-      </Button>
-    )}
-  </div>
-);
+  );
+};

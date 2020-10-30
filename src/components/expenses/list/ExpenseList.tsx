@@ -1,6 +1,4 @@
 import React, { useContext } from 'react';
-
-import { ExpenseStatus } from '../../../generated/graphql';
 import { OwsType } from '../../app-context/AppContext';
 import { UserContext } from '../../config/UserProvider';
 import {

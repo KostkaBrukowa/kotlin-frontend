@@ -1,0 +1,8 @@
+fragment UpdatePartyWithPartyRequest on PartyRequestType {
+  id
+  status
+  partyRequestReceiver {
+    id
+    name
+  }
+}

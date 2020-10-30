@@ -2,15 +2,8 @@ import React from 'react';
 import { Link } from '@reach/router';
 import { Form, Select } from 'antd';
 import { FormInstance, FormItemProps } from 'antd/es/form';
-
-import { PartyKind } from '../../../../generated/graphql';
 import { ParticipantList } from '../../../common/participant-list/ParticipantList';
-import {
-  eventsEventRoute,
-  eventsFriendsRoute,
-  eventsGroupRoute,
-  friendsRoute,
-} from '../../../navigation/routerConstants';
+import { friendsRoute, } from '../../../navigation/routerConstants';
 import { useUserFriends } from '../../../utils/hooks/graphql/friends/useUserFriends';
 import { Optional } from '../../../utils/types';
 import { eventTypeToRoute } from '../../common/Route';

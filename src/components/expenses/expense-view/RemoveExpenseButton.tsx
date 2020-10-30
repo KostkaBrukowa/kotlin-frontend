@@ -4,7 +4,6 @@ import { Button } from 'antd';
 
 import { UserContext } from '../../config/UserProvider';
 import { NotOptional } from '../../utils/types';
-import { useRemoveExpense } from './graphql/useRemoveExpense';
 import { ExpenseQueryType } from './graphql/useSingleExpenseQuery';
 import { useRemoveExpenseModal } from './useRemoveExpenseModal';
 

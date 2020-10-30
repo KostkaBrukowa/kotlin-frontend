@@ -1,4 +1,4 @@
-import { useEditExpenseDataLazyQuery, useSinglePaymentLazyQuery } from '../../generated/graphql';
+import { useEditExpenseDataLazyQuery } from '../../generated/graphql';
 import { useRemoteData } from '../utils/hooks/useRemoteData';
 
 export const useEditExpenseData = (expenseId?: string) => {

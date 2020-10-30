@@ -5,15 +5,9 @@ import { useForm } from 'antd/es/form/Form';
 import { Store } from 'antd/es/form/interface';
 import { FormInstance } from 'antd/lib/form';
 
-import {
-  LoginUserMutationResult,
-  SignUpUserMutationResult,
-  useLoginUserMutation,
-  useSignUpUserMutation,
-} from '../../generated/graphql';
+import { useLoginUserMutation, useSignUpUserMutation, } from '../../generated/graphql';
 import { AuthData } from '../config/authentication/useAuthentication';
 import { expensesRoute } from '../navigation/routerConstants';
-import { Optional } from '../utils/types';
 
 export interface LoginProps extends RouteComponentProps {
   tokenPresent: boolean;

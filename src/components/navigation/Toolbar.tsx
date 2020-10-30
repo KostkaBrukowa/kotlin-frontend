@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link, navigate } from '@reach/router';
-import { Badge, Menu } from 'antd';
+import React, { Fragment } from 'react';
+import { navigate } from '@reach/router';
+import { Badge } from 'antd';
 import clsx from 'clsx';
 
 import { useUserNotifications } from '../notifications/graphql/useUserNotifications';
@@ -31,10 +31,9 @@ export const Toolbar: React.FC<ToolbarProps> = () => {
         const handleClick = () => navigate(to);
 
         const element = (
-          <>
+          <Fragment key={key}>
             <div
               className={menuItemClassName(title, key === activeTab[0])}
-              key={key}
               role="link"
               tabIndex={0}
               onClick={handleClick}
@@ -43,11 +42,11 @@ export const Toolbar: React.FC<ToolbarProps> = () => {
               {icon}
               <span className={style.link}>{title}</span>
             </div>
-          </>
+          </Fragment>
         );
 
         return to === notificationsRoute && notificationCount ? (
-          <Badge count={notificationCount} offset={[-10, 0]}>
+          <Badge count={notificationCount} key={`${key}/notification`} offset={[-10, 0]}>
             {element}
           </Badge>
         ) : (

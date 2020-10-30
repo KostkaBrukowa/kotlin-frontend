@@ -3,12 +3,10 @@ import { useContext } from 'react';
 import {
   GetUserPartiesQuery,
   PartyKind,
-  SingleExpenseQuery,
   useGetUserPartiesLazyQuery,
 } from '../../generated/graphql';
 import { UserContext } from '../config/UserProvider';
 import { useRemoteData } from '../utils/hooks/useRemoteData';
-import { PartyType } from './useExpenseForm';
 
 export type PartyElementType = GetUserPartiesQuery['getAllParties'][0];
 

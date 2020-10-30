@@ -1,8 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useLocation } from '@reach/router';
-import { Button, Collapse } from 'antd';
-
-import { ParticipantList } from '../../../../common/participant-list/ParticipantList';
+import { Collapse } from 'antd';
 import { renderCollapsableArrow } from '../../../../utils/components/CollapsableArrow';
 import { EventQueryType } from '../../../../utils/hooks/graphql/singleEvent/useSingleEvent';
 import { NotOptional } from '../../../../utils/types';

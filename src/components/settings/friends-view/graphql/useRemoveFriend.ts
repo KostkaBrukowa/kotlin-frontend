@@ -5,7 +5,7 @@ import { useRemoveFriendMutation } from '../../../../generated/graphql';
 export const useRemoveFriend = (id: string) => {
   const [removeFriend] = useRemoveFriendMutation({
     variables: { friendId: id },
-    update: (cache) => {
+    update: (cache, data) => {
       cache.modify({
         fields: {
           findUsersFriends(existingFriends: Reference[] = [], { readField }) {

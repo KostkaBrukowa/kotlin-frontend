@@ -68,7 +68,7 @@ type Mutation {
   addFriend(userEmail: String!): UserType
   bulkPayments(paymentsIds: [String!]!): BulkPaymentType
   changeExpenseStatus(updateExpenseStatusInput: UpdateExpenseStatusInput!): ExpenseType!
-  changeUserData(userBankAccount: String, userEmail: String): UserType
+  changeUserData(userBankAccount: String, userName: String): UserType
   createExpense(newExpenseInput: NewExpenseInput!): ExpenseType!
   createMessage(newMessageInput: NewMessageInput!): MessageResponseType!
   createParty(newPartyInput: NewPartyInput!): PartyType!

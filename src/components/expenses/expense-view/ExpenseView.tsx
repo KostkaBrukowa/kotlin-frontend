@@ -1,21 +1,14 @@
-import React, { useContext, useState } from 'react';
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
+import React from 'react';
 import { RouteComponentProps } from '@reach/router';
-import { Button, Collapse } from 'antd';
-
-import { UserContext } from '../../config/UserProvider';
+import { Collapse } from 'antd';
 import { renderCollapsableArrow } from '../../utils/components/CollapsableArrow';
 import { ConfirmPaymentsButton } from './ConfirmPaymentsButton';
 import { EndExpenseButton } from './EndExpenseButton';
 import { ExpenseDetails } from './ExpenseDetails';
-import { ExpenseMessages } from './ExpenseMessages';
 import { ExpenseParticipants } from './ExpenseParticipants';
 import { ExpensePayments } from './ExpensePayments';
 import { useSingleExpense } from './graphql/useSingleExpenseQuery';
 import { RemoveExpenseButton } from './RemoveExpenseButton';
-import { useChangeExpenseStatusModal } from './UseChangeExpenseStatusModal';
-
-import style from './ExpenseView.module.less';
 
 enum CollapsableKeys {
   PAYMENTS,

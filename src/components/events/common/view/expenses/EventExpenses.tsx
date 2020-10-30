@@ -29,7 +29,6 @@ const ListItem = ({ payment, userId }: ExpensePaymentProps) => {
   const amountValue = amount !== null ? `${amount} ${currency}` : null;
 
   const handleListItemClick = () => navigate(`${expensesRoute}/${id}`);
-  // const handleListItemClick = () => {};
 
   return (
     <List.Item className={style.paymentsList} key={id} onClick={handleListItemClick}>

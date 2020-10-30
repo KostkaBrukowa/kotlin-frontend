@@ -1,0 +1,10 @@
+mutation SendPartyRequest($partyId: String!, $requestReceiverId: String!) {
+  sendPartyRequest(partyId: $partyId, requestReceiverId: $requestReceiverId) {
+    id
+    status
+    partyRequestReceiver {
+      id
+      name
+    }
+  }
+}

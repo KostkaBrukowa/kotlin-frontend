@@ -5,7 +5,7 @@ import { Avatar, List, Skeleton } from 'antd';
 
 import { PartyRequestStatus } from '../../../generated/graphql';
 import { renderPartyRequestStatus } from '../../enum-renderers/PartyReqestStatusRenderer';
-import { eventsEventRoute, eventsRoute } from '../../navigation/routerConstants';
+import { eventsRoute } from '../../navigation/routerConstants';
 import {
   PartyRequestQueryType,
   useUserPartyRequests,

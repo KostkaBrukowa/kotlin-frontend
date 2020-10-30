@@ -1,6 +1,7 @@
 import React from 'react';
 import { DatePicker, Form, InputNumber, TimePicker } from 'antd';
 import { FormItemProps } from 'antd/es/form';
+import moment from 'moment';
 
 import { ExpenseStatus } from '../../../generated/graphql';
 import { FormFields } from '../useExpenseForm';
@@ -35,25 +36,33 @@ export interface CostAndDateFieldsProps {
 export const CostAndDateFields: React.FC<CostAndDateFieldsProps> = ({
   editMode,
   expenseStatus,
-}) => (
-  <div className={style.cashSection}>
-    <Form.Item {...costFormItemProps}>
-      <InputNumber
-        disabled={editMode && expenseStatus !== ExpenseStatus.InProgressRequesting}
-        formatter={(value) => `${value} zł`}
-        min={0}
-        parser={(value) => value?.replace(letterRegex, '').trim() ?? ''}
-      />
-    </Form.Item>
+}) => {
+  const now = moment();
 
-    <div className={style.dateTime}>
-      <Form.Item {...dateFormItemProps}>
-        <DatePicker placeholder="Wybierz datę" />
+  return (
+    <div>
+      <Form.Item {...costFormItemProps}>
+        <InputNumber
+          disabled={editMode && expenseStatus !== ExpenseStatus.InProgressRequesting}
+          formatter={(value) => `${value} zł`}
+          min={0}
+          parser={(value) => value?.replace(letterRegex, '').trim() ?? ''}
+        />
       </Form.Item>
 
-      <Form.Item {...timeFormItemProps} className={style.date}>
-        <TimePicker format="HH:mm" placeholder="oraz czas" />
-      </Form.Item>
+      <div className={style.dateTime}>
+        <Form.Item {...dateFormItemProps}>
+          <DatePicker
+            className={style.timeInput}
+            disabledDate={(date) => now.add(1, 'day').isBefore(date)}
+            placeholder="Wybierz datę"
+          />
+        </Form.Item>
+
+        <Form.Item {...timeFormItemProps} className={style.date}>
+          <TimePicker className={style.timeInput} format="HH:mm" placeholder="oraz czas" />
+        </Form.Item>
+      </div>
     </div>
-  </div>
-);
+  );
+};

@@ -2,11 +2,7 @@ import { navigate } from '@reach/router';
 import { Form } from 'antd';
 import { Moment } from 'moment';
 
-import {
-  PartyKind,
-  useCreateExpenseMutation,
-  useUpdateExpenseMutation,
-} from '../../generated/graphql';
+import { PartyKind, useUpdateExpenseMutation } from '../../generated/graphql';
 import { ExpenseRequestMapper } from '../mappers/expenses/ExpenseRequestMapper';
 import { expensesRoute } from '../navigation/routerConstants';
 import { useCreateExpense } from './graphql/useCreateExpense';

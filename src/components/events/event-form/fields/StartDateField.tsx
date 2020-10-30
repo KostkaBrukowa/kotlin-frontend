@@ -1,6 +1,7 @@
 import React from 'react';
 import { DatePicker, Form, TimePicker } from 'antd';
 import { FormInstance, FormItemProps } from 'antd/es/form';
+import moment from 'moment';
 
 import { PartyKind } from '../../../../generated/graphql';
 import { TransitionElement } from '../../../utils/animations/TransitionElement';
@@ -30,12 +31,18 @@ export const StartDateField: React.FC<CostAndDateFieldsProps> = ({ form, initial
   const disabled = initialValues
     ? initialValues[FormFields.eventType] !== PartyKind.Event
     : eventType !== PartyKind.Event;
+  const now = moment();
 
   return (
     <TransitionElement initialHeight="96px" visible={!disabled}>
       <div className={style.startDateTimeWrapper}>
         <Form.Item {...dateFormItemProps} className={style.pickerWrapper}>
-          <DatePicker className={style.picker} disabled={disabled} placeholder="Wybierz datę" />
+          <DatePicker
+            className={style.picker}
+            disabled={disabled}
+            disabledDate={(date) => now.isAfter(date)}
+            placeholder="Wybierz datę"
+          />
         </Form.Item>
 
         <Form.Item {...timeFormItemProps} className={style.pickerWrapper}>

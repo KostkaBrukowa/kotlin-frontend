@@ -12,7 +12,6 @@ import {
   expenseFormRoute,
   expensesRoute,
   notificationsRoute,
-  settingsRoute,
   userRoute,
 } from './routerConstants';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { navigate } from '@reach/router';
-import { Button, Form, message } from 'antd';
+import { Button, message } from 'antd';
 
 import { useLogoutMutation } from '../../generated/graphql';
 import { AuthData } from '../config/authentication/useAuthentication';

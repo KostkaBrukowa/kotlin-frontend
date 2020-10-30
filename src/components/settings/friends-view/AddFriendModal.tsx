@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
-import { useLocation, useParams } from '@reach/router';
-import { Form, Input, Modal } from 'antd';
+import React from 'react';
+import { useLocation } from '@reach/router';
+import { Form, Input, message, Modal } from 'antd';
 import { FormItemProps } from 'antd/es/form';
 import { useForm } from 'antd/es/form/Form';
 
-import { FormFields } from '../../events/event-form/useEventForm';
 import { validateMessages } from '../../utils/form/validationMessages';
 import { useMount } from '../../utils/hooks/useMount';
 import { useAddFriend } from './graphql/useAddFriend';
@@ -41,11 +40,11 @@ export const AddFriendModal: React.FC<AddFriendModalProps> = ({ open, onClose, o
 
   const handleOk = async () => {
     try {
-      console.log('Okok');
       await form.validateFields();
       await addFriend(form.getFieldValue(EMAIL_FIELD_NAME));
       form.setFieldsValue({ [EMAIL_FIELD_NAME]: '' });
 
+      message.success('Dodano znajomego.');
       onClose();
     } catch (e) {}
   };

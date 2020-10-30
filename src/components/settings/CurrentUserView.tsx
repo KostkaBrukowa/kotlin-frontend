@@ -1,18 +1,17 @@
 import React, { useContext, useState } from 'react';
 import { navigate, RouteComponentProps } from '@reach/router';
-import { Button, Form } from 'antd';
+import { Form } from 'antd';
 
 import { AuthData } from '../config/authentication/useAuthentication';
 import { UserContext } from '../config/UserProvider';
 import { friendsRoute } from '../navigation/routerConstants';
-import { IdenticonAvatar } from '../utils/avatars/IdenticonAvatar';
 import { Optional } from '../utils/types';
 import { EditUserDetailModal } from './EditUserDetailModal';
 import { UserDetailsFormFields } from './FormFieldsConfig';
+import { useUserDetails } from './graphql/useUserDetails';
 import { LogoutFormItem } from './LogoutFormItem';
 import { SettingFormItem } from './SettingFormItem';
 import { UserViewItem } from './UserViewItem';
-import { useUserDetails } from './graphql/useUserDetails';
 
 import style from './Settings.module.less';
 

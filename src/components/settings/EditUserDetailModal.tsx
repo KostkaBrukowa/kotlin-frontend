@@ -59,13 +59,15 @@ export const EditUserDetailModal: React.FC<EditUserDetailModalProps> = ({
 };
 
 const getModalTitle = (type: UserDetailsFormFields, currentValue: Optional<string>) => {
+  const value = currentValue ?? 'brak';
+
   switch (type) {
     case UserDetailsFormFields.name:
-      return `Imię: ${currentValue}`;
+      return `Imię: ${value}`;
     case UserDetailsFormFields.email:
-      return `Email: ${currentValue}`;
+      return `Email: ${value}`;
     case UserDetailsFormFields.bankAccount:
-      return `Numer konta: ${currentValue}`;
+      return `Numer konta: ${value}`;
     default:
       return '';
   }

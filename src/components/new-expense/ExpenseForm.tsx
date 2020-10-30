@@ -1,13 +1,12 @@
 import React from 'react';
 import { RouteComponentProps } from '@reach/router';
-import { Button, Form, Input } from 'antd';
+import { Form } from 'antd';
 import moment from 'moment';
 
 import { EditExpenseDataQuery } from '../../generated/graphql';
 import { validateMessages } from '../utils/form/validationMessages';
 import { dateFrom } from '../utils/functions/date';
 import { useRerender } from '../utils/hooks/useRerender';
-import { NotOptional } from '../utils/types';
 import { CostAndDateFields } from './fields/CostAndDateFields';
 import { DescriptionField } from './fields/DescriptionField';
 import { ExpenseParticipantsSelectField } from './fields/ExpenseParticipantsSelectField';
@@ -59,6 +58,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ expenseId }) => {
   return (
     <div className={style.wrapper}>
       <Form
+        scrollToFirstError
         colon={false}
         form={form}
         initialValues={initialValues}

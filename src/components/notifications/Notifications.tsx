@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Button, List } from 'antd';
 import useDeepCompareEffect from 'use-deep-compare-effect';

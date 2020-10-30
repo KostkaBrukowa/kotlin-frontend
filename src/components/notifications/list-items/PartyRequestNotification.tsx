@@ -4,7 +4,7 @@ import { navigate } from '@reach/router';
 
 import { NotificationEvent } from '../../../generated/graphql';
 import { NotificationPartyRequestModel } from '../../mappers/notifications/NotificationMapperTypes';
-import { eventsRoute, unknownEventTypeRoute } from '../../navigation/routerConstants';
+import { unknownEventTypeRoute } from '../../navigation/routerConstants';
 import { ListItem } from './ListItem';
 
 export interface PartyRequestNotificationProps {

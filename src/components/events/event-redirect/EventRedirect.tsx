@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { navigate, Redirect, RouteComponentProps } from '@reach/router';
+import { navigate, RouteComponentProps } from '@reach/router';
 
 import { useSingleEvent } from '../../utils/hooks/graphql/singleEvent/useSingleEvent';
 import { eventTypeToRoute } from '../common/Route';
@@ -14,7 +14,7 @@ export const EventRedirect: React.FC<EventRedirectProps> = ({ eventId }) => {
 
   useEffect(() => {
     if (event?.type) {
-      navigate(`${eventTypeToRoute(event.type)}/${eventId}`);
+      navigate(`${eventTypeToRoute(event.type)}/${eventId}`, { replace: true });
     }
   }, [event, eventId]);
 

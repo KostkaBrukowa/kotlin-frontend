@@ -250,7 +250,7 @@ export type MutationAddFriendArgs = {
 
 
 export type MutationChangeUserDataArgs = {
-  userEmail?: Maybe<Scalars['String']>;
+  userName?: Maybe<Scalars['String']>;
   userBankAccount?: Maybe<Scalars['String']>;
 };
 
@@ -780,6 +780,16 @@ export type RemovePartyRequestMutationVariables = Exact<{
 
 export type RemovePartyRequestMutation = { __typename?: 'Mutation', removePartyRequest: { __typename: 'PartyRequestType', id: string } };
 
+export type SendPartyRequestMutationVariables = Exact<{
+  partyId: Scalars['String'];
+  requestReceiverId: Scalars['String'];
+}>;
+
+
+export type SendPartyRequestMutation = { __typename?: 'Mutation', sendPartyRequest?: Maybe<{ __typename?: 'PartyRequestType', id: string, status: PartyRequestStatus, partyRequestReceiver: { __typename?: 'UserType', id: string, name: string } }> };
+
+export type UpdatePartyWithPartyRequestFragment = { __typename?: 'PartyRequestType', id: string, status: PartyRequestStatus, partyRequestReceiver: { __typename?: 'UserType', id: string, name: string } };
+
 export type GetUserPartyRequestsQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
@@ -810,6 +820,16 @@ export const UserListDataFragmentDoc = gql`
   id
   name
   email
+}
+    `;
+export const UpdatePartyWithPartyRequestFragmentDoc = gql`
+    fragment UpdatePartyWithPartyRequest on PartyRequestType {
+  id
+  status
+  partyRequestReceiver {
+    id
+    name
+  }
 }
     `;
 export const ParticipantListFragmentFragmentDoc = gql`
@@ -1744,7 +1764,7 @@ export type RemoveFriendMutationResult = ApolloReactCommon.MutationResult<Remove
 export type RemoveFriendMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveFriendMutation, RemoveFriendMutationVariables>;
 export const EditUserDataDocument = gql`
     mutation EditUserData($name: String, $bankAccount: String) {
-  changeUserData(userEmail: $name, userBankAccount: $bankAccount) {
+  changeUserData(userName: $name, userBankAccount: $bankAccount) {
     id
     name
     bankAccount
@@ -2072,6 +2092,44 @@ export function useRemovePartyRequestMutation(baseOptions?: ApolloReactHooks.Mut
 export type RemovePartyRequestMutationHookResult = ReturnType<typeof useRemovePartyRequestMutation>;
 export type RemovePartyRequestMutationResult = ApolloReactCommon.MutationResult<RemovePartyRequestMutation>;
 export type RemovePartyRequestMutationOptions = ApolloReactCommon.BaseMutationOptions<RemovePartyRequestMutation, RemovePartyRequestMutationVariables>;
+export const SendPartyRequestDocument = gql`
+    mutation SendPartyRequest($partyId: String!, $requestReceiverId: String!) {
+  sendPartyRequest(partyId: $partyId, requestReceiverId: $requestReceiverId) {
+    id
+    status
+    partyRequestReceiver {
+      id
+      name
+    }
+  }
+}
+    `;
+export type SendPartyRequestMutationFn = ApolloReactCommon.MutationFunction<SendPartyRequestMutation, SendPartyRequestMutationVariables>;
+
+/**
+ * __useSendPartyRequestMutation__
+ *
+ * To run a mutation, you first call `useSendPartyRequestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendPartyRequestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendPartyRequestMutation, { data, loading, error }] = useSendPartyRequestMutation({
+ *   variables: {
+ *      partyId: // value for 'partyId'
+ *      requestReceiverId: // value for 'requestReceiverId'
+ *   },
+ * });
+ */
+export function useSendPartyRequestMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SendPartyRequestMutation, SendPartyRequestMutationVariables>) {
+        return ApolloReactHooks.useMutation<SendPartyRequestMutation, SendPartyRequestMutationVariables>(SendPartyRequestDocument, baseOptions);
+      }
+export type SendPartyRequestMutationHookResult = ReturnType<typeof useSendPartyRequestMutation>;
+export type SendPartyRequestMutationResult = ApolloReactCommon.MutationResult<SendPartyRequestMutation>;
+export type SendPartyRequestMutationOptions = ApolloReactCommon.BaseMutationOptions<SendPartyRequestMutation, SendPartyRequestMutationVariables>;
 export const GetUserPartyRequestsDocument = gql`
     query GetUserPartyRequests($userId: String!) {
   getPartyRequestsForUser(userId: $userId) {

@@ -1,4 +1,4 @@
-import { PartyKind, PartyRequestStatus } from '../../generated/graphql';
+import { PartyKind } from '../../generated/graphql';
 
 export function renderPartyKind(partyKind?: PartyKind): string {
   if (!partyKind) return '';

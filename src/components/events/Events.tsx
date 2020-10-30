@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, navigate, RouteComponentProps } from '@reach/router';
+import { Link, RouteComponentProps } from '@reach/router';
 import { Button, Tabs } from 'antd';
 
 import { ActionType, AppContext, EventsTabKeys } from '../app-context/AppContext';

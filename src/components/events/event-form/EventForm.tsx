@@ -4,7 +4,6 @@ import { Button, Form } from 'antd';
 import moment from 'moment';
 
 import { SingleEventQuery } from '../../../generated/graphql';
-import { renderPartyKind } from '../../enum-renderers/partyKindEnumRenderer';
 import { validateMessages } from '../../utils/form/validationMessages';
 import { dateFrom } from '../../utils/functions/date';
 import { useRerender } from '../../utils/hooks/useRerender';
@@ -66,6 +65,7 @@ export const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
   return (
     <div className={style.wrapper}>
       <Form
+        scrollToFirstError
         colon={false}
         form={form}
         initialValues={initialValues}

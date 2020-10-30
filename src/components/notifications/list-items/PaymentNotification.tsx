@@ -2,7 +2,6 @@ import React from 'react';
 import { MdReceipt } from 'react-icons/all';
 import { navigate } from '@reach/router';
 
-import { NotificationEvent } from '../../../generated/graphql';
 import { renderPaymentTitle } from '../../enum-renderers/paymentNotification';
 import { NotificationPaymentModel } from '../../mappers/notifications/NotificationMapperTypes';
 import { expensesRoute } from '../../navigation/routerConstants';

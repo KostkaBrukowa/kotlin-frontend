@@ -4,7 +4,6 @@ import {
   PartyRequestStatus,
   useAcceptPartyRequestMutation,
 } from '../../../../../generated/graphql';
-import { Optional } from '../../../types';
 
 export const useAcceptPartyRequest = () => {
   const [acceptPartyRequest, { loading }] = useAcceptPartyRequestMutation({

@@ -1,5 +1,4 @@
 import React from 'react';
-import { gql } from '@apollo/client';
 import { navigate } from '@reach/router';
 import { Card, Tooltip } from 'antd';
 import Meta from 'antd/es/card/Meta';
@@ -7,7 +6,6 @@ import clsx from 'clsx';
 
 import { ExpenseStatus, PaymentStatus } from '../../../generated/graphql';
 import { OwsType } from '../../app-context/AppContext';
-import { client } from '../../config/graphql';
 import { getTooltipProps } from '../../enum-renderers/expenseTooltipRenderer';
 import { expensesRoute, paymentsRoute } from '../../navigation/routerConstants';
 import { handleSpaceAndEnter } from '../../utils/a11n/KeyHandlers';

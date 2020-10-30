@@ -35,7 +35,7 @@ export const FriendsEventView: React.FC<FriendsViewProps> = ({ friendsId }) => {
     [style.settledBalance]: unbalancedAmount === 0,
   });
 
-  const friendsCountText = getFriendCountText(partyParticipants.length - 1);
+  const friendsCountText = getFriendCountText(partyParticipants.length - 2);
 
   return (
     <div>

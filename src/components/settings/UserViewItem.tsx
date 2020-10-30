@@ -1,4 +1,4 @@
-import React, { KeyboardEventHandler, SyntheticEvent } from 'react';
+import React from 'react';
 import { RightOutlined } from '@ant-design/icons';
 import { Divider } from 'antd';
 

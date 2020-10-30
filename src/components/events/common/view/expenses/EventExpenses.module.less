@@ -1,8 +1,17 @@
+@list-background-color: rgba(150, 150, 150, 0.08);
+
 .paymentsList {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
   max-width: 90vw;
+  cursor: pointer;
+}
+
+.paymentsList:active,
+.paymentsList:focus,
+.paymentsList:hover {
+  background: lighten(@list-background-color, 40%);
 }
 
 .receiptIcon {
