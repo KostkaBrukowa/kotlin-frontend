@@ -1,6 +1,7 @@
 import React from 'react';
-import { BsThreeDotsVertical } from 'react-icons/bs';
+import { useMediaQuery } from 'react-responsive';
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
+import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined';
 import { Button, Dropdown, Menu, message, Modal } from 'antd';
 
 import { stopPropagation, stopPropagations } from '../../utils/functions/utilFunctions';
@@ -11,6 +12,7 @@ import style from './FriendsView.module.less';
 
 export const FriendDropdown: React.FC<{ friend: Friend }> = ({ friend: { id, name } }) => {
   const { removeFriend } = useRemoveFriend(id);
+  const minSm = useMediaQuery({ minWidth: 521 });
 
   const handleRemove = async () => {
     await removeFriend();
@@ -45,7 +47,13 @@ export const FriendDropdown: React.FC<{ friend: Friend }> = ({ friend: { id, nam
 
   return (
     <Dropdown className={style.dropdownButton} overlay={overlay} trigger={['click']}>
-      <Button icon={<BsThreeDotsVertical size="1.3em" />} type="ghost" {...stopPropagations} />
+      {minSm ? (
+        <Button icon={<EllipsisOutlined />} type="ghost" {...stopPropagations}>
+          Dodatkowe akcje
+        </Button>
+      ) : (
+        <Button icon={<EllipsisOutlined />} type="ghost" {...stopPropagations} />
+      )}
     </Dropdown>
   );
 };

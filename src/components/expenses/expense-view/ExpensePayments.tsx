@@ -6,6 +6,7 @@ import { Button, List } from 'antd';
 import { UserContext } from '../../config/UserProvider';
 import { renderPaymentStatus } from '../../enum-renderers/paymentStatusRenderer';
 import { paymentsRoute } from '../../navigation/routerConstants';
+import { useListGridProps } from '../../utils/components/useListGridProps';
 import { currency } from '../../utils/constants/currency';
 import { stopPropagation } from '../../utils/functions/utilFunctions';
 import { NotOptional } from '../../utils/types';
@@ -60,10 +61,12 @@ const ListItem = ({ payment, userId, expense }: ExpensePaymentProps) => {
 
 export const ExpensePayments: React.FC<ExpensePaymentsProps> = ({ payments, expense }) => {
   const { userId } = useContext(UserContext);
+  const grid = useListGridProps();
 
   return (
     <List
       dataSource={payments}
+      grid={grid}
       renderItem={(payment) => <ListItem expense={expense} payment={payment} userId={userId} />}
       size="default"
     />

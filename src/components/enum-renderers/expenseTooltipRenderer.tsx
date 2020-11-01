@@ -73,13 +73,13 @@ export function getExpenseTooltipProps(status: ExpenseStatus): TooltipProps {
       return {
         icon: <SendOutlined className={style.infoCircle} />,
         title:
-          'Informacja o płatnościach została wysłana, ale nie wszyscy zaakceptowali swoje' +
-          ' płatności.',
+          'Informacja o płatnościach została wysłana, ale nie wszyscy zaakceptowali swoje płatności.',
       };
     case ExpenseStatus.InProgressPaying:
       return {
         icon: <HourglassOutlined className={style.infoCircle} />,
-        title: 'Czekamy na płatności.',
+        title:
+          'Czekamy na płatności. Ty i reszta potwierdzili swój udział i mogą już płacić za wydatek',
       };
     case ExpenseStatus.Declined:
       return {

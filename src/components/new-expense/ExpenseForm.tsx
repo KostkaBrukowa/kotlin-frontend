@@ -4,6 +4,7 @@ import { Form } from 'antd';
 import moment from 'moment';
 
 import { EditExpenseDataQuery } from '../../generated/graphql';
+import { singleViewStyle } from '../utils/components/ViewStyles';
 import { validateMessages } from '../utils/form/validationMessages';
 import { dateFrom } from '../utils/functions/date';
 import { useRerender } from '../utils/hooks/useRerender';
@@ -56,13 +57,14 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ expenseId }) => {
   }
 
   return (
-    <div className={style.wrapper}>
+    <div className={style.wrapper} style={singleViewStyle}>
       <Form
         scrollToFirstError
         colon={false}
         form={form}
         initialValues={initialValues}
-        layout="horizontal"
+        layout="vertical"
+        size="large"
         validateMessages={validateMessages}
         onFinish={onSubmit}
       >

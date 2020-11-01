@@ -5,6 +5,7 @@ import { List } from 'antd';
 import { GroupPartyListType } from '../../mappers/events/PartyMapperTypes';
 import { eventsGroupRoute } from '../../navigation/routerConstants';
 import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
+import { useListGridProps } from '../../utils/components/useListGridProps';
 import { EmptyEventsList } from '../common/EmptyList';
 import { getFriendCountText } from '../common/OtherParticipants';
 
@@ -33,13 +34,18 @@ const ListItem: React.FC<{ item: GroupPartyListType }> = ({ item }) => {
   );
 };
 
-export const GroupsList: React.FC<GroupsListProps> = ({ events, loading }) => (
-  <List
-    dataSource={events}
-    itemLayout="vertical"
-    loading={loading && !events}
-    locale={{ emptyText: <EmptyEventsList type="grup" /> }}
-    renderItem={(item: GroupPartyListType) => <ListItem item={item} key={item.id} />}
-    size="large"
-  />
-);
+export const GroupsList: React.FC<GroupsListProps> = ({ events, loading }) => {
+  const grid = useListGridProps();
+
+  return (
+    <List
+      dataSource={events}
+      grid={grid}
+      itemLayout="vertical"
+      loading={loading && !events}
+      locale={{ emptyText: <EmptyEventsList type="grup" /> }}
+      renderItem={(item: GroupPartyListType) => <ListItem item={item} key={item.id} />}
+      size="large"
+    />
+  );
+};

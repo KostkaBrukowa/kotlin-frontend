@@ -33,6 +33,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  //outline: none;
 
   line-height: 25px;
   margin: 0 1px;
@@ -45,8 +46,14 @@
   }
 }
 
+.optionWrapper:active {
+  outline: none;
+}
+
 .optionWrapper:focus {
-  transform: translateY(-3px);
+  svg {
+    transform: translateY(-3px);
+  }
 }
 
 .activeOptionWrapper {

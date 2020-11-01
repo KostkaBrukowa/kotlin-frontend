@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { ElementHeader } from '../../../common/element-header/ElementHeader';
 import { eventFormRoute } from '../../../navigation/routerConstants';
 import { Info, ViewDescription } from '../../../utils/components/ViewDescription';
+import { singleViewStyle } from '../../../utils/components/ViewStyles';
 import { currency } from '../../../utils/constants/currency';
 import { capitalize } from '../../../utils/functions/string';
 import { useSingleEvent } from '../../../utils/hooks/graphql/singleEvent/useSingleEvent';
@@ -32,7 +33,7 @@ export const GroupView: React.FC<GroupViewProps> = ({ groupId }) => {
   });
 
   return (
-    <div>
+    <div style={singleViewStyle}>
       <div className={style.infoWrapper}>
         <ElementHeader id={event.id} onEdit={() => navigate(`${eventFormRoute}/${event.id}`)} />
         <h2 className={style.groupName}>{capitalize(event.name)}</h2>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Collapse } from 'antd';
+
 import { renderCollapsableArrow } from '../../utils/components/CollapsableArrow';
 import { ConfirmPaymentsButton } from './ConfirmPaymentsButton';
 import { EndExpenseButton } from './EndExpenseButton';
@@ -28,7 +29,7 @@ export const ExpenseView: React.FC<ExpenseViewProps> = ({ expenseId }) => {
   if ((dataComponent !== null && !expense) || !expense) return dataComponent;
 
   return (
-    <>
+    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
       <EndExpenseButton expense={expense} />
       <ExpenseDetails expense={expense} />
       <Collapse
@@ -51,6 +52,6 @@ export const ExpenseView: React.FC<ExpenseViewProps> = ({ expenseId }) => {
         {/* </Collapse.Panel> */}
       </Collapse>
       <RemoveExpenseButton expense={expense} />
-    </>
+    </div>
   );
 };

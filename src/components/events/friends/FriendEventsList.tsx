@@ -6,6 +6,7 @@ import { UserContext } from '../../config/UserProvider';
 import { FriendsPartyListType } from '../../mappers/events/PartyMapperTypes';
 import { eventsFriendsRoute, friendsRoute } from '../../navigation/routerConstants';
 import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
+import { useListGridProps } from '../../utils/components/useListGridProps';
 import { EmptyEventsList } from '../common/EmptyList';
 import { getFriendCountText } from '../common/OtherParticipants';
 
@@ -40,20 +41,25 @@ const ListItem: React.FC<{ item: FriendsPartyListType }> = ({ item }) => (
   </List.Item>
 );
 
-export const FriendEventsList: React.FC<FriendsListProps> = ({ friends, loading }) => (
-  <>
-    <div className={style.addFriendWrapper}>
-      <Button>
-        <Link to={friendsRoute}>Dodaj znajomego</Link>
-      </Button>
-    </div>
-    <List
-      dataSource={friends}
-      itemLayout="vertical"
-      loading={loading && !friends}
-      locale={{ emptyText: <EmptyEventsList type="znajomych" /> }}
-      renderItem={(item: FriendsPartyListType) => <ListItem item={item} key={item.id} />}
-      size="large"
-    />
-  </>
-);
+export const FriendEventsList: React.FC<FriendsListProps> = ({ friends, loading }) => {
+  const grid = useListGridProps();
+
+  return (
+    <>
+      <div className={style.addFriendWrapper}>
+        <Button>
+          <Link to={friendsRoute}>Dodaj znajomego</Link>
+        </Button>
+      </div>
+      <List
+        dataSource={friends}
+        grid={grid}
+        itemLayout="vertical"
+        loading={loading && !friends}
+        locale={{ emptyText: <EmptyEventsList type="znajomych" /> }}
+        renderItem={(item: FriendsPartyListType) => <ListItem item={item} key={item.id} />}
+        size="large"
+      />
+    </>
+  );
+};

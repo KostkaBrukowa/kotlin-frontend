@@ -1,26 +1,70 @@
 import React from 'react';
-import { useLocation, useNavigate } from '@reach/router';
-import { Layout } from 'antd';
+import { useMediaQuery } from 'react-responsive';
+import { navigate, useLocation } from '@reach/router';
+import { Badge, Button, Layout } from 'antd';
 
+import { handleSpaceAndEnter } from '../utils/a11n/KeyHandlers';
 import logo from './google-maps.svg';
-import { menuTabs } from './useAppNavigation';
+import { notificationsRoute } from './routerConstants';
+import { menuTabs, useMenuTabs } from './useAppNavigation';
 
 import style from './AppLayout.module.less';
 
 const { Header } = Layout;
 const LOGO_SIZE = 32;
 
+const Navigation: React.FC = () => {
+  const [tabs, activeTab] = useMenuTabs();
+  const notificationCount = 1;
+
+  return (
+    <div className={style.headerLinks}>
+      {tabs.map(({ key, title, to }) => {
+        const handleClick = () => navigate(to);
+
+        const element = (
+          <Button
+            key={key}
+            type="link"
+            onClick={handleClick}
+            onKeyPress={handleSpaceAndEnter(handleClick)}
+          >
+            {title}
+          </Button>
+        );
+
+        return to === notificationsRoute && notificationCount ? (
+          <Badge count={notificationCount} key={`${key}/notification`}>
+            {element}
+          </Badge>
+        ) : (
+          element
+        );
+      })}
+    </div>
+  );
+};
+
 export const AppHeader: React.FC = (props) => {
-  const navigate = useNavigate();
   const location = useLocation();
-  const goHome = () => navigate('/');
+  const goHome = () => navigate('/expenses');
   const tabName = menuTabs.find((it) => location.pathname.includes(it.to))?.title;
+  const minMd = useMediaQuery({ minWidth: 768 });
 
   return (
     <Header className={style.header}>
-      <div className={style.imageWithHeader} onClick={goHome}>
-        <img alt="logo" className={style.logo} height={LOGO_SIZE} src={logo} width={LOGO_SIZE} />
-        <h1 className={style.appName}>Wisesplit</h1>
+      <div className={style.headerWrapper}>
+        <div
+          className={style.imageWithHeader}
+          role="link"
+          tabIndex={0}
+          onClick={goHome}
+          onKeyPress={handleSpaceAndEnter(goHome)}
+        >
+          <img alt="" className={style.logo} height={LOGO_SIZE} src={logo} width={LOGO_SIZE} />
+          <h1 className={style.appName}>Wisesplit</h1>
+        </div>
+        {minMd && <Navigation />}
       </div>
       <h3 className={style.appName}>{tabName}</h3>
     </Header>

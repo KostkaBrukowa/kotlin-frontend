@@ -6,6 +6,7 @@ import { Button, Divider, List } from 'antd';
 import { EventPartyListType } from '../../mappers/events/PartyMapperTypes';
 import { eventsEventRoute } from '../../navigation/routerConstants';
 import { IdenticonAvatar } from '../../utils/avatars/IdenticonAvatar';
+import { useListGridProps } from '../../utils/components/useListGridProps';
 import { EmptyEventsList } from '../common/EmptyList';
 import { ListItemMeta } from '../common/ListItemMeta';
 
@@ -47,13 +48,18 @@ const ListItem: React.FC<{ item: EventPartyListType }> = ({ item }) => (
   </List.Item>
 );
 
-export const EventsList: React.FC<EventsListProps> = ({ events, loading }) => (
-  <List
-    dataSource={events}
-    itemLayout="vertical"
-    loading={loading && !events}
-    locale={{ emptyText: <EmptyEventsList type="wydarzeń" /> }}
-    renderItem={(item: EventPartyListType) => <ListItem item={item} key={item.id} />}
-    size="large"
-  />
-);
+export const EventsList: React.FC<EventsListProps> = ({ events, loading }) => {
+  const grid = useListGridProps();
+
+  return (
+    <List
+      dataSource={events}
+      grid={grid}
+      itemLayout="vertical"
+      loading={loading && !events}
+      locale={{ emptyText: <EmptyEventsList type="wydarzeń" /> }}
+      renderItem={(item: EventPartyListType) => <ListItem item={item} key={item.id} />}
+      size="large"
+    />
+  );
+};

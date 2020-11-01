@@ -1,7 +1,7 @@
 @list-background-color: rgba(150, 150, 150, 0.08);
 
 .paymentsList {
-  display: grid;
+  display: grid !important;
   grid-template-columns: auto 1fr auto;
   align-items: center;
   max-width: 90vw;
@@ -28,4 +28,10 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+@media (min-width: 520px) {
+  .paymentsList {
+    padding: 1rem;
+  }
 }

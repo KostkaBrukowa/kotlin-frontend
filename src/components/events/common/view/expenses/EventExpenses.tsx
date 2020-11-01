@@ -5,6 +5,7 @@ import { List, Typography } from 'antd';
 
 import { UserContext } from '../../../../config/UserProvider';
 import { expensesRoute } from '../../../../navigation/routerConstants';
+import { useListGridProps } from '../../../../utils/components/useListGridProps';
 import { currency } from '../../../../utils/constants/currency';
 import { capitalize } from '../../../../utils/functions/string';
 import { EventQueryType } from '../../../../utils/hooks/graphql/singleEvent/useSingleEvent';
@@ -46,10 +47,12 @@ const ListItem = ({ payment, userId }: ExpensePaymentProps) => {
 
 export const EventExpenses: React.FC<EventExpensesProps> = ({ payments }) => {
   const { userId } = useContext(UserContext);
+  const grid = useListGridProps();
 
   return (
     <List
       dataSource={payments}
+      grid={grid}
       locale={{ emptyText: <EmptyEventsList type="wydatków" /> }}
       renderItem={(payment) => <ListItem payment={payment} userId={userId} />}
       size="default"

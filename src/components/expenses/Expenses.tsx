@@ -29,14 +29,9 @@ export const Expenses: React.FC<FriendsProps> = () => {
   );
 
   return (
-    <section>
+    <section className={style.section}>
       <TotalBalance />
-      <AnimateChange
-        firstElement={expenseList}
-        firstElementActive={currentOwsType === OwsType.OWS_USER}
-        secondElement={paymentList}
-        wrapperClassName={clsx('data-cy-expenses-list', style.changeElement)}
-      />
+      {currentOwsType === OwsType.USER_OWS ? paymentList : expenseList}
     </section>
   );
 };

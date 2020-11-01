@@ -9,6 +9,8 @@ import { ExpenseItemCard } from './ExpenseItemCard';
 import { ExpenseTitle } from './ExpenseTitle';
 import { LoadingCard } from './LoadingCard';
 
+import style from './ExpenseList.module.less';
+
 interface PaymentListProps {
   payments?: PaymentsQueryType['getClientsPayments'];
   loading: boolean;
@@ -38,26 +40,28 @@ export const PaymentList: React.FC<PaymentListProps> = ({ payments, loading, sho
   return (
     <>
       <ExpenseTitle title="Twoje płatności:" />
-      {filteredExpenses?.map(
-        ({ id, amount, status, paymentExpense: { name, description, expenseStatus } }) => (
-          <ExpenseItemCard
-            amount={amount ?? null}
-            description={description}
-            expenseStatus={expenseStatus}
-            highlight={
-              (status === PaymentStatus.InProgress &&
-                expenseStatus === ExpenseStatus.InProgressRequesting) ||
-              (status === PaymentStatus.Accepted &&
-                expenseStatus === ExpenseStatus.InProgressPaying)
-            }
-            id={id}
-            key={id}
-            name={name}
-            owsType={OwsType.USER_OWS}
-            paymentStatus={status}
-          />
-        ),
-      )}
+      <div className={style.wrapper}>
+        {filteredExpenses?.map(
+          ({ id, amount, status, paymentExpense: { name, description, expenseStatus } }) => (
+            <ExpenseItemCard
+              amount={amount ?? null}
+              description={description}
+              expenseStatus={expenseStatus}
+              highlight={
+                (status === PaymentStatus.InProgress &&
+                  expenseStatus === ExpenseStatus.InProgressRequesting) ||
+                (status === PaymentStatus.Accepted &&
+                  expenseStatus === ExpenseStatus.InProgressPaying)
+              }
+              id={id}
+              key={id}
+              name={name}
+              owsType={OwsType.USER_OWS}
+              paymentStatus={status}
+            />
+          ),
+        )}
+      </div>
     </>
   );
 };

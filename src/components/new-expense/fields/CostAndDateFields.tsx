@@ -17,13 +17,13 @@ const costFormItemProps: Omit<FormItemProps, 'children'> = {
 };
 
 const dateFormItemProps: Omit<FormItemProps, 'children'> = {
-  label: 'Kiedy zapłaciłeś:',
+  label: 'Data zapłaty',
   name: FormFields.date,
   rules: [{ required: true, message: ' ' }],
 };
 
 const timeFormItemProps: Omit<FormItemProps, 'children'> = {
-  label: '',
+  label: 'I godzina',
   name: FormFields.date,
   rules: [{ required: true, message: ' ' }],
 };
@@ -51,7 +51,7 @@ export const CostAndDateFields: React.FC<CostAndDateFieldsProps> = ({
       </Form.Item>
 
       <div className={style.dateTime}>
-        <Form.Item {...dateFormItemProps}>
+        <Form.Item {...dateFormItemProps} className={style.pickerWrapper}>
           <DatePicker
             className={style.timeInput}
             disabledDate={(date) => now.add(1, 'day').isBefore(date)}
@@ -59,7 +59,7 @@ export const CostAndDateFields: React.FC<CostAndDateFieldsProps> = ({
           />
         </Form.Item>
 
-        <Form.Item {...timeFormItemProps} className={style.date}>
+        <Form.Item {...timeFormItemProps} className={style.pickerWrapper}>
           <TimePicker className={style.timeInput} format="HH:mm" placeholder="oraz czas" />
         </Form.Item>
       </div>

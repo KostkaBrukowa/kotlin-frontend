@@ -34,7 +34,7 @@
 
 .card {
   margin-top: 0;
-  background: @list-background-color;
+  background: @list-background-color !important;
   border: initial;
   transition: transform 350ms ease-out;
   cursor: pointer;
@@ -46,7 +46,7 @@
 
 .card:active,
 .card:hover {
-  background: lighten(@list-background-color, 40%);
+  background: lighten(@list-background-color, 40%) !important;
 }
 
 .card + .card {
@@ -82,4 +82,26 @@
 
 .tooltip {
   text-align: center;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
+  }
+
+  .card + .card {
+    border: none;
+  }
+}
+
+@media (min-width: 1248px) {
+  .wrapper {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }

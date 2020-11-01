@@ -1,6 +1,7 @@
 import React from 'react';
-import { Router } from '@reach/router';
+import { Redirect, Router } from '@reach/router';
 import { Layout } from 'antd';
+import Sider from 'antd/es/layout/Sider';
 
 import { useAuthentication } from '../config/authentication/useAuthentication';
 import { AuthenticationErrorBoundary } from '../config/AuthenticationErrorBoundary';
@@ -95,6 +96,9 @@ export const AppLayout: React.FC = () => {
             {tokenPresent && <Toolbar />}
           </>
         )}
+        <Layout.Footer style={{ textAlign: 'center' }}>
+          Wisesplit ©2020 Created by Jarosław Glegoła
+        </Layout.Footer>
       </Layout>
     </UserProvider>
   );

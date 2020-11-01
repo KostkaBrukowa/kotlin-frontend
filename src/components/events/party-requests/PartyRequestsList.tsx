@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import ScheduleOutlined from '@ant-design/icons/ScheduleOutlined';
 import { navigate } from '@reach/router';
 import { Avatar, List, Skeleton } from 'antd';
@@ -6,6 +7,7 @@ import { Avatar, List, Skeleton } from 'antd';
 import { PartyRequestStatus } from '../../../generated/graphql';
 import { renderPartyRequestStatus } from '../../enum-renderers/PartyReqestStatusRenderer';
 import { eventsRoute } from '../../navigation/routerConstants';
+import { useListGridProps } from '../../utils/components/useListGridProps';
 import {
   PartyRequestQueryType,
   useUserPartyRequests,
@@ -35,24 +37,25 @@ const ListItem: React.FC<{ partyRequest: PartyRequestQueryType[0] }> = (props) =
       className={listStyle.listItem}
       onClick={() => navigate(`${eventsRoute}/unknown/${partyId}`)}
     >
-      <Skeleton avatar loading={false}>
-        <List.Item.Meta
-          avatar={<Avatar icon={<ScheduleOutlined />} shape="square" />}
-          description={`Status: ${renderPartyRequestStatus(status)}`}
-          title={`Na: ${name}`}
-        />
-      </Skeleton>
+      <List.Item.Meta
+        avatar={<Avatar icon={<ScheduleOutlined />} shape="square" />}
+        description={`Status: ${renderPartyRequestStatus(status)}`}
+        title={`Na: ${name}`}
+      />
     </List.Item>
   );
 };
 
 export const PartyRequestsList: React.FC = () => {
   const { extractedData: partyRequests, loading } = useUserPartyRequests();
+  const grid = useListGridProps();
+  const minSm = useMediaQuery({ minWidth: 521 });
 
   return (
     <List
       dataSource={partyRequests?.filter((it) => it.status === PartyRequestStatus.InProgress)}
-      itemLayout="horizontal"
+      grid={grid}
+      itemLayout={minSm ? 'vertical' : 'horizontal'}
       loading={loading && !partyRequests}
       locale={{ emptyText: <EmptyEventsList type="zaproszeń" /> }}
       renderItem={(item: PartyRequestQueryType[0]) => (

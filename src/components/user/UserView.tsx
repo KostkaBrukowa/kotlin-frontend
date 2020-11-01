@@ -10,6 +10,7 @@ import {
   finishedPaymentStatuses,
 } from '../expenses/common/FinishedStatuses';
 import { friendsRoute, settingsRoute } from '../navigation/routerConstants';
+import { singleViewStyle } from '../utils/components/ViewStyles';
 import { currency } from '../utils/constants/currency';
 import { useUserViewData } from './graphql/useUserViewData';
 import { UserInfoItem } from './UserInfoItem';
@@ -60,7 +61,7 @@ export const UserView: React.FC<UserViewProps> = ({ userId }) => {
   const isFriend = friends.some((it) => it.id === userId);
 
   return (
-    <div className={style.wrapper}>
+    <div className={style.wrapper} style={singleViewStyle}>
       <ElementHeader id={userId} />
       <Row className={style.statistics} justify="space-between">
         <Statistic

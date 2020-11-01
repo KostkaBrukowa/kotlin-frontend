@@ -4,6 +4,7 @@ import { navigate, RouteComponentProps } from '@reach/router';
 import { PageHeader } from 'antd';
 
 import { expensesRoute } from '../../navigation/routerConstants';
+import { singleViewStyle } from '../../utils/components/ViewStyles';
 import { useSinglePayment } from './graphql/useSinglePayment';
 import { PaymentDescription } from './PaymentDescription';
 import { PaymentStatusManagementButton } from './PaymentStatusManagementButton';
@@ -27,7 +28,7 @@ export const PaymentView: React.FC<PaymentViewProps> = ({ paymentId }) => {
     navigate(`${expensesRoute}/${payment?.paymentExpense.id}`, { replace: true });
 
   return (
-    <>
+    <div style={singleViewStyle}>
       <PageHeader
         className={style.pageHeader}
         subTitle={`Z: ${payment.paymentExpense.name}`}
@@ -43,6 +44,6 @@ export const PaymentView: React.FC<PaymentViewProps> = ({ paymentId }) => {
           receiverRefCallback={receiverNameRectRef}
         />
       </div>
-    </>
+    </div>
   );
 };

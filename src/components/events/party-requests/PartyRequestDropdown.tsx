@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import CloseSquareOutlined from '@ant-design/icons/CloseSquareOutlined';
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
 import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined';
@@ -18,6 +19,7 @@ export const PartyRequestDropdown: React.FC<{ partyRequest: PartyRequestQueryTyp
 }) => {
   const openRemovePartyRequestModal = useRemovePartyRequestModal(id);
   const openDeclinePartyRequestModal = useDeclinePartyRequestModal(id);
+  const minSm = useMediaQuery({ minWidth: 521 });
 
   const handleMenuItemClick = (handler: () => void): MenuClickEventHandler => (info) => {
     info.domEvent.stopPropagation();
@@ -47,7 +49,13 @@ export const PartyRequestDropdown: React.FC<{ partyRequest: PartyRequestQueryTyp
 
   return (
     <Dropdown overlay={menu} trigger={['click']}>
-      <Button icon={<EllipsisOutlined />} type="ghost" onClick={stopPropagation} />
+      {minSm ? (
+        <Button icon={<EllipsisOutlined />} type="ghost" onClick={stopPropagation}>
+          Dodatkowe akcje
+        </Button>
+      ) : (
+        <Button icon={<EllipsisOutlined />} type="ghost" onClick={stopPropagation} />
+      )}
     </Dropdown>
   );
 };

@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { Link, RouteComponentProps } from '@reach/router';
 import { Button, Tabs } from 'antd';
 
 import { ActionType, AppContext, EventsTabKeys } from '../app-context/AppContext';
 import { eventFormRoute } from '../navigation/routerConstants';
+import { singleViewStyle } from '../utils/components/ViewStyles';
 import { EventsList } from './event/EventsList';
 import { FriendEventsList } from './friends/FriendEventsList';
 import { GroupsList } from './groups/GroupsList';
@@ -20,6 +22,7 @@ export const Events: React.FC<EventsProps> = () => {
     state: { activeEventsTab },
     dispatch,
   } = useContext(AppContext);
+  const minTablet = useMediaQuery({ minWidth: 768 });
 
   const handleTabChange = (key: string) =>
     dispatch({
@@ -35,7 +38,13 @@ export const Events: React.FC<EventsProps> = () => {
           <Link to={`${eventFormRoute}`}>Dodaj nowe</Link>
         </Button>
       </div>
-      <Tabs centered activeKey={activeEventsTab} className={style.tabs} onChange={handleTabChange}>
+      <Tabs
+        centered
+        activeKey={activeEventsTab}
+        className={style.tabs}
+        size={minTablet ? 'large' : undefined}
+        onChange={handleTabChange}
+      >
         <Tabs.TabPane key={EventsTabKeys.EVENTS} tab="Wydarzenia">
           <EventsList events={parties?.events} loading={loading} />
         </Tabs.TabPane>

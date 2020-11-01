@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+
 import { OwsType } from '../../app-context/AppContext';
 import { UserContext } from '../../config/UserProvider';
 import {
@@ -11,6 +12,8 @@ import { EmptyList } from './EmptyList';
 import { ExpenseItemCard } from './ExpenseItemCard';
 import { ExpenseTitle } from './ExpenseTitle';
 import { LoadingCard } from './LoadingCard';
+
+import style from './ExpenseList.module.less';
 
 interface ExpenseListProps {
   expenses?: ExpensesQueryType['getExpensesForUser'];
@@ -37,26 +40,28 @@ export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, loading, sho
   return (
     <>
       <ExpenseTitle title="Twoje wydatki:" />
-      {filteredExpenses?.map((expense) => {
-        const { amount, name, description, id, expenseStatus } = expense;
-        const expenseWithExpensePayer = { ...expense, expensePayer: { id: userId ?? '0' } };
+      <div className={style.wrapper}>
+        {filteredExpenses?.map((expense) => {
+          const { amount, name, description, id, expenseStatus } = expense;
+          const expenseWithExpensePayer = { ...expense, expensePayer: { id: userId ?? '0' } };
 
-        return (
-          <ExpenseItemCard
-            amount={amount}
-            description={description}
-            expenseStatus={expenseStatus}
-            highlight={
-              !shouldNotRenderConfirmPaymentsButton(expenseWithExpensePayer, userId) ||
-              !shouldNotRenderEndExpenseButton(expenseWithExpensePayer, userId)
-            }
-            id={id}
-            key={id}
-            name={name}
-            owsType={OwsType.OWS_USER}
-          />
-        );
-      })}
+          return (
+            <ExpenseItemCard
+              amount={amount}
+              description={description}
+              expenseStatus={expenseStatus}
+              highlight={
+                !shouldNotRenderConfirmPaymentsButton(expenseWithExpensePayer, userId) ||
+                !shouldNotRenderEndExpenseButton(expenseWithExpensePayer, userId)
+              }
+              id={id}
+              key={id}
+              name={name}
+              owsType={OwsType.OWS_USER}
+            />
+          );
+        })}
+      </div>
     </>
   );
 };

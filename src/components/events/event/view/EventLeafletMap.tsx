@@ -79,6 +79,7 @@ export const EventMap: React.FC<EventMapProps> = ({ position, locationName }) =>
         center={position}
         style={{
           width: '100vw',
+          maxWidth: '100%',
           ...heightStyle,
         }}
         zoom={15}

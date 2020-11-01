@@ -6,6 +6,7 @@ import { ExpenseStatus } from '../../../../generated/graphql';
 import { ElementHeader } from '../../../common/element-header/ElementHeader';
 import { eventFormRoute } from '../../../navigation/routerConstants';
 import { Info, ViewDescription } from '../../../utils/components/ViewDescription';
+import { singleViewStyle } from '../../../utils/components/ViewStyles';
 import { currency } from '../../../utils/constants/currency';
 import { capitalize } from '../../../utils/functions/string';
 import { useSingleEvent } from '../../../utils/hooks/graphql/singleEvent/useSingleEvent';
@@ -38,7 +39,7 @@ export const FriendsEventView: React.FC<FriendsViewProps> = ({ friendsId }) => {
   const friendsCountText = getFriendCountText(partyParticipants.length - 2);
 
   return (
-    <div>
+    <div style={singleViewStyle}>
       <div className={style.infoWrapper}>
         <ElementHeader id={event.id} onEdit={() => navigate(`${eventFormRoute}/${event.id}`)} />
         <h2 className={style.groupName}>{`Ty, ${owner?.name} ${friendsCountText ?? ''}`}</h2>

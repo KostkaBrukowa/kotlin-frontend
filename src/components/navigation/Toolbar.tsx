@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { navigate } from '@reach/router';
 import { Badge } from 'antd';
 import clsx from 'clsx';
@@ -24,11 +25,20 @@ export const Toolbar: React.FC<ToolbarProps> = () => {
   const [tabs, activeTab] = useMenuTabs();
   const { notifications, loading } = useUserNotifications(false);
   const notificationCount = notifications?.filter((it) => !it?.isRead).length;
+  const minMd = useMediaQuery({ minWidth: 768 });
+
+  if (minMd) {
+    return null;
+  }
 
   return (
     <div className={menuClassName}>
       {tabs.map(({ key, icon, to, title }) => {
-        const handleClick = () => navigate(to);
+        const handleClick = () => {
+          console.log('to in toolbar', to);
+
+          return navigate(to);
+        };
 
         const element = (
           <Fragment key={key}>

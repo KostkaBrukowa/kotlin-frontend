@@ -5,6 +5,7 @@ import { Form } from 'antd';
 import { AuthData } from '../config/authentication/useAuthentication';
 import { UserContext } from '../config/UserProvider';
 import { friendsRoute } from '../navigation/routerConstants';
+import { singleViewStyle } from '../utils/components/ViewStyles';
 import { Optional } from '../utils/types';
 import { EditUserDetailModal } from './EditUserDetailModal';
 import { UserDetailsFormFields } from './FormFieldsConfig';
@@ -39,7 +40,7 @@ export const CurrentUserView: React.FC<SettingsProps> = ({ setAuthData }) => {
   };
 
   return (
-    <div>
+    <div style={singleViewStyle}>
       <div className={style.headerWrapper}>
         <h2>Twoje dane:</h2>
       </div>
@@ -53,7 +54,7 @@ export const CurrentUserView: React.FC<SettingsProps> = ({ setAuthData }) => {
           onClose={() => setModalVisible(false)}
         />
 
-        <Form className={style.form} component="div" layout="horizontal" requiredMark={false}>
+        <Form className={style.form} component="div" layout="vertical" requiredMark={false}>
           <SettingFormItem
             currentValues={currentValues}
             type={UserDetailsFormFields.name}
