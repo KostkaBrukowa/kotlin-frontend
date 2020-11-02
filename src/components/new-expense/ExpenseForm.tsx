@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { RouteComponentProps } from '@reach/router';
 import { Form } from 'antd';
 import moment from 'moment';
@@ -51,6 +52,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ expenseId }) => {
   } = useExpenseForm(expenseId);
   const rerender = useRerender();
   const initialValues = getInitialValues(extractedData);
+  const minMd = useMediaQuery({ minWidth: 768 });
 
   if (((dataComponent !== null && !extractedData) || !extractedData) && editMode) {
     return dataComponent;
@@ -64,7 +66,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ expenseId }) => {
         form={form}
         initialValues={initialValues}
         layout="vertical"
-        size="large"
+        size={minMd ? 'large' : 'middle'}
         validateMessages={validateMessages}
         onFinish={onSubmit}
       >

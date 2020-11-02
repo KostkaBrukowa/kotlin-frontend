@@ -32,7 +32,7 @@ export class EventMapper extends RequestMapper<FormValues, NewPartyInput> {
       endDate: null,
       locationName: locationName ?? null,
       name: name ?? '',
-      startDate: date ?? moment(),
+      startDate: date ?? null,
       type: eventType ?? PartyKind.Friends,
     };
   }

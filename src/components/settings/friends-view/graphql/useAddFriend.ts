@@ -7,7 +7,6 @@ export const useAddFriend = () => {
     update: (cache, mutationResult) => {
       const { data } = mutationResult;
 
-      console.log('data', data);
       cache.modify({
         fields: {
           findUsersFriends(existingFriends: Reference[] = []) {

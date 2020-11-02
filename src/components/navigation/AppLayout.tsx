@@ -1,7 +1,6 @@
 import React from 'react';
-import { Redirect, Router } from '@reach/router';
+import { Router } from '@reach/router';
 import { Layout } from 'antd';
-import Sider from 'antd/es/layout/Sider';
 
 import { useAuthentication } from '../config/authentication/useAuthentication';
 import { AuthenticationErrorBoundary } from '../config/AuthenticationErrorBoundary';
@@ -55,7 +54,7 @@ export const AppLayout: React.FC = () => {
   return (
     <UserProvider userId={userId}>
       <Layout className={style.wrapper}>
-        <AppHeader />
+        <AppHeader tokenPresent={tokenPresent} />
         {!refreshingToken && (
           <>
             <AuthenticationErrorBoundary>

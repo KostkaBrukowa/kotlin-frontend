@@ -3,6 +3,7 @@ import { useMediaQuery } from 'react-responsive';
 import { navigate, useLocation } from '@reach/router';
 import { Badge, Button, Layout } from 'antd';
 
+import { useUserNotifications } from '../notifications/graphql/useUserNotifications';
 import { handleSpaceAndEnter } from '../utils/a11n/KeyHandlers';
 import logo from './google-maps.svg';
 import { notificationsRoute } from './routerConstants';
@@ -14,8 +15,9 @@ const { Header } = Layout;
 const LOGO_SIZE = 32;
 
 const Navigation: React.FC = () => {
-  const [tabs, activeTab] = useMenuTabs();
-  const notificationCount = 1;
+  const [tabs] = useMenuTabs();
+  const { notifications } = useUserNotifications(false);
+  const notificationCount = notifications?.filter((it) => !it?.isRead).length;
 
   return (
     <div className={style.headerLinks}>
@@ -45,7 +47,7 @@ const Navigation: React.FC = () => {
   );
 };
 
-export const AppHeader: React.FC = (props) => {
+export const AppHeader: React.FC<{ tokenPresent: boolean }> = ({ tokenPresent }) => {
   const location = useLocation();
   const goHome = () => navigate('/expenses');
   const tabName = menuTabs.find((it) => location.pathname.includes(it.to))?.title;
@@ -64,7 +66,7 @@ export const AppHeader: React.FC = (props) => {
           <img alt="" className={style.logo} height={LOGO_SIZE} src={logo} width={LOGO_SIZE} />
           <h1 className={style.appName}>Wisesplit</h1>
         </div>
-        {minMd && <Navigation />}
+        {minMd && tokenPresent && <Navigation />}
       </div>
       <h3 className={style.appName}>{tabName}</h3>
     </Header>

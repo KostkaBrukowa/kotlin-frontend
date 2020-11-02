@@ -13,7 +13,7 @@ export interface PaymentNotificationProps {
 }
 
 export const PaymentNotification: React.FC<PaymentNotificationProps> = ({
-  notificationModel: { id, actor, receiver, paymentId, createdAt, event },
+  notificationModel: { id, actor, receiver, paymentId, createdAt, event, isRead },
   userId,
 }) => {
   const handleClick = () => navigate(`${expensesRoute}/payments/${paymentId}`);
@@ -22,6 +22,7 @@ export const PaymentNotification: React.FC<PaymentNotificationProps> = ({
     <ListItem
       avatarIcon={<MdReceipt />}
       date={createdAt}
+      isRead={isRead}
       notificationId={id}
       title={renderPaymentTitle(event, actor?.id, userId, receiver)}
       onClick={handleClick}

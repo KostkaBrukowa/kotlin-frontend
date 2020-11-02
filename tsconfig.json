@@ -26,8 +26,8 @@
         }
       }
     ],
-//    "types": ["cypress" ,"@testing-library/react", "node", "jest", "@testing-library/jest-dom"],
-    "types": ["@testing-library/react", "node", "jest", "@testing-library/jest-dom"],
+    "types": ["cypress" ,"@testing-library/react", "node", "jest", "@testing-library/jest-dom"],
+//    "types": ["@testing-library/react", "node", "jest", "@testing-library/jest-dom"],
 
     "isolatedModules": true
   },

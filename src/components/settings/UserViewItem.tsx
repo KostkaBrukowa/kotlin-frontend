@@ -11,8 +11,6 @@ export interface UserViewItemProps {
 
 export const UserViewItem: React.FC<UserViewItemProps> = ({ title, onClick }) => {
   const onKeyPress = (e: React.KeyboardEvent<HTMLDivElement>): void => {
-    console.log('E.key', e.key);
-
     if (e.key === ' ' || e.key === 'Enter') {
       onClick();
     }

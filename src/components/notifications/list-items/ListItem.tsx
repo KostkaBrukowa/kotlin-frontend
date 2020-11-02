@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Avatar, List, Skeleton } from 'antd';
+import { Avatar, Badge, List, Skeleton } from 'antd';
 import clsx from 'clsx';
 
 import { formatDate } from '../../utils/functions/date';
@@ -13,6 +13,7 @@ export interface ListItemProps {
   title: string;
   avatarIcon: ReactNode;
   notificationId: string;
+  isRead?: boolean;
 
   onClick?(): void;
 }
@@ -23,6 +24,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   avatarIcon,
   onClick,
   notificationId,
+  isRead,
 }) => (
   <List.Item
     actions={[<ListItemDropdownAction notificationId={notificationId} />]}
@@ -31,7 +33,11 @@ export const ListItem: React.FC<ListItemProps> = ({
   >
     <Skeleton avatar loading={false}>
       <List.Item.Meta
-        avatar={<Avatar className={style.avatar} icon={avatarIcon} shape="square" />}
+        avatar={
+          <Badge dot={!isRead} offset={[0, 3]}>
+            <Avatar className={style.avatar} icon={avatarIcon} shape="square" />
+          </Badge>
+        }
         description={formatDate(date)}
         title={title}
       />

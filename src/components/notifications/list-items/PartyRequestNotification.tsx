@@ -13,7 +13,7 @@ export interface PartyRequestNotificationProps {
 }
 
 export const PartyRequestNotification: React.FC<PartyRequestNotificationProps> = ({
-  notificationModel: { id, actor, receiver, partyId, createdAt, event },
+  notificationModel: { id, actor, receiver, partyId, createdAt, event, isRead },
   userId,
 }) => {
   const handleClick = () => navigate(`${unknownEventTypeRoute}/${partyId}`);
@@ -47,6 +47,7 @@ export const PartyRequestNotification: React.FC<PartyRequestNotificationProps> =
     <ListItem
       avatarIcon={<BsFillEnvelopeFill />}
       date={createdAt}
+      isRead={isRead}
       notificationId={id}
       title={renderTitle()}
       onClick={handleClick}

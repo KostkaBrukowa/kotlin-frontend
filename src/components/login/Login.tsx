@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { useLocation } from '@reach/router';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { FormItemProps } from 'antd/es/form';
@@ -6,6 +7,7 @@ import clsx from 'clsx';
 
 import { registerRoute } from '../navigation/routerConstants';
 import { TransitionElement } from '../utils/animations/TransitionElement';
+import { singleViewStyle } from '../utils/components/ViewStyles';
 import { validateMessages } from '../utils/form/validationMessages';
 import { OtherOption } from './OtherOption';
 import { FormFields, LoginProps, useLogin } from './useLogin';
@@ -57,9 +59,10 @@ export const Login: React.FC<LoginProps> = (props) => {
   const register = location.pathname.includes(registerRoute);
   const { onSubmit, loading, form } = useLogin(props, register);
   const submitButtonTitle = register ? 'Zarejestruj się' : 'Zaloguj się';
+  const minMd = useMediaQuery({ minWidth: 768 });
 
   return (
-    <div className={style.wrapper}>
+    <div className={style.wrapper} style={singleViewStyle}>
       <Form
         className={style.form}
         form={form}
@@ -70,6 +73,8 @@ export const Login: React.FC<LoginProps> = (props) => {
           password: 'admin123',
           repeatedPassword: 'admin123',
         }}
+        layout="vertical"
+        size={minMd ? 'large' : 'middle'}
         validateMessages={validateMessages}
         onFinish={onSubmit}
       >
@@ -91,11 +96,7 @@ export const Login: React.FC<LoginProps> = (props) => {
           </Form.Item>
         </TransitionElement>
 
-        <TransitionElement
-          className="data-cy-repeat-password"
-          initialHeight="96px"
-          visible={register}
-        >
+        <TransitionElement className="data-cy-name" initialHeight="96px" visible={register}>
           <Form.Item {...fields.name}>
             <Input />
           </Form.Item>

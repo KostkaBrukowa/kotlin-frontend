@@ -35,7 +35,6 @@
 .card {
   margin-top: 0;
   background: @list-background-color !important;
-  border: initial;
   transition: transform 350ms ease-out;
   cursor: pointer;
 }
@@ -46,12 +45,8 @@
 
 .card:active,
 .card:hover {
+  outline: none;
   background: lighten(@list-background-color, 40%) !important;
-}
-
-.card + .card {
-  border-top: 1px solid;
-  border-color: #5a5a5a;
 }
 
 .titleWrapper {
@@ -92,11 +87,7 @@
 @media (min-width: 768px) {
   .wrapper {
     grid-template-columns: 1fr 1fr;
-    column-gap: 1rem;
-  }
-
-  .card + .card {
-    border: none;
+    gap: 1rem;
   }
 }
 

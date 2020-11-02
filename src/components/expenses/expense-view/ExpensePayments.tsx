@@ -61,7 +61,7 @@ const ListItem = ({ payment, userId, expense }: ExpensePaymentProps) => {
 
 export const ExpensePayments: React.FC<ExpensePaymentsProps> = ({ payments, expense }) => {
   const { userId } = useContext(UserContext);
-  const grid = useListGridProps();
+  const grid = useListGridProps(true);
 
   return (
     <List

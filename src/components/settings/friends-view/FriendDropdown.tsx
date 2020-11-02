@@ -4,11 +4,9 @@ import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
 import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined';
 import { Button, Dropdown, Menu, message, Modal } from 'antd';
 
-import { stopPropagation, stopPropagations } from '../../utils/functions/utilFunctions';
+import { stopPropagations } from '../../utils/functions/utilFunctions';
 import { Friend } from '../../utils/hooks/graphql/friends/useUserFriends';
 import { useRemoveFriend } from './graphql/useRemoveFriend';
-
-import style from './FriendsView.module.less';
 
 export const FriendDropdown: React.FC<{ friend: Friend }> = ({ friend: { id, name } }) => {
   const { removeFriend } = useRemoveFriend(id);
@@ -35,7 +33,6 @@ export const FriendDropdown: React.FC<{ friend: Friend }> = ({ friend: { id, nam
         icon={<DeleteOutlined />}
         key="1"
         onClick={(e) => {
-          console.log('Event', e);
           e.domEvent.stopPropagation();
           showRemoveFriendModal();
         }}
@@ -46,7 +43,7 @@ export const FriendDropdown: React.FC<{ friend: Friend }> = ({ friend: { id, nam
   );
 
   return (
-    <Dropdown className={style.dropdownButton} overlay={overlay} trigger={['click']}>
+    <Dropdown overlay={overlay} trigger={['click']}>
       {minSm ? (
         <Button icon={<EllipsisOutlined />} type="ghost" {...stopPropagations}>
           Dodatkowe akcje

@@ -5,7 +5,6 @@ import { Button, Tabs } from 'antd';
 
 import { ActionType, AppContext, EventsTabKeys } from '../app-context/AppContext';
 import { eventFormRoute } from '../navigation/routerConstants';
-import { singleViewStyle } from '../utils/components/ViewStyles';
 import { EventsList } from './event/EventsList';
 import { FriendEventsList } from './friends/FriendEventsList';
 import { GroupsList } from './groups/GroupsList';

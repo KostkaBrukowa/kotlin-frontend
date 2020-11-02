@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { RouteComponentProps } from '@reach/router';
 import { Button, Form } from 'antd';
 import moment from 'moment';
@@ -60,6 +61,7 @@ export const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
   } = useEventForm(eventId);
   const rerender = useRerender();
   const initialValues = getInitialValues(extractedData);
+  const minMd = useMediaQuery({ minWidth: 768 });
 
   if ((dataComponent !== null || !extractedData) && editMode) return dataComponent;
 
@@ -71,7 +73,7 @@ export const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
         form={form}
         initialValues={initialValues}
         layout="vertical"
-        size="large"
+        size={minMd ? 'large' : 'middle'}
         validateMessages={validateMessages}
         onFinish={onSubmit}
       >

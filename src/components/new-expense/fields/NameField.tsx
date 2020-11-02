@@ -7,7 +7,7 @@ import { FormFields } from '../useExpenseForm';
 const formItemProps: Omit<FormItemProps, 'children'> = {
   label: 'Nazwa wydatku',
   name: FormFields.name,
-  rules: [{ required: true }, { min: 3 }, { max: 50 }],
+  rules: [{ required: true }, { min: 2 }, { max: 50 }], // todo
 };
 
 export const NameField: React.FC = () => (

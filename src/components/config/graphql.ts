@@ -33,7 +33,9 @@ const handleGraphqlErrors = ({ graphQLErrors }: Pick<ErrorResponse, 'graphQLErro
         navigate('/login').then(() => antDMessage.info('Aby kontynuować zaloguj się ponownie.'));
       }
     } else {
-      antDMessage.info(message);
+      const splitMessage = message.split(':');
+
+      antDMessage.info(splitMessage[splitMessage.length - 1]);
     }
 
     console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);

@@ -23,7 +23,7 @@ interface ToolbarProps {
 
 export const Toolbar: React.FC<ToolbarProps> = () => {
   const [tabs, activeTab] = useMenuTabs();
-  const { notifications, loading } = useUserNotifications(false);
+  const { notifications } = useUserNotifications(false);
   const notificationCount = notifications?.filter((it) => !it?.isRead).length;
   const minMd = useMediaQuery({ minWidth: 768 });
 
@@ -34,11 +34,7 @@ export const Toolbar: React.FC<ToolbarProps> = () => {
   return (
     <div className={menuClassName}>
       {tabs.map(({ key, icon, to, title }) => {
-        const handleClick = () => {
-          console.log('to in toolbar', to);
-
-          return navigate(to);
-        };
+        const handleClick = () => navigate(to);
 
         const element = (
           <Fragment key={key}>

@@ -2,7 +2,7 @@ import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import ScheduleOutlined from '@ant-design/icons/ScheduleOutlined';
 import { navigate } from '@reach/router';
-import { Avatar, List, Skeleton } from 'antd';
+import { Avatar, List } from 'antd';
 
 import { PartyRequestStatus } from '../../../generated/graphql';
 import { renderPartyRequestStatus } from '../../enum-renderers/PartyReqestStatusRenderer';

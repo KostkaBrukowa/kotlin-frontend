@@ -22,15 +22,20 @@ export const NotificationsList: React.FC<{
   const listPlaceholder = { emptyText: <EmptyEventsList type="powiadomień" /> };
   const { markAsRead } = useMarkNotificationsAsRead();
 
-  useDeepCompareEffect(() => {
-    if (notifications && notifications.some((it) => !it?.isRead)) {
-      markAsRead(notifications);
-    }
-  }, [notifications]);
+  useDeepCompareEffect(
+    () => () => {
+      if (notifications && notifications.some((it) => !it?.isRead)) {
+        markAsRead(notifications);
+      }
+    },
+    [notifications],
+  );
 
   return (
     <List
-      dataSource={notifications}
+      dataSource={notifications.sort(
+        (left, right) => (right?.createdAt.getTime() ?? 0) - (left?.createdAt.getTime() ?? 0),
+      )}
       locale={listPlaceholder}
       renderItem={(item) => renderNotificationItem(item, userId)}
       size="large"

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import SearchOutlined from '@ant-design/icons/SearchOutlined';
 import { navigate } from '@reach/router';
-import { Card, Input, List } from 'antd';
+import { Input, List } from 'antd';
 
 import { EmptyEventsList } from '../../events/common/EmptyList';
 import { userRoute } from '../../navigation/routerConstants';

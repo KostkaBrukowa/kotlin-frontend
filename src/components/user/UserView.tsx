@@ -44,8 +44,6 @@ export const UserView: React.FC<UserViewProps> = ({ userId }) => {
 
   const handleAddFriend = () => navigate(`${friendsRoute}?email=${user?.email}`);
 
-  console.log('Payments', payments);
-
   const userOwsCurrentUser = expenses
     .filter((it) => it.expenseStatus === ExpenseStatus.InProgressPaying)
     .flatMap((it) => it.expensePayments.filter((payment) => payment.paymentPayer.id === userId))

@@ -23,8 +23,9 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
-import { enterAnApp, login, register } from './loginCommands';
+
 import { expectQueryName, gqlRoute, graphqlSpy, waitAndExpectQueryName } from './graphqlCommands';
+import { enterAnApp, login, register } from './loginCommands';
 
 Cypress.Commands.add('register', register);
 Cypress.Commands.add('login', login);
@@ -43,3 +44,17 @@ addMatchImageSnapshotCommand({
   customDiffConfig: { threshold: 0.05 }, // threshold for each pixel
   capture: 'viewport', // capture viewport in screenshot
 });
+
+const COMMAND_DELAY = 500;
+
+for (const command of ['visit', 'click', 'trigger', 'type', 'clear', 'reload', 'contains']) {
+  Cypress.Commands.overwrite(command, (originalFn, ...args) => {
+    const origVal = originalFn(...args);
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(origVal);
+      }, COMMAND_DELAY);
+    });
+  });
+}

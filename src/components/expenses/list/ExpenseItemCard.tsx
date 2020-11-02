@@ -50,6 +50,7 @@ export const ExpenseItemCard: React.FC<ExpenseItemCardProps> = ({
 
   return (
     <Card
+      bordered
       className={clsx(style.card, { [style.cardHighlight]: highlight })}
       tabIndex={0}
       onClick={handleClick}

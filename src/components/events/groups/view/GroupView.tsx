@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { navigate, RouteComponentProps } from '@reach/router';
 import clsx from 'clsx';
 
 import { ElementHeader } from '../../../common/element-header/ElementHeader';
+import { UserContext } from '../../../config/UserProvider';
 import { eventFormRoute } from '../../../navigation/routerConstants';
 import { Info, ViewDescription } from '../../../utils/components/ViewDescription';
 import { singleViewStyle } from '../../../utils/components/ViewStyles';
@@ -21,6 +22,7 @@ interface RouteParams {
 export type GroupViewProps = RouteComponentProps<RouteParams>;
 
 export const GroupView: React.FC<GroupViewProps> = ({ groupId }) => {
+  const { userId } = useContext(UserContext);
   const { dataComponent, extractedData: event } = useSingleEvent(groupId);
 
   if (dataComponent !== null || !event || !event) return dataComponent;
@@ -32,10 +34,13 @@ export const GroupView: React.FC<GroupViewProps> = ({ groupId }) => {
     [style.settledBalance]: unbalancedAmount === 0,
   });
 
+  const handleEdit = () => navigate(`${eventFormRoute}/${event.id}`);
+  const userIsOwner = event.owner?.id === userId;
+
   return (
     <div style={singleViewStyle}>
       <div className={style.infoWrapper}>
-        <ElementHeader id={event.id} onEdit={() => navigate(`${eventFormRoute}/${event.id}`)} />
+        <ElementHeader id={event.id} onEdit={userIsOwner ? handleEdit : undefined} />
         <h2 className={style.groupName}>{capitalize(event.name)}</h2>
         <JoinEventButton event={event} text="Dołączyłem do grupy" />
         <ViewDescription>

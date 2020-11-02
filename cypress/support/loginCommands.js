@@ -13,6 +13,7 @@ export const register = () => {
   cy.getCy('login-register').click();
 
   cy.getCy('repeat-password input').clear().type('admin123');
+  cy.getCy('name input').clear().type('admin123');
   cy.getCy('submit').click();
   cy.wait('@graphql');
 };

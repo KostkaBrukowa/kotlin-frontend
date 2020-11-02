@@ -13,7 +13,7 @@ export interface ExpenseNotificationProps {
 }
 
 export const ExpenseNotification: React.FC<ExpenseNotificationProps> = ({
-  notificationModel: { id, actor, receiver, expenseId, createdAt, event },
+  notificationModel: { id, actor, receiver, expenseId, createdAt, event, isRead },
   userId,
 }) => {
   const handleClick = () => navigate(`${expensesRoute}/${expenseId}`);
@@ -43,6 +43,7 @@ export const ExpenseNotification: React.FC<ExpenseNotificationProps> = ({
     <ListItem
       avatarIcon={<GiWallet />}
       date={createdAt}
+      isRead={isRead}
       notificationId={id}
       title={renderText()}
       onClick={handleClick}

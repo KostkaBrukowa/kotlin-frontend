@@ -16,7 +16,6 @@ export const LogoutFormItem: React.FC<LogoutFormItemProps> = ({ setAuthData }) =
   const [logout] = useLogoutMutation();
 
   const onLogout = async () => {
-    console.log('logging out');
     await logout();
     setAuthData({ userId: null, jwtToken: null });
     await navigate(loginRoute);

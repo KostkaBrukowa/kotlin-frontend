@@ -1,9 +1,7 @@
 import React, { useContext } from 'react';
 import { RouteComponentProps } from '@reach/router';
-import clsx from 'clsx';
 
 import { AppContext, OwsType } from '../app-context/AppContext';
-import { AnimateChange } from '../utils/animations/AnimateChange';
 import { ExpenseList } from './list/ExpenseList';
 import { PaymentList } from './list/PaymentList';
 import { TotalBalance } from './TotalBalance';
