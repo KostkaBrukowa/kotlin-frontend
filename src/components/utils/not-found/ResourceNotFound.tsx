@@ -3,17 +3,29 @@ import AiOutlineArrowLeft from '@ant-design/icons/ArrowLeftOutlined';
 import { navigate, RouteComponentProps } from '@reach/router';
 import { Button, Empty } from 'antd';
 
+import { loginRoute } from '../../navigation/routerConstants';
+
 import style from './ExpenseNotFound.module.less';
 
-export type ResourceNotFoundProps = RouteComponentProps;
+export interface ResourceNotFoundProps extends RouteComponentProps {
+  tokenPresent?: boolean;
+}
 
-export const ResourceNotFound: React.FC<ResourceNotFoundProps> = () => (
+export const ResourceNotFound: React.FC<ResourceNotFoundProps> = ({ tokenPresent = true }) => (
   <Empty
     className={style.empty}
     description={
       <span>
-        Ups... Chyba zabłądziłeś.
-        <br /> Taka strona nie istnieje.
+        {tokenPresent ? (
+          <>
+            Ups... Chyba zabłądziłeś.\n <br /> Taka strona nie istnieje.
+          </>
+        ) : (
+          <>
+            Jesteś niezalogowany
+            <br /> Aby korzystać z tej aplikacji:
+          </>
+        )}
       </span>
     }
     imageStyle={{
@@ -24,9 +36,9 @@ export const ResourceNotFound: React.FC<ResourceNotFoundProps> = () => (
       className={style.button}
       icon={<AiOutlineArrowLeft className={style.icon} />}
       type="primary"
-      onClick={() => navigate(-1)}
+      onClick={() => (tokenPresent ? navigate(-1) : navigate(loginRoute))}
     >
-      Zawróć
+      {tokenPresent ? 'Zawróć' : 'Zaloguj się'}
     </Button>
   </Empty>
 );

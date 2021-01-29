@@ -5,7 +5,7 @@ import { Badge, Button, Layout } from 'antd';
 
 import { useUserNotifications } from '../notifications/graphql/useUserNotifications';
 import { handleSpaceAndEnter } from '../utils/a11n/KeyHandlers';
-import logo from './google-maps.svg';
+import logo from './method-draw-image.svg';
 import { notificationsRoute } from './routerConstants';
 import { menuTabs, useMenuTabs } from './useAppNavigation';
 
@@ -64,7 +64,7 @@ export const AppHeader: React.FC<{ tokenPresent: boolean }> = ({ tokenPresent })
           onKeyPress={handleSpaceAndEnter(goHome)}
         >
           <img alt="" className={style.logo} height={LOGO_SIZE} src={logo} width={LOGO_SIZE} />
-          <h1 className={style.appName}>Wisesplit</h1>
+          <h1 className={style.appName}>Zrzutka</h1>
         </div>
         {minMd && tokenPresent && <Navigation />}
       </div>

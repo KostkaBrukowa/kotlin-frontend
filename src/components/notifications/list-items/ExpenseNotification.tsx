@@ -25,15 +25,15 @@ export const ExpenseNotification: React.FC<ExpenseNotificationProps> = ({
       case NotificationEvent.Creation:
         return isActorCurrentUser
           ? 'Ty utworzyłeś wydatek'
-          : `${receiver?.name} zaprosił cię do wzięcia udziału w wydatku.`;
+          : `${actor?.name} zaprosił cię do wzięcia udziału w wydatku.`;
       case NotificationEvent.Paid:
         return isActorCurrentUser
           ? `Ty zapłaciłeś za wydatek ${receiver?.name}.`
-          : `${receiver?.name} zapłacił za twój wydatek.`;
+          : `${actor?.name} zapłacił za twój wydatek.`;
       case NotificationEvent.Deletion:
         return isActorCurrentUser
           ? 'Ty usunąłeś wydatek.'
-          : `${receiver?.name} usunął wydatek w którym brałeś udział.`;
+          : `${actor?.name} usunął wydatek w którym brałeś udział.`;
       default:
         return 'Coś innego się jeszcze stało.';
     }

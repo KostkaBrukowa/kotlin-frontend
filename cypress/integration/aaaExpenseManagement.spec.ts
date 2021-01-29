@@ -1,9 +1,9 @@
 import { JWT_TOKEN_EXPIRY_TIME } from '../../src/components/config/authentication/useAuthentication';
 
 describe('expense management test', () => {
-  before(() => {
-    cy.exec('yarn db:clear');
-  });
+  // before(() => {
+  //   cy.exec('yarn db:clear');
+  // });
 
   function logOut() {
     cy.contains('Profil').click();

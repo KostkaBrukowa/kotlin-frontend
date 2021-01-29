@@ -5,6 +5,7 @@ import { UserContext } from '../../../../config/UserProvider';
 import { useRemoteData } from '../../useRemoteData';
 
 export type Friend = GetUserFriendsQuery['findUsersFriends'][0];
+export type Friends = GetUserFriendsQuery['findUsersFriends'];
 
 export const useUserFriends = () => {
   const { userId } = useContext(UserContext);

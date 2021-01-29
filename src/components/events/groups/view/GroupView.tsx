@@ -42,7 +42,7 @@ export const GroupView: React.FC<GroupViewProps> = ({ groupId }) => {
       <div className={style.infoWrapper}>
         <ElementHeader id={event.id} onEdit={userIsOwner ? handleEdit : undefined} />
         <h2 className={style.groupName}>{capitalize(event.name)}</h2>
-        <JoinEventButton event={event} text="Dołączyłem do grupy" />
+        <JoinEventButton event={event} text="Opuść grupę" />
         <ViewDescription>
           <Info
             description={`${unbalancedAmount} ${currency}`}

@@ -19,13 +19,13 @@ export interface OwsSectionProps {
 
 const userOwsProps = {
   className: style.owsUser,
-  title: 'Inni wiszą tobie:',
+  title: 'Inni są tobie winni:',
   icon: <PlusCircleOutlined />,
 };
 
 const owsUserProps = {
   className: style.userOws,
-  title: 'Ty wisisz w sumie:',
+  title: 'Ty jesteś winny w sumie:',
   icon: <MinusCircleOutlined />,
 };
 

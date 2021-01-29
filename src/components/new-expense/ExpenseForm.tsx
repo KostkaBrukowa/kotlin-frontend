@@ -9,12 +9,14 @@ import { singleViewStyle } from '../utils/components/ViewStyles';
 import { validateMessages } from '../utils/form/validationMessages';
 import { dateFrom } from '../utils/functions/date';
 import { useRerender } from '../utils/hooks/useRerender';
-import { CostAndDateFields } from './fields/CostAndDateFields';
+import { CostField } from './fields/CostField';
+import { DateFields } from './fields/DateFields';
 import { DescriptionField } from './fields/DescriptionField';
 import { ExpenseParticipantsSelectField } from './fields/ExpenseParticipantsSelectField';
 import { ExpenseTypeField } from './fields/ExpenseTypeField';
 import { GroupIdSelectField } from './fields/GroupIdSelectField';
 import { NameField } from './fields/NameField';
+import { SplitField } from './fields/SplitField';
 import { SaveExpenseButton } from './SaveExpenseButton';
 import { FormValues, useExpenseForm } from './useExpenseForm';
 
@@ -78,7 +80,11 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ expenseId }) => {
 
         <ExpenseParticipantsSelectField editMode={editMode} form={form} rerender={rerender} />
 
-        <CostAndDateFields editMode={editMode} expenseStatus={extractedData?.expenseStatus} />
+        <CostField editMode={editMode} expenseStatus={extractedData?.expenseStatus} />
+
+        <SplitField form={form} />
+
+        <DateFields />
 
         <DescriptionField />
 

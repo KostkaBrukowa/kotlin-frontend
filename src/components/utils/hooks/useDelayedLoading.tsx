@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 
 interface UseDelayedLoadingProps {
   loading: boolean;
+  loadingDelay?: number;
 }
 
-const LOADING_DELAY = 650;
+const DEFAULT_LOADING_DELAY = 650;
 
 export const useDelayedLoading = (props: UseDelayedLoadingProps) => {
-  const { loading } = props;
+  const { loading, loadingDelay } = props;
   const timeoutRef = useRef<number | undefined>(undefined);
   const [delayedLoading, setDelayedLoading] = useState(false);
 
@@ -15,7 +16,7 @@ export const useDelayedLoading = (props: UseDelayedLoadingProps) => {
     if (!delayedLoading && loading) {
       timeoutRef.current = (setTimeout(
         () => setDelayedLoading(true),
-        LOADING_DELAY,
+        loadingDelay || DEFAULT_LOADING_DELAY,
       ) as unknown) as number;
     } else {
       setDelayedLoading(false);

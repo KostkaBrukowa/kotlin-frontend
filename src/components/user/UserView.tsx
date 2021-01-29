@@ -65,14 +65,14 @@ export const UserView: React.FC<UserViewProps> = ({ userId }) => {
         <Statistic
           precision={2}
           suffix={currency}
-          title="Użytkownik ci wisi"
+          title="Jest ci winny"
           value={userOwsCurrentUser}
           valueStyle={{ color: '#50b121' }}
         />
         <Statistic
           precision={2}
           suffix={currency}
-          title="Wisisz użytkownikowi"
+          title="Jesteś winny"
           value={currentUserOws}
           valueStyle={{ color: '#cf1322' }}
         />

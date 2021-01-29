@@ -25,7 +25,7 @@ export const PartyRequestNotification: React.FC<PartyRequestNotificationProps> =
       case NotificationEvent.Creation:
         return isActorCurrentUser
           ? `Ty zaprosiłeś ${receiver?.name} na wydarzenie.`
-          : `${receiver?.name} zaprosił cię na imprezę.`;
+          : `${actor?.name} zaprosił cię na imprezę.`;
       case NotificationEvent.Accepted:
         return isActorCurrentUser
           ? 'Przyjąłeś zaproszenie na imprezę.'

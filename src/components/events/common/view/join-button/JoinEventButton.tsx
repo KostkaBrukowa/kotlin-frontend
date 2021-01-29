@@ -75,7 +75,7 @@ const JoinEventButton: React.FC<JoinEventButtonProps> = ({ event, text }) => {
 };
 
 JoinEventButton.defaultProps = {
-  text: 'Wezmę udział',
+  text: 'Opuść',
 };
 
 export { JoinEventButton };

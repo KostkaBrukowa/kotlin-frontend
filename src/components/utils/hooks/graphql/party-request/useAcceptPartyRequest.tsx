@@ -7,7 +7,7 @@ import {
 
 export const useAcceptPartyRequest = () => {
   const [acceptPartyRequest, { loading }] = useAcceptPartyRequestMutation({
-    onCompleted: () => message.success('Dołączyłeś do eventu.'),
+    onCompleted: () => message.success('Zaakceptowałeś zaproszenie.'),
     update: (cache, mutationResult) => {
       const { data } = mutationResult;
 

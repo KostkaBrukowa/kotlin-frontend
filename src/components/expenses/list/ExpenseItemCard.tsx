@@ -1,4 +1,11 @@
 import React from 'react';
+import {
+  CheckCircleTwoTone,
+  CloseCircleOutlined,
+  DollarCircleOutlined,
+  HourglassOutlined,
+  SendOutlined,
+} from '@ant-design/icons';
 import { navigate } from '@reach/router';
 import { Card, Tooltip } from 'antd';
 import Meta from 'antd/es/card/Meta';

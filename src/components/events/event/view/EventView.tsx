@@ -59,7 +59,7 @@ export const EventView: React.FC<EventViewProps> = ({ eventId }) => {
           )}
         </div>
         <p>{locationName}</p>
-        <JoinEventButton event={event} />
+        <JoinEventButton event={event} text="Opuść wydarzenie" />
         <ViewDescription>
           <Info description={event.owner?.name} title="Założyciel:" />
           <Info description={formatDate(dateFrom(event.startDate))} title="Data rozpoczęcia:" />

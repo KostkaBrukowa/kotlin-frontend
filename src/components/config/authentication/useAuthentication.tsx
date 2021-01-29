@@ -40,10 +40,12 @@ export const useAuthentication = () => {
     JWT_TOKEN = authData?.jwtToken ?? null;
   }, [authData]);
 
+  const tokenPresent = authData?.jwtToken != null;
+
   return {
-    initialLoading: loading && !called,
+    initialLoading: (loading && !tokenPresent) || !called,
     setAuthData,
-    tokenPresent: authData?.jwtToken != null,
+    tokenPresent,
     userId: authData?.userId ?? null,
   };
 };

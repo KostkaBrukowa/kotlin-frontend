@@ -24,7 +24,7 @@ export const PaymentNotification: React.FC<PaymentNotificationProps> = ({
       date={createdAt}
       isRead={isRead}
       notificationId={id}
-      title={renderPaymentTitle(event, actor?.id, userId, receiver)}
+      title={renderPaymentTitle(event, actor, userId)}
       onClick={handleClick}
     />
   );
