@@ -26,6 +26,8 @@ export const useRemovePartyRequestModal = ({ event }: ChangeExpenseModalProps) =
   return (partyRequesteeId: string): void => {
     Modal.confirm({
       maskClosable: true,
+      okText: 'Usuń',
+      cancelText: 'Anuluj',
       title: 'Usuwasz zaproszenie',
       icon: <ExclamationCircleOutlined />,
       content: 'Właśnie usuwasz zaproszenie użytkownika. Jesteś pewien że chcesz to zrobić?',

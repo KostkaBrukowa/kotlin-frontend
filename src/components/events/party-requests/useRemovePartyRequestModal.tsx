@@ -9,6 +9,8 @@ export const useRemovePartyRequestModal = (partyRequestId: string) => {
 
   return (): void => {
     Modal.confirm({
+      okText: 'Usuń',
+      cancelText: 'Anuluj',
       maskClosable: true,
       title: 'Usuwasz uczestnika',
       icon: <ExclamationCircleOutlined />,

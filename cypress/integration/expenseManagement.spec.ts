@@ -1,9 +1,9 @@
 import { JWT_TOKEN_EXPIRY_TIME } from '../../src/components/config/authentication/useAuthentication';
 
 describe('expense management test', () => {
-  // before(() => {
-  //   cy.exec('yarn db:clear');
-  // });
+  before(() => {
+    cy.exec('yarn db:clear');
+  });
 
   function logOut() {
     cy.contains('Profil').click();
@@ -57,7 +57,7 @@ describe('expense management test', () => {
     cy.contains('Twoi znajomi').click();
     cy.contains('Nowy znajomy').click();
     cy.get('#FRIEND_EMAIL').type(`admin${user}@gmail.com`);
-    cy.contains('OK').click();
+    cy.get('.ant-modal-footer > .ant-btn-primary').click();
   };
 
   beforeEach(() => {
@@ -74,41 +74,45 @@ describe('expense management test', () => {
 
     // add a friend
     addAFriend(1);
-    //
-    // // create new expense
+
+    // create new expense
     createExpense();
 
     logOut();
     logIn(1);
 
-    cy.contains('Ty wisisz w sumie:').click();
+    cy.wait(500);
+    cy.matchImageSnapshot('expenseManagement/1');
+    cy.contains('Ty jesteś winny w sumie:').click();
     cy.contains('Przykładowy opis').click();
     cy.contains('Potwierdź udział').click();
-    cy.contains('OK').click();
+    cy.get('.ant-modal-confirm-btns > .ant-btn-primary').click();
 
     logOut();
     logIn(2);
 
-    cy.contains('Inni wiszą tobie').click();
+    cy.wait(500);
+    cy.matchImageSnapshot('expenseManagement/2');
+    cy.contains('Inni są tobie winni:').click();
     cy.contains('Przykładowy opis').click();
     cy.contains('Potwierdź uczestników').click();
-    cy.contains('OK').click();
+    cy.get('.ant-modal-confirm-btns > .ant-btn-primary').click();
 
     logOut();
     logIn(1);
 
-    cy.contains('Ty wisisz w sumie:').click();
+    cy.contains('Ty jesteś winny w sumie:').click();
     cy.contains('Przykładowy opis').click();
     cy.contains('Rozlicz się').click();
-    cy.contains('OK').click();
+    cy.get('.ant-modal-confirm-btns > .ant-btn-primary').click();
 
     logOut();
     logIn(2);
 
-    cy.contains('Inni wiszą tobie').click();
+    cy.contains('Inni są tobie winni:').click();
     cy.contains('Przykładowy opis').click();
     cy.contains('Ukończ wydatek').click();
-    cy.contains('OK').click();
+    cy.get('.ant-modal-confirm-btns > .ant-btn-primary').click();
   });
 
   it('should be able to edit expense', () => {
@@ -123,10 +127,14 @@ describe('expense management test', () => {
     cy.contains('Przykładowy opis').click();
     cy.contains('Edytuj').click();
 
+    cy.wait(500);
+    cy.matchImageSnapshot('expenseManagement/3');
     cy.get('#name').clear().type('Przykładowy wydatek zmieniony');
     cy.get('#description').clear().type('Przykładowy opis zmieniony');
     cy.contains('Edytuj').click();
 
+    cy.wait(500);
+    cy.matchImageSnapshot('expenseManagement/4');
     cy.contains('Przykładowy wydatek zmieniony');
     cy.contains('Przykładowy opis zmieniony');
   });
@@ -139,7 +147,7 @@ describe('expense management test', () => {
     // create new expense
     cy.contains('Przykładowy opis zmieniony').click();
     cy.contains('Usuń').click();
-    cy.contains('OK').click();
+    cy.get('.ant-modal-confirm-btns > .ant-btn-primary').click();
 
     cy.contains('Przykładowy wydatek zmieniony').should('not.exist');
     cy.contains('Przykładowy opis zmieniony').should('not.exist');

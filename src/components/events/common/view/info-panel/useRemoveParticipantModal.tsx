@@ -10,6 +10,8 @@ export const useRemoveParticipantModal = () => {
   return (eventId: string, userId: string): void => {
     Modal.confirm({
       maskClosable: true,
+      okText: 'Usuń',
+      cancelText: 'Anuluj',
       title: 'Usuwasz uczestnika',
       icon: <ExclamationCircleOutlined />,
       content: 'Właśnie usuwasz uczestnika ze swojej imprezy. Jesteś pewien że chcesz to zrobić?',

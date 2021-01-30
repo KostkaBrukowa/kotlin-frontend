@@ -44,17 +44,17 @@ addMatchImageSnapshotCommand({
   customDiffConfig: { threshold: 0.05 }, // threshold for each pixel
   capture: 'viewport', // capture viewport in screenshot
 });
-
-const COMMAND_DELAY = 500;
-
-for (const command of ['visit', 'click', 'trigger', 'type', 'clear', 'reload', 'contains']) {
-  Cypress.Commands.overwrite(command, (originalFn, ...args) => {
-    const origVal = originalFn(...args);
-
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(origVal);
-      }, COMMAND_DELAY);
-    });
-  });
-}
+//
+// const COMMAND_DELAY = 500;
+//
+// for (const command of ['visit', 'click', 'trigger', 'type', 'clear', 'reload', 'contains']) {
+//   Cypress.Commands.overwrite(command, (originalFn, ...args) => {
+//     const origVal = originalFn(...args);
+//
+//     return new Promise((resolve) => {
+//       setTimeout(() => {
+//         resolve(origVal);
+//       }, COMMAND_DELAY);
+//     });
+//   });
+// }

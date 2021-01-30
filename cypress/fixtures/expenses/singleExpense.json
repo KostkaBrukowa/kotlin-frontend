@@ -6,7 +6,7 @@
       "description" : "I bought a booze",
       "expenseDate" : "2020-07-31T11:06:15.414198+02:00[Europe/Warsaw]",
       "amount" : 42.42,
-      "expenseStatus" : "IN_PROGRESS_REQUESTING",
+      "expenseStatus" : "IN_PROGRESS_PAYING",
       "expensePayer" : {
         "id" : "1",
         "name" : "persistent user test name",

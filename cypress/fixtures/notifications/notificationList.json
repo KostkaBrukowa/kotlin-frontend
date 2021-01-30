@@ -1,77 +1,63 @@
 {
-  "data" : {
-    "findUserNotifications" : [ {
-      "id" : "12",
-      "createdAt" : "2020-07-13T10:30:46.366348+02:00[Europe/Warsaw]",
-      "isRead" : false,
-      "event" : "ACCEPTED",
-      "type" : "PAYMENT",
-      "actor" : {
-        "id" : "0",
-        "name" : "actor",
-        "__typename" : "UserType"
+  "data": {
+    "findUserNotifications": [
+      {
+        "id": "11",
+        "createdAt": "2021-01-30T11:09:33.915Z[Etc/UTC]",
+        "isRead": true,
+        "event": "CREATION",
+        "type": "PARTY_REQUEST",
+        "actor": {
+          "id": "2",
+          "name": "xzcv",
+          "__typename": "UserType"
+        },
+        "receiver": {
+          "id": "1",
+          "name": "qwf",
+          "__typename": "UserType"
+        },
+        "partyId": "9",
+        "__typename": "PartyRequestNotification"
       },
-      "receiver" : {
-        "id" : "0",
-        "name" : "receiver",
-        "__typename" : "UserType"
+      {
+        "id": "14",
+        "createdAt": "2021-01-30T11:11:16.724Z[Etc/UTC]",
+        "isRead": true,
+        "event": "CREATION",
+        "type": "EXPENSE",
+        "actor": {
+          "id": "2",
+          "name": "xzcv",
+          "__typename": "UserType"
+        },
+        "receiver": {
+          "id": "1",
+          "name": "qwf",
+          "__typename": "UserType"
+        },
+        "expenseId": "12",
+        "__typename": "ExpenseNotification"
       },
-      "paymentId" : "33",
-      "__typename" : "PaymentNotification"
-    }, {
-      "id" : "13",
-      "createdAt" : "2020-07-13T10:30:46.366830+02:00[Europe/Warsaw]",
-      "isRead" : false,
-      "event" : "CREATION",
-      "type" : "EXPENSE",
-      "actor" : {
-        "id" : "0",
-        "name" : "actor",
-        "__typename" : "UserType"
-      },
-      "receiver" : {
-        "id" : "0",
-        "name" : "receiver",
-        "__typename" : "UserType"
-      },
-      "expenseId" : "33",
-      "__typename" : "ExpenseNotification"
-    }, {
-      "id" : "15",
-      "createdAt" : "2020-07-13T10:30:46.366859+02:00[Europe/Warsaw]",
-      "isRead" : false,
-      "event" : "DELETION",
-      "type" : "PARTY_REQUEST",
-      "actor" : {
-        "id" : "0",
-        "name" : "actor",
-        "__typename" : "UserType"
-      },
-      "receiver" : {
-        "id" : "0",
-        "name" : "receiver",
-        "__typename" : "UserType"
-      },
-      "partyId" : "33",
-      "__typename" : "PartyRequestNotification"
-    }, {
-      "id" : "16",
-      "createdAt" : "2020-07-13T10:30:46.366877+02:00[Europe/Warsaw]",
-      "isRead" : true,
-      "event" : "ACCEPTED",
-      "type" : "PARTY_REQUEST",
-      "actor" : {
-        "id" : "0",
-        "name" : "actor",
-        "__typename" : "UserType"
-      },
-      "receiver" : {
-        "id" : "0",
-        "name" : "receiver",
-        "__typename" : "UserType"
-      },
-      "partyId" : "33",
-      "__typename" : "PartyRequestNotification"
-    } ]
+      {
+        "id": "18",
+        "createdAt": "2021-01-30T11:12:26.497Z[Etc/UTC]",
+        "isRead": true,
+        "event": "ACCEPTED",
+        "type": "PAYMENT",
+        "actor": {
+          "id": "2",
+          "name": "xzcv",
+          "__typename": "UserType"
+        },
+        "receiver": {
+          "id": "1",
+          "name": "qwf",
+          "__typename": "UserType"
+        },
+        "paymentId": "16",
+        "__typename": "PaymentNotification"
+      }
+    ]
   }
 }

@@ -13,6 +13,8 @@ export const useLeavePartyModal = (event: NotOptional<EventQueryType>) => {
 
   return () => {
     Modal.confirm({
+      okText: 'Opuść',
+      cancelText: 'Anuluj',
       maskClosable: true,
       title: 'Opuszczasz wydarzenie.',
       icon: <ExclamationCircleOutlined />,

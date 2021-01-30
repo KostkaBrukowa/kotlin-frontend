@@ -7,6 +7,14 @@
         "description": "test expense description",
         "name": "test name",
         "expenseStatus": "IN_PROGRESS_REQUESTING",
+        "expensePayments": [
+          {
+            "id": "5",
+            "amount": null,
+            "status": "IN_PROGRESS",
+            "__typename": "PaymentType"
+          }
+        ],
         "__typename": "ExpenseType"
       },
       {
@@ -14,6 +22,14 @@
         "amount": 55.43,
         "description": "test expense description1",
         "name": "test name 2",
+        "expensePayments": [
+          {
+            "id": "5",
+            "amount": null,
+            "status": "IN_PROGRESS",
+            "__typename": "PaymentType"
+          }
+        ],
         "expenseStatus": "IN_PROGRESS_PAYING",
         "__typename": "ExpenseType"
       },
@@ -23,6 +39,14 @@
         "description": "long expense description1 test expense description1 test expense description1",
         "name": "test name 3",
         "expenseStatus": "RESOLVED",
+        "expensePayments": [
+          {
+            "id": "5",
+            "amount": null,
+            "status": "IN_PROGRESS",
+            "__typename": "PaymentType"
+          }
+        ],
         "__typename": "ExpenseType"
       },
       {
@@ -31,6 +55,14 @@
         "description": "long expense description1 test expense description1 test expense description1",
         "name": "test name 3",
         "expenseStatus": "DECLINED",
+        "expensePayments": [
+          {
+            "id": "5",
+            "amount": null,
+            "status": "IN_PROGRESS",
+            "__typename": "PaymentType"
+          }
+        ],
         "__typename": "ExpenseType"
       }
     ],

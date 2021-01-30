@@ -1,0 +1,10 @@
+{
+  "data" : {
+    "changeUserData" : {
+      "id" : "1",
+      "name" : "persistent user test name",
+      "bankAccount" : "27114020040000300201355387",
+      "__typename" : "UserType"
+    }
+  }
+}

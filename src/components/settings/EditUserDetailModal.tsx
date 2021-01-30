@@ -33,7 +33,7 @@ export const EditUserDetailModal: React.FC<EditUserDetailModalProps> = ({
 
   const handleOk = async () => {
     try {
-      await form.validateFields();
+      // await form.validateFields();
 
       if (type === UserDetailsFormFields.name) {
         await editUserData(form.getFieldValue(UserDetailsFormFields.name), null);
@@ -43,6 +43,7 @@ export const EditUserDetailModal: React.FC<EditUserDetailModalProps> = ({
 
       onClose();
     } catch (e) {
+      console.log('E', e);
       message.info('Błędny formularz.');
     }
   };

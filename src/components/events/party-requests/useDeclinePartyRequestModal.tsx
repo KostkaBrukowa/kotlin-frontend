@@ -9,8 +9,10 @@ export const useDeclinePartyRequestModal = (partyRequestId: string) => {
 
   return (): void => {
     Modal.confirm({
+      okText: 'Odrzuć',
+      cancelText: 'Anuluj',
       maskClosable: true,
-      title: 'Usuwasz uczestnika',
+      title: 'Odrzuć zaproszenie',
       icon: <ExclamationCircleOutlined />,
       content: 'Właśnie odrzucasz zaproszenie. Jesteś pewien że chcesz to zrobić?',
       onOk: () => declinePartyRequest(partyRequestId),

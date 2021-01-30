@@ -52,7 +52,9 @@ export const AddFriendModal: React.FC<AddFriendModalProps> = ({ open, onClose, o
   return (
     <Modal
       destroyOnClose
+      cancelText="Anuluj"
       okButtonProps={{ loading }}
+      okText="Dodaj"
       title={title}
       visible={open}
       onCancel={onClose}

@@ -25,6 +25,8 @@ export const SaveExpenseButton: React.FC<SaveExpenseButtonProps> = ({
   const showPromiseModal = () =>
     Modal.confirm({
       title: 'Edytujesz kwotę',
+      okText: 'Edytuj',
+      cancelText: 'Anuluj',
       content: modalContent,
       maskClosable: true,
       onOk: form.submit,

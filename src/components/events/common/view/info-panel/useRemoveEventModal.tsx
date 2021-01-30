@@ -12,6 +12,8 @@ export const useRemoveEventModal = () => {
   return (eventId: string) => {
     Modal.confirm({
       maskClosable: true,
+      okText: 'Usuń',
+      cancelText: 'Anuluj',
       title: 'Usuwasz wydarzenie.',
       icon: <ExclamationCircleOutlined />,
       content: 'Czy na pewno chcesz usunąć to wydarzenie? Nie będzie można go później przywrócić.',

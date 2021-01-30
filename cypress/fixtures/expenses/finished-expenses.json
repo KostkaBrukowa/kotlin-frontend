@@ -6,7 +6,14 @@
         "amount": 11.43,
         "description": "long expense description1 test expense description1 test expense description1",
         "name": "test name 3",
-        "expenseStatus": "RESOLVED",
+        "expensePayments": [
+          {
+            "id": "5",
+            "amount": null,
+            "status": "IN_PROGRESS",
+            "__typename": "PaymentType"
+          }
+        ],       "expenseStatus": "RESOLVED",
         "__typename": "ExpenseType"
       },
       {
@@ -14,7 +21,14 @@
         "amount": 11.43,
         "description": "long expense description1 test expense description1 test expense description1",
         "name": "test name 3",
-        "expenseStatus": "DECLINED",
+        "expensePayments": [
+          {
+            "id": "5",
+            "amount": null,
+            "status": "IN_PROGRESS",
+            "__typename": "PaymentType"
+          }
+        ],     "expenseStatus": "DECLINED",
         "__typename": "ExpenseType"
       }
     ],

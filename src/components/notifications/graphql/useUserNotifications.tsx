@@ -1,5 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { NetworkStatus } from '@apollo/client';
+// @ts-ignore
+import cookieGet from 'hardtack/src/get';
 
 import { useGetUserNotificationsLazyQuery } from '../../../generated/graphql';
 import { UserContext } from '../../config/UserProvider';
@@ -30,7 +32,12 @@ export const useUserNotifications = (cacheOnly: boolean): UserNotificationsRetur
   const notifications = data ? fromResponseList(data.findUserNotifications) : null;
 
   useEffect(() => {
-    if (userId !== null) getNotifications({ variables: { userId } });
+    console.log('', cookieGet('disableNotifications'));
+
+    if (userId !== null && !cookieGet('disableNotifications')) {
+      console.log('', cookieGet('disableNotifications'));
+      getNotifications({ variables: { userId } });
+    }
   }, [userId, getNotifications]);
 
   return {

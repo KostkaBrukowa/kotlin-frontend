@@ -34,6 +34,8 @@ export const PaymentStatusManagementButton: React.FC<PaymentPayButtonProps> = ({
 
   const showPromiseModal = () =>
     Modal.confirm({
+      okText: 'Potwierdź',
+      cancelText: 'Anuluj',
       title: getManagePaymentButtonTitle(payment.status),
       content: getModalContent(payment),
       maskClosable: true,

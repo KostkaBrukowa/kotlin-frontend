@@ -4,10 +4,14 @@
       "id" : "22",
       "amount" : 42.11,
       "status" : "IN_PROGRESS",
+      "createdAt" : "2021-01-30T10:13:56.988Z[Etc/UTC]",
+      "paidAt" : null,
       "paymentMessages" : [ ],
       "paymentExpense" : {
         "id" : "21",
         "name" : "some name",
+        "expenseStatus" : "IN_PROGRESS_REQUESTING",
+        "description" : "Test description",
         "expensePayer" : {
           "id" : "1",
           "name" : "persistent user test name",
