@@ -66,13 +66,6 @@ export const Login: React.FC<LoginProps> = (props) => {
       <Form
         className={style.form}
         form={form}
-        initialValues={{
-          // todo remove
-          remember: true,
-          login: 'admin@gmail.com',
-          password: 'admin123',
-          repeatedPassword: 'admin123',
-        }}
         layout="vertical"
         size={minMd ? 'large' : 'middle'}
         validateMessages={validateMessages}

@@ -19,7 +19,7 @@ export const useChangeExpenseStatusModal = ({
   return () => {
     Modal.confirm({
       maskClosable: true,
-      okText: 'Zmień',
+      okText: 'Potwierdź',
       cancelText: 'Anuluj',
       title: getTitleForStatus(expenseStatus),
       icon: <ExclamationCircleOutlined />,
