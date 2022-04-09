@@ -21,7 +21,7 @@
     "graphql": "^15.1.0",
     "hardtack": "^5.0.1",
     "leaflet": "1.6.0",
-    "moment": "2.25.3",
+    "moment": "2.29.2",
     "react": "16.13.1",
     "react-app-rewired": "^2.1.6",
     "react-cookie": "^4.0.3",
